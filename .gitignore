@@ -5,3 +5,10 @@ node_modules
 act.exe
 PUBLISHING.md
 __tests__
+
+# Package managers
+pnpm-lock.yaml
+bun.lockb
+.bun/
+.pnpm-store/
+.pnpm-debug.log*

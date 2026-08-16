@@ -1,19 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { GuildDefaultMessageNotifications } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setGuildDefaultMessageNotifications",
     version: "2.1.0",
     description: "Sets the default message notifications setting for a guild, returns bool",
     unwrap: true,
-    aliases: [
-        "$setServerDefaultMessageNotifications"
-    ],
+    aliases: ["$setServerDefaultMessageNotifications"],
     output: ArgType.Boolean,
     args: [
         {
@@ -28,7 +26,7 @@ export default new NativeFunction({
             description: "The new default message notifications setting",
             rest: false,
             type: ArgType.Enum,
-            enum: GuildDefaultMessageNotifications
+            enum: GuildDefaultMessageNotifications,
         },
         {
             name: "reason",
@@ -39,6 +37,9 @@ export default new NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, setting, reason]) {
-        return this.success((await guild.setDefaultMessageNotifications(setting || null, reason || ctx.reason).catch(() => false)) !== false)
+        return this.success(
+            (await guild.setDefaultMessageNotifications(setting || null, reason || ctx.reason).catch(() => false)) !==
+                false
+        )
     },
 })

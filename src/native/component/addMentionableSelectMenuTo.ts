@@ -1,9 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ActionRowBuilder, createComponentBuilder, MentionableSelectMenuBuilder, SelectMenuDefaultValueType, User } from "discord.js"
+import {
+    ActionRowBuilder,
+    createComponentBuilder,
+    MentionableSelectMenuBuilder,
+    SelectMenuDefaultValueType,
+    User,
+} from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -19,7 +25,7 @@ export default new NativeFunction({
             description: "The channel id to pull message from",
             rest: false,
             required: true,
-            type: ArgType.TextChannel
+            type: ArgType.TextChannel,
         },
         {
             name: "message ID",
@@ -27,14 +33,14 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Message,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "custom ID",
             description: "The custom id for this menu",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "placeholder",
@@ -59,7 +65,7 @@ export default new NativeFunction({
             description: "Whether the menu is disabled by default",
             rest: false,
             required: false,
-            type: ArgType.Boolean
+            type: ArgType.Boolean,
         },
         {
             name: "default roles/users",
@@ -67,29 +73,29 @@ export default new NativeFunction({
             type: ArgType.RoleOrUser,
             description: "The default selected roles or users to use",
             pointer: 0,
-            pointerProperty: "guild"
-        }
+            pointerProperty: "guild",
+        },
     ],
     async execute(ctx, [, m, id, placeholder, min, max, disabled, defaults]) {
         const menu = new MentionableSelectMenuBuilder()
             .setDisabled(disabled || false)
             .setCustomId(id)
-            .setDefaultValues(defaults.map(x => {
-                return {
-                    id: x.id,
-                    type: x instanceof User ? SelectMenuDefaultValueType.User : SelectMenuDefaultValueType.Role
-                }
-            }))
+            .setDefaultValues(
+                defaults.map((x) => {
+                    return {
+                        id: x.id,
+                        type: x instanceof User ? SelectMenuDefaultValueType.User : SelectMenuDefaultValueType.Role,
+                    }
+                })
+            )
 
         if (placeholder) menu.setPlaceholder(placeholder)
         if (min) menu.setMinValues(min)
         if (max) menu.setMaxValues(max)
 
-        const components = m.components.map(x => createComponentBuilder(x.toJSON()))
+        const components = m.components.map((x) => createComponentBuilder(x.toJSON()))
         components.push(new ActionRowBuilder().addComponents(menu))
 
-        return this.success(
-            !!(await m.edit({ components: components.map(x => x.toJSON()) }).catch(ctx.noop))
-        )
-    }
+        return this.success(!!(await m.edit({ components: components.map((x) => x.toJSON()) }).catch(ctx.noop)))
+    },
 })

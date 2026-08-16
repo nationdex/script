@@ -1,16 +1,14 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$isJSON",
     version: "1.4.0",
-    aliases: [
-        "$isValidJSON"
-    ],
+    aliases: ["$isValidJSON"],
     description: "Checks whether given JSON is valid",
     unwrap: true,
     brackets: true,
@@ -20,16 +18,16 @@ exports.default = new structures_1.NativeFunction({
             description: "The json to check for",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
     output: structures_1.ArgType.Boolean,
-    execute(ctx, [json]) {
+    execute(_ctx, [json]) {
         try {
             void JSON.parse(json);
             return this.success(true);
         }
-        catch (error) {
+        catch (_error) {
             return this.success(false);
         }
     },

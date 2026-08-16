@@ -1,5 +1,4 @@
-import { CalendarType } from "../../structures";
-import { ArgType, NativeFunction } from "../../structures";
+import { ArgType, CalendarType, NativeFunction } from "../../structures";
 declare const _default: NativeFunction<[{
     name: string;
     description: string;

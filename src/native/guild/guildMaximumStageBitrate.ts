@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -9,9 +9,7 @@ export default new NativeFunction({
     name: "$guildMaximumStageBitrate",
     version: "2.7.0",
     description: "Returns the maximum bitrate for stage channels of this guild",
-    aliases: [
-        "$serverMaximumStageBitrate"
-    ],
+    aliases: ["$serverMaximumStageBitrate"],
     unwrap: true,
     brackets: false,
     args: [

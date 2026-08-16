@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -22,11 +22,11 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.String,
-            description: "The hex to check for"
-        }
+            description: "The hex to check for",
+        },
     ],
-    execute(ctx, [ hex ]) {
+    execute(_ctx, [hex]) {
         const int = parseInt(hex.replace(HexHashtagStripping, ""), 16)
-        return this.success(!isNaN(int) && int >= MinHexIntValue && int <= MaxHexIntValue)
+        return this.success(!Number.isNaN(int) && int >= MinHexIntValue && int <= MaxHexIntValue)
     },
 })

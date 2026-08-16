@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction } from "../../structures"
 import chalk from "chalk"
+import { ArgType, NativeFunction } from "../../structures"
 
 function applyStyles(text: string, styles: string[]): string {
     let styled = chalk
@@ -28,18 +28,18 @@ export default new NativeFunction({
             description: "The text to log",
             type: ArgType.String,
             required: true,
-            rest: false
+            rest: false,
         },
         {
             name: "styles",
             description: "The styles to apply to the text",
             type: ArgType.String,
             required: true,
-            rest: true
-        }
+            rest: true,
+        },
     ],
-    execute(ctx, [text, styles]) {
+    execute(_ctx, [text, styles]) {
         console.log(applyStyles(text, styles))
         return this.success()
-    }
+    },
 })

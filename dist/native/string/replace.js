@@ -1,16 +1,14 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$replace",
     version: "1.0.0",
-    aliases: [
-        "$replaceText"
-    ],
+    aliases: ["$replaceText"],
     output: structures_1.ArgType.String,
     description: "Replace text in a string",
     unwrap: true,
@@ -44,7 +42,7 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     brackets: true,
-    execute(ctx, [text, match, replacement, amount]) {
+    execute(_ctx, [text, match, replacement, amount]) {
         amount ??= -1;
         if (amount === -1) {
             return this.success(text.replaceAll(match, replacement));

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -15,9 +15,7 @@ exports.default = new structures_1.NativeFunction({
     description: "Returns all current timed out members of a guild",
     unwrap: true,
     brackets: false,
-    aliases: [
-        "$serverTimedOutMembers"
-    ],
+    aliases: ["$serverTimedOutMembers"],
     args: [
         {
             name: "guild ID",
@@ -35,7 +33,10 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: (0, array_1.default)(),
     async execute(ctx, [guild, sep]) {
-        return this.success((guild ?? ctx.guild)?.members.cache.filter(m => m.isCommunicationDisabled()).map(member => member.id).join(sep ?? ", "));
+        return this.success((guild ?? ctx.guild)?.members.cache
+            .filter((m) => m.isCommunicationDisabled())
+            .map((member) => member.id)
+            .join(sep ?? ", "));
     },
 });
 //# sourceMappingURL=guildTimedOutMembers.js.map

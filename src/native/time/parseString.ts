@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { TimeParser } from "../../constants"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$parseString",
@@ -22,10 +22,10 @@ export default new NativeFunction({
         },
     ],
     unwrap: true,
-    execute(ctx, [ str ]) {
+    execute(_ctx, [str]) {
         try {
             return this.success(TimeParser.parseToMS(str))
-        } catch (error) {
+        } catch (_error) {
             return this.success(0)
         }
     },

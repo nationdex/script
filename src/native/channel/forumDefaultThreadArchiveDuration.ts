@@ -1,18 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, ThreadAutoArchiveDuration, ThreadOnlyChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { type BaseChannel, ThreadAutoArchiveDuration, type ThreadOnlyChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$forumDefaultThreadArchiveDuration",
     version: "2.2.0",
     description: "Returns the default auto archive duration for threads of a forum",
-    aliases: [
-        "$forumDefaultThreadAutoArchiveDuration"
-    ],
+    aliases: ["$forumDefaultThreadAutoArchiveDuration"],
     unwrap: true,
     brackets: true,
     args: [
@@ -22,11 +20,11 @@ export default new NativeFunction({
             rest: false,
             type: ArgType.Channel,
             check: (i: BaseChannel) => i.isThreadOnly(),
-            required: true
+            required: true,
         },
     ],
     output: ThreadAutoArchiveDuration,
-    execute(ctx, [chan]) {
+    execute(_ctx, [chan]) {
         return this.success(ThreadAutoArchiveDuration[(chan as ThreadOnlyChannel)?.defaultAutoArchiveDuration!])
     },
 })

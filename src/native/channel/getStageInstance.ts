@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { StageProperties, StageProperty } from "../../properties/stage"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$getStageInstance",
@@ -25,14 +25,11 @@ export default new NativeFunction({
             description: "The property of the stage instance to return",
             rest: false,
             type: ArgType.Enum,
-            enum: StageProperty
+            enum: StageProperty,
         },
     ],
-    output: [
-        ArgType.Json,
-        ArgType.Unknown
-    ],
-    async execute(ctx, [instance, prop]) {
+    output: [ArgType.Json, ArgType.Unknown],
+    async execute(_ctx, [instance, prop]) {
         if (prop) return this.success(StageProperties[prop](instance))
         return this.successJSON(instance)
     },

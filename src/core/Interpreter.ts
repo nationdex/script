@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import {
+import type {
     AutoModerationRule,
     Channel,
     Entitlement,
@@ -28,11 +28,19 @@ import {
     User,
     VoiceChannelEffect,
     VoiceServerUpdateData,
-    VoiceState
+    VoiceState,
 } from "discord.js"
-import { IExtendedCompilationResult } from "."
-import { Sendable, BaseCommand, Context, Logger, Container, Return, ILocalFunctionData } from "../structures"
-import { ForgeClient } from "./ForgeClient"
+import {
+    type BaseCommand,
+    type Container,
+    Context,
+    type ILocalFunctionData,
+    Logger,
+    Return,
+    type Sendable,
+} from "../structures"
+import type { IExtendedCompilationResult } from "."
+import type { ForgeClient } from "./ForgeClient"
 
 export interface IStates {
     message: Message
@@ -84,12 +92,12 @@ export interface IRunnable {
      * The context this code will run in
      */
     obj: Sendable
-    
+
     /**
      * The command used for this execution
      */
     command: BaseCommand<unknown> | null
-    
+
     /**
      * Whether to suppress sending the response to discord.
      */
@@ -156,7 +164,7 @@ export class Interpreter {
                 const { guildIDs, userIDs } = runtime.client.options.restrictions
                 const guildID = ctx.guild?.id
                 const authorID = ctx.user?.id
-    
+
                 if (userIDs?.length && authorID && !userIDs.includes(authorID)) return null
                 else if (guildIDs?.length && guildID && !guildIDs.includes(guildID)) return null
             }
@@ -174,19 +182,17 @@ export class Interpreter {
                 for (let i = 0, len = runtime.data.functions.length; i < len; i++) {
                     const fn = runtime.data.functions[i]
                     const rt = await fn.execute(ctx)
-                    args[i] = (!rt.success && !ctx.handleNotSuccess(fn, rt)) ? ctx["error"]() : rt.value
+                    args[i] = !rt.success && !ctx.handleNotSuccess(fn, rt) ? ctx["error"]() : rt.value
                 }
             } catch (err: unknown) {
-                if (err instanceof Error)
-                    Logger.error(err)
+                if (err instanceof Error) Logger.error(err)
                 else if (err instanceof Return) {
-                    if (err.return)
-                        return err.value as string
+                    if (err.return) return err.value as string
                 }
 
                 return null
-            }            
-            
+            }
+
             content = runtime.data.resolve(args)
         }
 

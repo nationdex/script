@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { StageInstancePrivacyLevel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$editStageInstance",
@@ -31,11 +31,13 @@ export default new NativeFunction({
             description: "The new privacy level of the stage instance",
             rest: false,
             type: ArgType.Enum,
-            enum: StageInstancePrivacyLevel
+            enum: StageInstancePrivacyLevel,
         },
     ],
     output: ArgType.Boolean,
     async execute(ctx, [instance, topic, level]) {
-        return this.success(!!(await instance.edit({ topic: topic || undefined, privacyLevel: level || undefined }).catch(ctx.noop)))
+        return this.success(
+            !!(await instance.edit({ topic: topic || undefined, privacyLevel: level || undefined }).catch(ctx.noop))
+        )
     },
 })

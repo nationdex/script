@@ -1,5 +1,5 @@
-import { ActionRowBuilder, ButtonBuilder, ChannelSelectMenuBuilder, CheckboxBuilder, CheckboxGroupBuilder, ComponentType, ContainerBuilder, FileBuilder, FileUploadBuilder, MediaGalleryBuilder, MentionableSelectMenuBuilder, MessageActionRowComponentBuilder, RadioGroupBuilder, RoleSelectMenuBuilder, SectionBuilder, SeparatorBuilder, StringSelectMenuBuilder, TextDisplayBuilder, TextInputBuilder, UserSelectMenuBuilder } from "discord.js";
-import { Context } from "../structures";
+import { ActionRowBuilder, ButtonBuilder, ChannelSelectMenuBuilder, type CheckboxBuilder, type CheckboxGroupBuilder, ComponentType, ContainerBuilder, FileBuilder, type FileUploadBuilder, MediaGalleryBuilder, MentionableSelectMenuBuilder, type MessageActionRowComponentBuilder, type RadioGroupBuilder, RoleSelectMenuBuilder, SectionBuilder, SeparatorBuilder, StringSelectMenuBuilder, TextDisplayBuilder, type TextInputBuilder, UserSelectMenuBuilder } from "discord.js";
+import type { Context } from "../structures";
 /**
  * Checks whether the specified component type is a top level component.
  * @param type The component type.

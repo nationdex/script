@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -18,6 +18,6 @@ var VoiceServerProperty;
 exports.VoiceServerProperties = (0, defineProperties_1.default)({
     guildID: (i) => i?.guildId,
     endpoint: (i) => i?.endpoint,
-    token: (i) => i?.token
+    token: (i) => i?.token,
 });
 //# sourceMappingURL=voiceServer.js.map

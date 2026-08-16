@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ActionRowBuilder } from "discord.js"
-import { NativeFunction } from "../../structures"
 import { addActionRow } from "../../functions/components"
+import { NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$addActionRow",

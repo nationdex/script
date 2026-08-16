@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -24,7 +24,7 @@ exports.default = new structures_1.NativeFunction({
     execute(ctx, [id]) {
         const row = ctx.container.actionRow;
         const n = row?.components.findIndex((x) => "custom_id" in x.data && x.data.custom_id === id);
-        if (n != -1) {
+        if (n !== -1) {
             if (row?.components.length === 1)
                 delete ctx.container.actionRow;
             else

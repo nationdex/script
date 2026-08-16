@@ -1,5 +1,5 @@
-import { ArgType, NativeFunction } from "../../structures";
 import { MessageProperty } from "../../properties/message";
+import { ArgType, NativeFunction } from "../../structures";
 declare const _default: NativeFunction<[{
     name: string;
     description: string;

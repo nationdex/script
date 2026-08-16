@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 const MathRegex = /[^0-9%\-+./*\t\n\s()<>]/
 
@@ -23,11 +23,11 @@ export default new NativeFunction({
             required: true,
         },
     ],
-    execute(ctx, [expr]) {
+    execute(_ctx, [expr]) {
         try {
             if (MathRegex.test(expr)) return this.success()
             return this.success(eval(expr))
-        } catch (error: any) {
+        } catch (_error: any) {
             return this.success()
         }
     },

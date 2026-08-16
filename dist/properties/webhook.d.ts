@@ -1,4 +1,4 @@
-import { Webhook, WebhookType } from "discord.js";
+import { type Webhook, WebhookType } from "discord.js";
 export declare enum WebhookProperty {
     id = "id",
     name = "name",

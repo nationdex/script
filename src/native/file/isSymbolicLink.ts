@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { statSync } from "fs"
+import { statSync } from "node:fs"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -22,7 +22,7 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    execute(ctx, [path]) {
+    execute(_ctx, [path]) {
         try {
             return this.success(statSync(path).isSymbolicLink())
         } catch {

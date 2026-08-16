@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, CompiledFunction, NativeFunction, Return } from "../../structures"
+import { ArgType, CompiledFunction, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$webhookExists",
@@ -22,6 +22,8 @@ export default new NativeFunction({
     ],
     output: ArgType.Boolean,
     async execute(ctx, [id]) {
-        return this.success(CompiledFunction.IdRegex.test(id) && (await ctx.client.fetchWebhook(id).catch(() => false)) !== false)
+        return this.success(
+            CompiledFunction.IdRegex.test(id) && (await ctx.client.fetchWebhook(id).catch(() => false)) !== false
+        )
     },
 })

@@ -1,10 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import noop from "../../functions/noop"
-import { NativeFunction, Return } from "../../structures"
+import { NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$deleteCommand",

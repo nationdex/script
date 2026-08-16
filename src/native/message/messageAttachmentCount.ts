@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$messageAttachmentCount",
@@ -29,7 +29,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Message,
-        }
+        },
     ],
     execute(ctx, [, message]) {
         return this.success((message ?? ctx.message)?.attachments.size)

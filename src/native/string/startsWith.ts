@@ -1,10 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { startsWith } from "lodash"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$startsWith",
@@ -29,7 +28,7 @@ export default new NativeFunction({
         },
     ],
     brackets: true,
-    execute(ctx, [str, values]) {
-        return this.success(values.some(match => str.startsWith(match)))
+    execute(_ctx, [str, values]) {
+        return this.success(values.some((match) => str.startsWith(match)))
     },
 })

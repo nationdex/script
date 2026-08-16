@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -33,7 +33,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The privacy level of the stage instance",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: discord_js_1.StageInstancePrivacyLevel
+            enum: discord_js_1.StageInstancePrivacyLevel,
         },
         {
             name: "notify",
@@ -52,12 +52,14 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.StageInstance,
     async execute(ctx, [channel, topic, level, notify, event]) {
-        const instance = await channel.createStageInstance({
+        const instance = await channel
+            .createStageInstance({
             topic,
             privacyLevel: level || undefined,
             guildScheduledEvent: event || undefined,
-            sendStartNotification: typeof (notify) === "boolean" ? notify : undefined
-        }).catch(ctx.noop);
+            sendStartNotification: typeof notify === "boolean" ? notify : undefined,
+        })
+            .catch(ctx.noop);
         return this.success(instance?.id);
     },
 });

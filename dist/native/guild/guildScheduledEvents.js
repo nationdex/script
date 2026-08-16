@@ -1,15 +1,15 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
-const scheduledEvent_1 = require("../../properties/scheduledEvent");
 const array_1 = __importDefault(require("../../functions/array"));
+const scheduledEvent_1 = require("../../properties/scheduledEvent");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$guildScheduledEvents",
     version: "2.6.0",
@@ -29,7 +29,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The property of the scheduled events to return",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: scheduledEvent_1.ScheduledEventProperty
+            enum: scheduledEvent_1.ScheduledEventProperty,
         },
         {
             name: "separator",
@@ -38,10 +38,7 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.String,
         },
     ],
-    output: [
-        structures_1.ArgType.Json,
-        (0, array_1.default)()
-    ],
+    output: [structures_1.ArgType.Json, (0, array_1.default)()],
     async execute(ctx, [guild, prop, sep]) {
         const events = await (guild ?? ctx.guild)?.scheduledEvents?.fetch().catch(ctx.noop);
         if (prop)

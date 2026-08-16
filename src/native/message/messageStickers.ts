@@ -1,23 +1,21 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel } from "discord.js"
 import array from "../../functions/array"
+import { ArgType, NativeFunction } from "../../structures"
 
 export enum StickerReturnType {
     id = "id",
-    url = "url"
+    url = "url",
 }
 
 export default new NativeFunction({
     name: "$messageStickers",
     version: "1.4.0",
-    aliases: [
-        "$stickers"
-    ],
+    aliases: ["$stickers"],
     output: array<ArgType.Sticker>(),
     description: "Retrieves all stickers of this message",
     brackets: false,
@@ -50,10 +48,12 @@ export default new NativeFunction({
             rest: false,
             description: "The type to return, default is url",
             type: ArgType.Enum,
-            enum: StickerReturnType
-        }
+            enum: StickerReturnType,
+        },
     ],
     execute(ctx, [, message, sep, type]) {
-        return this.success((message ?? ctx.message)?.stickers.map(x => x[type || StickerReturnType.url]).join(sep ?? ", "))
+        return this.success(
+            (message ?? ctx.message)?.stickers.map((x) => x[type || StickerReturnType.url]).join(sep ?? ", ")
+        )
     },
 })

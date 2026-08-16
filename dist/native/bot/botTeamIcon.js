@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -10,9 +10,7 @@ exports.default = new structures_1.NativeFunction({
     name: "$botTeamIcon",
     version: "2.4.0",
     description: "Returns the client's team icon",
-    aliases: [
-        "$clientTeamIcon"
-    ],
+    aliases: ["$clientTeamIcon"],
     unwrap: true,
     brackets: false,
     args: [
@@ -34,10 +32,12 @@ exports.default = new structures_1.NativeFunction({
         if (!ctx.client.application.owner)
             await ctx.client.application.fetch().catch(ctx.noop);
         const owner = ctx.client.application.owner;
-        return this.success(owner instanceof discord_js_1.Team ? owner.iconURL({
-            extension: ext || undefined,
-            size: size || 2048,
-        }) : null);
+        return this.success(owner instanceof discord_js_1.Team
+            ? owner.iconURL({
+                extension: ext || undefined,
+                size: size || 2048,
+            })
+            : null);
     },
 });
 //# sourceMappingURL=botTeamIcon.js.map

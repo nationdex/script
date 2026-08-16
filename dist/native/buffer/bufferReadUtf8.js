@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -17,21 +17,21 @@ exports.default = new structures_1.NativeFunction({
             description: "The variable the buffer is allocated on",
             type: structures_1.ArgType.String,
             required: true,
-            rest: false
+            rest: false,
         },
         {
             name: "index",
             description: "The index to start reading at",
             required: true,
             type: structures_1.ArgType.Number,
-            rest: false
+            rest: false,
         },
         {
             name: "end index",
             description: "The index to end reading at",
             required: false,
             type: structures_1.ArgType.Number,
-            rest: false
+            rest: false,
         },
     ],
     output: structures_1.ArgType.String,

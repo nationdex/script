@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -32,11 +32,11 @@ exports.StickerProperties = (0, defineProperties_1.default)({
     name: (i) => i?.name,
     url: (i) => i?.url,
     timestamp: (i) => i?.createdTimestamp,
-    format: i => discord_js_1.StickerFormatType[i?.format],
-    available: i => i?.available,
-    description: i => i?.description,
-    tags: (i, sep) => i?.tags,
-    sortValue: i => i?.sortValue,
-    packID: i => i?.packId
+    format: (i) => discord_js_1.StickerFormatType[i?.format],
+    available: (i) => i?.available,
+    description: (i) => i?.description,
+    tags: (i, _sep) => i?.tags,
+    sortValue: (i) => i?.sortValue,
+    packID: (i) => i?.packId,
 });
 //# sourceMappingURL=sticker.js.map

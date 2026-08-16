@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { AttachmentFlags, BaseChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { AttachmentFlags, type BaseChannel } from "discord.js"
 import array from "../../functions/array"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$messageAttachmentFlags",
@@ -35,7 +35,7 @@ export default new NativeFunction({
             rest: false,
             description: "The index of the attachment",
             type: ArgType.Number,
-            required: true
+            required: true,
         },
         {
             name: "separator",
@@ -47,6 +47,11 @@ export default new NativeFunction({
     ],
     output: array(AttachmentFlags),
     execute(ctx, [, message, index, sep]) {
-        return this.success((message ?? ctx.message)?.attachments.at(index ?? 0)?.flags?.toArray().join(sep ?? ", "))
+        return this.success(
+            (message ?? ctx.message)?.attachments
+                .at(index ?? 0)
+                ?.flags?.toArray()
+                .join(sep ?? ", ")
+        )
     },
 })

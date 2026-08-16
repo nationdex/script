@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, CompiledFunction, NativeFunction, Return } from "../../structures"
+import { ArgType, CompiledFunction, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$roleExists",
@@ -28,7 +28,7 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    async execute(ctx, [guild, id]) {
+    async execute(_ctx, [guild, id]) {
         return this.success(CompiledFunction.IdRegex.test(id) && guild.roles.cache.has(id))
     },
 })

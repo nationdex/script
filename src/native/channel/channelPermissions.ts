@@ -1,21 +1,18 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, GuildChannel } from "discord.js"
-import { ArgType, NativeFunction } from "../../structures"
-import { PermissionOverwritesProperties, PermissionOverwritesProperty } from "../../properties/permissionOverwrites"
+import type { BaseChannel, GuildChannel } from "discord.js"
 import array from "../../functions/array"
+import { PermissionOverwritesProperties, PermissionOverwritesProperty } from "../../properties/permissionOverwrites"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$channelPermissions",
     version: "1.5.0",
     description: "Returns all permission overwrites of a channel",
-    aliases: [
-        "$channelPerms",
-        "$channelOverwrites"
-    ],
+    aliases: ["$channelPerms", "$channelOverwrites"],
     unwrap: true,
     brackets: true,
     args: [
@@ -25,7 +22,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => "permissionOverwrites" in i
+            check: (i: BaseChannel) => "permissionOverwrites" in i,
         },
         {
             name: "property",
@@ -33,18 +30,22 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Enum,
-            enum: PermissionOverwritesProperty
+            enum: PermissionOverwritesProperty,
         },
         {
             name: "separator",
             description: "The separator to use for every overwrite",
             rest: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     output: array<ArgType.Unknown>(),
-    execute(ctx, [ ch, prop, sep ]) {
+    execute(ctx, [ch, prop, sep]) {
         const chan = (ch ?? ctx.channel) as GuildChannel
-        return this.successJSON(chan.permissionOverwrites.cache.map(perm => PermissionOverwritesProperties[prop](perm, sep)).join(sep ?? ", "))
+        return this.successJSON(
+            chan.permissionOverwrites.cache
+                .map((perm) => PermissionOverwritesProperties[prop](perm, sep))
+                .join(sep ?? ", ")
+        )
     },
 })

@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 import { NoNumberRegex } from "./separateNumber"
 
 export default new NativeFunction({
@@ -28,7 +28,7 @@ export default new NativeFunction({
         },
     ],
     brackets: true,
-    execute(ctx, [n, sep]) {
+    execute(_ctx, [n, sep]) {
         const t = n.toLocaleString()
         return this.success(sep ? t.replaceAll(NoNumberRegex, sep) : t)
     },

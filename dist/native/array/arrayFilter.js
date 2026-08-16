@@ -1,14 +1,14 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
 const isTrue_1 = __importDefault(require("../../functions/isTrue"));
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$arrayFilter",
     version: "2.7.0",
@@ -55,7 +55,7 @@ exports.default = new structures_1.NativeFunction({
             return rt;
         const [name, varName, otherVarName] = args;
         const arr = ctx.getEnvironmentKey(name);
-        const newArr = new Array();
+        const newArr = [];
         if (Array.isArray(arr)) {
             for (let i = 0, len = arr.length; i < len; i++) {
                 const el = arr[i];
@@ -70,9 +70,7 @@ exports.default = new structures_1.NativeFunction({
                     return rt;
             }
         }
-        return otherVarName ?
-            this.success(void ctx.setEnvironmentKey(otherVarName, newArr)) :
-            this.successJSON(newArr);
+        return otherVarName ? this.success(void ctx.setEnvironmentKey(otherVarName, newArr)) : this.successJSON(newArr);
     },
 });
 //# sourceMappingURL=arrayFilter.js.map

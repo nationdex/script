@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { GuildScheduledEventEntityType } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$editScheduledEvent",
@@ -68,17 +68,19 @@ export default new NativeFunction({
     ],
     output: ArgType.Boolean,
     async execute(ctx, [, event, name, desc, type, start, end, cover]) {
-        const edit = await event.edit({
-            name: name || undefined,
-            description: desc || undefined,
-            entityType: type || undefined,
-            scheduledStartTime: start || undefined,
-            scheduledEndTime: end || undefined,
-            image: cover || undefined,
-            channel: ctx.scheduledEvent.channel,
-            entityMetadata: ctx.scheduledEvent.entityMetadata,
-            reason: ctx.reason
-        }).catch(ctx.noop)
+        const edit = await event
+            .edit({
+                name: name || undefined,
+                description: desc || undefined,
+                entityType: type || undefined,
+                scheduledStartTime: start || undefined,
+                scheduledEndTime: end || undefined,
+                image: cover || undefined,
+                channel: ctx.scheduledEvent.channel,
+                entityMetadata: ctx.scheduledEvent.entityMetadata,
+                reason: ctx.reason,
+            })
+            .catch(ctx.noop)
 
         ctx.clearScheduledEventOptions()
 

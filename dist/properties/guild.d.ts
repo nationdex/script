@@ -1,4 +1,4 @@
-import { Guild, GuildPreview } from "discord.js";
+import type { Guild, GuildPreview } from "discord.js";
 export declare enum GuildProperty {
     id = "id",
     ownerID = "ownerID",

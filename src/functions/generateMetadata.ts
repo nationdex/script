@@ -1,28 +1,31 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs"
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs"
+import { join, relative } from "node:path"
+import { cwd, exit } from "node:process"
+import type { Locale } from "discord.js"
 import { EventManager, FunctionManager } from "../managers"
-import { EnumLike, IArg, INativeFunction, Logger } from "../structures"
+import { type EnumLike, type IArg, type INativeFunction, Logger } from "../structures"
 import { enumToArray } from "./enum"
-import { Locale } from "discord.js"
-import { join, relative } from "path"
-import { cwd, exit } from "process"
 
 const FunctionNameRegex = /(name: "\$?(\w+)"),?/m
 const FunctionCategoryRegex = /\r?\n(.*)(category: "\$?(\w+)"),?/m
 const ArgEnumRegex = /(?:enum: +(\w+),?|Arg\.(?:\w+)Enum\([\r\n\t ]*(\w+))/gim
-const OutputRegex = /output:(array(<[A-Za-z.]+>)?\((\w+)?\)|(\w+)|ArgType.(\w+)|\[((array(<[A-Za-z.]+>)?\(\w*\)|\w+|ArgType\.\w+),?)+\]),/im
+const OutputRegex =
+    /output:(array(<[A-Za-z.]+>)?\((\w+)?\)|(\w+)|ArgType.(\w+)|\[((array(<[A-Za-z.]+>)?\(\w*\)|\w+|ArgType\.\w+),?)+\]),/im
 
 const translations = {
     functions: {} as Record<string, any>,
-    events: {} as Record<string, any>
+    events: {} as Record<string, any>,
 }
 
 function getOutputValues(fn: INativeFunction<IArg[]>, txt: string, enums: Record<string, string[]>) {
-    const output = OutputRegex.exec(txt.replace(/[^0-9A-Za-z:,.[\]<>()|]/gm, ""))?.[1].replace(/[[\]]/g, "").trim()
+    const output = OutputRegex.exec(txt.replace(/[^0-9A-Za-z:,.[\]<>()|]/gm, ""))?.[1]
+        .replace(/[[\]]/g, "")
+        .trim()
 
     if (!output) {
         if (fn.output) {
@@ -33,33 +36,28 @@ function getOutputValues(fn: INativeFunction<IArg[]>, txt: string, enums: Record
         return null
     }
 
-    const arr = new Array<string>()
+    const arr: string[] = []
 
     let i = 0
     for (const out of output.split(/,/)) {
         const arrMatch = /array(?:<(.*)>)?\((\w+)?\)/gim.exec(out)
         const match = out.match(/\.(\w+)/)?.[1]
-        if (!arrMatch && match)
-            arr.push(match)
+        if (!arrMatch && match) arr.push(match)
         else {
             if (arrMatch) {
                 const [, raw, enumName] = arrMatch
                 const types = raw?.replaceAll("ArgType.", "") ?? enumName
                 const isMultiple = types.includes("|")
-                arr.push(
-                    `${isMultiple ? `(${types.trim().split("|").join(" | ")})` : types}[]`
-                )
+                arr.push(`${isMultiple ? `(${types.trim().split("|").join(" | ")})` : types}[]`)
 
                 if (enumName) {
-                    const en = Array.isArray(fn.output) ? fn.output[i] as EnumLike : fn.output as EnumLike
-                    if (!(enumName in enums))
-                        enums[enumName] = enumToArray(en)
+                    const en = Array.isArray(fn.output) ? (fn.output[i] as EnumLike) : (fn.output as EnumLike)
+                    if (!(enumName in enums)) enums[enumName] = enumToArray(en)
                 }
             } else {
                 arr.push(out)
-                const en = Array.isArray(fn.output) ? fn.output[i] as EnumLike : fn.output as EnumLike
-                if (!(out in enums))
-                    enums[out] = enumToArray(en)
+                const en = Array.isArray(fn.output) ? (fn.output[i] as EnumLike) : (fn.output as EnumLike)
+                if (!(out in enums)) enums[out] = enumToArray(en)
             }
         }
 
@@ -77,13 +75,12 @@ export default async function (
     expose?: Record<string, EnumLike>,
     eventsAbsolutePath?: string,
     /** @deprecated This parameter is no longer being used. */
-    translate: Array<string | Locale> = []
+    _translate: Array<string | Locale> = []
 ) {
     let total = 0
     const enums: Record<string, string[]> = {}
 
-    if (expose?.length)
-        Object.entries(expose).forEach(x => enums[x[0]] = enumToArray(x[1]))
+    if (expose?.length) Object.entries(expose).forEach((x) => (enums[x[0]] = enumToArray(x[1])))
 
     Logger.info(`Loading functions from ${functionsAbsolutePath}`)
     FunctionManager.load("Metadata", functionsAbsolutePath)
@@ -92,14 +89,21 @@ export default async function (
     const metaOutPath = "./metadata"
     if (!existsSync(metaOutPath)) mkdirSync(metaOutPath)
 
-    const toSrcPath = (absPath: string) => relative(cwd(), absPath).replace(/\\/g, "/").replace(/^dist\//, "src/")
+    const toSrcPath = (absPath: string) =>
+        relative(cwd(), absPath)
+            .replace(/\\/g, "/")
+            .replace(/^dist\//, "src/")
 
-    writeFileSync(join(metaOutPath, "paths.json"), JSON.stringify({
-        functions: toSrcPath(functionsAbsolutePath),
-        ...(eventsAbsolutePath && { events: toSrcPath(eventsAbsolutePath) })
-    }), "utf-8")
+    writeFileSync(
+        join(metaOutPath, "paths.json"),
+        JSON.stringify({
+            functions: toSrcPath(functionsAbsolutePath),
+            ...(eventsAbsolutePath && { events: toSrcPath(eventsAbsolutePath) }),
+        }),
+        "utf-8"
+    )
 
-    const v = require(cwd() + "/package.json").version
+    const v = require(`${cwd()}/package.json`).version
 
     if (mainCategoryName) {
         for (const [, fn] of FunctionManager["Functions"]) {
@@ -113,19 +117,16 @@ export default async function (
                         const data = enumNames[i++]
                         const name = data[1] ?? data[2]
                         Reflect.set(arg, "enumName", name)
-                        if (name in enums)
-                            continue
+                        if (name in enums) continue
                         enums[name] = enumToArray(arg.enum)
                     }
                 }
             }
 
             const output = getOutputValues(fn.data, txt, enums)
-            if (output?.length)
-                Reflect.set(fn.data, "output", output)
+            if (output?.length) Reflect.set(fn.data, "output", output)
             else {
-                if (warnOnNoOutput)
-                    Logger.warn(`Function ${fn.name} does not return anything!`)
+                if (warnOnNoOutput) Logger.warn(`Function ${fn.name} does not return anything!`)
                 total++
                 Reflect.deleteProperty(fn.data, "output")
             }
@@ -133,11 +134,10 @@ export default async function (
             let modified = false
             const pathSplits = fn.path.split(/(?:\\|\/)/gim)
             const category = pathSplits.at(-2) === mainCategoryName ? null : pathSplits.at(-2)!
-            if (category)
-                Reflect.set(fn.data, "category", category)
+            if (category) Reflect.set(fn.data, "category", category)
 
             if (txt.includes("category: ")) {
-                Logger.warn("Deleting category block from " + fn.name)
+                Logger.warn(`Deleting category block from ${fn.name}`)
                 txt = txt.replace(FunctionCategoryRegex, "")
                 modified = true
             }
@@ -148,8 +148,7 @@ export default async function (
                 modified = true
             }
 
-            if (modified)
-                writeFileSync(nativePath, txt)
+            if (modified) writeFileSync(nativePath, txt)
 
             const func: Record<string, any> = {}
             func.description = fn.data.description
@@ -159,27 +158,24 @@ export default async function (
 
                 for (const arg of fn.data.args) {
                     func.args[arg.name] = {
-                        description: arg.description
+                        description: arg.description,
                     }
                 }
 
-                if (!Object.keys(func.args).length)
-                    delete func.args
+                if (!Object.keys(func.args).length) delete func.args
             }
 
             translations.functions[fn.name] = func
         }
 
-        if (warnOnNoOutput)
-            Logger.warn(`${total.toLocaleString()} functions are missing output value`)
+        if (warnOnNoOutput) Logger.warn(`${total.toLocaleString()} functions are missing output value`)
 
         writeFileSync(join(metaOutPath, "enums.json"), JSON.stringify(enums), "utf-8")
         writeFileSync(join(metaOutPath, "functions.json"), JSON.stringify(FunctionManager.toJSON()))
     }
 
     if (eventName) {
-        if (!eventsAbsolutePath)
-            throw new Error("An absolute path to events must be provided")
+        if (!eventsAbsolutePath) throw new Error("An absolute path to events must be provided")
 
         Logger.info(`Loading events from ${eventsAbsolutePath}`)
         EventManager.load(eventName, eventsAbsolutePath)

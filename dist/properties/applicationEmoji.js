@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -32,6 +32,6 @@ exports.ApplicationEmojiProperties = (0, defineProperties_1.default)({
     url: (i) => i?.imageURL(),
     format: (i) => i?.toString(),
     requiresColons: (i) => i?.requiresColons,
-    timestamp: (i) => i?.createdTimestamp
+    timestamp: (i) => i?.createdTimestamp,
 });
 //# sourceMappingURL=applicationEmoji.js.map

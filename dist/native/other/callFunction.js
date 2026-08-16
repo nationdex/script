@@ -1,11 +1,11 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const ForgeError_1 = require("../../structures/forge/ForgeError");
 const NativeFunction_1 = require("../../structures/@internal/NativeFunction");
+const ForgeError_1 = require("../../structures/forge/ForgeError");
 exports.default = new NativeFunction_1.NativeFunction({
     name: "$callFunction",
     version: "1.0.0",

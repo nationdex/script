@@ -1,14 +1,14 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
 const isTrue_1 = __importDefault(require("../../functions/isTrue"));
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$awaitComponent",
     version: "1.4.0",
@@ -23,7 +23,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Channel,
-            check: (i) => i.isTextBased()
+            check: (i) => i.isTextBased(),
         },
         {
             name: "message ID",
@@ -31,7 +31,7 @@ exports.default = new structures_1.NativeFunction({
             required: true,
             type: structures_1.ArgType.Message,
             pointer: 0,
-            description: "The message to await component on"
+            description: "The message to await component on",
         },
         {
             name: "filter",
@@ -39,22 +39,22 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             condition: true,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
         {
             name: "success code",
             description: "The code to execute on success, this is called with interaction context",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
         {
             name: "time",
             rest: false,
             required: true,
             type: structures_1.ArgType.Time,
-            description: "The max time to wait for a component"
-        }
+            description: "The max time to wait for a component",
+        },
     ],
     async execute(ctx) {
         const filter = this.data.fields[2];
@@ -62,7 +62,8 @@ exports.default = new structures_1.NativeFunction({
         if (!this["isValidReturnType"](rt))
             return rt;
         const [, msg, time] = args;
-        const int = await msg.awaitMessageComponent({
+        const int = await msg
+            .awaitMessageComponent({
             time,
             filter: async (m) => {
                 const res = await this["resolveCondition"](ctx.clone({ obj: m }), filter);
@@ -71,8 +72,9 @@ exports.default = new structures_1.NativeFunction({
                 }
                 else
                     return false;
-            }
-        }).catch(ctx.noop);
+            },
+        })
+            .catch(ctx.noop);
         if (int) {
             const rt = await this["resolveCode"](ctx.clone({ obj: int }), this.data.fields[3]);
             if (!this["isValidReturnType"](rt))

@@ -1,15 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { int2hex } from "../../functions/hex"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export enum RoleColor {
     Primary = "primaryColor",
     Secondary = "secondaryColor",
-    Tertiary = "tertiaryColor"
+    Tertiary = "tertiaryColor",
 }
 
 export default new NativeFunction({
@@ -40,11 +40,11 @@ export default new NativeFunction({
             description: "The role color to return",
             rest: false,
             type: ArgType.Enum,
-            enum: RoleColor
+            enum: RoleColor,
         },
     ],
     execute(ctx, [, role, color]) {
         const int = (role ?? ctx.role)?.colors[color || RoleColor.Primary]
-        return this.success(int ? "#" + int2hex(int) : null)
+        return this.success(int ? `#${int2hex(int)}` : null)
     },
 })

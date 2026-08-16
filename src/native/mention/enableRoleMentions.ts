@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -17,7 +17,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Guild,
-            description: "The guild to retrieve roles from"
+            description: "The guild to retrieve roles from",
         },
         {
             name: "roles",
@@ -25,11 +25,11 @@ export default new NativeFunction({
             required: true,
             pointer: 0,
             type: ArgType.Role,
-            description: "The roles to parse mentions for"
-        }
+            description: "The roles to parse mentions for",
+        },
     ],
-    execute(ctx, [, roles ]) {
-        if (this.hasFields) ctx.container.allowedMentions.roles = roles.map(x => x.id)
+    execute(ctx, [, roles]) {
+        if (this.hasFields) ctx.container.allowedMentions.roles = roles.map((x) => x.id)
         else ctx.container.parseMentions("roles")
         return this.success()
     },

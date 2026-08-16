@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -19,7 +19,7 @@ exports.default = new structures_1.NativeFunction({
             description: "Channel to pull the message from",
             check: (i) => i.isTextBased(),
             required: true,
-            type: structures_1.ArgType.Channel
+            type: structures_1.ArgType.Channel,
         },
         {
             name: "message ID",
@@ -27,17 +27,17 @@ exports.default = new structures_1.NativeFunction({
             required: true,
             type: structures_1.ArgType.Message,
             pointer: 0,
-            description: "The message to get mentions from"
+            description: "The message to get mentions from",
         },
         {
             name: "channel ID",
             rest: false,
             required: true,
             type: structures_1.ArgType.Channel,
-            description: "The entity to check for mentions"
-        }
+            description: "The entity to check for mentions",
+        },
     ],
-    execute(ctx, [, message, ch]) {
+    execute(_ctx, [, message, ch]) {
         return this.success(message.mentions.channels.has(ch.id));
     },
 });

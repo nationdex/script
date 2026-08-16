@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$cropText",
@@ -36,11 +36,11 @@ export default new NativeFunction({
             name: "ending",
             description: "Add extra text to the end",
             rest: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     unwrap: true,
-    execute(ctx, [text, start, end, ending]) {
+    execute(_ctx, [text, start, end, ending]) {
         const cropped = text.slice(start, end || undefined)
         return this.success(ending && end && text.length > end ? cropped + ending : cropped)
     },

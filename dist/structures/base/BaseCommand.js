@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseCommand = void 0;
 const core_1 = require("../../core");
@@ -30,7 +30,7 @@ class BaseCommand {
     static from(code) {
         return new this({
             code,
-            type: null
+            type: null,
         });
     }
     get name() {
@@ -40,25 +40,26 @@ class BaseCommand {
         return this.data.type;
     }
     hasDisabledConsoleErrors(client) {
-        return this.data.disableConsoleErrors || (this.data.disableConsoleErrors === undefined && client.options.disableConsoleErrors);
+        return (this.data.disableConsoleErrors ||
+            (this.data.disableConsoleErrors === undefined && client.options.disableConsoleErrors));
     }
     matchesInteractionType(i) {
-        return (!this.data.name ||
-            ("customId" in i &&
-                this.data.name === i.customId)) && (!this.data.allowedInteractionTypes?.length || (this.data.allowedInteractionTypes.some(type => (type === "button" && i.isButton()) ||
-            (type === "modal" && i.isModalSubmit()) ||
-            (type === "slashCommand" && i.isChatInputCommand()) ||
-            (type === "autocomplete" && i.isAutocomplete()) ||
-            (type === "selectMenu" && i.isAnySelectMenu()) ||
-            (type === "userSelectMenu" && i.isUserSelectMenu()) ||
-            (type === "roleSelectMenu" && i.isRoleSelectMenu()) ||
-            (type === "channelSelectMenu" && i.isChannelSelectMenu()) ||
-            (type === "mentionableSelectMenu" && i.isMentionableSelectMenu()) ||
-            (type === "contextMenu" && i.isContextMenuCommand()) ||
-            (type === "userContextMenu" && i.isUserContextMenuCommand()) ||
-            (type === "messageContextMenu" && i.isMessageContextMenuCommand()) ||
-            (type === "activityCommand" && i.isPrimaryEntryPointCommand()) ||
-            (type === "messageComponent" && i.isMessageComponent()))));
+        return ((!this.data.name || ("customId" in i && this.data.name === i.customId)) &&
+            (!this.data.allowedInteractionTypes?.length ||
+                this.data.allowedInteractionTypes.some((type) => (type === "button" && i.isButton()) ||
+                    (type === "modal" && i.isModalSubmit()) ||
+                    (type === "slashCommand" && i.isChatInputCommand()) ||
+                    (type === "autocomplete" && i.isAutocomplete()) ||
+                    (type === "selectMenu" && i.isAnySelectMenu()) ||
+                    (type === "userSelectMenu" && i.isUserSelectMenu()) ||
+                    (type === "roleSelectMenu" && i.isRoleSelectMenu()) ||
+                    (type === "channelSelectMenu" && i.isChannelSelectMenu()) ||
+                    (type === "mentionableSelectMenu" && i.isMentionableSelectMenu()) ||
+                    (type === "contextMenu" && i.isContextMenuCommand()) ||
+                    (type === "userContextMenu" && i.isUserContextMenuCommand()) ||
+                    (type === "messageContextMenu" && i.isMessageContextMenuCommand()) ||
+                    (type === "activityCommand" && i.isPrimaryEntryPointCommand()) ||
+                    (type === "messageComponent" && i.isMessageComponent()))));
     }
 }
 exports.BaseCommand = BaseCommand;

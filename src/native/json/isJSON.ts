@@ -1,16 +1,14 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$isJSON",
     version: "1.4.0",
-    aliases: [
-        "$isValidJSON"
-    ],
+    aliases: ["$isValidJSON"],
     description: "Checks whether given JSON is valid",
     unwrap: true,
     brackets: true,
@@ -20,15 +18,15 @@ export default new NativeFunction({
             description: "The json to check for",
             rest: false,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     output: ArgType.Boolean,
-    execute(ctx, [ json ]) {
+    execute(_ctx, [json]) {
         try {
             void JSON.parse(json)
             return this.success(true)
-        } catch (error) {
+        } catch (_error) {
             return this.success(false)
         }
     },

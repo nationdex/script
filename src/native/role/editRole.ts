@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -66,15 +66,17 @@ export default new NativeFunction({
     ],
     output: ArgType.Boolean,
     async execute(ctx, [, role, name, color, icon, hoist, mentionable, perms]) {
-        const edit = await role.edit({
-            colors: !color ? undefined : { primaryColor: color },
-            mentionable: typeof(mentionable) === "boolean" ? mentionable : undefined,
-            hoist: typeof(hoist) === "boolean" ? hoist : undefined,
-            name: name || undefined,
-            icon: icon || undefined,
-            permissions: perms?.length ? perms : undefined,
-            reason: ctx.reason
-        }).catch(ctx.noop)
+        const edit = await role
+            .edit({
+                colors: !color ? undefined : { primaryColor: color },
+                mentionable: typeof mentionable === "boolean" ? mentionable : undefined,
+                hoist: typeof hoist === "boolean" ? hoist : undefined,
+                name: name || undefined,
+                icon: icon || undefined,
+                permissions: perms?.length ? perms : undefined,
+                reason: ctx.reason,
+            })
+            .catch(ctx.noop)
 
         return this.success(!!edit)
     },

@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { CommandType } from "../structures"
+import type { CommandType } from "../structures"
 import { BaseCommandManager } from "./BaseCommandManager"
 import { NativeEventName } from "./EventManager"
 

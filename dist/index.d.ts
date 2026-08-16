@@ -1,9 +1,9 @@
-import generateMetadata from "./functions/generateMetadata";
-import defineProperties from "./functions/defineProperties";
 import array from "./functions/array";
+import defineProperties from "./functions/defineProperties";
+import generateMetadata from "./functions/generateMetadata";
+export * from "./core";
+export type { Properties } from "./functions/defineProperties";
 export * from "./managers";
 export * from "./structures";
-export * from "./core";
-export { generateMetadata, defineProperties, array };
-export type { Properties } from "./functions/defineProperties";
+export { array, defineProperties, generateMetadata };
 //# sourceMappingURL=index.d.ts.map

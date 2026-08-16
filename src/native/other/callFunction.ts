@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ErrorType } from "../../structures/forge/ForgeError"
 import { ArgType, NativeFunction } from "../../structures/@internal/NativeFunction"
+import { ErrorType } from "../../structures/forge/ForgeError"
 
 export default new NativeFunction({
     name: "$callFunction",

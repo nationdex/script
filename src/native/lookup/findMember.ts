@@ -1,10 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import noop from "../../functions/noop"
-import { ArgType, CompiledFunction, NativeFunction, Return } from "../../structures"
+import { ArgType, CompiledFunction, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$findMember",
@@ -51,6 +50,6 @@ export default new NativeFunction({
             })
             .catch(ctx.noop)
 
-        return this.success(query && query.size ? query.at(0)?.id : rt ? ctx.user?.id : undefined)
+        return this.success(query?.size ? query.at(0)?.id : rt ? ctx.user?.id : undefined)
     },
 })

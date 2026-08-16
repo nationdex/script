@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ComponentType, ContainerBuilder, TextDisplayBuilder } from "discord.js"
-import { ArgType, NativeFunction } from "../../structures"
 import { addActionRow } from "../../functions/components"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$addTextDisplay",
@@ -29,7 +29,7 @@ export default new NativeFunction({
 
         if (ctx.container.modal) ctx.container.modal.addTextDisplayComponents(text)
         else if (ctx.container.isInside(ComponentType.Section)) ctx.component.section?.addTextDisplayComponents(text)
-        else if (comp instanceof ContainerBuilder && ctx.container.isInside(ComponentType.Container)) 
+        else if (comp instanceof ContainerBuilder && ctx.container.isInside(ComponentType.Container))
             comp.addTextDisplayComponents(text)
         else ctx.container.components.push(text)
 

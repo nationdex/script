@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -13,10 +13,7 @@ exports.default = new structures_1.NativeFunction({
     name: "$guildRoleIDs",
     version: "1.3.0",
     description: "Returns every role id of the guild",
-    aliases: [
-        "$serverRoleIDs",
-        "$roleIDs"
-    ],
+    aliases: ["$serverRoleIDs", "$roleIDs"],
     unwrap: true,
     brackets: false,
     args: [
@@ -31,14 +28,14 @@ exports.default = new structures_1.NativeFunction({
             name: "separator",
             description: "The separator to use for every role",
             rest: false,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
         {
             name: "everyone",
             description: "Whether to include the @everyone role, defaults to true",
             rest: false,
-            type: structures_1.ArgType.Boolean
-        }
+            type: structures_1.ArgType.Boolean,
+        },
     ],
     output: (0, array_1.default)(),
     execute(ctx, [guild, sep, everyone]) {

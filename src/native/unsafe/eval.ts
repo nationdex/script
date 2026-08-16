@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { Interpreter, Compiler } from "../../core"
-import { NativeFunction, ArgType, Logger } from "../../structures"
+import { Compiler, Interpreter } from "../../core"
+import { ArgType, Logger, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$eval",

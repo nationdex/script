@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CustomStatusType = void 0;
 const discord_js_1 = require("discord.js");
@@ -15,10 +15,7 @@ var CustomStatusType;
 exports.default = new structures_1.NativeFunction({
     name: "$memberCustomStatus",
     version: "1.5.0",
-    aliases: [
-        "$customStatus",
-        "$userCustomStatus"
-    ],
+    aliases: ["$customStatus", "$userCustomStatus"],
     description: "Returns the custom status of a member",
     unwrap: true,
     output: structures_1.ArgType.String,
@@ -42,13 +39,13 @@ exports.default = new structures_1.NativeFunction({
             description: "The type of the custom status to fetch",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: CustomStatusType
+            enum: CustomStatusType,
         },
     ],
     brackets: false,
     async execute(ctx, [, member, type]) {
-        const status = (member ?? ctx.member)?.presence?.activities?.find(x => x.type === discord_js_1.ActivityType.Custom);
+        const status = (member ?? ctx.member)?.presence?.activities?.find((x) => x.type === discord_js_1.ActivityType.Custom);
         return this.success(type ? status?.[type]?.toString() : status?.state);
-    }
+    },
 });
 //# sourceMappingURL=memberCustomStatus.js.map

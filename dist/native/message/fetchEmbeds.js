@@ -1,19 +1,15 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$fetchEmbeds",
     version: "1.4.0",
-    aliases: [
-        "$fetchEmbed",
-        "$cloneEmbed",
-        "$cloneEmbeds"
-    ],
+    aliases: ["$fetchEmbed", "$cloneEmbed", "$cloneEmbeds"],
     description: "Fetches an embed or all embeds from a message to the next response",
     brackets: false,
     unwrap: true,
@@ -23,7 +19,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The channel to pull message from",
             rest: false,
             required: true,
-            type: structures_1.ArgType.TextChannel
+            type: structures_1.ArgType.TextChannel,
         },
         {
             name: "message ID",
@@ -31,14 +27,14 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Message,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "index",
             description: "The embed index to load",
             rest: false,
-            type: structures_1.ArgType.Number
-        }
+            type: structures_1.ArgType.Number,
+        },
     ],
     execute(ctx, [, msg, index]) {
         msg ??= ctx.message;
@@ -52,7 +48,7 @@ exports.default = new structures_1.NativeFunction({
             ctx.container.embeds.push(discord_js_1.EmbedBuilder.from(embed));
             return this.success();
         }
-        ctx.container.embeds.push(...embeds.map(x => discord_js_1.EmbedBuilder.from(x)));
+        ctx.container.embeds.push(...embeds.map((x) => discord_js_1.EmbedBuilder.from(x)));
         return this.success();
     },
 });

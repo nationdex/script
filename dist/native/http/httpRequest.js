@@ -1,12 +1,12 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const NativeFunction_1 = require("../../structures/@internal/NativeFunction");
 const undici_1 = require("undici");
 const structures_1 = require("../../structures");
+const NativeFunction_1 = require("../../structures/@internal/NativeFunction");
 exports.default = new NativeFunction_1.NativeFunction({
     name: "$httpRequest",
     version: "1.0.0",
@@ -45,7 +45,7 @@ exports.default = new NativeFunction_1.NativeFunction({
         const req = await (0, undici_1.fetch)(url, {
             ...ctx.http,
             method,
-            body: ctx.http.body ?? ctx.http.form
+            body: ctx.http.body ?? ctx.http.form,
         }).catch(ctx.noop);
         ms = performance.now() - ms;
         if (!req)
@@ -62,7 +62,7 @@ exports.default = new NativeFunction_1.NativeFunction({
                 ctx.setEnvironmentKey(name, await req.json());
             }
             else if (contentType?.includes("image")) {
-                ctx.setEnvironmentKey(name, await req.arrayBuffer().then(x => Buffer.from(x).toString("base64")));
+                ctx.setEnvironmentKey(name, await req.arrayBuffer().then((x) => Buffer.from(x).toString("base64")));
             }
             else {
                 ctx.setEnvironmentKey(name, await req.text());

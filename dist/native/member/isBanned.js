@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -10,9 +10,7 @@ exports.default = new structures_1.NativeFunction({
     version: "1.0.0",
     brackets: true,
     unwrap: true,
-    aliases: [
-        "$memberIsBanned"
-    ],
+    aliases: ["$memberIsBanned"],
     output: structures_1.ArgType.Boolean,
     description: "Returns whether this user is banned",
     args: [
@@ -31,7 +29,7 @@ exports.default = new structures_1.NativeFunction({
             required: true,
         },
     ],
-    async execute(ctx, [guild, user]) {
+    async execute(_ctx, [guild, user]) {
         const isBanned = await guild.bans.fetch(user).catch(() => false);
         return this.success(!!isBanned);
     },

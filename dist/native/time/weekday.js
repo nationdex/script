@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 const month_1 = require("./month");
@@ -19,8 +19,8 @@ exports.default = new structures_1.NativeFunction({
             description: "The format of the day",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: month_1.ExtendedTimeFormat
-        }
+            enum: month_1.ExtendedTimeFormat,
+        },
     ],
     output: structures_1.ArgType.String,
     execute: async function (ctx, [format]) {
@@ -29,6 +29,6 @@ exports.default = new structures_1.NativeFunction({
             options.weekday = format;
         const day = new Date().toLocaleString("en-US", options);
         return this.success(options.weekday ? day : new Date(day).getUTCDay());
-    }
+    },
 });
 //# sourceMappingURL=weekday.js.map

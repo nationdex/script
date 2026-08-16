@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -28,6 +28,6 @@ exports.default = new structures_1.NativeFunction({
         const days = (date.getTime() - start.getTime()) / 86400000;
         const week = Math.ceil((days + start.getDay() + 1) / 7);
         return this.success(week);
-    }
+    },
 });
 //# sourceMappingURL=calendarWeek.js.map

@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$isFloat",
@@ -21,7 +21,7 @@ export default new NativeFunction({
         },
     ],
     brackets: true,
-    execute(ctx, [n]) {
-        return this.success(!!n && !isNaN(Number(n)) ? Number(n) % 1 !== 0 : false)
+    execute(_ctx, [n]) {
+        return this.success(n && !Number.isNaN(Number(n)) ? Number(n) % 1 !== 0 : false)
     },
 })

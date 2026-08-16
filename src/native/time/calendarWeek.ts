@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, CalendarType } from "../../structures"
+import { ArgType, CalendarType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$calendarWeek",
@@ -31,5 +31,5 @@ export default new NativeFunction({
         const week = Math.ceil((days + start.getDay() + 1) / 7)
 
         return this.success(week)
-    }
+    },
 })

@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ComponentType, ContainerBuilder } from "discord.js"
-import { ArgType, IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
 import { addActionRow } from "../../functions/components"
+import { ArgType, type IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$addContainer",
@@ -46,7 +46,7 @@ export default new NativeFunction({
 
         const { args, return: rt } = await this["resolveMultipleArgs"](ctx, 1, 2)
         if (!this["isValidReturnType"](rt)) return rt
-        const [ color, spoiler ] = args
+        const [color, spoiler] = args
 
         comp.setAccentColor(color || undefined)
         comp.setSpoiler(spoiler || false)

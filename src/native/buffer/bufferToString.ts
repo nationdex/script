@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$bufferToString",
@@ -17,17 +17,19 @@ export default new NativeFunction({
             description: "The variable the buffer is allocated on",
             type: ArgType.String,
             required: true,
-            rest: false
+            rest: false,
         },
         {
             name: "encoding",
             description: "The encoding to stringify with",
             type: ArgType.String,
-            rest: false
-        }
+            rest: false,
+        },
     ],
     output: ArgType.String,
-    execute(ctx, [ name, encoding ]) {
-        return this.success(void ctx.getEnvironmentInstance(Buffer, name)?.toString(encoding as BufferEncoding || "utf-8"))
+    execute(ctx, [name, encoding]) {
+        return this.success(
+            void ctx.getEnvironmentInstance(Buffer, name)?.toString((encoding as BufferEncoding) || "utf-8")
+        )
     },
 })

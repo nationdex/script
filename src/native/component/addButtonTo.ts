@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, createComponentBuilder } from "discord.js"
-import { ArgType, NativeFunction } from "../../structures"
 import { resolveNumericEnum } from "../../functions/enum"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$addButtonTo",
@@ -19,7 +19,7 @@ export default new NativeFunction({
             description: "The channel id to pull message from",
             rest: false,
             required: true,
-            type: ArgType.TextChannel
+            type: ArgType.TextChannel,
         },
         {
             name: "message ID",
@@ -27,7 +27,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Message,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "custom ID",
@@ -68,9 +68,7 @@ export default new NativeFunction({
     async execute(ctx, [, m, id, label, style, emoji, disabled]) {
         style = resolveNumericEnum(ButtonStyle, style)
 
-        const btn = new ButtonBuilder()
-            .setDisabled(disabled || false)
-            .setStyle(style)
+        const btn = new ButtonBuilder().setDisabled(disabled || false).setStyle(style)
 
         if (style === ButtonStyle.Link) btn.setURL(id)
         else if (style === ButtonStyle.Premium) btn.setSKUId(id)
@@ -81,12 +79,10 @@ export default new NativeFunction({
             if (emoji) btn.setEmoji(emoji)
         }
 
-        const components = m.components.map(x => createComponentBuilder(x.toJSON()))
+        const components = m.components.map((x) => createComponentBuilder(x.toJSON()))
         const comp = components.at(-1)
         if (comp instanceof ActionRowBuilder) comp.addComponents(btn)
 
-        return this.success(
-            !!(await m.edit({ components: components.map(x => x.toJSON()) }).catch(ctx.noop))
-        )
+        return this.success(!!(await m.edit({ components: components.map((x) => x.toJSON()) }).catch(ctx.noop)))
     },
 })

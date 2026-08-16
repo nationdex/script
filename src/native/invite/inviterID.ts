@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 import { InviteTracker } from "../../structures/trackers/InviteTracker"
 
 export default new NativeFunction({
@@ -26,11 +26,13 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Member,
-            pointer: 0
+            pointer: 0,
         },
     ],
     output: ArgType.User,
     execute(ctx, [guild, user]) {
-        return this.success(InviteTracker.Inviters.get(guild?.id ?? ctx.guild?.id)?.get(user?.id ?? ctx.user?.id)?.inviterId)
+        return this.success(
+            InviteTracker.Inviters.get(guild?.id ?? ctx.guild?.id)?.get(user?.id ?? ctx.user?.id)?.inviterId
+        )
     },
 })

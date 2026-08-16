@@ -1,12 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, TextBasedChannel, TextChannel } from "discord.js"
-import { ArgType, IExtendedCompiledFunctionConditionField, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
+import type { BaseChannel, TextChannel } from "discord.js"
 import isTrue from "../../functions/isTrue"
+import { ArgType, type IExtendedCompiledFunctionConditionField, NativeFunction, type Return } from "../../structures"
 
 export default new NativeFunction({
     name: "$awaitMessage",
@@ -22,14 +21,15 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => i.isTextBased()
+            check: (i: BaseChannel) => i.isTextBased(),
         },
         {
             name: "variable name",
-            description: "The variable to load the message id that was sent as response by a user, get it with $env[<variable>]",
+            description:
+                "The variable to load the message id that was sent as response by a user, get it with $env[<variable>]",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "filter",
@@ -37,33 +37,35 @@ export default new NativeFunction({
             rest: false,
             required: true,
             condition: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "time",
             rest: false,
             required: true,
             type: ArgType.Time,
-            description: "The max time to wait for a message"
-        }
+            description: "The max time to wait for a message",
+        },
     ],
     async execute(ctx): Promise<Return> {
         const filter = this.data.fields![2] as IExtendedCompiledFunctionConditionField
         const { args, return: rt } = await this["resolveMultipleArgs"](ctx, 0, 1, 3)
         if (!this["isValidReturnType"](rt)) return rt
-        const [ channel, varName, time ] = args
-        const msg = await (channel as TextChannel).awaitMessages({
-            errors: [ "time" ],
-            max: 1,
-            time,
-            filter: async (m) => {
-                ctx.setEnvironmentKey(varName, m.id)
-                const res = await this["resolveCondition"](ctx, filter)
-                if (res.return || res.success) {
-                    return isTrue(res)
-                } else return false
-            }
-        }).catch(ctx.noop)
+        const [channel, varName, time] = args
+        const msg = await (channel as TextChannel)
+            .awaitMessages({
+                errors: ["time"],
+                max: 1,
+                time,
+                filter: async (m) => {
+                    ctx.setEnvironmentKey(varName, m.id)
+                    const res = await this["resolveCondition"](ctx, filter)
+                    if (res.return || res.success) {
+                        return isTrue(res)
+                    } else return false
+                },
+            })
+            .catch(ctx.noop)
 
         return this.success(msg?.first()?.id)
     },

@@ -1,14 +1,14 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import {
     ButtonStyle,
-    ComponentInContainer,
+    type ComponentInContainer,
     ComponentType,
-    ContainerComponent,
-    MessageActionRowComponent,
+    type ContainerComponent,
+    type MessageActionRowComponent,
     SeparatorSpacingSize,
     ThumbnailComponent,
 } from "discord.js"
@@ -43,7 +43,10 @@ export enum ComponentProperty {
     thumbnailUrl = "thumbnailUrl",
 }
 
-export const ComponentProperties = defineProperties<typeof ComponentProperty, MessageActionRowComponent | ComponentInContainer | ContainerComponent | ThumbnailComponent>({
+export const ComponentProperties = defineProperties<
+    typeof ComponentProperty,
+    MessageActionRowComponent | ComponentInContainer | ContainerComponent | ThumbnailComponent
+>({
     id: (i) => i?.id,
     type: (i) => ComponentType[i?.type!],
     customID: (i) => (i && "customId" in i ? i.customId : null),

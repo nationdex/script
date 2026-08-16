@@ -1,16 +1,14 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$hasAnyEntitlement",
     version: "1.5.0",
-    aliases: [
-        "$interactionHasAnyEntitlement"
-    ],
+    aliases: ["$interactionHasAnyEntitlement"],
     description: "Checks whether this interaction user has any of the given entitlements",
     unwrap: true,
     brackets: true,
@@ -20,11 +18,11 @@ export default new NativeFunction({
             description: "The name of the entitlements to validate",
             rest: true,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     output: ArgType.Boolean,
-    execute(ctx, [ names ]) {
+    execute(ctx, [names]) {
         return this.success(ctx.interaction?.entitlements.hasAny(...names))
     },
 })

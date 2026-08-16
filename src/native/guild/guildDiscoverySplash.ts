@@ -1,19 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ImageExtension, ImageSize } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { ImageExtension, ImageSize } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildDiscoverySplash",
     version: "1.3.0",
     description: "Returns the guild discovery splash",
     brackets: false,
-    aliases: [
-        "$serverDiscoverySplash"
-    ],
+    aliases: ["$serverDiscoverySplash"],
     output: ArgType.URL,
     args: [
         {

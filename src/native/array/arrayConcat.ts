@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$arrayConcat",
@@ -29,7 +29,7 @@ export default new NativeFunction({
     output: ArgType.Json,
     brackets: true,
     execute(ctx, [name, variables]) {
-        const arr = new Array<unknown>()
+        const arr: unknown[] = []
 
         for (let i = 0, len = variables.length; i < len; i++) {
             const v = variables[i]
@@ -37,8 +37,6 @@ export default new NativeFunction({
             if (Array.isArray(load)) arr.push(...load)
         }
 
-        return name ?
-            this.success(void ctx.setEnvironmentKey(name, arr)) :
-            this.successJSON(arr)
+        return name ? this.success(void ctx.setEnvironmentKey(name, arr)) : this.successJSON(arr)
     },
 })

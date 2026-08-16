@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$deleteStickers",
@@ -33,7 +33,10 @@ export default new NativeFunction({
         let count = 0
         for (let i = 0, len = stickers.length; i < len; i++) {
             const sticker = stickers[i]
-            const success = await g.stickers.delete(sticker, ctx.reason).then(x => true).catch(ctx.noop)
+            const success = await g.stickers
+                .delete(sticker, ctx.reason)
+                .then((_x) => true)
+                .catch(ctx.noop)
             if (success) count++
         }
 

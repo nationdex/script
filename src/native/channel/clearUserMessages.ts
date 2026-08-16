@@ -1,12 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, TextChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel, TextChannel } from "discord.js"
 import splitNumber from "../../functions/splitNumber"
-import noop from "../../functions/noop"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$clearUserMessages",
@@ -54,7 +53,7 @@ export default new NativeFunction({
 
             const col = await (channel as TextChannel)
                 .bulkDelete(
-                    messages.filter(msg => {
+                    messages.filter((msg) => {
                         if (pinned === false && msg.pinned) return false
                         return !!(msg.author.id === user.id)
                     }),

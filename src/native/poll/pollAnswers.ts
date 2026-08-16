@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { PollAnswerData } from "discord.js"
+import type { PollAnswerData } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -18,17 +18,17 @@ export default new NativeFunction({
             description: "The answer's text followed by emoji",
             rest: true,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [ texts ]) {
-        const ref = (ctx.container.poll?.answers as Array<PollAnswerData>)
-        
-        for (let i = 0, len = texts.length;i < len;i += 2) {
-            const [ text, em ] = texts.slice(i, i + 2)
-            ref.push({ 
+    execute(ctx, [texts]) {
+        const ref = ctx.container.poll?.answers as Array<PollAnswerData>
+
+        for (let i = 0, len = texts.length; i < len; i += 2) {
+            const [text, em] = texts.slice(i, i + 2)
+            ref.push({
                 text,
-                emoji: em || undefined
+                emoji: em || undefined,
             })
         }
 

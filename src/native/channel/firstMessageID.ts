@@ -1,19 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, TextBasedChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel, TextBasedChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$firstMessageID",
     version: "1.5.0",
     description: "Returns the first message sent in a channel",
     brackets: false,
-    aliases: [
-        "$channelFirstMessageID"
-    ],
+    aliases: ["$channelFirstMessageID"],
     unwrap: true,
     output: ArgType.Message,
     args: [
@@ -23,10 +21,10 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => "messages" in i
+            check: (i: BaseChannel) => "messages" in i,
         },
     ],
-    async execute(ctx, [ channel ]) {
+    async execute(ctx, [channel]) {
         channel ??= ctx.channel!
         const message = await (channel as TextBasedChannel)?.messages.fetch({ after: "0", limit: 1 }).catch(ctx.noop)
         return this.success(message ? message.firstKey() : null)

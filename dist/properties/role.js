@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -44,7 +44,7 @@ exports.RoleProperties = (0, defineProperties_1.default)({
     permissions: (i, sep) => i?.permissions.toArray().join(sep || ", "),
     tags: (i, sep) => Object.keys(i?.tags ?? {}).join(sep || ", "),
     unicodeEmoji: (i) => i?.unicodeEmoji,
-    secondaryColor: (i) => i?.colors.secondaryColor ? "#" + (0, hex_1.int2hex)(i?.colors.secondaryColor) : null,
-    tertiaryColor: (i) => i?.colors.tertiaryColor ? "#" + (0, hex_1.int2hex)(i?.colors.tertiaryColor) : null,
+    secondaryColor: (i) => (i?.colors.secondaryColor ? `#${(0, hex_1.int2hex)(i?.colors.secondaryColor)}` : null),
+    tertiaryColor: (i) => (i?.colors.tertiaryColor ? `#${(0, hex_1.int2hex)(i?.colors.tertiaryColor)}` : null),
 });
 //# sourceMappingURL=role.js.map

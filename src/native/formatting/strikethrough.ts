@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { bold, strikethrough } from "discord.js"
+import { strikethrough } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export const StrikeThroughEscapeRegex = /(~)/gim
@@ -21,10 +21,10 @@ export default new NativeFunction({
             description: "The text to make strikethrough, this will attempt to escape all ~",
             rest: false,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [ str ]) {
+    execute(_ctx, [str]) {
         return this.success(strikethrough(str.replace(StrikeThroughEscapeRegex, "\\$1")))
     },
 })

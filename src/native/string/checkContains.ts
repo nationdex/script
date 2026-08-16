@@ -1,16 +1,14 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$checkContains",
     version: "1.0.0",
-    aliases: [
-        "$includes"
-    ],
+    aliases: ["$includes"],
     output: ArgType.Boolean,
     description: "Checks whether a string contains a set of other strings",
     unwrap: true,
@@ -31,7 +29,7 @@ export default new NativeFunction({
         },
     ],
     brackets: true,
-    execute(ctx, [text, matches]) {
+    execute(_ctx, [text, matches]) {
         return this.success(matches.some((x) => text.includes(x)))
     },
 })

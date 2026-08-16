@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, Context, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$arrayShuffle",
@@ -18,12 +18,15 @@ export default new NativeFunction({
             type: ArgType.String,
             rest: false,
             required: true,
-        }
+        },
     ],
     execute(ctx, [variable]) {
         const arr = ctx.getEnvironmentInstance(Array, variable)
         if (arr !== null)
-            ctx.setEnvironmentKey(variable, arr.sort(x => 0.5 - Math.random()))
+            ctx.setEnvironmentKey(
+                variable,
+                arr.sort((_x) => 0.5 - Math.random())
+            )
         return this.success()
     },
 })

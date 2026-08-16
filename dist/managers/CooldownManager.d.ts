@@ -1,4 +1,4 @@
-import { ForgeClient } from "../core";
+import type { ForgeClient } from "../core";
 export interface ICooldown {
     duration: number;
     startedAt: number;

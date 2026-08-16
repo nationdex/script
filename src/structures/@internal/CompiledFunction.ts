@@ -1,29 +1,29 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
+import { existsSync } from "node:fs"
+import { inspect } from "node:util"
 import {
-    PermissionFlagsBits,
-    TextChannel,
-    parseEmoji,
     AttachmentBuilder,
-    PermissionsString,
+    PermissionFlagsBits,
+    type PermissionsString,
+    parseEmoji,
     StageChannel,
     StageInstance,
-    ThreadOnlyChannel,
+    type TextChannel,
+    type ThreadOnlyChannel,
 } from "discord.js"
-import { existsSync } from "fs"
-import { inspect } from "util"
 import { TimeParser } from "../../constants"
-import { ICompiledFunctionConditionField, ICompiledFunctionField, ICompiledFunction } from "../../core"
-import { FunctionManager } from "../../managers"
-import { ErrorType, GetErrorArgs, ForgeError } from "../forge/ForgeError"
-import { Context } from "./Context"
-import { IArg, UnwrapArgs, NativeFunction, ArgType, OverwritePermission } from "./NativeFunction"
-import { Return, ReturnType, ReturnValue } from "./Return"
+import type { ICompiledFunction, ICompiledFunctionConditionField, ICompiledFunctionField } from "../../core"
 import { resolveColor } from "../../functions/hex"
 import parseJSON from "../../functions/parseJSON"
+import { FunctionManager } from "../../managers"
+import { ErrorType, ForgeError, type GetErrorArgs } from "../forge/ForgeError"
+import type { Context } from "./Context"
+import { ArgType, type IArg, type NativeFunction, type OverwritePermission, type UnwrapArgs } from "./NativeFunction"
+import { Return, ReturnType, type ReturnValue } from "./Return"
 
 export interface IExtendedCompiledFunctionConditionField extends Omit<ICompiledFunctionConditionField, "rhs" | "lhs"> {
     lhs: IExtendedCompiledFunctionField
@@ -68,22 +68,22 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
                 raw.fields?.map((x) =>
                     !("op" in x)
                         ? {
-                            ...x,
-                            functions: x.functions.map((x) => new CompiledFunction(x)),
-                        }
+                              ...x,
+                              functions: x.functions.map((x) => new CompiledFunction(x)),
+                          }
                         : {
-                            ...x,
-                            lhs: {
-                                ...x.lhs,
-                                functions: x.lhs.functions.map((x) => new CompiledFunction(x)),
-                            },
-                            rhs: x.rhs
-                                ? {
-                                    ...x.rhs,
-                                    functions: x.rhs.functions.map((x) => new CompiledFunction(x)),
-                                }
-                                : undefined,
-                        }
+                              ...x,
+                              lhs: {
+                                  ...x.lhs,
+                                  functions: x.lhs.functions.map((x) => new CompiledFunction(x)),
+                              },
+                              rhs: x.rhs
+                                  ? {
+                                        ...x.rhs,
+                                        functions: x.rhs.functions.map((x) => new CompiledFunction(x)),
+                                    }
+                                  : undefined,
+                          }
                 ) ?? null,
         }
     }
@@ -104,7 +104,7 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
     public get display(): string {
         if (this.data.fields === null) return this.data.name
         else {
-            const args = new Array<string>()
+            const args: string[] = []
 
             for (let i = 0, len = this.data.fields.length; i < len; i++) {
                 const field = this.displayField(i)
@@ -173,7 +173,7 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
             return this.unsafeSuccess(val.value)
         } else {
             const fields = this.data.fields?.slice(i)
-            const values = new Array()
+            const values: any[] = []
 
             if (!fields?.length) {
                 if (arg.required) return this.error(ErrorType.MissingArg, this.data.name, arg.name)
@@ -233,26 +233,26 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
         return this.error(ErrorType.InvalidArgType, `${value}`, arg.name, ArgType[arg.type])
     }
 
-    private resolveNumber(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private resolveNumber(_ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         const value = Number(str)
-        if (isNaN(value as number)) return
+        if (Number.isNaN(value as number)) return
         return value
     }
 
-    private resolveBigInt(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private resolveBigInt(_ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         return BigInt(str)
     }
 
-    private resolveColor(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private resolveColor(_ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         return resolveColor(str)
     }
 
-    private resolvePermission(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private resolvePermission(_ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         if (!(str in PermissionFlagsBits)) return
         return str
     }
 
-    private resolveString(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private resolveString(_ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         return str
     }
 
@@ -260,19 +260,19 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
         return this.resolveString.bind(this)
     }
 
-    private resolveTime(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private resolveTime(_ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         try {
-            return !isNaN(Number(str)) ? Number(str) : TimeParser.parseToMS(str)
-        } catch (error: any) {
+            return !Number.isNaN(Number(str)) ? Number(str) : TimeParser.parseToMS(str)
+        } catch (_error: any) {
             return
         }
     }
 
-    private resolveEnum(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private resolveEnum(_ctx: Context, arg: IArg, str: string, _ref: Array<unknown>) {
         return arg.enum![str]
     }
 
-    private resolveBoolean(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private resolveBoolean(_ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         return str === "true" ? true : str === "false" ? false : undefined
     }
 
@@ -283,7 +283,7 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
         return ch?.messages?.fetch(str).catch(ctx.noop)
     }
 
-    private resolveChannel(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private resolveChannel(ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         if (!CompiledFunction.IdRegex.test(str)) return
         return ctx.client.channels.fetch(str)
     }
@@ -294,15 +294,15 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
         return ch
     }
 
-    private resolveGuild(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private resolveGuild(ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         return ctx.client.guilds.cache.get(str)
     }
 
-    private resolveJson(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private resolveJson(_ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         return parseJSON(str, false)
     }
 
-    private resolveUser(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private resolveUser(ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         if (!CompiledFunction.IdRegex.test(str)) return
         return ctx.client.users.fetch(str).catch(ctx.noop)
     }
@@ -312,7 +312,7 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
         return this.resolveRole(ctx, arg, str, ref) ?? this.resolveUser(ctx, arg, str, ref)
     }
 
-    private resolveGuildEmoji(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private resolveGuildEmoji(ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         const fromUrl = CompiledFunction.CDNIdRegex.exec(str)
         if (fromUrl !== null) return ctx.client.emojis.cache.get(fromUrl[2])
 
@@ -321,7 +321,7 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
         return ctx.client.emojis.cache.get(id)
     }
 
-    private async resolveApplicationEmoji(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private async resolveApplicationEmoji(ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         const fromUrl = CompiledFunction.CDNIdRegex.exec(str)
         if (fromUrl !== null) return await ctx.client.application.emojis.fetch(fromUrl[2]).catch(ctx.noop)
 
@@ -333,19 +333,25 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
 
     private async resolveEmoji(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
         const fromUrl = CompiledFunction.CDNIdRegex.exec(str)
-        if (fromUrl !== null) return this.resolveGuildEmoji(ctx, arg, fromUrl[2], ref) ?? await this.resolveApplicationEmoji(ctx, arg, fromUrl[2], ref)
+        if (fromUrl !== null)
+            return (
+                this.resolveGuildEmoji(ctx, arg, fromUrl[2], ref) ??
+                (await this.resolveApplicationEmoji(ctx, arg, fromUrl[2], ref))
+            )
 
         const parsed = parseEmoji(str)
         const id = parsed?.id ?? str
         if (!CompiledFunction.IdRegex.test(id)) return
-        return this.resolveGuildEmoji(ctx, arg, id, ref) ?? await this.resolveApplicationEmoji(ctx, arg, id, ref)
+        return this.resolveGuildEmoji(ctx, arg, id, ref) ?? (await this.resolveApplicationEmoji(ctx, arg, id, ref))
     }
 
     private resolveForumTag(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
-        return (this.resolvePointer(arg, ref, ctx.channel) as ThreadOnlyChannel)?.availableTags.find((x) => x.id === str)
+        return (this.resolvePointer(arg, ref, ctx.channel) as ThreadOnlyChannel)?.availableTags.find(
+            (x) => x.id === str
+        )
     }
 
-    private resolveSticker(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private resolveSticker(ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         const fromUrl = CompiledFunction.CDNIdRegex.exec(str)
         if (fromUrl !== null) return ctx.client.fetchSticker(fromUrl[2]).catch(ctx.noop)
 
@@ -353,7 +359,7 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
         return ctx.client.fetchSticker(str).catch(ctx.noop)
     }
 
-    private async resolveAttachment(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private async resolveAttachment(_ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         const splits = str.split(/(\\\\|\/)/)
 
         if (CompiledFunction.URLRegex.test(str)) {
@@ -365,7 +371,7 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
         }
 
         const exists = existsSync(str)
-        const name = exists ? splits[splits.length - 1] ?? splits[splits.length - 2] : null
+        const name = exists ? (splits[splits.length - 1] ?? splits[splits.length - 2]) : null
 
         return new AttachmentBuilder(exists ? str : Buffer.from(str, "utf-8"), {
             name: name ?? undefined,
@@ -395,7 +401,8 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
     private resolveStageInstance(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
         if (!CompiledFunction.IdRegex.test(str)) return
         const chan = ctx.client.channels.cache.get(str)
-        const data = chan instanceof StageChannel ? chan.stageInstance : this.resolvePointer(arg, ref, ctx.guild)?.stageInstances
+        const data =
+            chan instanceof StageChannel ? chan.stageInstance : this.resolvePointer(arg, ref, ctx.guild)?.stageInstances
         const instance = data instanceof StageInstance ? data : data?.cache.get(str)
         if (!instance) return
         return instance
@@ -406,10 +413,12 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
         if (!parsed) return
 
         const identifier = parsed.id ?? parsed.name
-        return (await this.resolvePointer(arg, ref, ctx.message)?.fetch().catch(ctx.noop))?.reactions.cache.get(identifier)
+        return (await this.resolvePointer(arg, ref, ctx.message)?.fetch().catch(ctx.noop))?.reactions.cache.get(
+            identifier
+        )
     }
 
-    private resolveURL(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private resolveURL(_ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         if (!CompiledFunction.URLRegex.test(str)) {
             const em = parseEmoji(str)
             if (em !== null)
@@ -422,25 +431,25 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
         return str
     }
 
-    private resolveInvite(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private resolveInvite(ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         if (!CompiledFunction.IdRegex.test(str)) return
         return ctx.client.fetchInvite(str).catch(ctx.noop)
     }
 
-    private resolveWebhook(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private resolveWebhook(ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         if (!CompiledFunction.IdRegex.test(str)) return
         return ctx.client.fetchWebhook(str).catch(ctx.noop)
     }
 
-    private async resolveTemplate(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+    private async resolveTemplate(ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
         return await ctx.client.fetchGuildTemplate(str).catch(ctx.noop)
     }
 
     private resolveOverwritePermission(
-        ctx: Context,
-        arg: IArg,
+        _ctx: Context,
+        _arg: IArg,
         str: string,
-        ref: Array<unknown>
+        _ref: Array<unknown>
     ): OverwritePermission | undefined {
         const symbol = str[0]
         if (!(symbol in CompiledFunction.OverwriteSymbolMapping)) return
@@ -458,8 +467,8 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
         return this.resolvePointer(arg, ref, ctx.guild)?.roles.cache.get(str)
     }
 
-    private resolveDate(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
-        return new Date(isNaN(Number(str)) ? str : Number(str))
+    private resolveDate(_ctx: Context, _arg: IArg, str: string, _ref: Array<unknown>) {
+        return new Date(Number.isNaN(Number(str)) ? str : Number(str))
     }
 
     private resolvePointer<T>(arg: IArg, ref: Array<unknown>, fallback?: T) {
@@ -481,7 +490,9 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
         }
 
         if (field !== undefined) {
-            field.resolveArg ??= (this[CompiledFunction.toResolveArgString(arg.type) as keyof this] as Function).bind(this)
+            field.resolveArg ??= (this[CompiledFunction.toResolveArgString(arg.type) as keyof this] as Function).bind(
+                this
+            )
             value = field.resolveArg?.(ctx, arg, strValue, ref)
             if (value instanceof Promise) value = await value
         }
@@ -517,13 +528,13 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
     }
 
     public async execute(ctx: Context): Promise<Return> {
-        // @ts-ignore
+        // @ts-expect-error
         if (!this.fn.data.unwrap) return this.fn.data.execute.call(this, ctx)
 
         const args = await this.resolveArgs(ctx)
         if (!this.isValidReturnType(args)) return args
 
-        // @ts-ignore
+        // @ts-expect-error
         return this.fn.data.execute.call(this, ctx, args.value ?? [])
     }
 
@@ -553,9 +564,9 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
     public getFunctions(fieldIndex: number, ref: NativeFunction) {
         return this.hasFields
             ? (this.data.fields![fieldIndex] as IExtendedCompiledFunctionField).functions.filter(
-                (x) => x.data.name === ref.name
-            )
-            : new Array<CompiledFunction>()
+                  (x) => x.data.name === ref.name
+              )
+            : ([] as CompiledFunction[])
     }
 
     public return(value: ReturnValue<ReturnType.Return>) {
@@ -575,7 +586,11 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
     }
 
     public successJSON(value: ReturnValue<ReturnType.Success>) {
-        return this.success(typeof value !== "string" ? JSON.stringify(value, (key, val) => (typeof val === "bigint" ? val.toString() : val), 4) : value)
+        return this.success(
+            typeof value !== "string"
+                ? JSON.stringify(value, (_key, val) => (typeof val === "bigint" ? val.toString() : val), 4)
+                : value
+        )
     }
 
     public successFormatted(value: ReturnValue<ReturnType.Success>) {
@@ -587,6 +602,15 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
     }
 
     public success(value: ReturnValue<ReturnType.Success> = null) {
-        return new Return(ReturnType.Success, this.data.negated ? null : this.data.count !== null && typeof value === "string" ? (value !== "" ? value.split(this.data.count).length : 0) : value)
+        return new Return(
+            ReturnType.Success,
+            this.data.negated
+                ? null
+                : this.data.count !== null && typeof value === "string"
+                  ? value !== ""
+                      ? value.split(this.data.count).length
+                      : 0
+                  : value
+        )
     }
 }

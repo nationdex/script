@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -34,7 +34,7 @@ exports.default = new structures_1.NativeFunction({
         const field = ctx.interaction.fields.getField(id);
         return this.success("value" in field
             ? field.value
-            : ("attachments" in field && field.type === discord_js_1.ComponentType.FileUpload)
+            : "attachments" in field && field.type === discord_js_1.ComponentType.FileUpload
                 ? field.attachments.map((x) => x.url).join(sep ?? ", ")
                 : field.values.join(sep ?? ", "));
     },

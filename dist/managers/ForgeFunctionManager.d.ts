@@ -1,6 +1,6 @@
-import { ForgeClient } from "../core/ForgeClient";
-import { ForgeFunction, IForgeFunction } from "../structures/forge/ForgeFunction";
-import { RecursiveArray } from "./FunctionManager";
+import type { ForgeClient } from "../core/ForgeClient";
+import { ForgeFunction, type IForgeFunction } from "../structures/forge/ForgeFunction";
+import { type RecursiveArray } from "./FunctionManager";
 export declare class ForgeFunctionManager {
     private readonly client;
     private readonly functions;

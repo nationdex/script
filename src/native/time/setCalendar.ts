@@ -1,10 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { CalendarType } from "../../structures"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, CalendarType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setCalendar",
@@ -27,5 +26,5 @@ export default new NativeFunction({
     execute(ctx, [type]) {
         ctx.calendar = type
         return this.success()
-    }
+    },
 })

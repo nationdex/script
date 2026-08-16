@@ -1,17 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildInvitesDisabledUntil",
     version: "2.2.0",
     description: "Returns the invites disabled timestamp of a guild",
-    aliases: [
-        "$serverInvitesDisabledUntil"
-    ],
+    aliases: ["$serverInvitesDisabledUntil"],
     brackets: false,
     unwrap: true,
     args: [

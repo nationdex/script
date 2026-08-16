@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel } from "discord.js"
+import type { BaseChannel } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures/@internal/NativeFunction"
 
 export default new NativeFunction({

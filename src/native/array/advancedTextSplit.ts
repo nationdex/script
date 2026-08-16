@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -17,24 +17,23 @@ export default new NativeFunction({
             description: "The text to use",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "split;index",
             rest: true,
             type: ArgType.String,
             required: true,
-            description: "The split followed by the index to get"
-        }
+            description: "The split followed by the index to get",
+        },
     ],
     output: ArgType.String,
-    execute(ctx, [ text, splits ]) {
-        for (let i = 0, len = splits.length;i < len;i += 2) {
+    execute(_ctx, [text, splits]) {
+        for (let i = 0, len = splits.length; i < len; i += 2) {
             const split = splits[i]
             const index = Number(splits[i + 1])
             text = text.split(split)[index]
-            if (text === undefined)
-                return this.success()
+            if (text === undefined) return this.success()
         }
         return this.success(text)
     },

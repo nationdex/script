@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ChannelType } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$randomGuildChannelID",
@@ -27,16 +27,17 @@ export default new NativeFunction({
             type: ArgType.Enum,
             rest: true,
             required: false,
-            enum: ChannelType
-        }
+            enum: ChannelType,
+        },
     ],
     execute(ctx, [g, types]) {
         g ??= ctx.guild!
         types ??= []
-        
+
         return this.success(
-            types.length === 0 ? g?.channels.cache.randomKey() :
-                g?.channels.cache.filter(x => types.includes(x.type)).randomKey()
+            types.length === 0
+                ? g?.channels.cache.randomKey()
+                : g?.channels.cache.filter((x) => types.includes(x.type)).randomKey()
         )
     },
 })

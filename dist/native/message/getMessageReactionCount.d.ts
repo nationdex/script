@@ -1,4 +1,4 @@
-import { TextBasedChannel } from "discord.js";
+import type { TextBasedChannel } from "discord.js";
 import { ArgType, NativeFunction } from "../../structures";
 export declare enum ReactionType {
     normal = "normal",

@@ -1,18 +1,18 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForgeFunctionManager = void 0;
-const ForgeFunction_1 = require("../structures/forge/ForgeFunction");
+const node_path_1 = require("node:path");
+const node_process_1 = require("node:process");
 const recursiveReaddirSync_1 = __importDefault(require("../functions/recursiveReaddirSync"));
+const ForgeFunction_1 = require("../structures/forge/ForgeFunction");
 const FunctionManager_1 = require("./FunctionManager");
-const path_1 = require("path");
-const process_1 = require("process");
 class ForgeFunctionManager {
     client;
     functions = new Map();
@@ -35,15 +35,15 @@ class ForgeFunctionManager {
         return s instanceof ForgeFunction_1.ForgeFunction ? s : new ForgeFunction_1.ForgeFunction(s);
     }
     populate() {
-        FunctionManager_1.FunctionManager.addMany(Array.from(this.functions.values()).map(x => x.asNative()));
+        FunctionManager_1.FunctionManager.addMany(Array.from(this.functions.values()).map((x) => x.asNative()));
     }
     get(name) {
         return this.functions.get(name);
     }
     load(path) {
-        const loader = new Array();
+        const loader = [];
         for (const file of (0, recursiveReaddirSync_1.default)(path).filter((x) => x.endsWith(".js"))) {
-            const path = (0, path_1.join)((0, process_1.cwd)(), file);
+            const path = (0, node_path_1.join)((0, node_process_1.cwd)(), file);
             const data = require(path);
             if (Object.keys(data).length === 0)
                 continue;

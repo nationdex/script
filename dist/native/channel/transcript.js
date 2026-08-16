@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -61,7 +61,7 @@ exports.default = new structures_1.NativeFunction({
         const [channel, varName, sep, full] = args;
         const code = this.data.fields[2];
         const msgs = await (0, fetchAllMessages_1.default)(channel);
-        const results = new Array();
+        const results = [];
         for (let i = 0, len = msgs.length; i < len; i++) {
             const msg = msgs[i];
             ctx.setEnvironmentKey(varName, full ? msg : msg.id);

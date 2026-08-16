@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import array from "../../functions/array"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$selectMenuValues",
@@ -30,6 +30,6 @@ export default new NativeFunction({
     execute(ctx, [index, sep]) {
         if (!ctx.isSelectMenu()) return this.success()
         const values = ctx.interaction.values
-        return this.success(typeof(index) === "number" ? values[index] : values.join(sep ?? ", "))
+        return this.success(typeof index === "number" ? values[index] : values.join(sep ?? ", "))
     },
 })

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.hex2int = hex2int;
 exports.int2hex = int2hex;
@@ -15,10 +15,10 @@ function int2hex(int) {
     return Number(int).toString(16).padStart(6, "0");
 }
 function resolveColor(value) {
-    if (typeof value === "number" || !isNaN(Number(value)))
+    if (typeof value === "number" || !Number.isNaN(Number(value)))
         return Number(value);
     if (value === "Random")
-        return Math.floor(Math.random() * 0xFFFFFF);
+        return Math.floor(Math.random() * 0xffffff);
     else if (value in discord_js_1.Colors)
         return discord_js_1.Colors[value];
     else

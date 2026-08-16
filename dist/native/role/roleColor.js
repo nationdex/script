@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RoleColor = void 0;
 const hex_1 = require("../../functions/hex");
@@ -41,12 +41,12 @@ exports.default = new structures_1.NativeFunction({
             description: "The role color to return",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: RoleColor
+            enum: RoleColor,
         },
     ],
     execute(ctx, [, role, color]) {
         const int = (role ?? ctx.role)?.colors[color || RoleColor.Primary];
-        return this.success(int ? "#" + (0, hex_1.int2hex)(int) : null);
+        return this.success(int ? `#${(0, hex_1.int2hex)(int)}` : null);
     },
 });
 //# sourceMappingURL=roleColor.js.map

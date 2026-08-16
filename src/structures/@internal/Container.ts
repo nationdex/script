@@ -1,54 +1,53 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-/* eslint-disable indent */
 import {
-    ActionRowBuilder,
-    ApplicationCommandOptionChoiceData,
-    ApplicationEmoji,
-    AttachmentBuilder,
+    type ActionRowBuilder,
+    type ApplicationCommandOptionChoiceData,
+    type ApplicationEmoji,
+    type AttachmentBuilder,
+    type AutocompleteInteraction,
     AutoModerationActionExecution,
-    AutocompleteInteraction,
     BaseChannel,
     BaseInteraction,
-    Channel,
-    ComponentType,
-    ContainerBuilder,
-    ContainerComponentBuilder,
+    type Channel,
+    type ComponentType,
+    type ContainerBuilder,
+    type ContainerComponentBuilder,
     EmbedBuilder,
-    Emoji,
-    Guild,
-    GuildEmoji,
+    type Emoji,
+    type Guild,
+    type GuildEmoji,
     GuildMember,
-    GuildScheduledEvent,
-    Interaction,
+    type GuildScheduledEvent,
+    type Interaction,
     InteractionCallbackResponse,
-    InteractionEditReplyOptions,
-    InteractionReplyOptions,
-    Invite,
+    type InteractionEditReplyOptions,
+    type InteractionReplyOptions,
+    type Invite,
     Message,
-    MessageActionRowComponentBuilder,
-    MessageMentionOptions,
-    MessageMentionTypes,
-    MessageReaction,
-    MessageReplyOptions,
-    ModalBuilder,
-    PollData,
-    Presence,
-    Role,
-    SoundboardSound,
-    Sticker,
-    StickerResolvable,
-    TextChannel,
-    ThreadChannelResolvable,
+    type MessageActionRowComponentBuilder,
+    MessageFlags,
+    type MessageMentionOptions,
+    type MessageMentionTypes,
+    type MessageReaction,
+    type MessageReplyOptions,
+    type ModalBuilder,
+    type PollData,
+    type Presence,
+    type Role,
+    type SoundboardSound,
+    type Sticker,
+    type StickerResolvable,
+    type TextChannel,
+    type ThreadChannelResolvable,
     User,
-    VoiceState,
+    type VoiceState,
     WebhookClient,
 } from "discord.js"
 import noop from "../../functions/noop"
-import { MessageFlags } from "discord.js"
 
 const mentions: MessageMentionTypes[] = ["everyone", "roles", "users"]
 
@@ -76,10 +75,10 @@ export type Sendable =
 
 export class Container {
     public content?: string
-    public embeds = new Array<EmbedBuilder>()
-    public components = new Array<ContainerBuilder | ContainerComponentBuilder>()
+    public embeds = [] as EmbedBuilder[]
+    public components = [] as (ContainerBuilder | ContainerComponentBuilder)[]
     public actionRow?: ActionRowBuilder<MessageActionRowComponentBuilder>
-    public inside = Array<ComponentType>()
+    public inside = [] as ComponentType[]
     public reference?: string
     public reply = false
     public followUp = false
@@ -89,13 +88,13 @@ export class Container {
     public tts = false
     public update = false
     public isComponentsV2 = false
-    public files = new Array<AttachmentBuilder>()
+    public files = [] as AttachmentBuilder[]
     public channel?: Channel
-    public stickers = new Array<StickerResolvable>()
+    public stickers = [] as StickerResolvable[]
     public withResponse = false
     public withComponents = false
     public modal?: ModalBuilder
-    public choices = new Array<ApplicationCommandOptionChoiceData<string | number>>()
+    public choices = [] as ApplicationCommandOptionChoiceData<string | number>[]
     public allowedMentions: MessageMentionOptions = {}
     public avatarURL?: string
     public username?: string
@@ -113,7 +112,7 @@ export class Container {
             return null
         }
 
-        if (this.channel && this.channel.isTextBased()) {
+        if (this.channel?.isTextBased()) {
             res = (this.channel as TextChannel).send(options)
         } else if (obj instanceof AutoModerationActionExecution && obj.channel && "send" in obj.channel) {
             res = obj.channel.send(options)
@@ -131,10 +130,10 @@ export class Container {
                             (this.followUp
                                 ? "followUp"
                                 : obj.deferred || obj.replied
-                                ? "editReply"
-                                : this.update
-                                ? "update"
-                                : "reply") as "reply"
+                                  ? "editReply"
+                                  : this.update
+                                    ? "update"
+                                    : "reply") as "reply"
                         ](options)
                 }
             } else {
@@ -181,9 +180,7 @@ export class Container {
     }
 
     public parseMentions(type?: MessageMentionTypes) {
-        this.allowedMentions.parse = type
-            ? [...new Set([...(this.allowedMentions.parse ?? []), type])]
-            : [...mentions]
+        this.allowedMentions.parse = type ? [...new Set([...(this.allowedMentions.parse ?? []), type])] : [...mentions]
     }
 
     public unparseMentions(type: MessageMentionTypes) {
@@ -193,7 +190,7 @@ export class Container {
     /**
      * Checks if current context is inside a component builder function.
      * @param type The type of the component to check for.
-     * @returns 
+     * @returns
      */
     public isInside(type: ComponentType) {
         return this.inside.includes(type)
@@ -237,7 +234,7 @@ export class Container {
     public getOptions<T>(content?: string): T {
         if (this.actionRow) this.components.push(this.actionRow)
 
-        const flags = new Array<MessageFlags>()
+        const flags: MessageFlags[] = []
         if (this.ephemeral) flags.push(MessageFlags.Ephemeral)
         if (this.silent) flags.push(MessageFlags.SuppressNotifications)
         if (this.isComponentsV2) flags.push(MessageFlags.IsComponentsV2)

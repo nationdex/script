@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -18,7 +18,7 @@ exports.default = new structures_1.NativeFunction({
             required: true,
             description: "The channel to get the message from",
             type: structures_1.ArgType.Channel,
-            check: (i) => i.isTextBased()
+            check: (i) => i.isTextBased(),
         },
         {
             name: "message ID",
@@ -34,6 +34,6 @@ exports.default = new structures_1.NativeFunction({
         channel ??= ctx.channel;
         const msg = (message ?? ctx.message)?.reference?.messageId;
         return this.success(msg ? (await channel.messages.fetch(msg)).author.id : undefined);
-    }
+    },
 });
 //# sourceMappingURL=userReferenceID.js.map

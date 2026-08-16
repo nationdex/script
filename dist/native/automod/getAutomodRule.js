@@ -1,11 +1,11 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
 const automodRule_1 = require("../../properties/automodRule");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$getAutomodRule",
     version: "1.5.0",
@@ -26,14 +26,14 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.AutomodRule,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "property",
             description: "The property of the automod rule to return",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: automodRule_1.AutomodRuleProperty
+            enum: automodRule_1.AutomodRuleProperty,
         },
         {
             name: "separator",
@@ -42,11 +42,8 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.String,
         },
     ],
-    output: [
-        structures_1.ArgType.Json,
-        structures_1.ArgType.Unknown
-    ],
-    execute(ctx, [, rule, prop, sep]) {
+    output: [structures_1.ArgType.Json, structures_1.ArgType.Unknown],
+    execute(_ctx, [, rule, prop, sep]) {
         if (prop)
             return this.success(automodRule_1.AutomodRuleProperties[prop](rule, sep));
         return this.successJSON(rule);

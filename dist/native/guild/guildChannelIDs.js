@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -14,9 +14,7 @@ exports.default = new structures_1.NativeFunction({
     version: "1.3.0",
     unwrap: true,
     brackets: false,
-    aliases: [
-        "$serverChannelIDs"
-    ],
+    aliases: ["$serverChannelIDs"],
     output: (0, array_1.default)(),
     description: "Returns every channel id of the guild",
     args: [
@@ -25,18 +23,18 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Guild,
-            description: "The guild to get channel ids from"
+            description: "The guild to get channel ids from",
         },
         {
             name: "separator",
             description: "The separator to use for every channel",
             rest: false,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
     execute(ctx, [guild, sep]) {
         guild ??= ctx.guild;
-        return this.success(guild?.channels.cache.map(x => x.id).join(sep ?? ", "));
+        return this.success(guild?.channels.cache.map((x) => x.id).join(sep ?? ", "));
     },
 });
 //# sourceMappingURL=guildChannelIDs.js.map

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 const MathRegex = /[^0-9%\-+./*\t\n\s()<>]/;
@@ -22,13 +22,13 @@ exports.default = new structures_1.NativeFunction({
             required: true,
         },
     ],
-    execute(ctx, [expr]) {
+    execute(_ctx, [expr]) {
         try {
             if (MathRegex.test(expr))
                 return this.success();
             return this.success(eval(expr));
         }
-        catch (error) {
+        catch (_error) {
             return this.success();
         }
     },

@@ -1,4 +1,4 @@
-import { TeamMember } from "discord.js";
+import { type TeamMember } from "discord.js";
 export declare enum TeamMemberProperty {
     id = "id",
     role = "role",

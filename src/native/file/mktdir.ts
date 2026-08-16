@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { mkdtempSync } from "fs"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { mkdtempSync } from "node:fs"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$mktdir",
@@ -12,10 +12,7 @@ export default new NativeFunction({
     description: "Creates a temporary directory",
     unwrap: true,
     brackets: true,
-    aliases: [
-        "$makeTempDir",
-        "$createTempDir"
-    ],
+    aliases: ["$makeTempDir", "$createTempDir"],
     output: ArgType.String,
     args: [
         {
@@ -24,9 +21,9 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.String,
-        }
+        },
     ],
-    execute(ctx, [prefix]) {
+    execute(_ctx, [prefix]) {
         return this.success(mkdtempSync(prefix))
     },
 })

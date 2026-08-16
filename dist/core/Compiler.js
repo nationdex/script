@@ -1,13 +1,13 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Compiler = exports.Conditions = exports.Operators = exports.OperatorType = void 0;
+const discord_js_1 = require("discord.js");
 const CompiledFunction_1 = require("../structures/@internal/CompiledFunction");
 const ForgeError_1 = require("../structures/forge/ForgeError");
-const discord_js_1 = require("discord.js");
 var OperatorType;
 (function (OperatorType) {
     OperatorType["Eq"] = "==";
@@ -20,7 +20,7 @@ var OperatorType;
 })(OperatorType || (exports.OperatorType = OperatorType = {}));
 exports.Operators = new Set(Object.values(OperatorType));
 exports.Conditions = {
-    unknown: (lhs, rhs) => lhs === "true",
+    unknown: (lhs, _rhs) => lhs === "true",
     "!=": (lhs, rhs) => lhs !== rhs,
     "==": (lhs, rhs) => lhs === rhs,
     "<": (lhs, rhs) => Number(lhs) < Number(rhs),
@@ -41,7 +41,7 @@ class Compiler {
         Count: "@",
         Negation: "!",
         Separator: ";",
-        Silent: "#"
+        Silent: "#",
     };
     static SystemRegex = /(\\+)?\[SYSTEM_FUNCTION\(\d+\)\]/gm;
     static Regex;
@@ -52,7 +52,7 @@ class Compiler {
     matches;
     matchIndex = 0;
     index = 0;
-    outputFunctions = new Array();
+    outputFunctions = [];
     outputCode = "";
     constructor(path, code) {
         this.path = path;
@@ -114,10 +114,10 @@ class Compiler {
         }
         // Skip [
         this.skip(1);
-        const fields = new Array();
+        const fields = [];
         // Field parsing
         for (let i = 0, len = match.fn.args.fields.length; i < len; i++) {
-            let isLast = i + 1 === len;
+            const isLast = i + 1 === len;
             const field = match.fn.args.fields[i];
             if (!field.rest) {
                 fields.push(this.parseAnyField(match, field));
@@ -171,7 +171,7 @@ class Compiler {
     }
     parseConditionField(ref) {
         const data = {};
-        const functions = new Array();
+        const functions = [];
         let rawValue = "";
         let fieldValue = "";
         let closedGracefully = false;
@@ -205,7 +205,7 @@ class Compiler {
                         functions: [...functions],
                         resolve: this.wrap(fieldValue),
                         value: fieldValue,
-                        rawValue
+                        rawValue,
                     };
                     rawValue = "";
                     fieldValue = "";
@@ -235,7 +235,7 @@ class Compiler {
         return data;
     }
     parseNormalField(ref) {
-        const functions = new Array();
+        const functions = [];
         let rawValue = "";
         let fieldValue = "";
         let closedGracefully = false;
@@ -335,9 +335,9 @@ class Compiler {
     wrap(code) {
         let i = 0;
         const gencode = code.replace(Compiler.InvalidCharRegex, "\\$1").replace(Compiler.SystemRegex, () => {
-            return "${args[" + i++ + "] ?? ''}";
+            return `\${args[${i++}] ?? ''}`;
         });
-        return new Function("args", "return `" + gencode + "`");
+        return new Function("args", `return \`${gencode}\``);
     }
     moveTo(index) {
         this.index = index;
@@ -356,13 +356,13 @@ class Compiler {
     }
     static setFunctions(fns) {
         fns.map((x) => {
-            this.Functions.set(x.name.toLowerCase(), x);
+            Compiler.Functions.set(x.name.toLowerCase(), x);
             x.aliases
                 ?.filter((x) => typeof x === "string")
-                ?.map((alias) => this.Functions.set(alias.toLowerCase(), x));
+                ?.map((alias) => Compiler.Functions.set(alias.toLowerCase(), x));
         });
-        const mapped = Array.from(this.Functions.keys());
-        this.Regex = new RegExp(`\\$(\\!)?(\\#)?(@\\[(.*?)\\])?(${mapped
+        const mapped = Array.from(Compiler.Functions.keys());
+        Compiler.Regex = new RegExp(`\\$(\\!)?(\\#)?(@\\[(.*?)\\])?(${mapped
             .map((x) => (x.startsWith("$") ? x.slice(1).toLowerCase() : x.toLowerCase()).replace(Compiler.EscapeRegex, "\\$1"))
             .sort((x, y) => y.length - x.length)
             .join("|")})`, "gim");

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const core_1 = require("../../core");
@@ -21,7 +21,7 @@ exports.default = new DiscordEventHandler_1.DiscordEventHandler({
                 client: this,
                 states: {
                     bulk: {
-                        new: asArray
+                        new: asArray,
                     },
                 },
                 data: command.compiled.code,

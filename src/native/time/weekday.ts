@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 import { ExtendedTimeFormat } from "./month"
 
 export default new NativeFunction({
@@ -19,15 +19,15 @@ export default new NativeFunction({
             description: "The format of the day",
             rest: false,
             type: ArgType.Enum,
-            enum: ExtendedTimeFormat
-        }
+            enum: ExtendedTimeFormat,
+        },
     ],
     output: ArgType.String,
-    execute: async function(ctx, [format]) {
+    execute: async function (ctx, [format]) {
         const options: Intl.DateTimeFormatOptions = { timeZone: ctx.timezone, calendar: ctx.calendar }
         if (format && format !== "numeric" && format !== "2-digit") options.weekday = format
-        
+
         const day = new Date().toLocaleString("en-US", options)
         return this.success(options.weekday ? day : new Date(day).getUTCDay())
-    }
+    },
 })

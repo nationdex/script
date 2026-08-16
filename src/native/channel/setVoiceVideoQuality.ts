@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
+import { type BaseChannel, VideoQualityMode, type VoiceChannel } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
-import { BaseChannel, VideoQualityMode, VoiceChannel } from "discord.js"
 
 export default new NativeFunction({
     name: "$setVoiceVideoQuality",
@@ -19,7 +19,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => i.isVoiceBased()
+            check: (i: BaseChannel) => i.isVoiceBased(),
         },
         {
             name: "quality",
@@ -27,18 +27,20 @@ export default new NativeFunction({
             required: true,
             type: ArgType.Enum,
             enum: VideoQualityMode,
-            description: "The new video quality"
+            description: "The new video quality",
         },
         {
             name: "reason",
             description: "The reason to change the video quality",
             rest: false,
             required: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     unwrap: true,
     async execute(ctx, [channel, quality, reason]) {
-        return this.success(!!(await (channel as VoiceChannel).setVideoQualityMode(quality, reason || ctx.reason).catch(ctx.noop)))
+        return this.success(
+            !!(await (channel as VoiceChannel).setVideoQualityMode(quality, reason || ctx.reason).catch(ctx.noop))
+        )
     },
 })

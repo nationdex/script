@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { createCipheriv, createDecipheriv, randomBytes } from "crypto"
+import { randomBytes } from "node:crypto"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -18,11 +18,11 @@ export default new NativeFunction({
             description: "The length of the hex string",
             rest: false,
             required: true,
-            type: ArgType.Number
+            type: ArgType.Number,
         },
     ],
     unwrap: true,
-    execute(ctx, [ len ]) {
+    execute(_ctx, [len]) {
         return this.success(randomBytes(len).toString("hex"))
-    }
+    },
 })

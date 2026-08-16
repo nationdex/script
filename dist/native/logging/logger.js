@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 const Logger_1 = require("../../structures/@internal/Logger");
@@ -19,17 +19,17 @@ exports.default = new structures_1.NativeFunction({
             enum: Logger_1.LogType,
             type: structures_1.ArgType.Enum,
             required: true,
-            rest: false
+            rest: false,
         },
         {
             name: "text",
             description: "The text to log",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
-    execute(ctx, [type, value]) {
+    execute(_ctx, [type, value]) {
         Logger_1.Logger[Logger_1.LogType[type].toLowerCase()](value);
         return this.success();
     },

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -17,12 +17,12 @@ exports.default = new structures_1.NativeFunction({
             rest: true,
             required: true,
             type: structures_1.ArgType.User,
-            description: "The users to parse mentions for"
-        }
+            description: "The users to parse mentions for",
+        },
     ],
     execute(ctx, [users]) {
         if (this.hasFields)
-            ctx.container.allowedMentions.users = users.map(x => x.id);
+            ctx.container.allowedMentions.users = users.map((x) => x.id);
         else
             ctx.container.parseMentions("users");
         return this.success();

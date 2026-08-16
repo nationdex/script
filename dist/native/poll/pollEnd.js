@@ -1,17 +1,15 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$pollEnd",
     version: "1.5.0",
     description: "Ends a poll",
-    aliases: [
-        "$endPoll"
-    ],
+    aliases: ["$endPoll"],
     brackets: false,
     unwrap: true,
     args: [
@@ -20,7 +18,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The channel to get the message from",
             rest: false,
             required: true,
-            type: structures_1.ArgType.TextChannel
+            type: structures_1.ArgType.TextChannel,
         },
         {
             name: "message ID",
@@ -28,8 +26,8 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Message,
-            pointer: 0
-        }
+            pointer: 0,
+        },
     ],
     async execute(ctx, [, msg]) {
         return this.success(!!(await (msg ?? ctx.message)?.poll?.end().catch(ctx.noop)));

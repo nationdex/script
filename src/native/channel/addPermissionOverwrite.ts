@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { PermissionFlagsBits } from "discord.js"
-import { ArgType, NativeFunction } from "../../structures"
 import { overwritePermissionsToOverwriteData } from "../../functions/overwritePermissions"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$addPermissionOverwrite",
@@ -21,7 +21,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             pointer: 0,
-            pointerProperty: "guild"
+            pointerProperty: "guild",
         },
         {
             name: "perms",
@@ -29,8 +29,8 @@ export default new NativeFunction({
             type: ArgType.OverwritePermission,
             rest: true,
             required: true,
-            enum: PermissionFlagsBits
-        }
+            enum: PermissionFlagsBits,
+        },
     ],
     async execute(ctx, [roleOrUser, raw]) {
         const obj = overwritePermissionsToOverwriteData(roleOrUser.id, raw)

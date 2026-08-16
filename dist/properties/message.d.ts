@@ -1,4 +1,4 @@
-import { Message, MessageSnapshot } from "discord.js";
+import { type Message, type MessageSnapshot } from "discord.js";
 export declare enum MessageProperty {
     id = "id",
     content = "content",

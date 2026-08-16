@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildSoundboardLimit",
@@ -11,9 +11,7 @@ export default new NativeFunction({
     description: "Returns the soundboard sound limit of a guild",
     brackets: false,
     unwrap: true,
-    aliases: [
-        "$serverSoundboardLimit"
-    ],
+    aliases: ["$serverSoundboardLimit"],
     args: [
         {
             name: "guild ID",
@@ -25,17 +23,7 @@ export default new NativeFunction({
     ],
     output: ArgType.Number,
     execute(ctx, [guild]) {
-        let tier = (guild ?? ctx.guild)?.premiumTier
-        return this.success(
-            tier === 0
-                ? 8
-                : tier === 1
-                    ? 24
-                    : tier === 2
-                        ? 36
-                        : tier === 3
-                            ? 48
-                            : undefined
-        )
+        const tier = (guild ?? ctx.guild)?.premiumTier
+        return this.success(tier === 0 ? 8 : tier === 1 ? 24 : tier === 2 ? 36 : tier === 3 ? 48 : undefined)
     },
 })

@@ -1,14 +1,14 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
 const array_1 = __importDefault(require("../../functions/array"));
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$channelMembers",
     version: "1.5.0",
@@ -33,7 +33,9 @@ exports.default = new structures_1.NativeFunction({
     ],
     execute(ctx, [ch, sep]) {
         const chan = ch ?? ctx.channel;
-        return this.success(chan && "members" in chan ? chan.members?.map(member => member.id).join(sep ?? ", ") : null);
+        return this.success(chan && "members" in chan
+            ? chan.members?.map((member) => member.id).join(sep ?? ", ")
+            : null);
     },
 });
 //# sourceMappingURL=channelMembers.js.map

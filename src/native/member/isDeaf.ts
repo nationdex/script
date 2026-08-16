@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { APIInteractionGuildMember, GuildMember } from "discord.js"
+import { type APIInteractionGuildMember, GuildMember } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -12,9 +12,7 @@ export default new NativeFunction({
     description: "Returns whether a member is deafened",
     brackets: false,
     unwrap: true,
-    aliases: [
-        "$memberIsDeaf"
-    ],
+    aliases: ["$memberIsDeaf"],
     output: ArgType.Boolean,
     args: [
         {
@@ -35,6 +33,10 @@ export default new NativeFunction({
     ],
     execute(ctx, [, user]) {
         const member = user ?? ctx.member ?? ctx.interaction?.member
-        return this.success((member instanceof GuildMember ? member?.voice.deaf : (ctx.interaction?.member as APIInteractionGuildMember)?.deaf) ?? false)
+        return this.success(
+            (member instanceof GuildMember
+                ? member?.voice.deaf
+                : (ctx.interaction?.member as APIInteractionGuildMember)?.deaf) ?? false
+        )
     },
 })

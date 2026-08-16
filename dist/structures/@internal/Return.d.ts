@@ -1,4 +1,4 @@
-import { ForgeError } from "../forge/ForgeError";
+import type { ForgeError } from "../forge/ForgeError";
 export declare enum ReturnType {
     Error = 0,
     Stop = 1,

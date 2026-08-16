@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
 import { SoundboardSoundProperties, SoundboardSoundProperty } from "../../properties/sound"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$getSoundboardSound",
@@ -33,14 +33,11 @@ export default new NativeFunction({
             description: "The property of the sound to return",
             rest: false,
             type: ArgType.Enum,
-            enum: SoundboardSoundProperty
+            enum: SoundboardSoundProperty,
         },
     ],
-    output: [
-        ArgType.Json,
-        ArgType.Unknown
-    ],
-    execute(ctx, [, sound, prop]) {
+    output: [ArgType.Json, ArgType.Unknown],
+    execute(_ctx, [, sound, prop]) {
         if (prop) return this.success(SoundboardSoundProperties[prop](sound))
         return this.successJSON(sound)
     },

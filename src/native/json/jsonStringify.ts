@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures/@internal/NativeFunction"
 
@@ -16,18 +16,18 @@ export default new NativeFunction({
             description: "The variable to stringify",
             required: true,
             type: ArgType.String,
-            rest: false
+            rest: false,
         },
         {
             name: "space",
             description: "The space to use",
             type: ArgType.Number,
-            rest: false
-        }
+            rest: false,
+        },
     ],
     brackets: true,
     unwrap: true,
-    execute(ctx, [ env, space ]) {
+    execute(ctx, [env, space]) {
         return this.successJSON(JSON.stringify(ctx.getEnvironmentKey(env), undefined, space || undefined))
-    }
+    },
 })

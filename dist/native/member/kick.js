@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -11,10 +11,7 @@ exports.default = new structures_1.NativeFunction({
     description: "Kicks a member from the guild, returns true or false depending on whether the action was successfully performed",
     unwrap: true,
     brackets: true,
-    aliases: [
-        "$kickMember",
-        "$memberKick"
-    ],
+    aliases: ["$kickMember", "$memberKick"],
     output: structures_1.ArgType.Boolean,
     args: [
         {

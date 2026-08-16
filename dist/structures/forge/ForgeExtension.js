@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -25,12 +25,12 @@ class ForgeExtension {
     validateAndInit(client) {
         const version = client.version;
         const n = (0, getVersionNumber_1.default)(version);
-        if (this.targetVersions?.length && !this.targetVersions.some(x => (0, getVersionNumber_1.default)(x) === n)) {
+        if (this.targetVersions?.length && !this.targetVersions.some((x) => (0, getVersionNumber_1.default)(x) === n)) {
             throw new ForgeError_1.ForgeError(null, ForgeError_1.ErrorType.UnsupportedExtensionVersion, this.name, version);
         }
         if (this.requireExtensions?.length) {
             for (const wanted of this.requireExtensions) {
-                if (!client.options.extensions.some(x => x.name === wanted)) {
+                if (!client.options.extensions.some((x) => x.name === wanted)) {
                     throw new ForgeError_1.ForgeError(null, ForgeError_1.ErrorType.RequiredExtension, this.name, wanted);
                 }
             }
@@ -54,9 +54,9 @@ class ForgeExtension {
             const key = keys[i];
             const value = Reflect.get(this, key);
             if (value instanceof managers_1.BaseCommandManager)
-                return this._commands = value;
+                return (this._commands = value);
         }
-        return this._commands = null;
+        return (this._commands = null);
     }
 }
 exports.ForgeExtension = ForgeExtension;

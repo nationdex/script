@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -17,11 +17,7 @@ var ForumTagProperty;
     ForumTagProperty["name"] = "name";
 })(ForumTagProperty || (exports.ForumTagProperty = ForumTagProperty = {}));
 exports.ForumTagProperties = (0, defineProperties_1.default)({
-    emoji: (i) => i && "emoji" in i
-        ? i.emoji?.id
-            ? `<:${i.emoji?.name}:${i.emoji?.id}>`
-            : i.emoji?.name
-        : null,
+    emoji: (i) => (i && "emoji" in i ? (i.emoji?.id ? `<:${i.emoji?.name}:${i.emoji?.id}>` : i.emoji?.name) : null),
     id: (i) => i?.id,
     moderated: (i) => i?.moderated,
     name: (i) => i?.name,

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Interpreter = void 0;
 const structures_1 = require("../structures");
@@ -36,7 +36,7 @@ class Interpreter {
                 for (let i = 0, len = runtime.data.functions.length; i < len; i++) {
                     const fn = runtime.data.functions[i];
                     const rt = await fn.execute(ctx);
-                    args[i] = (!rt.success && !ctx.handleNotSuccess(fn, rt)) ? ctx["error"]() : rt.value;
+                    args[i] = !rt.success && !ctx.handleNotSuccess(fn, rt) ? ctx["error"]() : rt.value;
                 }
             }
             catch (err) {

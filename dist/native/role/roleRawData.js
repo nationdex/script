@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -25,7 +25,7 @@ exports.default = new structures_1.NativeFunction({
             required: true,
             description: "The role to get raw data from",
             type: structures_1.ArgType.Role,
-            pointer: 0
+            pointer: 0,
         },
     ],
     output: structures_1.ArgType.Json,

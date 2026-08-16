@@ -1,19 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$loadGuildContext",
     version: "1.4.0",
-    aliases: [
-        "$useGuildContext",
-        "$asGuildContext"
-    ],
+    aliases: ["$useGuildContext", "$asGuildContext"],
     brackets: true,
-    description: "Loads a guild instance to the current context, this is not reversible and is adviced to use with $scope",
+    description:
+        "Loads a guild instance to the current context, this is not reversible and is adviced to use with $scope",
     unwrap: true,
     args: [
         {
@@ -21,10 +19,10 @@ export default new NativeFunction({
             description: "The guild to adapt context with",
             rest: false,
             required: true,
-            type: ArgType.Guild
-        }
+            type: ArgType.Guild,
+        },
     ],
-    execute(ctx, [ g ]) {
+    execute(ctx, [g]) {
         ctx.obj = g
         return this.success()
     },

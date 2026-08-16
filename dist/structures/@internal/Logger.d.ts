@@ -1,4 +1,4 @@
-import { ChalkInstance } from "chalk";
+import { type ChalkInstance } from "chalk";
 export declare enum LogPriority {
     /**
      * Does not log anything

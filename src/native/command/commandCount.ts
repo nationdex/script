@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$commandCount",
@@ -25,8 +25,8 @@ export default new NativeFunction({
         return this.success(
             this.hasFields
                 ? ctx.client.commands["commands"]
-                    .filter((_, key) => categories.includes(key))
-                    .reduce((x, y) => x + y.length, 0)
+                      .filter((_, key) => categories.includes(key))
+                      .reduce((x, y) => x + y.length, 0)
                 : ctx.client.commands["commands"].reduce((x, y) => x + y.length, 0)
         )
     },

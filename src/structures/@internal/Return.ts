@@ -1,10 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { inspect } from "util"
-import { ForgeError } from "../forge/ForgeError"
+import type { ForgeError } from "../forge/ForgeError"
 
 export enum ReturnType {
     Error,
@@ -18,15 +17,18 @@ export enum ReturnType {
 export type ReturnValue<T extends ReturnType> = T extends ReturnType.Error
     ? ForgeError
     : T extends ReturnType.Return
-    ? string
-    : T extends ReturnType.Success
-    ? unknown
-    : T extends ReturnType.Stop | ReturnType.Break | ReturnType.Continue
-    ? null
-    : never
+      ? string
+      : T extends ReturnType.Success
+        ? unknown
+        : T extends ReturnType.Stop | ReturnType.Break | ReturnType.Continue
+          ? null
+          : never
 
 export class Return<T extends ReturnType = ReturnType> {
-    constructor(public readonly type: T, public readonly value: ReturnValue<T>) {}
+    constructor(
+        public readonly type: T,
+        public readonly value: ReturnValue<T>
+    ) {}
 
     public get error() {
         return this.type === ReturnType.Error

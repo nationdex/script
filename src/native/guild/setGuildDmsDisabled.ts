@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setGuildDmsDisabled",
@@ -28,10 +28,14 @@ export default new NativeFunction({
         },
     ],
     output: ArgType.Boolean,
-    async execute(ctx, [guild, ms]) {
-        return this.success((await guild.setIncidentActions({
-            dmsDisabledUntil: ms ? Date.now() + ms : null,
-            invitesDisabledUntil: guild.incidentsData?.invitesDisabledUntil
-        }).catch(() => false)) !== false)
+    async execute(_ctx, [guild, ms]) {
+        return this.success(
+            (await guild
+                .setIncidentActions({
+                    dmsDisabledUntil: ms ? Date.now() + ms : null,
+                    invitesDisabledUntil: guild.incidentsData?.invitesDisabledUntil,
+                })
+                .catch(() => false)) !== false
+        )
     },
 })

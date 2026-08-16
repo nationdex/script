@@ -1,19 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { PermissionsString } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$hasRoles",
     version: "1.1.0",
     description: "Returns whether given member has all roles",
     unwrap: true,
-    aliases: [
-        "$memberHasRoles"
-    ],
+    aliases: ["$memberHasRoles"],
     brackets: true,
     output: ArgType.Boolean,
     args: [
@@ -38,10 +35,10 @@ export default new NativeFunction({
             rest: true,
             type: ArgType.Role,
             required: true,
-            pointer: 0
+            pointer: 0,
         },
     ],
-    execute(ctx, [, member, roles]) {
-        return this.success(member.roles.cache.hasAll(...roles.map(x => x.id)))
+    execute(_ctx, [, member, roles]) {
+        return this.success(member.roles.cache.hasAll(...roles.map((x) => x.id)))
     },
 })

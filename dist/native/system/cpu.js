@@ -1,10 +1,10 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const os_1 = require("os");
+const node_os_1 = require("node:os");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$cpu",
@@ -14,7 +14,7 @@ exports.default = new structures_1.NativeFunction({
     unwrap: false,
     output: structures_1.ArgType.Number,
     execute() {
-        return this.success((0, os_1.loadavg)()[0] * 100);
+        return this.success((0, node_os_1.loadavg)()[0] * 100);
     },
 });
 //# sourceMappingURL=cpu.js.map

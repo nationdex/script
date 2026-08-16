@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import array from "../../functions/array"
 import fetchAllMessages from "../../functions/fetchAllMessages"
-import { ArgType, IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
+import { ArgType, type IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$transcript",
@@ -59,7 +59,7 @@ export default new NativeFunction({
         const code = this.data.fields![2] as IExtendedCompiledFunctionField
 
         const msgs = await fetchAllMessages(channel)
-        const results = new Array<string>()
+        const results: string[] = []
 
         for (let i = 0, len = msgs.length; i < len; i++) {
             const msg = msgs[i]

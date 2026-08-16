@@ -1,35 +1,35 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FunctionManager = void 0;
-const NativeFunction_1 = require("../structures/@internal/NativeFunction");
+const node_path_1 = require("node:path");
+const node_v8_1 = require("node:v8");
 const core_1 = require("../core");
-const recursiveReaddirSync_1 = __importDefault(require("../functions/recursiveReaddirSync"));
-const v8_1 = require("v8");
-const Logger_1 = require("../structures/@internal/Logger");
 const enum_1 = require("../functions/enum");
-const path_1 = require("path");
+const recursiveReaddirSync_1 = __importDefault(require("../functions/recursiveReaddirSync"));
+const Logger_1 = require("../structures/@internal/Logger");
+const NativeFunction_1 = require("../structures/@internal/NativeFunction");
 class FunctionManager {
     static Functions = new Map();
     static loadNative() {
-        FunctionManager.load("ForgeScript", (0, path_1.join)(__dirname, "..", "native"));
+        FunctionManager.load("ForgeScript", (0, node_path_1.join)(__dirname, "..", "native"));
     }
     static load(provider, path) {
         // Backwards compatibility smh
         if (!path)
-            return this.load("Unknown", provider);
-        const overrideAttempts = new Array();
-        const loader = new Array();
+            return FunctionManager.load("Unknown", provider);
+        const overrideAttempts = [];
+        const loader = [];
         for (const file of (0, recursiveReaddirSync_1.default)(path).filter((x) => x.endsWith(".js"))) {
             const req = require(file).default;
             req.path = file;
-            if (this.Functions.has(req.name)) {
+            if (FunctionManager.Functions.has(req.name)) {
                 overrideAttempts.push(req.name);
                 continue;
             }
@@ -37,7 +37,7 @@ class FunctionManager {
                 req.data.unwrap = false;
             loader.push(req);
         }
-        this.addMany(loader);
+        FunctionManager.addMany(loader);
         if (overrideAttempts.length !== 0)
             Logger_1.Logger.warn(`${provider} | Attempted to override the following ${overrideAttempts.length} functions: ${overrideAttempts.join(", ")}`);
     }
@@ -45,27 +45,27 @@ class FunctionManager {
         for (let i = 0, len = fns.length; i < len; i++) {
             const fn = fns[i];
             if (Array.isArray(fn))
-                this.addMany(...fn);
+                FunctionManager.addMany(...fn);
             else
-                this.Functions.set(fn.name, fn);
+                FunctionManager.Functions.set(fn.name, fn);
         }
-        this.reload();
+        FunctionManager.reload();
     }
     static add(fn) {
-        return this.addMany(fn);
+        return FunctionManager.addMany(fn);
     }
     static reload() {
-        core_1.Compiler["setFunctions"](this.raw);
+        core_1.Compiler["setFunctions"](FunctionManager.raw);
     }
     static get(name) {
-        return this.Functions.get(name);
+        return FunctionManager.Functions.get(name);
     }
     static toJSON() {
-        return Array.from(this.Functions.values()).map((x) => {
+        return Array.from(FunctionManager.Functions.values()).map((x) => {
             const d = { ...x.data };
             d.args?.forEach((x) => Reflect.deleteProperty(x, "check"));
             Reflect.deleteProperty(d, "execute");
-            const data = (0, v8_1.deserialize)(new Uint8Array((0, v8_1.serialize)(d)));
+            const data = (0, node_v8_1.deserialize)(new Uint8Array((0, node_v8_1.serialize)(d)));
             data.args?.map((x) => {
                 x.type = NativeFunction_1.ArgType[x.type];
                 if (x.enum)
@@ -75,7 +75,7 @@ class FunctionManager {
         });
     }
     static get raw() {
-        return Array.from(this.Functions).map((x) => {
+        return Array.from(FunctionManager.Functions).map((x) => {
             const [name, { data }] = x;
             return {
                 aliases: data.aliases ?? null,

@@ -1,4 +1,4 @@
-import { Invite } from "discord.js";
+import { type Invite } from "discord.js";
 export declare enum InviteProperty {
     authorID = "authorID",
     channelID = "channelID",

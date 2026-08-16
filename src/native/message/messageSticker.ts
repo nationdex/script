@@ -1,11 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
-import array from "../../functions/array"
+import type { BaseChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$messageSticker",
@@ -37,7 +36,7 @@ export default new NativeFunction({
             required: true,
             description: "The index to get sticker",
             type: ArgType.Number,
-        }
+        },
     ],
     execute(ctx, [, message, index]) {
         return this.success((message ?? ctx.message)?.stickers.at(index)?.url)

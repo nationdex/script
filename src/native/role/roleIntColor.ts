@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 import { RoleColor } from "./roleColor"
 
 export default new NativeFunction({
@@ -34,7 +34,7 @@ export default new NativeFunction({
             description: "The role color to return",
             rest: false,
             type: ArgType.Enum,
-            enum: RoleColor
+            enum: RoleColor,
         },
     ],
     execute(ctx, [, role, color]) {

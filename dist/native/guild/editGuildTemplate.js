@@ -1,17 +1,15 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$editGuildTemplate",
     version: "1.5.0",
     description: "Edits template on a guild, returns bool",
-    aliases: [
-        "$editServerTemplate"
-    ],
+    aliases: ["$editServerTemplate"],
     unwrap: true,
     brackets: true,
     args: [
@@ -37,10 +35,12 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Boolean,
     async execute(ctx, [template, name, desc]) {
-        const edit = await template.edit({
+        const edit = await template
+            .edit({
             name: name || undefined,
-            description: desc ?? undefined
-        }).catch(ctx.noop);
+            description: desc ?? undefined,
+        })
+            .catch(ctx.noop);
         return this.success(!!edit);
     },
 });

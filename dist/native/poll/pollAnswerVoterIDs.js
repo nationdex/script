@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -20,12 +20,12 @@ exports.default = new structures_1.NativeFunction({
             name: "separator",
             description: "The separator to use for every id",
             rest: false,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
     output: (0, array_1.default)(),
     execute(ctx, [sep]) {
-        return this.success(ctx.states?.poll?.new?.fetchVoters().then(x => x.map(x => x.id).join(sep ?? ", ")));
+        return this.success(ctx.states?.poll?.new?.fetchVoters().then((x) => x.map((x) => x.id).join(sep ?? ", ")));
     },
 });
 //# sourceMappingURL=pollAnswerVoterIDs.js.map

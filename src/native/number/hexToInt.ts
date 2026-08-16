@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { hex2int } from "../../functions/hex"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$hexToInt",
@@ -19,10 +19,10 @@ export default new NativeFunction({
             description: "The hex to convert",
             rest: false,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [ hex ]) {
+    execute(_ctx, [hex]) {
         return this.success(hex2int(hex))
     },
 })

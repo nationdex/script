@@ -1,11 +1,11 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
 const parseSingleEmoji_1 = require("../../functions/parseSingleEmoji");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$editSoundboardSound",
     version: "2.4.0",
@@ -57,13 +57,15 @@ exports.default = new structures_1.NativeFunction({
     async execute(ctx, [, sound, name, emoji, volume, reason]) {
         const parsed = (0, parseSingleEmoji_1.parseSingleEmoji)(ctx, emoji);
         const value = emoji === "" ? null : undefined;
-        return this.success(!!(await sound.edit({
+        return this.success(!!(await sound
+            .edit({
             name: name || undefined,
             emojiId: parsed?.id || value,
             emojiName: parsed?.id ? null : parsed?.name || value,
-            volume: typeof (volume) === "number" ? volume : undefined,
-            reason: reason || ctx.reason
-        }).catch(ctx.noop)));
+            volume: typeof volume === "number" ? volume : undefined,
+            reason: reason || ctx.reason,
+        })
+            .catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=editSoundboardSound.js.map

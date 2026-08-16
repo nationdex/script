@@ -1,4 +1,4 @@
-import { BaseChannel } from "discord.js";
+import type { BaseChannel } from "discord.js";
 import { ArgType, NativeFunction } from "../../structures";
 export declare enum StickerReturnType {
     id = "id",

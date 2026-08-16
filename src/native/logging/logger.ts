@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
-import { LogType, Logger } from "../../structures/@internal/Logger"
+import { Logger, LogType } from "../../structures/@internal/Logger"
 
 export default new NativeFunction({
     name: "$logger",
@@ -19,17 +19,17 @@ export default new NativeFunction({
             enum: LogType,
             type: ArgType.Enum,
             required: true,
-            rest: false
+            rest: false,
         },
         {
             name: "text",
             description: "The text to log",
             rest: false,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [ type, value ]) {
+    execute(_ctx, [type, value]) {
         Logger[LogType[type].toLowerCase() as Lowercase<keyof typeof LogType>](value)
         return this.success()
     },

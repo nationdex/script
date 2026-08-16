@@ -1,14 +1,14 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
 const array_1 = __importDefault(require("../../functions/array"));
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$getMessageReactionUsers",
     version: "1.0.0",
@@ -48,9 +48,9 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.String,
         },
     ],
-    async execute(ctx, [, , reaction, sep]) {
-        const users = new Array();
-        let afterID = undefined;
+    async execute(_ctx, [, , reaction, sep]) {
+        const users = [];
+        let afterID;
         if (reaction.users.cache.size <= reaction.count) {
             for (;;) {
                 const bulk = await reaction.users.fetch({

@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, Message, WebhookClient } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { type BaseChannel, type Message, WebhookClient } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$webhookEditMessage",
@@ -42,7 +42,7 @@ export default new NativeFunction({
             check: (i: BaseChannel) => i.isThread(),
         },
     ],
-    async execute(ctx, [ url, msg, content, thread ]) {
+    async execute(ctx, [url, msg, content, thread]) {
         const web = new WebhookClient({ url })
 
         ctx.container.content = content || undefined

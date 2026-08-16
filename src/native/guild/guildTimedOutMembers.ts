@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import array from "../../functions/array"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildTimedOutMembers",
@@ -12,9 +12,7 @@ export default new NativeFunction({
     description: "Returns all current timed out members of a guild",
     unwrap: true,
     brackets: false,
-    aliases: [
-        "$serverTimedOutMembers"
-    ],
+    aliases: ["$serverTimedOutMembers"],
     args: [
         {
             name: "guild ID",
@@ -32,6 +30,11 @@ export default new NativeFunction({
     ],
     output: array<ArgType.Member>(),
     async execute(ctx, [guild, sep]) {
-        return this.success((guild ?? ctx.guild)?.members.cache.filter(m => m.isCommunicationDisabled()).map(member => member.id).join(sep ?? ", "))
+        return this.success(
+            (guild ?? ctx.guild)?.members.cache
+                .filter((m) => m.isCommunicationDisabled())
+                .map((member) => member.id)
+                .join(sep ?? ", ")
+        )
     },
 })

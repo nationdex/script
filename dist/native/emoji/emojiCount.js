@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmojiType = void 0;
 const structures_1 = require("../../structures");
@@ -24,17 +24,19 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Enum,
-            enum: EmojiType
+            enum: EmojiType,
         },
     ],
     output: structures_1.ArgType.Number,
     execute(ctx, [type]) {
         const emojis = ctx.client.emojis.cache;
-        return this.success(!type ? emojis.size : emojis.filter(emoji => type === EmojiType.normal
-            ? !emoji.animated
-            : type === EmojiType.animated
-                ? emoji.animated
-                : true).size);
+        return this.success(!type
+            ? emojis.size
+            : emojis.filter((emoji) => type === EmojiType.normal
+                ? !emoji.animated
+                : type === EmojiType.animated
+                    ? emoji.animated
+                    : true).size);
     },
 });
 //# sourceMappingURL=emojiCount.js.map

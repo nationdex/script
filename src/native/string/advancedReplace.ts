@@ -1,16 +1,14 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$advancedReplace",
     version: "1.5.0",
-    aliases: [
-        "$advancedReplaceText"
-    ],
+    aliases: ["$advancedReplaceText"],
     output: ArgType.String,
     description: "Replaces text in a string multiple times",
     unwrap: true,
@@ -28,12 +26,12 @@ export default new NativeFunction({
             required: true,
             rest: true,
             type: ArgType.String,
-        }
+        },
     ],
     brackets: true,
-    execute(ctx, [ text, args ]) {
+    execute(_ctx, [text, args]) {
         for (let i = 0; i < args.length; i += 2) {
-            const [ match, replacement ] = args.slice(i, i + 2)
+            const [match, replacement] = args.slice(i, i + 2)
             text = text.replaceAll((match as string) ?? "", (replacement as string) ?? "")
         }
 

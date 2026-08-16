@@ -1,15 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export enum PresenceStatus {
     online = "online",
     idle = "idle",
     dnd = "dnd",
-    offline = "offline"
+    offline = "offline",
 }
 
 export default new NativeFunction({
@@ -17,10 +17,7 @@ export default new NativeFunction({
     version: "1.0.0",
     description: "Returns the user count of a guild",
     brackets: false,
-    aliases: [
-        "$serverMemberCount",
-        "$serverMembersCount"
-    ],
+    aliases: ["$serverMemberCount", "$serverMembersCount"],
     output: ArgType.Number,
     args: [
         {
@@ -35,7 +32,7 @@ export default new NativeFunction({
             description: "The presence of the users to count",
             rest: false,
             type: ArgType.Enum,
-            enum: PresenceStatus
+            enum: PresenceStatus,
         },
         {
             name: "count bots",
@@ -50,12 +47,17 @@ export default new NativeFunction({
         bots ??= true
 
         if (presence) {
-            return this.success(guild?.members.cache.filter(member => {
-                const status = member.presence?.status
-                return (presence === PresenceStatus.offline ? status === "offline" || !status : status === presence) && (bots || !member.user.bot)
-            }).size)
+            return this.success(
+                guild?.members.cache.filter((member) => {
+                    const status = member.presence?.status
+                    return (
+                        (presence === PresenceStatus.offline ? status === "offline" || !status : status === presence) &&
+                        (bots || !member.user.bot)
+                    )
+                }).size
+            )
         }
 
-        return this.success(bots ? guild?.memberCount : guild?.members.cache.filter(member => !member.user.bot).size)
+        return this.success(bots ? guild?.memberCount : guild?.members.cache.filter((member) => !member.user.bot).size)
     },
 })

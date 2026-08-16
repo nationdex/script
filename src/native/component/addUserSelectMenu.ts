@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ComponentType, UserSelectMenuBuilder } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
@@ -18,7 +18,7 @@ export default new NativeFunction({
             description: "The custom id for this menu",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "placeholder",
@@ -43,7 +43,7 @@ export default new NativeFunction({
             description: "Whether the menu is disabled by default",
             rest: false,
             required: false,
-            type: ArgType.Boolean
+            type: ArgType.Boolean,
         },
         {
             name: "required",
@@ -52,7 +52,7 @@ export default new NativeFunction({
             type: ArgType.Boolean,
         },
     ],
-    execute(ctx, [ id, placeholder, min, max, disabled, required ]) {
+    execute(ctx, [id, placeholder, min, max, disabled, required]) {
         const menu = new UserSelectMenuBuilder()
             .setDisabled(disabled || false)
             .setRequired(required || false)
@@ -66,5 +66,5 @@ export default new NativeFunction({
         else ctx.container.actionRow?.addComponents(menu)
 
         return this.success()
-    }
+    },
 })

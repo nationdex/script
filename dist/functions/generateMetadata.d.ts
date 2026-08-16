@@ -1,6 +1,6 @@
-import { EnumLike } from "../structures";
-import { Locale } from "discord.js";
+import type { Locale } from "discord.js";
+import { type EnumLike } from "../structures";
 export default function (functionsAbsolutePath: string, mainCategoryName?: string, eventName?: string, warnOnNoOutput?: boolean, expose?: Record<string, EnumLike>, eventsAbsolutePath?: string, 
 /** @deprecated This parameter is no longer being used. */
-translate?: Array<string | Locale>): Promise<void>;
+_translate?: Array<string | Locale>): Promise<void>;
 //# sourceMappingURL=generateMetadata.d.ts.map

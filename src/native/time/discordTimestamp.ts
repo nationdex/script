@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { TimestampStyles, time } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
@@ -18,7 +18,7 @@ export default new NativeFunction({
             description: "The time to turn into timestamp",
             rest: false,
             required: true,
-            type: ArgType.Time
+            type: ArgType.Time,
         },
         {
             name: "style",
@@ -26,11 +26,11 @@ export default new NativeFunction({
             required: true,
             enum: TimestampStyles,
             type: ArgType.Enum,
-            description: "The timestamp style"
-        }
+            description: "The timestamp style",
+        },
     ],
     output: ArgType.String,
-    execute(ctx, [ ms, style ]) {
+    execute(_ctx, [ms, style]) {
         return this.success(time(new Date(ms), style))
     },
 })

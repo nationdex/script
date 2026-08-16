@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -28,11 +28,13 @@ exports.default = new structures_1.NativeFunction({
             description: "The category to set",
             rest: false,
             type: structures_1.ArgType.Channel,
-            check: (i) => i.type === discord_js_1.ChannelType.GuildCategory
+            check: (i) => i.type === discord_js_1.ChannelType.GuildCategory,
         },
     ],
     async execute(ctx, [channel, parent]) {
-        return this.success(!!(await channel.setParent(parent || null, { reason: ctx.reason }).catch(ctx.noop)));
+        return this.success(!!(await channel
+            .setParent(parent || null, { reason: ctx.reason })
+            .catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=setChannelCategory.js.map

@@ -1,19 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import noop from "../../functions/noop"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildLeave",
     version: "1.0.0",
     description: "Leaves a guild",
     brackets: false,
-    aliases: [
-        "$serverLeave"
-    ],
+    aliases: ["$serverLeave"],
     output: ArgType.Boolean,
     args: [
         {

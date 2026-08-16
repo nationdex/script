@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { CDN, GuildMember, ImageExtension, ImageSize } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { CDN, GuildMember, type ImageExtension, type ImageSize } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$memberAvatar",
@@ -46,18 +46,28 @@ export default new NativeFunction({
         const member = user ?? ctx.member ?? ctx.interaction?.member
 
         if (member.avatar) {
-            return this.success(new CDN().guildMemberAvatar(guild?.id ?? ctx.guild?.id ?? ctx.interaction?.guildId, member.user.id, member.avatar, {
-                extension: (ext as ImageExtension) || undefined,
-                size: (size as ImageSize) || 2048,
-            }))
+            return this.success(
+                new CDN().guildMemberAvatar(
+                    guild?.id ?? ctx.guild?.id ?? ctx.interaction?.guildId,
+                    member.user.id,
+                    member.avatar,
+                    {
+                        extension: (ext as ImageExtension) || undefined,
+                        size: (size as ImageSize) || 2048,
+                    }
+                )
+            )
         }
 
-        return this.success(member.user.avatar
-            ? new CDN().avatar(member.user.id, member.user.avatar, {
-                extension: (ext as ImageExtension) || undefined,
-                size: (size as ImageSize) || 2048,
-            })
-            : (member instanceof GuildMember ? member.user.defaultAvatarURL : null)
+        return this.success(
+            member.user.avatar
+                ? new CDN().avatar(member.user.id, member.user.avatar, {
+                      extension: (ext as ImageExtension) || undefined,
+                      size: (size as ImageSize) || 2048,
+                  })
+                : member instanceof GuildMember
+                  ? member.user.defaultAvatarURL
+                  : null
         )
     },
 })

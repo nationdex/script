@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -28,11 +28,13 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     output: structures_1.ArgType.Boolean,
-    async execute(ctx, [guild, ms]) {
-        return this.success((await guild.setIncidentActions({
+    async execute(_ctx, [guild, ms]) {
+        return this.success((await guild
+            .setIncidentActions({
             invitesDisabledUntil: ms ? Date.now() + ms : null,
-            dmsDisabledUntil: guild.incidentsData?.dmsDisabledUntil
-        }).catch(() => false)) !== false);
+            dmsDisabledUntil: guild.incidentsData?.dmsDisabledUntil,
+        })
+            .catch(() => false)) !== false);
     },
 });
 //# sourceMappingURL=setGuildInvitesDisabled.js.map

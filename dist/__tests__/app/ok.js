@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.ApplicationCommand({
@@ -13,7 +13,7 @@ exports.default = new structures_1.ApplicationCommand({
             "es-ES": "evaluar",
         },
         description_localizations: {
-            "es-ES": "Evalua un codigo"
+            "es-ES": "Evalua un codigo",
         },
         description: "Evaluate a code.",
         options: [
@@ -26,12 +26,12 @@ exports.default = new structures_1.ApplicationCommand({
             {
                 type: 5,
                 name: "ephemeral",
-                description: "Make the response ephemeral?"
-            }
-        ]
+                description: "Make the response ephemeral?",
+            },
+        ],
     },
     code: `
     $applicationCommandDisplay
- `
+ `,
 });
 //# sourceMappingURL=ok.js.map

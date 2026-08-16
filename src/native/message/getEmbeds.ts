@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, Embed, EmbedBuilder } from "discord.js"
-import { ArgType, NativeFunction } from "../../structures"
+import { type BaseChannel, type Embed, EmbedBuilder } from "discord.js"
 import { EmbedProperties, EmbedProperty } from "../../properties/embed"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$getEmbeds",
@@ -13,9 +13,7 @@ export default new NativeFunction({
     description: "Retrieves data of an embed, not providing any property returns embed json",
     unwrap: true,
     brackets: false,
-    aliases: [
-        "$getEmbed"
-    ],
+    aliases: ["$getEmbed"],
     args: [
         {
             name: "channel ID",
@@ -52,15 +50,15 @@ export default new NativeFunction({
             name: "field index",
             description: "The index of field to get",
             rest: false,
-            type: ArgType.Number
+            type: ArgType.Number,
         },
     ],
     output: ArgType.Unknown,
     execute(ctx, [, m, index, prop, fieldIndex]) {
         if (typeof index !== "number") {
-            return this.successJSON((m ?? ctx.message)?.embeds.map(x => x.data))
+            return this.successJSON((m ?? ctx.message)?.embeds.map((x) => x.data))
         }
-        
+
         const embed = m.embeds[index] as Embed | undefined
         if (!prop) return this.successJSON(embed)
 

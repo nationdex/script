@@ -1,16 +1,14 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const NativeFunction_1 = require("../../structures/@internal/NativeFunction");
 exports.default = new NativeFunction_1.NativeFunction({
     name: "$env",
     version: "1.0.0",
-    aliases: [
-        "$jsonDump"
-    ],
+    aliases: ["$jsonDump"],
     output: NativeFunction_1.ArgType.Unknown,
     description: "Retrieves an environment value",
     args: [

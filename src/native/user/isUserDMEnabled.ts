@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { DiscordAPIError } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
@@ -19,13 +19,13 @@ export default new NativeFunction({
             description: "The user to test DMs",
             rest: false,
             required: true,
-            type: ArgType.User
-        }
+            type: ArgType.User,
+        },
     ],
     async execute(ctx, [user]) {
         user ??= ctx.user!
         return this.success(
-            !!(await user?.send("").catch((err) => (err instanceof DiscordAPIError && Number(err.code) === 50006)))
+            !!(await user?.send("").catch((err) => err instanceof DiscordAPIError && Number(err.code) === 50006))
         )
     },
 })

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const hex_1 = require("../../functions/hex");
 const structures_1 = require("../../structures");
@@ -19,10 +19,10 @@ exports.default = new structures_1.NativeFunction({
             description: "The hex to convert",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
-    execute(ctx, [hex]) {
+    execute(_ctx, [hex]) {
         return this.success((0, hex_1.hex2int)(hex));
     },
 });

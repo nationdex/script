@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ApplicationEmoji } from "discord.js"
+import type { ApplicationEmoji } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum ApplicationEmojiProperty {
@@ -29,5 +29,5 @@ export const ApplicationEmojiProperties = defineProperties<typeof ApplicationEmo
     url: (i) => i?.imageURL(),
     format: (i) => i?.toString(),
     requiresColons: (i) => i?.requiresColons,
-    timestamp: (i) => i?.createdTimestamp
+    timestamp: (i) => i?.createdTimestamp,
 })

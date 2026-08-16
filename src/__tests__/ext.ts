@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { join } from "node:path"
-import { ForgeClient } from "../core/ForgeClient"
+import type { ForgeClient } from "../core/ForgeClient"
 import { BaseCommandManager } from "../managers"
 import { ForgeExtension } from "../structures/forge/ForgeExtension"
 

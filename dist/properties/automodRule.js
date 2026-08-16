@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -45,7 +45,7 @@ exports.AutomodRuleProperties = (0, defineProperties_1.default)({
     presets: (i, sep) => i?.triggerMetadata.presets.map((x) => discord_js_1.AutoModerationRuleKeywordPresetType[x]).join(sep ?? ", "),
     allowList: (i, sep) => i?.triggerMetadata.allowList.join(sep ?? ", "),
     mentionTotalLimit: (i) => i?.triggerMetadata.mentionTotalLimit,
-    mentionRaidProtectionEnabled: (i) => i?.triggerMetadata.mentionRaidProtectionEnabled
+    mentionRaidProtectionEnabled: (i) => i?.triggerMetadata.mentionRaidProtectionEnabled,
 });
 var AutomodRuleActionProperty;
 (function (AutomodRuleActionProperty) {

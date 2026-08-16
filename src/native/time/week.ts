@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 function getWeekOfMonth(date: Date) {
     const day = date.getDate()
@@ -16,7 +16,11 @@ export default new NativeFunction({
     description: "Returns current week of month",
     unwrap: true,
     output: ArgType.Number,
-    execute: async function(ctx) {
-        return this.success(getWeekOfMonth(new Date(new Date().toLocaleString("en-US", { timeZone: ctx.timezone, calendar: ctx.calendar }))))
-    }
+    execute: async function (ctx) {
+        return this.success(
+            getWeekOfMonth(
+                new Date(new Date().toLocaleString("en-US", { timeZone: ctx.timezone, calendar: ctx.calendar }))
+            )
+        )
+    },
 })

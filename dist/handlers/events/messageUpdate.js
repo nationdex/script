@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -17,7 +17,8 @@ exports.default = new DiscordEventHandler_1.DiscordEventHandler({
     description: "This event is fired when a message is updated",
     listener: async function (old, newer) {
         if (newer instanceof discord_js_1.Message && this.options.respondOnEdit) {
-            if (typeof this.options.respondOnEdit !== "number" || Date.now() - newer.createdTimestamp <= this.options.respondOnEdit) {
+            if (typeof this.options.respondOnEdit !== "number" ||
+                Date.now() - newer.createdTimestamp <= this.options.respondOnEdit) {
                 await messageCreate_1.default.listener.call(this, newer);
             }
         }

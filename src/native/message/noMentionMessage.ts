@@ -1,10 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
-import { Return } from "../../structures/@internal/Return"
 
 const NoMentionRegex = /<(?:@[&!]?|#)\d{16,23}>/g
 

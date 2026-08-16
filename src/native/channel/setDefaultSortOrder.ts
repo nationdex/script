@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, SortOrderType, ThreadOnlyChannel } from "discord.js"
+import { type BaseChannel, SortOrderType, type ThreadOnlyChannel } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -19,24 +19,28 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => i.isThreadOnly()
+            check: (i: BaseChannel) => i.isThreadOnly(),
         },
         {
             name: "layout",
             description: "The new default sort order, leave empty to reset",
             rest: false,
             type: ArgType.Enum,
-            enum: SortOrderType
+            enum: SortOrderType,
         },
         {
             name: "reason",
             description: "The reason for modifying default sort order",
             rest: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     output: ArgType.Boolean,
-    async execute(ctx, [ chan, sortOrder, reason ]) {
-        return this.success(!!(await (chan as ThreadOnlyChannel).setDefaultSortOrder(sortOrder || null, reason || ctx.reason).catch(ctx.noop)))
+    async execute(ctx, [chan, sortOrder, reason]) {
+        return this.success(
+            !!(await (chan as ThreadOnlyChannel)
+                .setDefaultSortOrder(sortOrder || null, reason || ctx.reason)
+                .catch(ctx.noop))
+        )
     },
 })

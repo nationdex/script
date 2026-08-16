@@ -1,19 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import array from "../../functions/array"
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildBannedMembers",
     version: "1.4.0",
     description: "Returns banned member ids of a guild",
-    aliases: [
-        "$serverBannedMembers"
-    ],
+    aliases: ["$serverBannedMembers"],
     unwrap: true,
     brackets: false,
     args: [
@@ -22,19 +19,19 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Guild,
-            description: "The guild to pull banned members from"
+            description: "The guild to pull banned members from",
         },
         {
             name: "separator",
             rest: false,
             type: ArgType.String,
-            description: "The separator for each id"
-        }
+            description: "The separator for each id",
+        },
     ],
     output: array<ArgType.User>(),
-    async execute(ctx, [ g, sep ]) {
+    async execute(ctx, [g, sep]) {
         g ??= ctx.guild!
         const bans = await g?.bans.fetch().catch(ctx.noop)
-        return this.success(bans ? bans.map(x => x.user.id).join(sep ?? ", ") : null)
+        return this.success(bans ? bans.map((x) => x.user.id).join(sep ?? ", ") : null)
     },
 })

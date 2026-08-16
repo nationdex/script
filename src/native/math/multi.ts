@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$multi",
@@ -21,7 +21,7 @@ export default new NativeFunction({
             required: true,
         },
     ],
-    execute(ctx, [numbers]) {
+    execute(_ctx, [numbers]) {
         return this.success(numbers.reduce((x, y) => x * y))
     },
 })

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -26,7 +26,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.AutomodRule,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "name",
@@ -39,35 +39,37 @@ exports.default = new structures_1.NativeFunction({
             description: "The new event type for the automod rule",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: discord_js_1.AutoModerationRuleEventType
+            enum: discord_js_1.AutoModerationRuleEventType,
         },
         {
             name: "enabled",
             description: "Whether the automod rule should be enabled",
             rest: false,
             required: false,
-            type: structures_1.ArgType.Boolean
+            type: structures_1.ArgType.Boolean,
         },
         {
             name: "reason",
             description: "The reason for editing the automod rule",
             rest: false,
             required: false,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
     ],
     output: structures_1.ArgType.Boolean,
     async execute(ctx, [, rule, name, event, enabled, reason]) {
-        const success = await rule.edit({
+        const success = await rule
+            .edit({
             name: name || undefined,
             eventType: event || undefined,
             triggerMetadata: ctx.automodRule.triggerMetadata || undefined,
             actions: ctx.automodRule.actions || undefined,
             exemptRoles: ctx.automodRule.exemptRoles || undefined,
             exemptChannels: ctx.automodRule.exemptChannels || undefined,
-            enabled: typeof (enabled) === "boolean" ? enabled : undefined,
-            reason: reason || ctx.reason
-        }).catch(ctx.noop);
+            enabled: typeof enabled === "boolean" ? enabled : undefined,
+            reason: reason || ctx.reason,
+        })
+            .catch(ctx.noop);
         ctx.clearAutomodRuleOptions();
         return this.success(!!success);
     },

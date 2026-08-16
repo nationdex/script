@@ -1,19 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import array from "../../functions/array"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildNames",
     version: "1.0.0",
     description: "Returns the server names of the bot",
     brackets: false,
-    aliases: [
-        "$serverNames"
-    ],
+    aliases: ["$serverNames"],
     output: array<ArgType.String>(),
     args: [
         {

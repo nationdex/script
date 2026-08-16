@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const webhook_1 = require("../../properties/webhook");
 const structures_1 = require("../../structures");
@@ -25,14 +25,11 @@ exports.default = new structures_1.NativeFunction({
             description: "The property of the webhook to return",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: webhook_1.WebhookProperty
+            enum: webhook_1.WebhookProperty,
         },
     ],
-    output: [
-        structures_1.ArgType.Json,
-        structures_1.ArgType.Unknown
-    ],
-    execute(ctx, [web, prop]) {
+    output: [structures_1.ArgType.Json, structures_1.ArgType.Unknown],
+    execute(_ctx, [web, prop]) {
         if (prop)
             return this.success(webhook_1.WebhookProperties[prop](web));
         return this.successJSON(web);

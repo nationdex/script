@@ -1,13 +1,13 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export enum BasicTimeFormat {
     Numeric = "numeric",
-    TwoDigit = "2-digit"
+    TwoDigit = "2-digit",
 }
 
 export default new NativeFunction({
@@ -22,13 +22,18 @@ export default new NativeFunction({
             description: "The format of the hour",
             rest: false,
             type: ArgType.Enum,
-            enum: BasicTimeFormat
-        }
+            enum: BasicTimeFormat,
+        },
     ],
     output: ArgType.Number,
-    execute: async function(ctx, [format]) {
+    execute: async function (ctx, [format]) {
         format ||= BasicTimeFormat.Numeric
-        const hour = new Date().toLocaleString("en-US", { hour: format, hour12: false, timeZone: ctx.timezone, calendar: ctx.calendar })
+        const hour = new Date().toLocaleString("en-US", {
+            hour: format,
+            hour12: false,
+            timeZone: ctx.timezone,
+            calendar: ctx.calendar,
+        })
         return this.success(format === BasicTimeFormat.Numeric ? parseInt(hour, 10).toString() : hour)
-    }
+    },
 })

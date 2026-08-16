@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 async function asyncSort(array, asyncComparator) {
@@ -10,6 +10,7 @@ async function asyncSort(array, asyncComparator) {
         for (let j = i + 1; j < array.length; j++) {
             const result = await asyncComparator(array[i], array[j]);
             if (result > 0) {
+                ;
                 [array[i], array[j]] = [array[j], array[i]];
             }
         }
@@ -17,7 +18,7 @@ async function asyncSort(array, asyncComparator) {
     return array;
 }
 // Example asynchronous comparison function
-async function asyncCompare(a, b) {
+async function _asyncCompare(a, b) {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(a - b); // Compare numbers
@@ -43,28 +44,28 @@ exports.default = new structures_1.NativeFunction({
             description: "The $env variable 1 to hold x value",
             rest: false,
             type: structures_1.ArgType.String,
-            required: true
+            required: true,
         },
         {
             name: "var2",
             description: "The $env variable 2 to hold y value",
             rest: false,
             type: structures_1.ArgType.String,
-            required: true
+            required: true,
         },
         {
             name: "code",
             description: "Optional code to use for sorting, previous 2 vars must have been given",
             rest: false,
             type: structures_1.ArgType.String,
-            required: true
+            required: true,
         },
         {
             name: "other variable",
             description: "The variable to load result to, leave empty to return output",
             rest: false,
             required: false,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
     ],
     output: structures_1.ArgType.Json,

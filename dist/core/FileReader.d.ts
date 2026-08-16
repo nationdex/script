@@ -1,4 +1,4 @@
-import { BaseCommand, IBaseCommand } from "../structures";
+import { type BaseCommand, type IBaseCommand } from "../structures";
 export declare class FileReader {
     private readonly code;
     private readonly req;

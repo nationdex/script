@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const NativeFunction_1 = require("../../structures/@internal/NativeFunction");
 exports.default = new NativeFunction_1.NativeFunction({
@@ -16,19 +16,19 @@ exports.default = new NativeFunction_1.NativeFunction({
             description: "The variable to stringify",
             required: true,
             type: NativeFunction_1.ArgType.String,
-            rest: false
+            rest: false,
         },
         {
             name: "space",
             description: "The space to use",
             type: NativeFunction_1.ArgType.Number,
-            rest: false
-        }
+            rest: false,
+        },
     ],
     brackets: true,
     unwrap: true,
     execute(ctx, [env, space]) {
         return this.successJSON(JSON.stringify(ctx.getEnvironmentKey(env), undefined, space || undefined));
-    }
+    },
 });
 //# sourceMappingURL=jsonStringify.js.map

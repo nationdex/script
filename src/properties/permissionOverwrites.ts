@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { OverwriteType, PermissionOverwrites } from "discord.js"
+import { OverwriteType, type PermissionOverwrites } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum PermissionOverwritesProperty {
@@ -13,7 +13,10 @@ export enum PermissionOverwritesProperty {
     deny = "deny",
 }
 
-export const PermissionOverwritesProperties = defineProperties<typeof PermissionOverwritesProperty, PermissionOverwrites>({
+export const PermissionOverwritesProperties = defineProperties<
+    typeof PermissionOverwritesProperty,
+    PermissionOverwrites
+>({
     id: (i) => i?.id,
     type: (i) => OverwriteType[i?.type!],
     allow: (i, sep) => i?.allow.toArray().join(sep ?? ", "),

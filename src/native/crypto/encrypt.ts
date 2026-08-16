@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { createCipheriv, scryptSync } from "crypto"
+import { createCipheriv, scryptSync } from "node:crypto"
 import { ArgType, NativeFunction } from "../../structures"
 
 /**
@@ -36,18 +36,18 @@ export default new NativeFunction({
             description: "The text to encrypt",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "key",
             description: "The key to use to encrypt text",
             rest: false,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     unwrap: true,
-    execute(ctx, [ text, key ]) {
+    execute(_ctx, [text, key]) {
         return this.success(encrypt(text, key))
-    }
+    },
 })

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BoldEscapeRegex = void 0;
 const structures_1 = require("../../structures");
@@ -20,17 +20,17 @@ exports.default = new structures_1.NativeFunction({
             description: "The text to make hyperlink",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
         {
             name: "url",
             description: "The url to use for hyperlink",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
-    execute(ctx, [str, url]) {
+    execute(_ctx, [str, url]) {
         return this.success(`[${str}](${url})`);
     },
 });

@@ -1,17 +1,15 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$guildDmSpamDetectedAt",
     version: "2.2.0",
     description: "Returns when a direct message spam was detected on a guild",
-    aliases: [
-        "$serverDmSpamDetectedAt"
-    ],
+    aliases: ["$serverDmSpamDetectedAt"],
     brackets: false,
     unwrap: true,
     args: [

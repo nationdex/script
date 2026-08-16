@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { GuildMFALevel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setGuildMFALevel",
@@ -12,9 +12,7 @@ export default new NativeFunction({
     description: "Sets the MFA level for a guild, returns bool",
     unwrap: true,
     deprecated: true,
-    aliases: [
-        "$setServerMFALevel"
-    ],
+    aliases: ["$setServerMFALevel"],
     output: ArgType.Boolean,
     args: [
         {
@@ -30,7 +28,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Enum,
-            enum: GuildMFALevel
+            enum: GuildMFALevel,
         },
         {
             name: "reason",

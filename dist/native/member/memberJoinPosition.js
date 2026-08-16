@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -32,7 +32,9 @@ exports.default = new structures_1.NativeFunction({
     execute(ctx, [guild, member]) {
         guild ??= ctx.guild;
         member ??= ctx.member;
-        return this.success(guild ? [...guild.members.cache.sort((a, b) => a.joinedTimestamp - b.joinedTimestamp).values()].findIndex(x => x.id === member?.id) + 1 : 0);
+        return this.success(guild
+            ? [...guild.members.cache.sort((a, b) => a.joinedTimestamp - b.joinedTimestamp).values()].findIndex((x) => x.id === member?.id) + 1
+            : 0);
     },
 });
 //# sourceMappingURL=memberJoinPosition.js.map

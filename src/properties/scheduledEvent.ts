@@ -1,9 +1,14 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { GuildScheduledEvent, GuildScheduledEventEntityType, GuildScheduledEventPrivacyLevel, GuildScheduledEventStatus } from "discord.js"
+import {
+    type GuildScheduledEvent,
+    GuildScheduledEventEntityType,
+    GuildScheduledEventPrivacyLevel,
+    GuildScheduledEventStatus,
+} from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum ScheduledEventProperty {
@@ -23,25 +28,25 @@ export enum ScheduledEventProperty {
     location = "location",
     entityType = "entityType",
     privacyLevel = "privacyLevel",
-    status = "status"
+    status = "status",
 }
 
 export const ScheduledEventProperties = defineProperties<typeof ScheduledEventProperty, GuildScheduledEvent>({
-    channelID: i => i?.channelId,
-    guildID: i => i?.guildId,
-    id: i => i?.id,
-    name: i => i?.name,
-    userID: i => i?.creatorId,
-    userCount: i => i?.userCount,
-    description: i => i?.description,
-    startTimestamp: i => i?.scheduledStartTimestamp,
-    endTimestamp: i => i?.scheduledEndTimestamp,
-    timestamp: i => i?.createdTimestamp,
-    url: i => i?.url,
-    cover: i => i?.coverImageURL(),
-    entityID: i => i?.entityId,
-    location: i => i?.entityMetadata?.location,
-    entityType: i => GuildScheduledEventEntityType[i?.entityType!],
-    privacyLevel: i => GuildScheduledEventPrivacyLevel[i?.privacyLevel!],
-    status: i => GuildScheduledEventStatus[i?.status!]
+    channelID: (i) => i?.channelId,
+    guildID: (i) => i?.guildId,
+    id: (i) => i?.id,
+    name: (i) => i?.name,
+    userID: (i) => i?.creatorId,
+    userCount: (i) => i?.userCount,
+    description: (i) => i?.description,
+    startTimestamp: (i) => i?.scheduledStartTimestamp,
+    endTimestamp: (i) => i?.scheduledEndTimestamp,
+    timestamp: (i) => i?.createdTimestamp,
+    url: (i) => i?.url,
+    cover: (i) => i?.coverImageURL(),
+    entityID: (i) => i?.entityId,
+    location: (i) => i?.entityMetadata?.location,
+    entityType: (i) => GuildScheduledEventEntityType[i?.entityType!],
+    privacyLevel: (i) => GuildScheduledEventPrivacyLevel[i?.privacyLevel!],
+    status: (i) => GuildScheduledEventStatus[i?.status!],
 })

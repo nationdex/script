@@ -1,10 +1,10 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const child_process_1 = require("child_process");
+const node_child_process_1 = require("node:child_process");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$exec",
@@ -22,9 +22,9 @@ exports.default = new structures_1.NativeFunction({
             required: true,
         },
     ],
-    async execute(ctx, [command]) {
+    async execute(_ctx, [command]) {
         try {
-            const exec = await (0, child_process_1.execSync)(command, { encoding: "utf-8" });
+            const exec = await (0, node_child_process_1.execSync)(command, { encoding: "utf-8" });
             return this.success(exec);
         }
         catch (error) {

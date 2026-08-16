@@ -1,15 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import {
-    ArgType,
-    IExtendedCompiledFunctionConditionField,
-    IExtendedCompiledFunctionField,
-    NativeFunction,
-    Return,
-} from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$else",
@@ -24,10 +18,10 @@ export default new NativeFunction({
             required: true,
             type: ArgType.String,
             rest: false,
-        }
+        },
     ],
     brackets: true,
-    async execute(ctx, [ arg ]) {
+    async execute(_ctx, [arg]) {
         return this.success(arg)
     },
 })

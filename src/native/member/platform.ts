@@ -1,21 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import array from "../../functions/array"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$platform",
     version: "1.0.0",
     description: "Returns the member platforms",
     brackets: false,
-    aliases: [
-        "$memberPlatforms",
-        "$platforms",
-        "$memberPlatform"
-    ],
+    aliases: ["$memberPlatforms", "$platforms", "$memberPlatform"],
     unwrap: true,
     output: array<ArgType.String>(),
     args: [

@@ -1,4 +1,4 @@
-import { ForgeClient } from "../core/ForgeClient";
+import type { ForgeClient } from "../core/ForgeClient";
 import { BaseCommandManager } from "../managers";
 import { ForgeExtension } from "../structures/forge/ForgeExtension";
 export declare class RndManager extends BaseCommandManager<{}> {

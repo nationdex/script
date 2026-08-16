@@ -1,4 +1,4 @@
-import { APIInteractionGuildMember, GuildMember } from "discord.js";
+import { type APIInteractionGuildMember, GuildMember } from "discord.js";
 export declare enum MemberProperty {
     nickname = "nickname",
     displayName = "displayName",

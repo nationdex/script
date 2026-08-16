@@ -1,19 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$loadChannelContext",
     version: "1.4.0",
-    aliases: [
-        "$useChannelContext",
-        "$asChannelContext"
-    ],
+    aliases: ["$useChannelContext", "$asChannelContext"],
     brackets: true,
-    description: "Loads a channel instance to the current context, this is not reversible and is adviced to use with $scope",
+    description:
+        "Loads a channel instance to the current context, this is not reversible and is adviced to use with $scope",
     unwrap: true,
     args: [
         {
@@ -21,10 +19,10 @@ export default new NativeFunction({
             description: "The channel to adapt context with",
             rest: false,
             required: true,
-            type: ArgType.Channel
-        }
+            type: ArgType.Channel,
+        },
     ],
-    execute(ctx, [ ch ]) {
+    execute(ctx, [ch]) {
         ctx.obj = ch
         return this.success()
     },

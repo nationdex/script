@@ -1,13 +1,20 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, CompiledFunction, Context, IArg, IExtendedCompiledFunctionConditionField, NativeFunction } from ".."
-import { IExtendedCompilationResult, Compiler, Interpreter } from "../../core"
+import { Compiler, type IExtendedCompilationResult, Interpreter } from "../../core"
 import { FunctionManager } from "../../managers"
+import {
+    ArgType,
+    type CompiledFunction,
+    type Context,
+    type IArg,
+    type IExtendedCompiledFunctionConditionField,
+    NativeFunction,
+} from ".."
 import { Return, ReturnType } from "../@internal/Return"
-import { ForgeError, ErrorType } from "./ForgeError"
+import { ErrorType, ForgeError } from "./ForgeError"
 
 export interface IForgeFunctionParam {
     name: string
@@ -31,8 +38,7 @@ export class ForgeFunction {
     public compiled?: IExtendedCompilationResult
 
     public constructor(public readonly data: IForgeFunction) {
-        if (!Array.isArray(data.params))
-            data.params = []
+        if (!Array.isArray(data.params)) data.params = []
     }
 
     public populate() {
@@ -45,30 +51,44 @@ export class ForgeFunction {
             name: `$${this.data.name}`,
             description: "Custom function",
             unwrap: (!!this.data.params?.length && !this.data.firstParamCondition) as any,
-            args: this.data.params?.length ? this.data.params.map((x, i) => ({
-                name: typeof x === "string" ? x : x.name,
-                rest: typeof x === "string" ? false : !!x.rest,
-                condition: i === 0 && !!this.data.firstParamCondition,
-                type: typeof x === "string" ? ArgType.String : (typeof x.type === "number" && x.type in ArgType ? x.type : ArgType[x.type!]) ?? ArgType.String,
-                required: typeof x === "string" ? true : x.required ?? true
-            }) as IArg<ArgType.String>) : undefined,
+            args: this.data.params?.length
+                ? this.data.params.map(
+                      (x, i) =>
+                          ({
+                              name: typeof x === "string" ? x : x.name,
+                              rest: typeof x === "string" ? false : !!x.rest,
+                              condition: i === 0 && !!this.data.firstParamCondition,
+                              type:
+                                  typeof x === "string"
+                                      ? ArgType.String
+                                      : ((typeof x.type === "number" && x.type in ArgType
+                                            ? x.type
+                                            : ArgType[x.type!]) ?? ArgType.String),
+                              required: typeof x === "string" ? true : (x.required ?? true),
+                          }) as IArg<ArgType.String>
+                  )
+                : undefined,
             brackets: this.data.brackets ?? (this.data.params?.length ? true : undefined),
             async execute(ctx, args: string[]) {
                 if (!this.fn.data.unwrap) {
                     if (!this.data.fields || this.data.fields.length === 0) {
                         return outer.call(ctx, this, args ?? [])
                     }
-                    const condition = await this["resolveCondition"](ctx, this.data.fields[0] as IExtendedCompiledFunctionConditionField)
-                    if (!this["isValidReturnType"](condition))
-                        return condition
-                    const params = await this["resolveMultipleArgs"](ctx, ...this.data.fields.slice(1).map((_, i) => i + 1))
-                    if (!this["isValidReturnType"](params.return))
-                        return params.return
+                    const condition = await this["resolveCondition"](
+                        ctx,
+                        this.data.fields[0] as IExtendedCompiledFunctionConditionField
+                    )
+                    if (!this["isValidReturnType"](condition)) return condition
+                    const params = await this["resolveMultipleArgs"](
+                        ctx,
+                        ...this.data.fields.slice(1).map((_, i) => i + 1)
+                    )
+                    if (!this["isValidReturnType"](params.return)) return params.return
                     return outer.call(ctx, this, [condition.value as string, ...params.args])
                 } else {
                     return outer.call(ctx, this, args ?? [])
                 }
-            }
+            },
         })
     }
 
@@ -76,7 +96,7 @@ export class ForgeFunction {
         this.compiled ??= Compiler.compile(this.data.code, this.data.path)
 
         const params = Array.isArray(this.data.params) ? this.data.params : []
-        const required = params.filter(param => typeof param === "string" || param.required !== false)
+        const required = params.filter((param) => typeof param === "string" || param.required !== false)
 
         if (args.length < required.length)
             return new Return(
@@ -91,7 +111,7 @@ export class ForgeFunction {
         const functionCtx = ctx.clone({
             doNotSend: true,
             allowTopLevelReturn: true,
-            data: this.compiled
+            data: this.compiled,
         })
 
         for (let i = 0, len = params.length; i < len; i++) {

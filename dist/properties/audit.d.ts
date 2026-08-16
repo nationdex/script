@@ -1,4 +1,4 @@
-import { AuditLogEvent, GuildAuditLogsEntry } from "discord.js";
+import { AuditLogEvent, type GuildAuditLogsEntry } from "discord.js";
 export declare enum AuditProperty {
     id = "id",
     targetID = "targetID",
@@ -11,5 +11,5 @@ export declare enum AuditProperty {
     changes = "changes",
     extra = "extra"
 }
-export declare const AuditProperties: import("..").Properties<typeof AuditProperty, GuildAuditLogsEntry<AuditLogEvent, "Update" | "Create" | "Delete" | "All", "Unknown" | "User" | "Guild" | "Invite" | "Emoji" | "Message" | "Channel" | "Role" | "Webhook" | "Sticker" | "StageInstance" | "SoundboardSound" | "Integration" | "GuildScheduledEvent" | "Thread" | "ApplicationCommand" | "AutoModeration" | "GuildOnboardingPrompt" | "GuildOnboarding">>;
+export declare const AuditProperties: import("..").Properties<typeof AuditProperty, GuildAuditLogsEntry<AuditLogEvent, "Update" | "Create" | "Delete" | "All", "Guild" | "Channel" | "User" | "Role" | "Invite" | "Webhook" | "Emoji" | "Message" | "Integration" | "StageInstance" | "Sticker" | "GuildScheduledEvent" | "Thread" | "ApplicationCommand" | "SoundboardSound" | "AutoModeration" | "GuildOnboardingPrompt" | "GuildOnboarding" | "Unknown">>;
 //# sourceMappingURL=audit.d.ts.map

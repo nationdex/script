@@ -1,4 +1,4 @@
-import { Role } from "discord.js";
+import type { Role } from "discord.js";
 export declare enum RoleProperty {
     id = "id",
     name = "name",

@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { PollLayoutType } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
@@ -17,39 +17,39 @@ export default new NativeFunction({
             description: "The poll question",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "duration",
             description: "The poll's duration",
             rest: false,
             required: true,
-            type: ArgType.Time
+            type: ArgType.Time,
         },
         {
             name: "multiselect",
             description: "Whether to allow multi select",
             rest: false,
-            type: ArgType.Boolean
+            type: ArgType.Boolean,
         },
         {
             name: "layout",
             description: "The layout for this poll",
             rest: false,
             enum: PollLayoutType,
-            type: ArgType.Enum
+            type: ArgType.Enum,
         },
     ],
     unwrap: true,
-    execute(ctx, [ q, dur, multi, layout ]) {
+    execute(ctx, [q, dur, multi, layout]) {
         ctx.container.poll = {
             answers: [],
             allowMultiselect: multi || false,
             duration: dur / 1000 / 60 / 60,
             question: { text: q },
-            layoutType: layout || undefined
+            layoutType: layout || undefined,
         }
 
         return this.success()
-    }
+    },
 })

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -66,15 +66,17 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Boolean,
     async execute(ctx, [, role, name, color, icon, hoist, mentionable, perms]) {
-        const edit = await role.edit({
+        const edit = await role
+            .edit({
             colors: !color ? undefined : { primaryColor: color },
-            mentionable: typeof (mentionable) === "boolean" ? mentionable : undefined,
-            hoist: typeof (hoist) === "boolean" ? hoist : undefined,
+            mentionable: typeof mentionable === "boolean" ? mentionable : undefined,
+            hoist: typeof hoist === "boolean" ? hoist : undefined,
             name: name || undefined,
             icon: icon || undefined,
             permissions: perms?.length ? perms : undefined,
-            reason: ctx.reason
-        }).catch(ctx.noop);
+            reason: ctx.reason,
+        })
+            .catch(ctx.noop);
         return this.success(!!edit);
     },
 });

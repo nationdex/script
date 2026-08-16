@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -17,15 +17,15 @@ export default new NativeFunction({
             description: "The code to run",
             rest: false,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     brackets: true,
     async execute(ctx) {
         const code = this.displayField(0)!
         return this.success(
             await ctx.client.threading.run({
-                code
+                code,
             })
         )
     },

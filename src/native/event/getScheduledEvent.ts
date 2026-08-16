@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
 import { ScheduledEventProperties, ScheduledEventProperty } from "../../properties/scheduledEvent"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$getScheduledEvent",
@@ -33,14 +33,11 @@ export default new NativeFunction({
             description: "The property of the scheduled event to return",
             rest: false,
             type: ArgType.Enum,
-            enum: ScheduledEventProperty
+            enum: ScheduledEventProperty,
         },
     ],
-    output: [
-        ArgType.Json,
-        ArgType.Unknown
-    ],
-    execute(ctx, [, event, prop]) {
+    output: [ArgType.Json, ArgType.Unknown],
+    execute(_ctx, [, event, prop]) {
         if (prop) return this.success(ScheduledEventProperties[prop](event))
         return this.successJSON(event)
     },

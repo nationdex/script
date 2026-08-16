@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { Collection } from "discord.js"
 import { Interpreter } from "../../core"
@@ -13,7 +13,7 @@ export default new DiscordEventHandler({
     description: "This event is fired when a row of messages is deleted",
     listener: async function (ch, channel) {
         const commands = this.commands.get("messageDeleteBulk")
-        const asArray = ch instanceof Collection ? Array.from(ch.values()) : [ ch ]
+        const asArray = ch instanceof Collection ? Array.from(ch.values()) : [ch]
 
         for (const command of commands) {
             Interpreter.run({
@@ -22,7 +22,7 @@ export default new DiscordEventHandler({
                 client: this,
                 states: {
                     bulk: {
-                        new: asArray
+                        new: asArray,
                     },
                 },
                 data: command.compiled.code,

@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
+import { ArgType, type IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$escapeCode",
@@ -11,20 +11,18 @@ export default new NativeFunction({
     description: "Code inside this function will not be executed",
     unwrap: false,
     brackets: true,
-    aliases: [
-        "$esc"
-    ],
+    aliases: ["$esc"],
     args: [
         {
             name: "code",
             description: "The code to ignore",
             type: ArgType.String,
             required: true,
-            rest: false
-        }
+            rest: false,
+        },
     ],
     output: ArgType.String,
-    execute(ctx) {
+    execute(_ctx) {
         const code = this.data.fields![0] as IExtendedCompiledFunctionField
         return this.success(code.rawValue)
     },

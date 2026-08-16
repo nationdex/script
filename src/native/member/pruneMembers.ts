@@ -1,17 +1,14 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$pruneMembers",
     version: "1.5.0",
-    aliases: [
-        "$prune",
-        "$membersPrune"
-    ],
+    aliases: ["$prune", "$membersPrune"],
     description: "Prunes inactive members from the guild, returns number of kicked members",
     unwrap: true,
     brackets: true,
@@ -49,16 +46,17 @@ export default new NativeFunction({
             type: ArgType.Role,
         },
     ],
-    async execute(ctx, [ guild, days, dry, reason, roles ]) {
+    async execute(ctx, [guild, days, dry, reason, roles]) {
         return this.success(
-            (await guild.members
+            await guild.members
                 .prune({
                     count: true,
                     days: days || 7,
                     dry: dry || false,
                     roles: roles,
                     reason: reason || ctx.reason,
-                }).catch(ctx.noop))
+                })
+                .catch(ctx.noop)
         )
     },
 })

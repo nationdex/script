@@ -1,12 +1,12 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const core_1 = require("../core");
-const dotenv_1 = require("dotenv");
 const discord_js_1 = require("discord.js");
+const dotenv_1 = require("dotenv");
+const core_1 = require("../core");
 const Logger_1 = require("../structures/@internal/Logger");
 const ext_1 = require("./ext");
 (0, dotenv_1.config)();
@@ -47,7 +47,7 @@ console.log("Started");
 client.commands.add({
     type: discord_js_1.Events.MessageReactionAdd,
     code: `
-$log[$getEmbeds[$channelID;$messageID]]`
+$log[$getEmbeds[$channelID;$messageID]]`,
 });
 client.commands.add({
     type: "webhooksUpdate",
@@ -72,7 +72,7 @@ client.commands.add({
     code: `
     $log[hello $channelID | $messageID]
     $editButtonOf[$channelID;$messageID;yes;;;Danger;;true]
-    `
+    `,
 });
 client.commands.add({
     type: "messageCreate",
@@ -81,7 +81,7 @@ client.commands.add({
     $addActionRow
     $addButton[yes;yes;Primary]
     Click
-    `
+    `,
 });
 client.commands.add({
     type: "interactionCreate",
@@ -90,7 +90,7 @@ client.commands.add({
     $modal[yes;owa]
     $addTextInput[owa;owa;Short;true]
     $showModal
-    `
+    `,
 });
 client.commands.add({
     type: "messageCreate",

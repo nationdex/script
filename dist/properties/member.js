@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -40,10 +40,10 @@ var MemberProperty;
     MemberProperty["avatarDecoration"] = "avatarDecoration";
 })(MemberProperty || (exports.MemberProperty = MemberProperty = {}));
 exports.MemberProperties = (0, defineProperties_1.default)({
-    timestamp: (i) => i instanceof discord_js_1.GuildMember ? i?.joinedTimestamp : (i?.joined_at ? new Date(i.joined_at).getTime() : null),
+    timestamp: (i) => i instanceof discord_js_1.GuildMember ? i?.joinedTimestamp : i?.joined_at ? new Date(i.joined_at).getTime() : null,
     displayColor: (i) => i?.displayHexColor,
-    mention: (i) => i?.user ? (0, discord_js_1.userMention)(i.user.id) : null,
-    displayName: (i) => i instanceof discord_js_1.GuildMember ? i?.displayName : i?.nick,
+    mention: (i) => (i?.user ? (0, discord_js_1.userMention)(i.user.id) : null),
+    displayName: (i) => (i instanceof discord_js_1.GuildMember ? i?.displayName : i?.nick),
     // Assuming m is old state
     addedRoles: (m, sep) => {
         if (!(m && "guild" in m))
@@ -65,9 +65,17 @@ exports.MemberProperties = (0, defineProperties_1.default)({
             .join(sep ?? ", ");
     },
     roleCount: (i) => (i instanceof discord_js_1.GuildMember ? i?.roles.cache.size : i?.roles.length) ?? 0,
-    avatar: (i) => i instanceof discord_js_1.GuildMember ? i.displayAvatarURL() : (i?.user && (i?.avatar ?? i.user.avatar) ? new discord_js_1.CDN().avatar(i.user.id, i.avatar ?? i.user.avatar) : null),
-    banner: (i) => i instanceof discord_js_1.GuildMember ? i.displayBannerURL() : (i?.user && (i?.banner ?? i.user.banner) ? new discord_js_1.CDN().banner(i.user.id, i.banner ?? i.user.banner) : null),
-    nickname: (i) => i instanceof discord_js_1.GuildMember ? i?.nickname : i?.nick,
+    avatar: (i) => i instanceof discord_js_1.GuildMember
+        ? i.displayAvatarURL()
+        : i?.user && (i?.avatar ?? i.user.avatar)
+            ? new discord_js_1.CDN().avatar(i.user.id, i.avatar ?? i.user.avatar)
+            : null,
+    banner: (i) => i instanceof discord_js_1.GuildMember
+        ? i.displayBannerURL()
+        : i?.user && (i?.banner ?? i.user.banner)
+            ? new discord_js_1.CDN().banner(i.user.id, i.banner ?? i.user.banner)
+            : null,
+    nickname: (i) => (i instanceof discord_js_1.GuildMember ? i?.nickname : i?.nick),
     roles: (i, sep) => (i instanceof discord_js_1.GuildMember ? i?.roles.cache.map((x) => x.id) : i?.roles)?.join(sep || ", "),
     flags: (i, sep) => new discord_js_1.GuildMemberFlagsBitField(i?.flags).toArray().join(sep || ", "),
     permissions: (i, sep) => new discord_js_1.PermissionsBitField(i?.permissions).toArray().join(sep || ", "),
@@ -77,12 +85,26 @@ exports.MemberProperties = (0, defineProperties_1.default)({
     moderatable: (i) => i?.moderatable ?? false,
     id: (i) => i?.user?.id,
     guildID: (i) => i?.guild?.id,
-    timedOutUntil: (i) => i instanceof discord_js_1.GuildMember ? (i?.isCommunicationDisabled() ? i.communicationDisabledUntil.getTime() : 0) : (i?.communication_disabled_until ? new Date(i.communication_disabled_until).getTime() : 0),
+    timedOutUntil: (i) => i instanceof discord_js_1.GuildMember
+        ? i?.isCommunicationDisabled()
+            ? i.communicationDisabledUntil.getTime()
+            : 0
+        : i?.communication_disabled_until
+            ? new Date(i.communication_disabled_until).getTime()
+            : 0,
     timeout: (i) => i instanceof discord_js_1.GuildMember ? (i?.isCommunicationDisabled() ?? false) : !!i?.communication_disabled_until,
     status: (i) => i?.presence?.status,
     platform: (i, sep) => Object.keys(i?.presence?.clientStatus ?? {}).join(sep || ", "),
     boosting: (i) => (i instanceof discord_js_1.GuildMember ? i?.premiumSinceTimestamp : i?.premium_since) != null,
-    boostingSince: (i) => i instanceof discord_js_1.GuildMember ? i?.premiumSinceTimestamp ?? 0 : (i?.premium_since ? new Date(i.premium_since).getTime() : 0),
-    avatarDecoration: (i) => i instanceof discord_js_1.GuildMember ? i.avatarDecorationURL() : (i?.avatar_decoration_data ? new discord_js_1.CDN().avatarDecoration(i.avatar_decoration_data.asset) : null),
+    boostingSince: (i) => i instanceof discord_js_1.GuildMember
+        ? (i?.premiumSinceTimestamp ?? 0)
+        : i?.premium_since
+            ? new Date(i.premium_since).getTime()
+            : 0,
+    avatarDecoration: (i) => i instanceof discord_js_1.GuildMember
+        ? i.avatarDecorationURL()
+        : i?.avatar_decoration_data
+            ? new discord_js_1.CDN().avatarDecoration(i.avatar_decoration_data.asset)
+            : null,
 });
 //# sourceMappingURL=member.js.map

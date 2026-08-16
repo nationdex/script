@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { readFileSync } from "fs"
-import { BaseCommand, ErrorType, ForgeError, IBaseCommand } from "../structures"
+import { readFileSync } from "node:fs"
+import { type BaseCommand, ErrorType, ForgeError, type IBaseCommand } from "../structures"
 
 export class FileReader {
     public static readonly Syntax = {
@@ -15,7 +15,10 @@ export class FileReader {
 
     private index = 0
 
-    public constructor(private readonly code: string, private readonly req: any) {}
+    public constructor(
+        private readonly code: string,
+        private readonly req: any
+    ) {}
 
     public static read(fsPath: string, reqPath: string) {
         const str = readFileSync(fsPath, "utf-8")
@@ -46,8 +49,8 @@ export class FileReader {
     private parseProperty(obj: Record<string, unknown>) {
         if (this.char() === FileReader.Syntax.Escape || this.char() !== FileReader.Syntax.Open) return
 
-        let propName = this.readName()
-        let propValue = this.readValue()
+        const propName = this.readName()
+        const propValue = this.readValue()
 
         obj[propName] = propValue
     }
@@ -101,7 +104,8 @@ export class FileReader {
             this.index++
         }
 
-        if (!closed) throw new ForgeError(null, ErrorType.CompilerError, "Property is missing closure brace", 0, 0, undefined)
+        if (!closed)
+            throw new ForgeError(null, ErrorType.CompilerError, "Property is missing closure brace", 0, 0, undefined)
 
         this.index++
 

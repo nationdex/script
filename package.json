@@ -1,64 +1,65 @@
 {
-  "name": "@tryforge/forgescript",
-  "version": "2.7.0",
-  "description": "ForgeScript is a comprehensive package that empowers you to effortlessly interact with Discord's API. It ensures scripting remains easy to learn and consistently effective.",
-  "types": "dist/index.d.ts",
-  "main": "dist/index.js",
-  "scripts": {
-    "prepublishOnly": "tsc",
-    "build": "tsc -p tsconfig.build.json && node dist/@build/license && tsc -p tsconfig.json",
-    "docgen": "npm run build && typedoc ./src --out ./docs && node dist/docgen",
-    "eslint": "eslint ./src/**/*.ts --fix",
-    "commit": "npm run docgen && node dist/@build/commit",
-    "test": "npm run build && node dist/__tests__/runner"
-  },
-  "keywords": [
-    "bdfd",
-    "aoi.js",
-    "aoi",
-    "dbd",
-    "dbd.ts",
-    "dbd.js",
-    "easy",
-    "fast",
-    "efficient",
-    "bdscript",
-    "tryforge",
-    "forgescript",
-    "discord",
-    "discord-api",
-    "discord-bot",
-    "api",
-    "bot"
-  ],
-  "author": "ruben40000",
-  "contributors": [],
-  "license": "LGPL-3.0-or-later",
-  "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "@types/cli-color": "^2.0.6",
-    "@types/express": "^5.0.6",
-    "@types/lodash": "^4.14.198",
-    "@types/node": "^26.1.1",
-    "@typescript-eslint/eslint-plugin": "^8.58.2",
-    "@typescript-eslint/parser": "^8.58.2",
-    "dotenv": "^17.4.2",
-    "eslint": "^10.2.0",
-    "eslint-config-prettier": "^10.1.8",
-    "express": "^5.2.1",
-    "globals": "^17.5.0",
-    "prettier": "^3.8.3",
-    "typedoc": "^0.28.19",
-    "typescript": "^6.0.2"
-  },
-  "dependencies": {
-    "chalk": "^5.6.2",
-    "discord.js": "^14.27.0",
-    "ms-utility": "^3.3.0",
-    "tiny-typed-emitter": "^2.1.0",
-    "undici": "^7.25.0"
-  },
-  "engines": {
-    "node": ">=16.11.0"
-  }
+    "name": "@nationdex/script",
+    "version": "2.7.0",
+    "description": "ForgeScript is a comprehensive package that empowers you to effortlessly interact with Discord's API. It ensures scripting remains easy to learn and consistently effective.",
+    "types": "dist/index.d.ts",
+    "main": "dist/index.js",
+    "scripts": {
+        "prepublishOnly": "tsc",
+        "build": "tsc -p tsconfig.build.json && node dist/@build/license && tsc -p tsconfig.json",
+        "docgen": "npm run build && typedoc ./src --out ./docs && node dist/docgen",
+        "lint": "biome lint ./src",
+        "format": "biome format --write ./src",
+        "check": "biome ci ./src",
+        "commit": "npm run docgen && node dist/@build/commit",
+        "test": "npm run build && node dist/__tests__/runner"
+    },
+    "keywords": [
+        "bdfd",
+        "aoi.js",
+        "aoi",
+        "dbd",
+        "dbd.ts",
+        "dbd.js",
+        "easy",
+        "fast",
+        "efficient",
+        "bdscript",
+        "tryforge",
+        "forgescript",
+        "nationdex",
+        "script",
+        "discord",
+        "discord-api",
+        "discord-bot",
+        "api",
+        "bot"
+    ],
+    "author": "ruben40000",
+    "contributors": [],
+    "license": "LGPL-3.0-or-later",
+    "devDependencies": {
+        "@biomejs/biome": "^2.5.8",
+        "@types/cli-color": "^2.0.6",
+        "@types/express": "^5.0.6",
+        "@types/lodash": "^4.14.198",
+        "@types/node": "^26.1.1",
+        "dotenv": "^17.4.2",
+        "express": "^5.2.1",
+        "typedoc": "^0.28.19",
+        "typescript": "^6.0.2"
+    },
+    "dependencies": {
+        "chalk": "^5.6.2",
+        "discord.js": "^14.27.0",
+        "ms-utility": "^3.3.0",
+        "tiny-typed-emitter": "^2.1.0",
+        "undici": "^7.25.0"
+    },
+    "engines": {
+        "node": ">=16.11.0"
+    },
+    "pnpm": {
+        "shamefullyHoist": true
+    }
 }

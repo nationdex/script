@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -45,7 +45,7 @@ exports.default = new structures_1.NativeFunction({
             mentionable: role.mentionable,
             permissions: role.permissions,
             unicodeEmoji: role.unicodeEmoji,
-            reason: ctx.reason
+            reason: ctx.reason,
         })
             .catch(ctx.noop);
         return this.success(created ? created.id : undefined);

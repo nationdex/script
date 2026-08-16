@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { APIInteractionGuildMember, GuildMember } from "discord.js"
+import { type APIInteractionGuildMember, GuildMember } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -12,9 +12,7 @@ export default new NativeFunction({
     description: "Returns whether a member is timed out",
     unwrap: true,
     brackets: false,
-    aliases: [
-        "$memberIsTimedOut"
-    ],
+    aliases: ["$memberIsTimedOut"],
     output: ArgType.Boolean,
     args: [
         {
@@ -37,7 +35,7 @@ export default new NativeFunction({
         const member = user ?? ctx.member ?? ctx.interaction?.member
         return this.success(
             member instanceof GuildMember
-                ? member?.isCommunicationDisabled() ?? false
+                ? (member?.isCommunicationDisabled() ?? false)
                 : !!(ctx.interaction?.member as APIInteractionGuildMember)?.communication_disabled_until
         )
     },

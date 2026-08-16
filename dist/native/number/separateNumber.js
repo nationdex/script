@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NoNumberRegex = void 0;
 const structures_1 = require("../../structures");
@@ -29,7 +29,7 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     brackets: true,
-    execute(ctx, [n, sep]) {
+    execute(_ctx, [n, sep]) {
         const t = n.toLocaleString();
         return this.success(sep ? t.replaceAll(exports.NoNumberRegex, sep) : t);
     },

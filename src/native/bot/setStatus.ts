@@ -1,20 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ActivityType, PresenceStatusData } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ActivityType, type PresenceStatusData } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setStatus",
     version: "1.0.0",
     description: "Sets the client's status",
     unwrap: true,
-    aliases: [
-        "$setBotStatus",
-        "$setClientStatus"
-    ],
+    aliases: ["$setBotStatus", "$setClientStatus"],
     args: [
         {
             name: "presence",

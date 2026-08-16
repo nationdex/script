@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { Invite, InviteTargetType, InviteType } from "discord.js"
+import { type Invite, InviteTargetType, InviteType } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum InviteProperty {
@@ -43,5 +43,5 @@ export const InviteProperties = defineProperties<typeof InviteProperty, Invite>(
     memberCount: (i) => i?.memberCount,
     presenceCount: (i) => i?.presenceCount,
     targetType: (i) => InviteTargetType[i?.targetType!],
-    targetUser: (i) => i?.targetUser?.id
+    targetUser: (i) => i?.targetUser?.id,
 })

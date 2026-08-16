@@ -1,21 +1,19 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const structures_1 = require("../../structures");
 const embed_1 = require("../../properties/embed");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$getEmbeds",
     version: "1.0.3",
     description: "Retrieves data of an embed, not providing any property returns embed json",
     unwrap: true,
     brackets: false,
-    aliases: [
-        "$getEmbed"
-    ],
+    aliases: ["$getEmbed"],
     args: [
         {
             name: "channel ID",
@@ -52,13 +50,13 @@ exports.default = new structures_1.NativeFunction({
             name: "field index",
             description: "The index of field to get",
             rest: false,
-            type: structures_1.ArgType.Number
+            type: structures_1.ArgType.Number,
         },
     ],
     output: structures_1.ArgType.Unknown,
     execute(ctx, [, m, index, prop, fieldIndex]) {
         if (typeof index !== "number") {
-            return this.successJSON((m ?? ctx.message)?.embeds.map(x => x.data));
+            return this.successJSON((m ?? ctx.message)?.embeds.map((x) => x.data));
         }
         const embed = m.embeds[index];
         if (!prop)

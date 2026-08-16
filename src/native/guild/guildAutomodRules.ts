@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
-import { AutomodRuleProperty, AutomodRuleProperties } from "../../properties/automodRule"
 import array from "../../functions/array"
+import { AutomodRuleProperties, AutomodRuleProperty } from "../../properties/automodRule"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildAutomodRules",
@@ -27,7 +27,7 @@ export default new NativeFunction({
             description: "The property of each automod rule to return",
             rest: false,
             type: ArgType.Enum,
-            enum: AutomodRuleProperty
+            enum: AutomodRuleProperty,
         },
         {
             name: "separator",
@@ -36,16 +36,15 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    output: [
-        ArgType.Json,
-        array<ArgType.Unknown>()
-    ],
-    async execute(ctx, [ guild, prop, sep ]) {
+    output: [ArgType.Json, array<ArgType.Unknown>()],
+    async execute(ctx, [guild, prop, sep]) {
         const rules = await (guild ?? ctx.guild)?.autoModerationRules?.fetch().catch(ctx.noop)
 
         if (rules && prop) {
-            const data = rules.map(rule => AutomodRuleProperties[prop](rule, sep))
-            return this.successJSON(data.every(item => typeof item === "object" && item !== null) ? data : data.join(sep ?? ", "))
+            const data = rules.map((rule) => AutomodRuleProperties[prop](rule, sep))
+            return this.successJSON(
+                data.every((item) => typeof item === "object" && item !== null) ? data : data.join(sep ?? ", ")
+            )
         }
 
         return this.successJSON(rules)

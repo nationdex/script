@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import isTrue from "../../functions/isTrue"
-import { ArgType, IExtendedCompiledFunctionConditionField, NativeFunction } from "../../structures"
+import { ArgType, type IExtendedCompiledFunctionConditionField, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$arrayFind",
@@ -43,7 +43,7 @@ export default new NativeFunction({
 
         const { args, return: rt } = await this["resolveMultipleArgs"](ctx, 0, 1)
         if (!this["isValidReturnType"](rt)) return rt
-        const [ name, varName ] = args
+        const [name, varName] = args
 
         const arr = ctx.getEnvironmentKey(name)
         if (!Array.isArray(arr)) return this.success()

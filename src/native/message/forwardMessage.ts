@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, ChannelType, PartialGroupDMChannel, TextBasedChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { type BaseChannel, ChannelType, type PartialGroupDMChannel, type TextBasedChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$forwardMessage",
@@ -27,7 +27,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Message,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "channel ID",
@@ -39,6 +39,10 @@ export default new NativeFunction({
     ],
     output: ArgType.Boolean,
     async execute(ctx, [, message, channel]) {
-        return this.success(!!(await message.forward((channel ?? ctx.channel) as Exclude<TextBasedChannel, PartialGroupDMChannel>).catch(ctx.noop)))
+        return this.success(
+            !!(await message
+                .forward((channel ?? ctx.channel) as Exclude<TextBasedChannel, PartialGroupDMChannel>)
+                .catch(ctx.noop))
+        )
     },
 })

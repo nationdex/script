@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, TextChannel } from "discord.js"
-import { ArgType, CompiledFunction, NativeFunction, Return } from "../../structures"
+import type { BaseChannel, TextChannel } from "discord.js"
+import { ArgType, CompiledFunction, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$messageExists",
@@ -30,9 +30,10 @@ export default new NativeFunction({
             required: true,
         },
     ],
-    async execute(ctx, [ch, id]) {
+    async execute(_ctx, [ch, id]) {
         return this.success(
-            CompiledFunction.IdRegex.test(id) && (await (ch as TextChannel).messages.fetch(id).catch(() => false)) !== false
+            CompiledFunction.IdRegex.test(id) &&
+                (await (ch as TextChannel).messages.fetch(id).catch(() => false)) !== false
         )
     },
 })

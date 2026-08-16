@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, ThreadOnlyChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel, ThreadOnlyChannel } from "discord.js"
 import { parseSingleEmoji } from "../../functions/parseSingleEmoji"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$editForumTag",
@@ -28,7 +28,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.ForumTag,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "name",
@@ -47,10 +47,10 @@ export default new NativeFunction({
             description: "Whether the tag can only be applied by mods",
             rest: false,
             type: ArgType.Boolean,
-        }
+        },
     ],
     output: ArgType.Boolean,
-    async execute(ctx, [ channel, tag, name, emoji, mod ]) {
+    async execute(ctx, [channel, tag, name, emoji, mod]) {
         const forum = channel as ThreadOnlyChannel
         const tags = forum.availableTags
         const index = tags.findIndex((x) => x.id === tag.id)

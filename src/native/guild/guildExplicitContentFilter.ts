@@ -1,19 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { GuildDefaultMessageNotifications, GuildExplicitContentFilter } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { GuildExplicitContentFilter } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildExplicitContentFilter",
     version: "1.3.0",
     description: "Returns the explicit content filter level for this guild",
     brackets: false,
-    aliases: [
-        "$serverExplicitContentFilter"
-    ],
+    aliases: ["$serverExplicitContentFilter"],
     output: GuildExplicitContentFilter,
     args: [
         {

@@ -1,5 +1,5 @@
-import { ArgType, CompiledFunction, Context, IArg, NativeFunction } from "..";
-import { IExtendedCompilationResult } from "../../core";
+import { type IExtendedCompilationResult } from "../../core";
+import { ArgType, type CompiledFunction, type Context, type IArg, NativeFunction } from "..";
 import { Return, ReturnType } from "../@internal/Return";
 export interface IForgeFunctionParam {
     name: string;

@@ -1,11 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ActionRow, ActionRowBuilder, ButtonBuilder, ButtonStyle, MessageActionRowComponent } from "discord.js"
-import { ArgType, NativeFunction } from "../../structures"
+import {
+    type ActionRow,
+    ActionRowBuilder,
+    type ButtonBuilder,
+    ButtonStyle,
+    type MessageActionRowComponent,
+} from "discord.js"
 import { resolveNumericEnum } from "../../functions/enum"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$editButtonOf",
@@ -19,7 +25,7 @@ export default new NativeFunction({
             description: "The channel id to pull message from",
             rest: false,
             required: true,
-            type: ArgType.TextChannel
+            type: ArgType.TextChannel,
         },
         {
             name: "message ID",
@@ -27,7 +33,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Message,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "custom ID",
@@ -71,7 +77,7 @@ export default new NativeFunction({
     ],
     output: ArgType.Boolean,
     async execute(ctx, [, m, oldId, id, label, style, emoji, disabled]) {
-        const components = m.components.map(x => ActionRowBuilder.from(x as ActionRow<MessageActionRowComponent>))
+        const components = m.components.map((x) => ActionRowBuilder.from(x as ActionRow<MessageActionRowComponent>))
 
         const rowIndex = components.findIndex((x) =>
             x.components.some((x) => "custom_id" in x.data && x.data.custom_id === oldId)
@@ -83,7 +89,7 @@ export default new NativeFunction({
         ) as ButtonBuilder
 
         if (!btn) return this.success()
-        style = (style ? resolveNumericEnum(ButtonStyle, style) : btn.data.style)
+        style = style ? resolveNumericEnum(ButtonStyle, style) : btn.data.style
 
         if (label) btn.setLabel(label)
         if (style) btn.setStyle(style)

@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$memberLowestRoleID",
@@ -32,7 +32,10 @@ export default new NativeFunction({
     execute(ctx, [guild, member]) {
         guild ??= ctx.guild!
         member ??= ctx.member!
-        const lowest = member?.roles.cache.filter(role => role.id !== guild?.id).sort((a, b) => a.position - b.position).first()
+        const lowest = member?.roles.cache
+            .filter((role) => role.id !== guild?.id)
+            .sort((a, b) => a.position - b.position)
+            .first()
 
         return this.success(lowest?.id ?? guild?.id)
     },

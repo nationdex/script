@@ -1,25 +1,22 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import {
-    ClientEvents,
+    type ClientEvents,
     Collection,
-    Events,
-    GatewayIntentBits,
-    GatewayIntentsString,
-    Guild,
-    GuildMember,
-    Invite,
-    PartialGuildMember,
+    type GatewayIntentsString,
+    type Guild,
+    type GuildMember,
+    type Invite,
+    type PartialGuildMember,
 } from "discord.js"
+import type { ForgeClient } from "../../core"
 import noop from "../../functions/noop"
-import { ForgeClient } from "../../core"
-import { ErrorType, ForgeError } from "../forge/ForgeError"
-import { setTimeout } from "timers/promises"
 import { NativeEventName } from "../../managers"
 import { Logger } from "../@internal/Logger"
+import { ErrorType, ForgeError } from "../forge/ForgeError"
 
 export interface IGuildInviter {
     inviterId: string
@@ -57,10 +54,10 @@ export class InviteTracker {
             throw new ForgeError(
                 null,
                 ErrorType.Custom,
-                `The next intents must be enabled: ${this.RequiredIntents.join(", ")}`
+                `The next intents must be enabled: ${InviteTracker.RequiredIntents.join(", ")}`
             )
 
-        client.events.load(NativeEventName, this.RequiredEvents)
+        client.events.load(NativeEventName, InviteTracker.RequiredEvents)
         Logger.warn("The Invite Tracker is still beta, correct functionality is not guaranteed")
     }
 
@@ -69,25 +66,25 @@ export class InviteTracker {
     }
 
     public static uncache(guild: Guild) {
-        this.Invites.delete(guild.id)
-        this.Inviters.delete(guild.id)
+        InviteTracker.Invites.delete(guild.id)
+        InviteTracker.Inviters.delete(guild.id)
     }
 
     public static async cacheAll(client: ForgeClient) {
         for (const [, guild] of client.guilds.cache) {
-            await this.cache(guild)
+            await InviteTracker.cache(guild)
         }
     }
 
     public static async cache(guild: Guild) {
-        const invites = this.hasPermissions(guild) ? await guild.invites.fetch().catch(noop) : undefined
+        const invites = InviteTracker.hasPermissions(guild) ? await guild.invites.fetch().catch(noop) : undefined
 
         if (!invites) {
             Logger.warn(`Failed to cache invites for guild ${guild.name}.`)
             return
         }
 
-        const arr = new Array<IGuildInvite>()
+        const arr: IGuildInvite[] = []
 
         for (const [, invite] of invites) {
             if (invite.uses === null || invite.inviterId === null) continue
@@ -99,11 +96,11 @@ export class InviteTracker {
             })
         }
 
-        this.Invites.set(guild.id, arr)
+        InviteTracker.Invites.set(guild.id, arr)
     }
 
     public static async inviteCreateHandler(invite: Invite) {
-        const invites = this.Invites.get(invite.guild?.id!)
+        const invites = InviteTracker.Invites.get(invite.guild?.id!)
         if (invites !== undefined) {
             invites.push({
                 code: invite.code,
@@ -115,25 +112,25 @@ export class InviteTracker {
         }
 
         // Cache
-        await this.cache(invite.guild as Guild)
+        await InviteTracker.cache(invite.guild as Guild)
     }
 
     public static async inviteDeleteHandler(invite: Invite) {
-        const invites = this.Invites.get(invite.guild?.id!)
+        const invites = InviteTracker.Invites.get(invite.guild?.id!)
         if (!invites) return
         const index = invites.findIndex((x) => x.code === invite.code)
         if (index !== -1) invites.splice(index, 1)
     }
 
     public static deleteInviter(member: GuildMember | PartialGuildMember) {
-        this.Inviters.get(member.guild.id)?.delete(member.id)
+        InviteTracker.Inviters.get(member.guild.id)?.delete(member.id)
     }
 
     public static async findInviter(member: GuildMember | PartialGuildMember) {
         const guild = member.guild
 
         const newInvites = await guild.invites.fetch().catch(noop)
-        const oldInvites = this.Invites.get(guild.id)
+        const oldInvites = InviteTracker.Invites.get(guild.id)
 
         if (!newInvites || !oldInvites) {
             Logger.warn(`Failed to cache invites for guild ${guild.name}.`)
@@ -159,7 +156,7 @@ export class InviteTracker {
         }
 
         if (used !== null) {
-            const invitedUsers = this.Inviters.ensure(guild.id, () => new Collection())
+            const invitedUsers = InviteTracker.Inviters.ensure(guild.id, () => new Collection())
 
             invitedUsers.set(member.id, {
                 code: used.code,

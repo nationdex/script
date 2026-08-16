@@ -1,13 +1,13 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export enum AuthorizingIntegrationOwnersType {
     Guild,
-    User
+    User,
 }
 
 export default new NativeFunction({
@@ -23,16 +23,15 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Enum,
-            enum: AuthorizingIntegrationOwnersType
+            enum: AuthorizingIntegrationOwnersType,
         },
     ],
-    output: [
-        ArgType.Json,
-        ArgType.User,
-        ArgType.Guild
-    ],
+    output: [ArgType.Json, ArgType.User, ArgType.Guild],
     execute(ctx, [type]) {
-        const owners = ctx.interaction && "authorizingIntegrationOwners" in ctx.interaction ? ctx.interaction.authorizingIntegrationOwners : undefined
+        const owners =
+            ctx.interaction && "authorizingIntegrationOwners" in ctx.interaction
+                ? ctx.interaction.authorizingIntegrationOwners
+                : undefined
         return this.successJSON(owners && this.hasFields ? owners[type] : owners)
     },
 })

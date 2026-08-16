@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { APIEmbed, EmbedBuilder } from "discord.js"
+import { type APIEmbed, EmbedBuilder } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -19,12 +19,12 @@ export default new NativeFunction({
             type: ArgType.Json,
             rest: false,
             required: true,
-            description: "The embed object or array of objects to load"
-        }
+            description: "The embed object or array of objects to load",
+        },
     ],
-    execute(ctx, [ json ]) {
+    execute(ctx, [json]) {
         if (Array.isArray(json)) {
-            ctx.container.embeds.push(...json.map(x => EmbedBuilder.from(x as APIEmbed)))
+            ctx.container.embeds.push(...json.map((x) => EmbedBuilder.from(x as APIEmbed)))
         } else {
             ctx.container.embeds.push(EmbedBuilder.from(json as APIEmbed))
         }

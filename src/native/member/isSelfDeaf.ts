@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -11,9 +11,7 @@ export default new NativeFunction({
     description: "Returns whether a member is self deafened",
     brackets: false,
     unwrap: true,
-    aliases: [
-        "$memberIsSelfDeaf"
-    ],
+    aliases: ["$memberIsSelfDeaf"],
     output: ArgType.Boolean,
     args: [
         {

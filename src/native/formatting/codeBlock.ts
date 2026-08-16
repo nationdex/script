@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { bold, codeBlock } from "discord.js"
+import { codeBlock } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 import { MarkdownEscapeRegex } from "./inlineCode"
 
@@ -20,21 +20,17 @@ export default new NativeFunction({
             description: "The text to create block with, this will attempt to escape all `",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "lang",
             description: "The language to give to this code block",
             rest: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [ str, lang ]) {
+    execute(_ctx, [str, lang]) {
         str = str.replace(MarkdownEscapeRegex, "\\$1")
-        return this.success(
-            lang ? 
-                codeBlock(lang, str) :
-                codeBlock(str)
-        )
+        return this.success(lang ? codeBlock(lang, str) : codeBlock(str))
     },
 })

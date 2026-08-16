@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { setTimeout } from "timers/promises"
+import { setTimeout } from "node:timers/promises"
 import { Logger } from "../structures"
 
 async function main() {

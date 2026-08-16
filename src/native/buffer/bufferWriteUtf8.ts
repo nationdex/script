@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$bufferWriteUtf8",
@@ -17,24 +17,24 @@ export default new NativeFunction({
             description: "The variable the buffer is allocated on",
             type: ArgType.String,
             required: true,
-            rest: false
+            rest: false,
         },
         {
             name: "index",
             description: "The index to start writing on",
             required: true,
             type: ArgType.Number,
-            rest: false
+            rest: false,
         },
         {
             name: "text",
             description: "The text to write",
             type: ArgType.String,
             rest: false,
-            required: true
-        }
+            required: true,
+        },
     ],
-    execute(ctx, [ name, index, str ]) {
+    execute(ctx, [name, index, str]) {
         return this.success(void ctx.getEnvironmentInstance(Buffer, name)?.write(str, index))
     },
 })

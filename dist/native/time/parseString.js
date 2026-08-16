@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const constants_1 = require("../../constants");
 const structures_1 = require("../../structures");
@@ -22,11 +22,11 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     unwrap: true,
-    execute(ctx, [str]) {
+    execute(_ctx, [str]) {
         try {
             return this.success(constants_1.TimeParser.parseToMS(str));
         }
-        catch (error) {
+        catch (_error) {
             return this.success(0);
         }
     },

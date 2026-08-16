@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 const setVoiceRegion_1 = require("./setVoiceRegion");
@@ -19,7 +19,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Channel,
-            check: (i) => i.isVoiceBased()
+            check: (i) => i.isVoiceBased(),
         },
     ],
     output: setVoiceRegion_1.VoiceRegionType,

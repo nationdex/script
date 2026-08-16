@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 export default function (n: number, max: number): Array<number> {
     const splitTimes = n % max === 0 ? Math.floor(n / max) : Math.floor(n / max) + 1

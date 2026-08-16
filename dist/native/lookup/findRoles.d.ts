@@ -1,5 +1,5 @@
-import { ArgType, NativeFunction } from "../../structures";
 import { RoleProperty } from "../../properties/role";
+import { ArgType, NativeFunction } from "../../structures";
 import { SearchMethodType } from "./findChannels";
 declare const _default: NativeFunction<[{
     name: string;

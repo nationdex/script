@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { CompiledFunction } from "../@internal/CompiledFunction"
+import type { CompiledFunction } from "../@internal/CompiledFunction"
 
 export type GetErrorArgs<T extends string> = T extends `${infer L}$${infer R}` ? [unknown, ...GetErrorArgs<R>] : []
 
@@ -17,7 +17,7 @@ export enum ErrorType {
     ExtensionNotFound = "Extension $1 does not seem to be loaded but is being used.",
     MissingCommandType = "A command is missing its type ($1)",
     UnsupportedExtensionVersion = "Extension $1 does not work for your ForgeScript version: $2",
-    RequiredExtension = "Extension $1 requires the next extension: $2 loaded to work", 
+    RequiredExtension = "Extension $1 requires the next extension: $2 loaded to work",
     CompilerError = "$1 at $2:$3 ($4)",
 }
 
@@ -30,7 +30,7 @@ export class ForgeError<T extends ErrorType = ErrorType> extends Error {
 
     public static make(fn: CompiledFunction | null, type: ErrorType, ...args: unknown[]) {
         const res = type.replace(
-            this.Regex,
+            ForgeError.Regex,
             (match) =>
                 `**\`${`${args[Number(match.slice(1)) - 1]}`.replaceAll("\\", "\\\\").replaceAll("`", "\\`")}\`**`
         )

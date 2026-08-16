@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -10,9 +10,7 @@ export default new NativeFunction({
     version: "1.4.0",
     description: "Kicks a member from a voice channel, returns bool",
     brackets: true,
-    aliases: [
-        "$memberVoiceKick"
-    ],
+    aliases: ["$memberVoiceKick"],
     output: ArgType.Boolean,
     args: [
         {
@@ -20,7 +18,7 @@ export default new NativeFunction({
             description: "The guild to pull member from",
             rest: false,
             required: true,
-            type: ArgType.Guild
+            type: ArgType.Guild,
         },
         {
             name: "user ID",
@@ -28,18 +26,18 @@ export default new NativeFunction({
             required: true,
             type: ArgType.Member,
             pointer: 0,
-            description: "The user to kick"
+            description: "The user to kick",
         },
         {
             name: "reason",
             description: "The reason to kick this user",
             rest: false,
             required: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     unwrap: true,
-    async execute(ctx, [, member, reason ]) {
+    async execute(ctx, [, member, reason]) {
         return this.success(!!(await member.voice.disconnect(reason || ctx.reason).catch(ctx.noop)))
     },
 })

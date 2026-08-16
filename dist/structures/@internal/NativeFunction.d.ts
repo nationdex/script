@@ -1,7 +1,7 @@
-import { ApplicationEmoji, AttachmentBuilder, AutoModerationRule, BaseChannel, Emoji, Guild, GuildEmoji, GuildForumTag, GuildMember, GuildScheduledEvent, GuildTemplate, Invite, Message, MessageReaction, PermissionsString, Role, SoundboardSound, StageInstance, Sticker, TextBasedChannel, User, Webhook } from "discord.js";
-import { CompiledFunction } from "./CompiledFunction";
-import { Context } from "./Context";
-import { Return } from "./Return";
+import type { ApplicationEmoji, AttachmentBuilder, AutoModerationRule, BaseChannel, Emoji, Guild, GuildEmoji, GuildForumTag, GuildMember, GuildScheduledEvent, GuildTemplate, Invite, Message, MessageReaction, PermissionsString, Role, SoundboardSound, StageInstance, Sticker, TextBasedChannel, User, Webhook } from "discord.js";
+import type { CompiledFunction } from "./CompiledFunction";
+import type { Context } from "./Context";
+import type { Return } from "./Return";
 export type EnumLike<T = any> = {
     [id: string]: T | string;
     [nu: number]: string;

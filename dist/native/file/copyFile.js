@@ -1,10 +1,10 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs_1 = require("fs");
+const node_fs_1 = require("node:fs");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$copyFile",
@@ -18,21 +18,21 @@ exports.default = new structures_1.NativeFunction({
             description: "The path to make a copy of",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
         {
             name: "destination",
             description: "The output path to copy to",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
-    execute(ctx, [old, now]) {
-        if ((0, fs_1.statSync)(old).isDirectory())
-            (0, fs_1.cpSync)(old, now);
+    execute(_ctx, [old, now]) {
+        if ((0, node_fs_1.statSync)(old).isDirectory())
+            (0, node_fs_1.cpSync)(old, now);
         else
-            (0, fs_1.copyFileSync)(old, now);
+            (0, node_fs_1.copyFileSync)(old, now);
         return this.success();
     },
 });

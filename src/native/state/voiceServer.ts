@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { VoiceServerProperties, VoiceServerProperty } from "../../properties/voiceServer"
 import { ArgType, NativeFunction } from "../../structures"

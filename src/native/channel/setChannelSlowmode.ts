@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, TextChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel, TextChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setChannelSlowmode",
@@ -30,6 +30,8 @@ export default new NativeFunction({
         },
     ],
     async execute(ctx, [channel, seconds]) {
-        return this.success(!!(await (channel as TextChannel).setRateLimitPerUser(seconds || 0, ctx.reason).catch(ctx.noop)))
+        return this.success(
+            !!(await (channel as TextChannel).setRateLimitPerUser(seconds || 0, ctx.reason).catch(ctx.noop))
+        )
     },
 })

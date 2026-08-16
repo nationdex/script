@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, GuildChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel, GuildChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$clearChannelPerms",
@@ -32,7 +32,7 @@ export default new NativeFunction({
     ],
     async execute(ctx, [ch, id]) {
         const perms = (ch as GuildChannel).permissionOverwrites
-        
+
         if (id) {
             return this.success(!!(await perms.delete(id, ctx.reason).catch(ctx.noop)))
         } else {

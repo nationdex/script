@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import array from "../../functions/array"
 import { ApplicationEmojiProperties, ApplicationEmojiProperty } from "../../properties/applicationEmoji"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$getApplicationEmojis",
@@ -19,7 +19,7 @@ export default new NativeFunction({
             description: "The property to return for every emoji",
             rest: false,
             type: ArgType.Enum,
-            enum: ApplicationEmojiProperty
+            enum: ApplicationEmojiProperty,
         },
         {
             name: "separator",
@@ -28,13 +28,12 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    output: [
-        ArgType.Json,
-        array<ArgType.Unknown>()
-    ],
+    output: [ArgType.Json, array<ArgType.Unknown>()],
     async execute(ctx, [prop, sep]) {
         const emojis = await ctx.fetchApplicationEmojis(true)
         if (!prop) return this.successJSON(emojis)
-        return this.success(emojis ? emojis.map(emoji => ApplicationEmojiProperties[prop](emoji)).join(sep ?? ", ") : null)
+        return this.success(
+            emojis ? emojis.map((emoji) => ApplicationEmojiProperties[prop](emoji)).join(sep ?? ", ") : null
+        )
     },
 })

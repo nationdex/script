@@ -1,13 +1,13 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { Collection, Message, TextBasedChannel } from "discord.js"
+import type { Collection, Message, TextBasedChannel } from "discord.js"
 
 export default async function (ch: TextBasedChannel) {
-    const arr = new Array<Message>()
-    let lastId: string | undefined = undefined
+    const arr: Message[] = []
+    let lastId: string | undefined
 
     for (;;) {
         const msgs: Collection<string, Message> | null = await ch.messages

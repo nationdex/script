@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$editRoleColors",
@@ -50,10 +50,17 @@ export default new NativeFunction({
     ],
     output: ArgType.Boolean,
     async execute(ctx, [, role, primary, secondary, tertiary]) {
-        return this.success(!!(await role.setColors({
-            primaryColor: primary,
-            secondaryColor: secondary || undefined,
-            tertiaryColor: tertiary || undefined
-        }, ctx.reason).catch(ctx.noop)))
+        return this.success(
+            !!(await role
+                .setColors(
+                    {
+                        primaryColor: primary,
+                        secondaryColor: secondary || undefined,
+                        tertiaryColor: tertiary || undefined,
+                    },
+                    ctx.reason
+                )
+                .catch(ctx.noop))
+        )
     },
 })

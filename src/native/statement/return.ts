@@ -1,10 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures/@internal/NativeFunction"
-import { Return } from "../../structures/@internal/Return"
 
 export default new NativeFunction({
     name: "$return",
@@ -22,7 +21,7 @@ export default new NativeFunction({
         },
     ],
     brackets: false,
-    execute(ctx, [ val ]) {
+    execute(_ctx, [val]) {
         return this.return(val ?? "")
     },
 })

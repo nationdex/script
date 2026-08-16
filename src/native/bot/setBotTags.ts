@@ -1,17 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setBotTags",
     version: "1.5.0",
     description: "Sets the bot tags",
-    aliases: [
-        "$setClientTags"
-    ],
+    aliases: ["$setClientTags"],
     brackets: true,
     unwrap: true,
     args: [
@@ -25,6 +23,8 @@ export default new NativeFunction({
     ],
     output: ArgType.Boolean,
     async execute(ctx, [tags]) {
-        return this.success(!!(await ctx.client.application.edit({ tags: tags.filter(tag => tag.trim() !== "") }).catch(ctx.noop)))
+        return this.success(
+            !!(await ctx.client.application.edit({ tags: tags.filter((tag) => tag.trim() !== "") }).catch(ctx.noop))
+        )
     },
 })

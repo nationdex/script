@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -12,10 +12,7 @@ export default new NativeFunction({
         "Kicks a member from the guild, returns true or false depending on whether the action was successfully performed",
     unwrap: true,
     brackets: true,
-    aliases: [
-        "$kickMember",
-        "$memberKick"
-    ],
+    aliases: ["$kickMember", "$memberKick"],
     output: ArgType.Boolean,
     args: [
         {

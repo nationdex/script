@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
-import { AutomodRuleProperty, AutomodRuleProperties } from "../../properties/automodRule"
+import { AutomodRuleProperties, AutomodRuleProperty } from "../../properties/automodRule"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$getAutomodRule",
@@ -26,14 +26,14 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.AutomodRule,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "property",
             description: "The property of the automod rule to return",
             rest: false,
             type: ArgType.Enum,
-            enum: AutomodRuleProperty
+            enum: AutomodRuleProperty,
         },
         {
             name: "separator",
@@ -42,11 +42,8 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    output: [
-        ArgType.Json,
-        ArgType.Unknown
-    ],
-    execute(ctx, [, rule, prop, sep ]) {
+    output: [ArgType.Json, ArgType.Unknown],
+    execute(_ctx, [, rule, prop, sep]) {
         if (prop) return this.success(AutomodRuleProperties[prop](rule, sep))
         return this.successJSON(rule)
     },

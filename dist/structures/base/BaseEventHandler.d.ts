@@ -1,5 +1,5 @@
-import { GatewayIntentsString } from "discord.js";
-import { type ForgeClient } from "../../core/ForgeClient";
+import type { GatewayIntentsString } from "discord.js";
+import type { ForgeClient } from "../../core/ForgeClient";
 export type AssertArgs<T> = T extends unknown[] ? T : never;
 export interface IEvent<Events, T extends keyof Events> {
     name: T;
@@ -15,6 +15,6 @@ export declare class BaseEventHandler<Events = Record<string, unknown[]>, T exte
     get listener(): (this: ForgeClient, ...args: AssertArgs<Events[T]>) => Promise<void> | void;
     get description(): string;
     get name(): T;
-    register(client: ForgeClient): void;
+    register(_client: ForgeClient): void;
 }
 //# sourceMappingURL=BaseEventHandler.d.ts.map

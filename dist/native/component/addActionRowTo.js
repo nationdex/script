@@ -1,28 +1,26 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const structures_1 = require("../../structures");
 const components_1 = require("../../functions/components");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$addActionRowTo",
     version: "1.5.0",
     brackets: true,
     description: "Adds an action row (or rows) to a message",
     unwrap: false,
-    aliases: [
-        "$addActionRowsTo"
-    ],
+    aliases: ["$addActionRowsTo"],
     args: [
         {
             name: "channel ID",
             description: "The channel id to pull message from",
             rest: false,
             required: true,
-            type: structures_1.ArgType.TextChannel
+            type: structures_1.ArgType.TextChannel,
         },
         {
             name: "message ID",
@@ -30,22 +28,22 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Message,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "components",
             description: "Components for this row",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
         {
             name: "keep existing rows",
             description: "Whether to keep or remove existing rows of given message",
             rest: false,
             required: false,
-            type: structures_1.ArgType.Boolean
-        }
+            type: structures_1.ArgType.Boolean,
+        },
     ],
     output: structures_1.ArgType.Boolean,
     async execute(ctx) {
@@ -54,7 +52,7 @@ exports.default = new structures_1.NativeFunction({
             return rt;
         const [, m, keep] = args;
         const code = this.data.fields[2];
-        const comps = keep ? m.components.map((x) => (0, discord_js_1.createComponentBuilder)(x.toJSON())) : new Array();
+        const comps = keep ? m.components.map((x) => (0, discord_js_1.createComponentBuilder)(x.toJSON())) : [];
         const oldContainer = ctx.runtime.container;
         const newContainer = new structures_1.Container();
         // Add our new rows

@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
-import { addActionRow } from "../../functions/components"
 import { ComponentType, ContainerBuilder, SectionBuilder } from "discord.js"
+import { addActionRow } from "../../functions/components"
+import { ArgType, type IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$addSection",

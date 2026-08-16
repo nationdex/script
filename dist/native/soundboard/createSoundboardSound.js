@@ -1,12 +1,12 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
 const node_fs_1 = require("node:fs");
 const parseSingleEmoji_1 = require("../../functions/parseSingleEmoji");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$createSoundboardSound",
     version: "2.4.0",
@@ -64,14 +64,16 @@ exports.default = new structures_1.NativeFunction({
         catch {
             soundFile = file;
         }
-        const sound = await guild.soundboardSounds.create({
+        const sound = await guild.soundboardSounds
+            .create({
             name,
             file: soundFile,
             emojiId: parsed?.id || undefined,
             emojiName: parsed?.id ? undefined : parsed?.name || undefined,
-            volume: typeof (volume) === "number" ? volume : undefined,
-            reason: reason || ctx.reason
-        }).catch(ctx.noop);
+            volume: typeof volume === "number" ? volume : undefined,
+            reason: reason || ctx.reason,
+        })
+            .catch(ctx.noop);
         return this.success(sound?.soundId);
     },
 });

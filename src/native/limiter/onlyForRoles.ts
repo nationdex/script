@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
+import { ArgType, type IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$onlyForRoles",
@@ -17,7 +17,7 @@ export default new NativeFunction({
             description: "The code to execute if user does not meet the roles",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "roles",
@@ -25,8 +25,8 @@ export default new NativeFunction({
             description: "The roles to check for",
             rest: true,
             required: true,
-            type: ArgType.Role
-        }
+            type: ArgType.Role,
+        },
     ],
     async execute(ctx) {
         const code = this.data.fields![0] as IExtendedCompiledFunctionField
@@ -35,11 +35,10 @@ export default new NativeFunction({
         if (ctx.guild) {
             const { args, return: rt } = await this["resolveMultipleArgs"](ctx, 1)
             if (!this["isValidReturnType"](rt)) return rt
-            ok = ctx.member?.roles.cache.hasAny(...args[0].map(x => x.id)) ?? false
+            ok = ctx.member?.roles.cache.hasAny(...args[0].map((x) => x.id)) ?? false
         }
 
-        if (!ok)
-            return this["fail"](ctx, code)
+        if (!ok) return this["fail"](ctx, code)
 
         return this.success()
     },

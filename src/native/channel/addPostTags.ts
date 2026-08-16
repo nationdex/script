@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, ThreadChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel, ThreadChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$addPostTags",
@@ -33,11 +33,13 @@ export default new NativeFunction({
             rest: true,
             required: true,
             type: ArgType.String,
-        }
+        },
     ],
     brackets: true,
-    async execute(ctx, [ channel, reason, tags ]) {
+    async execute(ctx, [channel, reason, tags]) {
         const post = channel as ThreadChannel
-        return this.success(!!(await post.setAppliedTags([...post.appliedTags, ...tags], reason || ctx.reason).catch(ctx.noop)))
+        return this.success(
+            !!(await post.setAppliedTags([...post.appliedTags, ...tags], reason || ctx.reason).catch(ctx.noop))
+        )
     },
 })

@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$randomNumber",
@@ -33,7 +33,7 @@ export default new NativeFunction({
             type: ArgType.Boolean,
         },
     ],
-    execute(ctx, [min, max, decimals]) {
+    execute(_ctx, [min, max, decimals]) {
         const rnd = max ? Math.random() * (max - min) + min : Math.random() * min
         return this.success(!decimals ? Math.floor(rnd) : rnd)
     },

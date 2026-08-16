@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$unparseDate",
@@ -18,10 +18,10 @@ export default new NativeFunction({
             description: "The date to get its ms",
             type: ArgType.Date,
             rest: false,
-            required: true
-        }
+            required: true,
+        },
     ],
-    execute(ctx, [ date ]) {
+    execute(_ctx, [date]) {
         return this.success(date.getTime())
     },
 })

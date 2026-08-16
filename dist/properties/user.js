@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -42,6 +42,6 @@ exports.UserProperties = (0, defineProperties_1.default)({
     primaryGuildTag: (i) => i?.primaryGuild?.tag,
     primaryGuildBadge: (i) => i?.guildTagBadgeURL(),
     primaryGuildEnabled: (i) => i?.primaryGuild?.identityEnabled,
-    primaryGuildID: (i) => i?.primaryGuild?.identityGuildId
+    primaryGuildID: (i) => i?.primaryGuild?.identityGuildId,
 });
 //# sourceMappingURL=user.js.map

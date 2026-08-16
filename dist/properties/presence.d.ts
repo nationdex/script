@@ -1,4 +1,4 @@
-import { Presence } from "discord.js";
+import type { Presence } from "discord.js";
 export declare enum PresenceProperty {
     id = "id",
     guildID = "guildID",

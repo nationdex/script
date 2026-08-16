@@ -1,15 +1,14 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import generateMetadata from "./functions/generateMetadata"
-import defineProperties from "./functions/defineProperties"
 import array from "./functions/array"
+import defineProperties from "./functions/defineProperties"
+import generateMetadata from "./functions/generateMetadata"
 
+export * from "./core"
+export type { Properties } from "./functions/defineProperties"
 export * from "./managers"
 export * from "./structures"
-export * from "./core"
-
-export { generateMetadata, defineProperties, array }
-export type { Properties } from "./functions/defineProperties"
+export { array, defineProperties, generateMetadata }

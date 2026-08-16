@@ -1,18 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$loadMemberContext",
     version: "1.4.0",
-    aliases: [
-        "$useMemberContext",
-        "$asMemberContext"
-    ],
-    description: "Loads a member instance to the current context, this is not reversible and is adviced to use with $scope",
+    aliases: ["$useMemberContext", "$asMemberContext"],
+    description:
+        "Loads a member instance to the current context, this is not reversible and is adviced to use with $scope",
     unwrap: true,
     brackets: true,
     args: [
@@ -21,7 +19,7 @@ export default new NativeFunction({
             description: "The guild to pull member from",
             rest: false,
             required: true,
-            type: ArgType.Guild
+            type: ArgType.Guild,
         },
         {
             name: "member ID",
@@ -29,10 +27,10 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Member,
-            pointer: 0
-        }
+            pointer: 0,
+        },
     ],
-    execute(ctx, [, m ]) {
+    execute(ctx, [, m]) {
         ctx.obj = m
         return this.success()
     },

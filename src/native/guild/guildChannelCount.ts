@@ -1,19 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ChannelType } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildChannelCount",
     version: "1.0.0",
     description: "Returns the server channel count",
     brackets: false,
-    aliases: [
-        "$serverChannelCount"
-    ],
+    aliases: ["$serverChannelCount"],
     output: ArgType.Number,
     unwrap: true,
     args: [
@@ -35,8 +33,12 @@ export default new NativeFunction({
     execute(ctx, [guild, categories]) {
         guild ??= ctx.guild!
         return this.success(
-            (this.hasFields ? categories.length === 0 ? guild.channels.cache : guild.channels.cache.filter((x) => categories.includes(x.type)) : guild.channels.cache)
-                .size
+            (this.hasFields
+                ? categories.length === 0
+                    ? guild.channels.cache
+                    : guild.channels.cache.filter((x) => categories.includes(x.type))
+                : guild.channels.cache
+            ).size
         )
     },
 })

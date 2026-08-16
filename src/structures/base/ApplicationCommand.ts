@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { RESTPostAPIApplicationCommandsJSONBody } from "discord.js"
-import { Compiler, IExtendedCompilationResult } from "../../core"
-import { IApplicationCommandData, RegistrationType } from "../../managers/ApplicationCommandManager"
+import type { RESTPostAPIApplicationCommandsJSONBody } from "discord.js"
+import { Compiler, type IExtendedCompilationResult } from "../../core"
+import { type IApplicationCommandData, RegistrationType } from "../../managers/ApplicationCommandManager"
 import { ErrorType, ForgeError } from "../forge/ForgeError"
 
 export class ApplicationCommand {

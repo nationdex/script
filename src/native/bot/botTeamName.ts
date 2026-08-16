@@ -1,18 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { Team } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$botTeamName",
     version: "2.4.0",
     description: "Returns the client's team name",
-    aliases: [
-        "$clientTeamName"
-    ],
+    aliases: ["$clientTeamName"],
     unwrap: false,
     output: ArgType.String,
     async execute(ctx) {

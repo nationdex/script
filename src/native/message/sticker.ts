@@ -1,10 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$sticker",
@@ -18,8 +17,8 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Sticker,
-            description: "The sticker to use"
-        }
+            description: "The sticker to use",
+        },
     ],
     execute(ctx, [sticker]) {
         ctx.container.stickers.push(sticker.id)

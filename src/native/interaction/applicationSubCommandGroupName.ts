@@ -1,10 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import noop from "../../functions/noop"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$applicationSubCommandGroupName",
@@ -13,6 +12,10 @@ export default new NativeFunction({
     unwrap: false,
     output: ArgType.String,
     execute(ctx) {
-        return this.success(ctx.interaction && "options" in ctx.interaction && "getSubcommandGroup" in ctx.interaction.options ? ctx.interaction.options.getSubcommandGroup(false) : undefined)
+        return this.success(
+            ctx.interaction && "options" in ctx.interaction && "getSubcommandGroup" in ctx.interaction.options
+                ? ctx.interaction.options.getSubcommandGroup(false)
+                : undefined
+        )
     },
 })

@@ -1,18 +1,19 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { AttachmentBuilder, EmbedBuilder } from "discord.js"
-import { ArgType, NativeFunction } from "../../structures"
 import { buildComponent } from "../../functions/components"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$fetchResponse",
     version: "1.4.0",
     brackets: false,
     unwrap: true,
-    description: "Fetches all data from the message and loads it to response, this includes: embeds, components, attachments, stickers",
+    description:
+        "Fetches all data from the message and loads it to response, this includes: embeds, components, attachments, stickers",
     args: [
         {
             name: "channel ID",
@@ -30,13 +31,13 @@ export default new NativeFunction({
             type: ArgType.Message,
         },
     ],
-    execute(ctx, [, msg ]) {
+    execute(ctx, [, msg]) {
         msg ??= ctx.message!
         if (msg) {
-            ctx.container.embeds.push(...msg.embeds.map(x => EmbedBuilder.from(x)))
-            ctx.container.components.push(...msg.components.map(x => buildComponent(x, ctx)))
-            ctx.container.files.push(...msg.attachments.map(x => new AttachmentBuilder(x.url, { name: x.name })))
-            ctx.container.stickers.push(...msg.stickers.map(x => x.id))
+            ctx.container.embeds.push(...msg.embeds.map((x) => EmbedBuilder.from(x)))
+            ctx.container.components.push(...msg.components.map((x) => buildComponent(x, ctx)))
+            ctx.container.files.push(...msg.attachments.map((x) => new AttachmentBuilder(x.url, { name: x.name })))
+            ctx.container.stickers.push(...msg.stickers.map((x) => x.id))
         }
         return this.success()
     },

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -29,6 +29,6 @@ exports.VoiceEffectProperties = (0, defineProperties_1.default)({
     soundID: (i) => i?.soundId,
     soundVolume: (i) => i?.soundVolume,
     animationID: (i) => i?.animationId,
-    animationType: (i) => discord_js_1.VoiceChannelEffectSendAnimationType[i?.animationType]
+    animationType: (i) => discord_js_1.VoiceChannelEffectSendAnimationType[i?.animationType],
 });
 //# sourceMappingURL=voiceEffect.js.map

@@ -1,20 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { TextChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
-import array from "../../functions/array"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$channelVoiceMemberCount",
     version: "1.4.0",
     description: "Returns the member count that are connected to this voice channel",
     unwrap: true,
-    aliases: [
-        "$channelMemberCount"
-    ],
+    aliases: ["$channelMemberCount"],
     output: ArgType.Number,
     brackets: false,
     args: [
@@ -24,7 +20,7 @@ export default new NativeFunction({
             rest: false,
             type: ArgType.Channel,
             required: true,
-        }
+        },
     ],
     execute(ctx, [ch]) {
         const chan = ch ?? ctx.channel

@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { IExtendedCompiledFunctionField } from "../../structures"
+import type { IExtendedCompiledFunctionField } from "../../structures"
 import { ArgType, NativeFunction } from "../../structures/@internal/NativeFunction"
 
 export default new NativeFunction({
@@ -40,11 +40,11 @@ export default new NativeFunction({
 
         const { args, return: rt } = await this["resolveMultipleArgs"](ctx, 0, 2)
         if (!this["isValidReturnType"](rt)) return rt
-        const [ name, params ] = args
+        const [name, params] = args
 
-        ctx.setLocalFunction(name, { 
+        ctx.setLocalFunction(name, {
             code,
-            args: params
+            args: params,
         })
 
         return this.success()

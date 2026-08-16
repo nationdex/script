@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { networkInterfaces } from "os"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { networkInterfaces } from "node:os"
 import array from "../../functions/array"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$networkCardIPs",
@@ -20,10 +20,19 @@ export default new NativeFunction({
             description: "The separator to use",
             rest: false,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [ sep ]) {
-        return this.success(Object.values(networkInterfaces()).map(x => x?.map(x => x.address).filter(Boolean).join(sep ?? ", ")).join(sep ?? ", "))
-    }
+    execute(_ctx, [sep]) {
+        return this.success(
+            Object.values(networkInterfaces())
+                .map((x) =>
+                    x
+                        ?.map((x) => x.address)
+                        .filter(Boolean)
+                        .join(sep ?? ", ")
+                )
+                .join(sep ?? ", ")
+        )
+    },
 })

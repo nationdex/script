@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setBotAvatar",
@@ -11,9 +11,7 @@ export default new NativeFunction({
     description: "Sets the bot profile icon",
     brackets: true,
     unwrap: true,
-    aliases: [
-        "$setClientAvatar"
-    ],
+    aliases: ["$setClientAvatar"],
     args: [
         {
             name: "url",

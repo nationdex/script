@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$deleteAutomodRule",
@@ -25,13 +25,13 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.AutomodRule,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "reason",
             description: "The reason for deleting the rule",
             rest: false,
-            type: ArgType.String
+            type: ArgType.String,
         },
     ],
     output: ArgType.Boolean,

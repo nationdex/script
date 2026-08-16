@@ -1,1 +1,1 @@
-{"version":3,"file":"channelVoiceRegion.d.ts","sourceRoot":"","sources":["../../../src/native/channel/channelVoiceRegion.ts"],"names":[],"mappings":"AAKA,OAAO,EAAE,WAAW,EAAgB,MAAM,YAAY,CAAA;AACtD,OAAO,EAAE,OAAO,EAAE,cAAc,EAAU,MAAM,kBAAkB,CAAA;;;;;;;eAgB3C,WAAW;;AAblC,wBAqBE"}
+{"version":3,"file":"channelVoiceRegion.d.ts","sourceRoot":"","sources":["../../../src/native/channel/channelVoiceRegion.ts"],"names":[],"mappings":"AAKA,OAAO,KAAK,EAAE,WAAW,EAAgB,MAAM,YAAY,CAAA;AAC3D,OAAO,EAAE,OAAO,EAAE,cAAc,EAAE,MAAM,kBAAkB,CAAA;;;;;;;eAgBnC,WAAW;;AAblC,wBAqBE"}

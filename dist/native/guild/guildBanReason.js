@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -10,13 +10,7 @@ exports.default = new structures_1.NativeFunction({
     version: "1.4.0",
     unwrap: true,
     brackets: false,
-    aliases: [
-        "$banReason",
-        "$serverBanReason",
-        "$getBanReason",
-        "$getGuildBanReason",
-        "$getServerBanReason"
-    ],
+    aliases: ["$banReason", "$serverBanReason", "$getBanReason", "$getGuildBanReason", "$getServerBanReason"],
     output: structures_1.ArgType.String,
     description: "Fetches a ban reason of a user",
     args: [
@@ -25,15 +19,15 @@ exports.default = new structures_1.NativeFunction({
             description: "The guild to pull ban from",
             rest: false,
             required: true,
-            type: structures_1.ArgType.Guild
+            type: structures_1.ArgType.Guild,
         },
         {
             name: "user ID",
             description: "The user to pull ban reason",
             rest: false,
             required: true,
-            type: structures_1.ArgType.User
-        }
+            type: structures_1.ArgType.User,
+        },
     ],
     async execute(ctx, [g, u]) {
         if (!this.hasFields)

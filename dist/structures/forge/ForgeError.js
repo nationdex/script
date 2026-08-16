@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForgeError = exports.ErrorType = void 0;
 var ErrorType;
@@ -25,7 +25,7 @@ class ForgeError extends Error {
         super(ForgeError.make(fn, type, ...args));
     }
     static make(fn, type, ...args) {
-        const res = type.replace(this.Regex, (match) => `**\`${`${args[Number(match.slice(1)) - 1]}`.replaceAll("\\", "\\\\").replaceAll("`", "\\`")}\`**`);
+        const res = type.replace(ForgeError.Regex, (match) => `**\`${`${args[Number(match.slice(1)) - 1]}`.replaceAll("\\", "\\\\").replaceAll("`", "\\`")}\`**`);
         return `> ${res}${fn ? ` at \`${fn.display}\`` : ""}`;
     }
 }

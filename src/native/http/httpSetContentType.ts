@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { HTTPContentType } from "../../structures"
 import { ArgType, NativeFunction } from "../../structures/@internal/NativeFunction"
@@ -17,7 +17,7 @@ export default new NativeFunction({
             required: true,
             type: ArgType.Enum,
             enum: HTTPContentType,
-            rest: false
+            rest: false,
         },
     ],
     brackets: true,

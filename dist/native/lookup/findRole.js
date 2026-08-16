@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RoleMentionCharRegex = void 0;
 const structures_1 = require("../../structures");
@@ -30,7 +30,7 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     unwrap: true,
-    execute(ctx, [guild, q]) {
+    execute(_ctx, [guild, q]) {
         const id = q.replace(exports.RoleMentionCharRegex, "");
         if (structures_1.CompiledFunction.IdRegex.test(id)) {
             const r = guild.roles.cache.get(id);

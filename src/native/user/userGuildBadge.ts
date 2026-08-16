@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ImageExtension, ImageSize } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { ImageExtension, ImageSize } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$userGuildBadge",
@@ -35,9 +35,11 @@ export default new NativeFunction({
     ],
     output: ArgType.URL,
     execute(ctx, [user, size, ext]) {
-        return this.success((user ?? ctx.user)?.guildTagBadgeURL({
-            extension: (ext as ImageExtension) || undefined,
-            size: (size as ImageSize) || undefined,
-        }))
+        return this.success(
+            (user ?? ctx.user)?.guildTagBadgeURL({
+                extension: (ext as ImageExtension) || undefined,
+                size: (size as ImageSize) || undefined,
+            })
+        )
     },
 })

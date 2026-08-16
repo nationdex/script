@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, CompiledFunction, NativeFunction, Return } from "../../structures"
+import { ArgType, CompiledFunction, NativeFunction } from "../../structures"
 
 export const RoleMentionCharRegex = /[@<>&]/g
 
@@ -30,7 +30,7 @@ export default new NativeFunction({
         },
     ],
     unwrap: true,
-    execute(ctx, [guild, q]) {
+    execute(_ctx, [guild, q]) {
         const id = q.replace(RoleMentionCharRegex, "")
 
         if (CompiledFunction.IdRegex.test(id)) {

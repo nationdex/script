@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HexHashtagStripping = exports.MinHexIntValue = exports.MaxHexIntValue = void 0;
 const structures_1 = require("../../structures");
@@ -22,12 +22,12 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.String,
-            description: "The hex to check for"
-        }
+            description: "The hex to check for",
+        },
     ],
-    execute(ctx, [hex]) {
+    execute(_ctx, [hex]) {
         const int = parseInt(hex.replace(exports.HexHashtagStripping, ""), 16);
-        return this.success(!isNaN(int) && int >= exports.MinHexIntValue && int <= exports.MaxHexIntValue);
+        return this.success(!Number.isNaN(int) && int >= exports.MinHexIntValue && int <= exports.MaxHexIntValue);
     },
 });
 //# sourceMappingURL=isValidHex.js.map

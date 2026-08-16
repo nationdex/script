@@ -1,17 +1,15 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$channelIsChildrenOf",
     version: "1.5.0",
-    aliases: [
-        "$isChildrenOf"
-    ],
+    aliases: ["$isChildrenOf"],
     description: "Checks whether given channel is a children of a category",
     output: structures_1.ArgType.Boolean,
     brackets: true,
@@ -22,7 +20,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The channel to know if is children of category",
             rest: false,
             type: structures_1.ArgType.Channel,
-            required: true
+            required: true,
         },
         {
             name: "category ID",
@@ -30,10 +28,10 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             type: structures_1.ArgType.Channel,
             required: true,
-            check: (i) => i.type === discord_js_1.ChannelType.GuildCategory
-        }
+            check: (i) => i.type === discord_js_1.ChannelType.GuildCategory,
+        },
     ],
-    execute(ctx, [ch, cat]) {
+    execute(_ctx, [ch, cat]) {
         return this.success(cat.children.cache.has(ch.id));
     },
 });

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -18,7 +18,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The channel id to pull message from",
             rest: false,
             required: true,
-            type: structures_1.ArgType.TextChannel
+            type: structures_1.ArgType.TextChannel,
         },
         {
             name: "message ID",
@@ -26,7 +26,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Message,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "index",
@@ -38,12 +38,12 @@ exports.default = new structures_1.NativeFunction({
     brackets: true,
     output: structures_1.ArgType.Boolean,
     async execute(ctx, [, msg, index]) {
-        const components = msg.components.map(x => discord_js_1.ActionRowBuilder.from(x));
+        const components = msg.components.map((x) => discord_js_1.ActionRowBuilder.from(x));
         for (let i = 0, len = components.length; i < len; i++) {
             if (Number.isFinite(index) && i !== index)
                 continue;
             const actionRow = new discord_js_1.ActionRowBuilder();
-            components[i]?.components.forEach(comp => {
+            components[i]?.components.forEach((comp) => {
                 if (comp instanceof discord_js_1.ButtonBuilder) {
                     actionRow.addComponents(comp.setDisabled(false));
                 }

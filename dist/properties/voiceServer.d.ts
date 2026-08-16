@@ -1,4 +1,4 @@
-import { VoiceServerUpdateData } from "discord.js";
+import type { VoiceServerUpdateData } from "discord.js";
 export declare enum VoiceServerProperty {
     guildID = "guildID",
     endpoint = "endpoint",

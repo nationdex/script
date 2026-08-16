@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
 import { snakeCase } from "lodash"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$toSnakeCase",
@@ -22,7 +22,7 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    execute(ctx, [m]) {
+    execute(_ctx, [m]) {
         return this.success(snakeCase(m))
     },
 })

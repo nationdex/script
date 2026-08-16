@@ -1,5 +1,5 @@
-import { ArgType, IArg, INativeFunction, NativeFunction } from "../structures/@internal/NativeFunction";
-import { IRawFunction } from "../core";
+import { type IRawFunction } from "../core";
+import { ArgType, type IArg, type INativeFunction, type NativeFunction } from "../structures/@internal/NativeFunction";
 export type RecursiveArray<T> = T | T[];
 export declare class FunctionManager {
     private static readonly Functions;

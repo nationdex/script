@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
 import array from "../../functions/array"
 import { SoundboardSoundProperties, SoundboardSoundProperty } from "../../properties/sound"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildSoundboardSounds",
@@ -26,7 +26,7 @@ export default new NativeFunction({
             description: "The property of each sound to return",
             rest: false,
             type: ArgType.Enum,
-            enum: SoundboardSoundProperty
+            enum: SoundboardSoundProperty,
         },
         {
             name: "separator",
@@ -35,11 +35,8 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    output: [
-        ArgType.Json,
-        array<ArgType.Unknown>()
-    ],
-    async execute(ctx, [ guild, prop, sep ]) {
+    output: [ArgType.Json, array<ArgType.Unknown>()],
+    async execute(ctx, [guild, prop, sep]) {
         const sounds = await (guild ?? ctx.guild)?.soundboardSounds.fetch().catch(ctx.noop)
         if (sounds && prop) return this.success(sounds.map((x) => SoundboardSoundProperties[prop](x)).join(sep ?? ", "))
         return this.successJSON(sounds)

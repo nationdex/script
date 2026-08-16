@@ -1,19 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { PermissionFlagsBits, PermissionsString } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { PermissionFlagsBits } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$hasPerms",
     version: "1.0.0",
     description: "Returns whether given member has X perms",
     unwrap: true,
-    aliases: [
-        "$memberHasPerms"
-    ],
+    aliases: ["$memberHasPerms"],
     brackets: true,
     output: ArgType.Boolean,
     args: [
@@ -41,7 +39,7 @@ export default new NativeFunction({
             required: true,
         },
     ],
-    execute(ctx, [, member, perms]) {
+    execute(_ctx, [, member, perms]) {
         return this.success(member.permissions.has(perms))
     },
 })

@@ -1,12 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { AuditLogEvent } from "discord.js"
-import { ArgType, NativeFunction } from "../../structures"
-import noop from "../../functions/noop"
 import { AuditProperties, AuditProperty } from "../../properties/audit"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$fetchAuditLog",
@@ -21,7 +20,7 @@ export default new NativeFunction({
             description: "The guild to get audit log from",
             rest: false,
             required: true,
-            type: ArgType.Guild
+            type: ArgType.Guild,
         },
         {
             name: "type",
@@ -29,7 +28,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Enum,
-            enum: AuditLogEvent
+            enum: AuditLogEvent,
         },
         {
             name: "property",
@@ -37,25 +36,27 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Enum,
-            enum: AuditProperty
+            enum: AuditProperty,
         },
         {
             name: "index",
             description: "The index of the entry to use",
             rest: false,
-            type: ArgType.Number
+            type: ArgType.Number,
         },
         {
             name: "separator",
             description: "The separator to use in case of array output",
             type: ArgType.String,
-            rest: false
-        }
+            rest: false,
+        },
     ],
-    async execute(ctx, [ g, type, prop, index, sep ]) {
-        const logs = await g.fetchAuditLogs({
-            type
-        }).catch(ctx.noop)
+    async execute(ctx, [g, type, prop, index, sep]) {
+        const logs = await g
+            .fetchAuditLogs({
+                type,
+            })
+            .catch(ctx.noop)
         return this.success(logs ? AuditProperties[prop](logs.entries.at(index ?? 0), sep) : null)
     },
 })

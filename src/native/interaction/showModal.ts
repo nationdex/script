@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { NativeFunction } from "../../structures"
 
@@ -15,7 +15,7 @@ export default new NativeFunction({
             await ctx.interaction.showModal(ctx.container.modal).catch(ctx.noop)
             ctx.container.reset()
         }
-        
+
         return this.success()
     },
 })

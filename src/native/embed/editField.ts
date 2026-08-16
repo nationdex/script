@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$editField",
@@ -16,7 +16,7 @@ export default new NativeFunction({
             description: "The index field to edit",
             rest: false,
             required: true,
-            type: ArgType.Number
+            type: ArgType.Number,
         },
         {
             name: "name",
@@ -46,15 +46,11 @@ export default new NativeFunction({
     brackets: true,
     execute(ctx, [fieldIndex, name, value, inline, index]) {
         const field = ctx.container.embed(index ?? 0).data.fields?.[fieldIndex]
-        if (!field)
-            return this.success()
-        
-        if (name)
-            field.name = name
-        if (value)
-            field.value = value
-        if (inline !== null)
-            field.inline = inline
+        if (!field) return this.success()
+
+        if (name) field.name = name
+        if (value) field.value = value
+        if (inline !== null) field.inline = inline
 
         return this.success()
     },

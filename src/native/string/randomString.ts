@@ -1,19 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export const Numbers = "0123456789"
 export const LowercaseLetters = "qwertyuiopasdfghjklzxcvbnm"
 export const UppercaseLetters = LowercaseLetters.toUpperCase()
 
-export const CharArray = [
-    ...Numbers,
-    ...LowercaseLetters,
-    ...UppercaseLetters
-]
+export const CharArray = [...Numbers, ...LowercaseLetters, ...UppercaseLetters]
 
 export default new NativeFunction({
     name: "$randomString",
@@ -28,18 +24,18 @@ export default new NativeFunction({
             description: "The length of the random string",
             rest: false,
             required: true,
-            type: ArgType.Number
+            type: ArgType.Number,
         },
         {
             name: "characters",
             description: "The characters to use for this string",
             rest: false,
             required: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [ len, chars ]) {
+    execute(_ctx, [len, chars]) {
         const arr = chars ? [...chars] : CharArray
         return this.success(Array.from({ length: len }, () => arr[Math.floor(Math.random() * arr.length)]).join(""))
-    }
+    },
 })

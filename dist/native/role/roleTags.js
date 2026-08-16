@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -40,9 +40,11 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
         },
     ],
-    execute(ctx, [, r, sep]) {
+    execute(ctx, [, r, _sep]) {
         r ??= ctx.role;
-        return this.success(Object.entries(r.tags ?? {}).filter(x => x[1] === true).map(x => x[0]));
+        return this.success(Object.entries(r.tags ?? {})
+            .filter((x) => x[1] === true)
+            .map((x) => x[0]));
     },
 });
 //# sourceMappingURL=roleTags.js.map

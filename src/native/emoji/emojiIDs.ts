@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import array from "../../functions/array"
 import { ArgType, NativeFunction } from "../../structures"
@@ -18,10 +18,10 @@ export default new NativeFunction({
             name: "separator",
             description: "The separator to use for every emoji",
             rest: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [ sep ]) {
-        return this.success(ctx.client.emojis.cache.map(x => x.id).join(sep ?? ", "))
+    execute(ctx, [sep]) {
+        return this.success(ctx.client.emojis.cache.map((x) => x.id).join(sep ?? ", "))
     },
 })

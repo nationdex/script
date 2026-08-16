@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, CompiledFunction, NativeFunction, Return } from "../../structures"
+import { ArgType, CompiledFunction, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$findApplicationEmoji",
@@ -29,6 +29,8 @@ export default new NativeFunction({
             if (e) return this.success(e.id)
         }
 
-        return this.success(emojis?.find((x) => x.id === q || x.name?.toLowerCase() === q.toLowerCase() || x.toString() === q)?.id)
+        return this.success(
+            emojis?.find((x) => x.id === q || x.name?.toLowerCase() === q.toLowerCase() || x.toString() === q)?.id
+        )
     },
 })

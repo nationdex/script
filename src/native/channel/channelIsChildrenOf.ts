@@ -1,17 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, CategoryChannel, ChannelType } from "discord.js"
+import { type BaseChannel, type CategoryChannel, ChannelType } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$channelIsChildrenOf",
     version: "1.5.0",
-    aliases: [
-        "$isChildrenOf"
-    ],
+    aliases: ["$isChildrenOf"],
     description: "Checks whether given channel is a children of a category",
     output: ArgType.Boolean,
     brackets: true,
@@ -22,7 +20,7 @@ export default new NativeFunction({
             description: "The channel to know if is children of category",
             rest: false,
             type: ArgType.Channel,
-            required: true
+            required: true,
         },
         {
             name: "category ID",
@@ -30,10 +28,10 @@ export default new NativeFunction({
             rest: false,
             type: ArgType.Channel,
             required: true,
-            check: (i: BaseChannel) => i.type === ChannelType.GuildCategory
-        }
+            check: (i: BaseChannel) => i.type === ChannelType.GuildCategory,
+        },
     ],
-    execute(ctx, [ ch, cat ]) {
+    execute(_ctx, [ch, cat]) {
         return this.success((cat as CategoryChannel).children.cache.has(ch.id))
     },
 })

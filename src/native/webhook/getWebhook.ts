@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { WebhookProperties, WebhookProperty } from "../../properties/webhook"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$getWebhook",
@@ -25,14 +25,11 @@ export default new NativeFunction({
             description: "The property of the webhook to return",
             rest: false,
             type: ArgType.Enum,
-            enum: WebhookProperty
+            enum: WebhookProperty,
         },
     ],
-    output: [
-        ArgType.Json,
-        ArgType.Unknown
-    ],
-    execute(ctx, [web, prop]) {
+    output: [ArgType.Json, ArgType.Unknown],
+    execute(_ctx, [web, prop]) {
         if (prop) return this.success(WebhookProperties[prop](web))
         return this.successJSON(web)
     },

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const guild_1 = require("../../properties/guild");
 const structures_1 = require("../../structures");
@@ -25,7 +25,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The property to return",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: guild_1.GuildPreviewProperty
+            enum: guild_1.GuildPreviewProperty,
         },
         {
             name: "separator",
@@ -34,12 +34,11 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.String,
         },
     ],
-    output: [
-        structures_1.ArgType.Json,
-        structures_1.ArgType.Unknown
-    ],
+    output: [structures_1.ArgType.Json, structures_1.ArgType.Unknown],
     async execute(ctx, [guild, prop, sep]) {
-        const preview = await (this.hasFields ? ctx.client.fetchGuildPreview(guild).catch(ctx.noop) : ctx.guild?.fetchPreview().catch(ctx.noop));
+        const preview = await (this.hasFields
+            ? ctx.client.fetchGuildPreview(guild).catch(ctx.noop)
+            : ctx.guild?.fetchPreview().catch(ctx.noop));
         if (preview && prop)
             return this.success(guild_1.GuildPreviewProperties[prop](preview, sep));
         return this.successJSON(preview);

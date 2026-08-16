@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction } from "../../structures/@internal/NativeFunction"
 import { fetch } from "undici"
 import { HTTPContentType } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures/@internal/NativeFunction"
 
 export default new NativeFunction({
     name: "$httpRequest",
@@ -46,7 +46,7 @@ export default new NativeFunction({
         const req = await fetch(url, {
             ...ctx.http,
             method,
-            body: ctx.http.body ?? ctx.http.form
+            body: ctx.http.body ?? ctx.http.form,
         }).catch(ctx.noop)
         ms = performance.now() - ms
 
@@ -57,14 +57,17 @@ export default new NativeFunction({
 
         ctx.clearHttpOptions()
         ctx.http.response = { headers: req.headers, ping: ms }
-        
+
         if (overrideType !== undefined) {
-            ctx.setEnvironmentKey(name, await req[HTTPContentType[overrideType].toLowerCase() as Lowercase<keyof typeof HTTPContentType>]())
+            ctx.setEnvironmentKey(
+                name,
+                await req[HTTPContentType[overrideType].toLowerCase() as Lowercase<keyof typeof HTTPContentType>]()
+            )
         } else {
             if (contentType === "application/json") {
                 ctx.setEnvironmentKey(name, await req.json())
             } else if (contentType?.includes("image")) {
-                ctx.setEnvironmentKey(name, await req.arrayBuffer().then(x => Buffer.from(x).toString("base64")))
+                ctx.setEnvironmentKey(name, await req.arrayBuffer().then((x) => Buffer.from(x).toString("base64")))
             } else {
                 ctx.setEnvironmentKey(name, await req.text())
             }

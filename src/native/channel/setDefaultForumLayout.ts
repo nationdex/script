@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, ChannelType, ForumChannel, ForumLayoutType } from "discord.js"
+import { type BaseChannel, ChannelType, type ForumChannel, ForumLayoutType } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -27,17 +27,19 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Enum,
-            enum: ForumLayoutType
+            enum: ForumLayoutType,
         },
         {
             name: "reason",
             description: "The reason for modifying default layout",
             rest: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     output: ArgType.Boolean,
-    async execute(ctx, [ chan, layout, reason ]) {
-        return this.success(!!(await (chan as ForumChannel).setDefaultForumLayout(layout, reason || ctx.reason).catch(ctx.noop)))
+    async execute(ctx, [chan, layout, reason]) {
+        return this.success(
+            !!(await (chan as ForumChannel).setDefaultForumLayout(layout, reason || ctx.reason).catch(ctx.noop))
+        )
     },
 })

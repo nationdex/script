@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -61,7 +61,7 @@ exports.default = new structures_1.NativeFunction({
         const arr = ctx.getEnvironmentKey(name.value);
         const varName = variable.value;
         const otherVarName = otherVariable.value;
-        const newArr = new Array();
+        const newArr = [];
         if (Array.isArray(arr)) {
             for (let i = 0, len = arr.length; i < len; i++) {
                 const el = arr[i];
@@ -74,9 +74,7 @@ exports.default = new structures_1.NativeFunction({
                     return rt;
             }
         }
-        return otherVarName ?
-            this.success(void ctx.setEnvironmentKey(otherVarName, newArr)) :
-            this.successJSON(newArr);
+        return otherVarName ? this.success(void ctx.setEnvironmentKey(otherVarName, newArr)) : this.successJSON(newArr);
     },
 });
 //# sourceMappingURL=arrayMap.js.map

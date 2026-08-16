@@ -1,5 +1,5 @@
+import { type BaseChannel, VideoQualityMode } from "discord.js";
 import { ArgType, NativeFunction } from "../../structures";
-import { BaseChannel, VideoQualityMode } from "discord.js";
 declare const _default: NativeFunction<[{
     name: string;
     description: string;

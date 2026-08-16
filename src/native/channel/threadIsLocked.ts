@@ -1,18 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, ThreadChannel } from "discord.js"
+import type { BaseChannel, ThreadChannel } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$threadIsLocked",
     version: "2.7.0",
-    aliases: [
-        "$isLocked",
-        "$threadLocked"
-    ],
+    aliases: ["$isLocked", "$threadLocked"],
     description: "Returns whether a thread is locked",
     brackets: false,
     unwrap: true,
@@ -24,7 +21,7 @@ export default new NativeFunction({
             required: true,
             type: ArgType.Channel,
             check: (i: BaseChannel) => i.isThread(),
-        }
+        },
     ],
     output: ArgType.Boolean,
     async execute(ctx, [channel]) {

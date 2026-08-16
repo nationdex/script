@@ -1,9 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, CompiledFunction, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
+import {
+    ArgType,
+    type CompiledFunction,
+    type IExtendedCompiledFunctionField,
+    NativeFunction,
+    type Return,
+} from "../../structures"
 import _case from "./case"
 
 export default new NativeFunction({

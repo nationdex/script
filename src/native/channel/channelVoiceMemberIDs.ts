@@ -1,19 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
 import array from "../../functions/array"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$channelVoiceMemberIDs",
     version: "1.4.0",
     description: "Returns the members that are connected to this voice channel",
     unwrap: true,
-    aliases: [
-        "$channelMemberIDs"
-    ],
+    aliases: ["$channelMemberIDs"],
     output: array<ArgType.Member>(),
     brackets: false,
     args: [
@@ -29,11 +27,11 @@ export default new NativeFunction({
             rest: false,
             description: "Separator to use for every id",
             required: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     execute(ctx, [ch, sep]) {
         const chan = ch ?? ctx.channel
-        return this.success(chan?.isVoiceBased() ? chan.members.map(x => x.id).join(sep ?? ", ") : null)
+        return this.success(chan?.isVoiceBased() ? chan.members.map((x) => x.id).join(sep ?? ", ") : null)
     },
 })

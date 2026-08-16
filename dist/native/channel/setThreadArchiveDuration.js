@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -12,9 +12,7 @@ exports.default = new structures_1.NativeFunction({
     description: "Sets a thread's auto archive duration",
     unwrap: true,
     output: structures_1.ArgType.Boolean,
-    aliases: [
-        "$setThreadAutoArchiveDuration"
-    ],
+    aliases: ["$setThreadAutoArchiveDuration"],
     brackets: true,
     args: [
         {
@@ -23,7 +21,7 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.Channel,
             check: (i) => i.isThread(),
             rest: false,
-            required: true
+            required: true,
         },
         {
             name: "duration",
@@ -31,14 +29,14 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.Enum,
             enum: discord_js_1.ThreadAutoArchiveDuration,
             rest: false,
-            required: true
+            required: true,
         },
         {
             name: "reason",
             description: "The reason for modifying archive duration",
             rest: false,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
     async execute(ctx, [ch, dur, reason]) {
         return this.success(!!(await ch.setAutoArchiveDuration(dur, reason || ctx.reason).catch(ctx.noop)));

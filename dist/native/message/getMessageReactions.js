@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -38,7 +38,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The property of the reactions to return",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: reaction_1.ReactionProperty
+            enum: reaction_1.ReactionProperty,
         },
         {
             name: "separator",
@@ -50,7 +50,9 @@ exports.default = new structures_1.NativeFunction({
     output: (0, array_1.default)(),
     async execute(ctx, [, message, prop, sep]) {
         const reactions = (await (message ?? ctx.message)?.fetch().catch(ctx.noop))?.reactions.cache;
-        return this.success(reactions?.map(reaction => reaction_1.ReactionProperties[prop || reaction_1.ReactionProperty.emoji](reaction, sep)).join(sep ?? ", "));
+        return this.success(reactions
+            ?.map((reaction) => reaction_1.ReactionProperties[prop || reaction_1.ReactionProperty.emoji](reaction, sep))
+            .join(sep ?? ", "));
     },
 });
 //# sourceMappingURL=getMessageReactions.js.map

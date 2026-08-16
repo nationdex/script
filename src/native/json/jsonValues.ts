@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import array from "../../functions/array"
 import { ArgType, NativeFunction } from "../../structures"
@@ -26,14 +26,15 @@ export default new NativeFunction({
             rest: false,
         },
     ],
-    output: [
-        ArgType.Json,
-        array<ArgType.Unknown>()
-    ],
+    output: [ArgType.Json, array<ArgType.Unknown>()],
     unwrap: true,
     execute(ctx, [name, sep]) {
         const json = ctx.getEnvironmentKey(name)
         if (!json) return this.success()
-        return this.successJSON(Object.values(json).map((v) => (typeof v === "string" ? v : JSON.stringify(v))).join(sep ?? ", "))
+        return this.successJSON(
+            Object.values(json)
+                .map((v) => (typeof v === "string" ? v : JSON.stringify(v)))
+                .join(sep ?? ", ")
+        )
     },
 })

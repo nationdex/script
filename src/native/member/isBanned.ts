@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -10,9 +10,7 @@ export default new NativeFunction({
     version: "1.0.0",
     brackets: true,
     unwrap: true,
-    aliases: [
-        "$memberIsBanned"
-    ],
+    aliases: ["$memberIsBanned"],
     output: ArgType.Boolean,
     description: "Returns whether this user is banned",
     args: [
@@ -31,7 +29,7 @@ export default new NativeFunction({
             required: true,
         },
     ],
-    async execute(ctx, [guild, user]) {
+    async execute(_ctx, [guild, user]) {
         const isBanned = await guild.bans.fetch(user).catch(() => false)
         return this.success(!!isBanned)
     },

@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, ThreadOnlyChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel, ThreadOnlyChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$deleteForumTags",
@@ -28,11 +28,11 @@ export default new NativeFunction({
             rest: true,
             required: true,
             type: ArgType.ForumTag,
-            pointer: 0
+            pointer: 0,
         },
     ],
     output: ArgType.Boolean,
-    async execute(ctx, [ channel, tags ]) {
+    async execute(ctx, [channel, tags]) {
         const forum = channel as ThreadOnlyChannel
         const newTags = forum.availableTags.filter((x) => !tags.some((tag) => x.id === tag.id))
         return this.success(!!(await forum.setAvailableTags(newTags).catch(ctx.noop)))

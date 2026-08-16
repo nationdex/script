@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -17,18 +17,18 @@ export default new NativeFunction({
             description: "The start index",
             rest: false,
             required: false,
-            type: ArgType.Number
+            type: ArgType.Number,
         },
         {
             name: "end",
             description: "The end index",
             rest: false,
             required: false,
-            type: ArgType.Number
-        }
+            type: ArgType.Number,
+        },
     ],
     unwrap: true,
-    execute(ctx, [ start, end ]) {
+    execute(ctx, [start, end]) {
         return this.success(ctx.args.slice(start ?? undefined, end ?? undefined).join(" "))
     },
 })

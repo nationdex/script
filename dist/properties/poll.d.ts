@@ -1,4 +1,4 @@
-import { Poll, PollAnswer } from "discord.js";
+import { type Poll, type PollAnswer } from "discord.js";
 export declare enum PollProperty {
     question = "question",
     layoutType = "layoutType",

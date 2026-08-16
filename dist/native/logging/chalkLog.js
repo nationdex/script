@@ -1,14 +1,14 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
 const chalk_1 = __importDefault(require("chalk"));
+const structures_1 = require("../../structures");
 function applyStyles(text, styles) {
     let styled = chalk_1.default;
     for (const style of styles) {
@@ -31,19 +31,19 @@ exports.default = new structures_1.NativeFunction({
             description: "The text to log",
             type: structures_1.ArgType.String,
             required: true,
-            rest: false
+            rest: false,
         },
         {
             name: "styles",
             description: "The styles to apply to the text",
             type: structures_1.ArgType.String,
             required: true,
-            rest: true
-        }
+            rest: true,
+        },
     ],
-    execute(ctx, [text, styles]) {
+    execute(_ctx, [text, styles]) {
         console.log(applyStyles(text, styles));
         return this.success();
-    }
+    },
 });
 //# sourceMappingURL=chalkLog.js.map

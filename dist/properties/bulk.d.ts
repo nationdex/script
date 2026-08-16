@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import type { Message, PartialMessage } from "discord.js";
 export declare enum BulkProperty {
     messages = "messages",
     contents = "contents",
@@ -8,5 +8,5 @@ export declare enum BulkProperty {
     users = "users",
     count = "count"
 }
-export declare const BulkProperties: import("..").Properties<typeof BulkProperty, (Message<boolean> | import("discord.js").PartialMessage<boolean>)[]>;
+export declare const BulkProperties: import("..").Properties<typeof BulkProperty, (Message<boolean> | PartialMessage<boolean>)[]>;
 //# sourceMappingURL=bulk.d.ts.map

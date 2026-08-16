@@ -1,5 +1,5 @@
-import { ArgType, NativeFunction } from "../../structures";
 import { AutomodRuleActionProperty } from "../../properties/automodRule";
+import { ArgType, NativeFunction } from "../../structures";
 declare const _default: NativeFunction<[{
     name: string;
     description: string;

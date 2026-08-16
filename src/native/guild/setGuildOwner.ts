@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setGuildOwner",
@@ -11,9 +11,7 @@ export default new NativeFunction({
     description: "Sets the owner of a guild, returns bool",
     unwrap: true,
     deprecated: true,
-    aliases: [
-        "$setServerOwner"
-    ],
+    aliases: ["$setServerOwner"],
     output: ArgType.Boolean,
     args: [
         {
@@ -29,7 +27,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Member,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "reason",

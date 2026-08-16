@@ -1,18 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildEmojiLimit",
     version: "1.5.0",
     description: "Returns the emoji limit of a guild",
     brackets: false,
-    aliases: [
-        "$serverEmojiLimit"
-    ],
+    aliases: ["$serverEmojiLimit"],
     args: [
         {
             name: "guild ID",
@@ -25,17 +23,7 @@ export default new NativeFunction({
     output: ArgType.Number,
     unwrap: true,
     execute(ctx, [guild]) {
-        let tier = (guild ?? ctx.guild)?.premiumTier
-        return this.success(
-            tier === 0
-                ? 100
-                : tier === 1
-                    ? 200
-                    : tier === 2
-                        ? 300
-                        : tier === 3
-                            ? 500
-                            : undefined
-        )
+        const tier = (guild ?? ctx.guild)?.premiumTier
+        return this.success(tier === 0 ? 100 : tier === 1 ? 200 : tier === 2 ? 300 : tier === 3 ? 500 : undefined)
     },
 })

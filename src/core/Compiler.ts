@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
+import { Collection } from "discord.js"
 import { CompiledFunction } from "../structures/@internal/CompiledFunction"
 import { ErrorType, ForgeError } from "../structures/forge/ForgeError"
-import { Collection } from "discord.js"
 
 export interface IRawField {
     condition?: boolean
@@ -51,7 +51,7 @@ export enum OperatorType {
 export const Operators = new Set<OperatorType>(Object.values(OperatorType) as OperatorType[])
 
 export const Conditions: Record<OperatorType, WrappedConditionCode> = {
-    unknown: (lhs, rhs) => lhs === "true",
+    unknown: (lhs, _rhs) => lhs === "true",
     "!=": (lhs, rhs) => lhs !== rhs,
     "==": (lhs, rhs) => lhs === rhs,
     "<": (lhs, rhs) => Number(lhs) < Number(rhs),
@@ -121,7 +121,7 @@ export class Compiler {
         Count: "@",
         Negation: "!",
         Separator: ";",
-        Silent: "#"
+        Silent: "#",
     }
 
     private static SystemRegex = /(\\+)?\[SYSTEM_FUNCTION\(\d+\)\]/gm
@@ -135,7 +135,7 @@ export class Compiler {
     private matchIndex = 0
     private index = 0
 
-    private outputFunctions = new Array<ICompiledFunction>()
+    private outputFunctions = [] as ICompiledFunction[]
     private outputCode = ""
 
     private constructor(
@@ -205,11 +205,11 @@ export class Compiler {
         // Skip [
         this.skip(1)
 
-        const fields = new Array<ICompiledFunctionField | ICompiledFunctionConditionField>()
+        const fields: (ICompiledFunctionField | ICompiledFunctionConditionField)[] = []
 
         // Field parsing
         for (let i = 0, len = match.fn.args!.fields.length; i < len; i++) {
-            let isLast = i + 1 === len
+            const isLast = i + 1 === len
 
             const field = match.fn.args!.fields[i]
             if (!field.rest) {
@@ -270,7 +270,7 @@ export class Compiler {
     private parseConditionField(ref: IRawFunctionMatch): ICompiledFunctionConditionField {
         const data = {} as ICompiledFunctionConditionField
 
-        const functions = new Array<ICompiledFunction>()
+        const functions: ICompiledFunction[] = []
         let rawValue = ""
         let fieldValue = ""
         let closedGracefully = false
@@ -309,7 +309,7 @@ export class Compiler {
                         functions: [...functions],
                         resolve: this.wrap(fieldValue),
                         value: fieldValue,
-                        rawValue
+                        rawValue,
                     }
 
                     rawValue = ""
@@ -344,7 +344,7 @@ export class Compiler {
     }
 
     private parseNormalField(ref: IRawFunctionMatch): ICompiledFunctionField {
-        const functions = new Array<ICompiledFunction>()
+        const functions: ICompiledFunction[] = []
         let rawValue = ""
         let fieldValue = ""
         let closedGracefully = false
@@ -468,10 +468,10 @@ export class Compiler {
     private wrap(code: string) {
         let i = 0
         const gencode = code.replace(Compiler.InvalidCharRegex, "\\$1").replace(Compiler.SystemRegex, () => {
-            return "${args[" + i++ + "] ?? ''}"
+            return `\${args[${i++}] ?? ''}`
         })
 
-        return new Function("args", "return `" + gencode + "`") as WrappedCode
+        return new Function("args", `return \`${gencode}\``) as WrappedCode
     }
 
     private moveTo(index: number) {
@@ -496,15 +496,15 @@ export class Compiler {
 
     private static setFunctions(fns: IRawFunction[]) {
         fns.map((x) => {
-            this.Functions.set(x.name.toLowerCase(), x)
+            Compiler.Functions.set(x.name.toLowerCase(), x)
             x.aliases
                 ?.filter((x) => typeof x === "string")
-                ?.map((alias) => this.Functions.set((alias as string).toLowerCase(), x))
+                ?.map((alias) => Compiler.Functions.set((alias as string).toLowerCase(), x))
         })
 
-        const mapped = Array.from(this.Functions.keys())
+        const mapped = Array.from(Compiler.Functions.keys())
 
-        this.Regex = new RegExp(
+        Compiler.Regex = new RegExp(
             `\\$(\\!)?(\\#)?(@\\[(.*?)\\])?(${mapped
                 .map((x) =>
                     (x.startsWith("$") ? x.slice(1).toLowerCase() : x.toLowerCase()).replace(

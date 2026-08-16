@@ -1,10 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ApplicationCommandOptionType, ApplicationCommandType } from "discord.js"
-import { ApplicationCommand } from "../../structures/base/ApplicationCommand"
 
 export default {
     data: {
@@ -22,4 +21,4 @@ export default {
         ],
     },
     code: "uwu rawr $option[uwu]",
-} 
+}

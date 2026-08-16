@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -10,9 +10,7 @@ exports.default = new structures_1.NativeFunction({
     name: "$roleHasAnyPerms",
     version: "2.6.0",
     description: "Returns whether the role has any of the specified perms",
-    aliases: [
-        "$hasRoleAnyPerms"
-    ],
+    aliases: ["$hasRoleAnyPerms"],
     brackets: true,
     unwrap: true,
     args: [
@@ -41,7 +39,7 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     output: structures_1.ArgType.Boolean,
-    execute(ctx, [, role, perms]) {
+    execute(_ctx, [, role, perms]) {
         return this.success(role.permissions.any(perms));
     },
 });

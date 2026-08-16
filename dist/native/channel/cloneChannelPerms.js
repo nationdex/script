@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -31,7 +31,9 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Boolean,
     async execute(ctx, [chan1, chan2]) {
-        return this.success(!!(await chan2.permissionOverwrites.set(chan1.permissionOverwrites.cache, ctx.reason).catch(ctx.noop)));
+        return this.success(!!(await chan2.permissionOverwrites
+            .set(chan1.permissionOverwrites.cache, ctx.reason)
+            .catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=cloneChannelPerms.js.map

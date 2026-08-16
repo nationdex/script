@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, IExtendedCompiledFunctionConditionField, NativeFunction } from "../../structures"
 import isTrue from "../../functions/isTrue"
+import { ArgType, type IExtendedCompiledFunctionConditionField, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$arrayFilter",
@@ -53,7 +53,7 @@ export default new NativeFunction({
         const [name, varName, otherVarName] = args
 
         const arr = ctx.getEnvironmentKey(name)
-        const newArr = new Array<unknown>()
+        const newArr: unknown[] = []
 
         if (Array.isArray(arr)) {
             for (let i = 0, len = arr.length; i < len; i++) {
@@ -68,8 +68,6 @@ export default new NativeFunction({
             }
         }
 
-        return otherVarName ?
-            this.success(void ctx.setEnvironmentKey(otherVarName, newArr)) :
-            this.successJSON(newArr)
+        return otherVarName ? this.success(void ctx.setEnvironmentKey(otherVarName, newArr)) : this.successJSON(newArr)
     },
 })

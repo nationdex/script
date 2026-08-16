@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -16,18 +16,18 @@ export default new NativeFunction({
             description: "The variable to load array from",
             type: ArgType.String,
             rest: false,
-            required: true
+            required: true,
         },
         {
             name: "value",
             description: "The value to fill the array with",
             rest: false,
             required: true,
-            type: ArgType.Json
-        }
+            type: ArgType.Json,
+        },
     ],
     unwrap: true,
-    execute(ctx, [ v, n ]) {
+    execute(ctx, [v, n]) {
         ctx.getEnvironmentInstance(Array, v)?.fill(n)
         return this.success()
     },

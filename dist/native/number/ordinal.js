@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const ordinal_1 = require("../../functions/ordinal");
 const structures_1 = require("../../structures");
@@ -19,10 +19,10 @@ exports.default = new structures_1.NativeFunction({
             description: "The number to append suffix to",
             rest: false,
             required: true,
-            type: structures_1.ArgType.Number
-        }
+            type: structures_1.ArgType.Number,
+        },
     ],
-    execute(ctx, [n]) {
+    execute(_ctx, [n]) {
         return this.success((0, ordinal_1.ordinal)(n));
     },
 });

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -32,7 +32,10 @@ exports.default = new structures_1.NativeFunction({
     execute(ctx, [guild, member]) {
         guild ??= ctx.guild;
         member ??= ctx.member;
-        const lowest = member?.roles.cache.filter(role => role.id !== guild?.id).sort((a, b) => a.position - b.position).first();
+        const lowest = member?.roles.cache
+            .filter((role) => role.id !== guild?.id)
+            .sort((a, b) => a.position - b.position)
+            .first();
         return this.success(lowest?.id ?? guild?.id);
     },
 });

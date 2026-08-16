@@ -1,15 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from "fs"
-import { join, resolve } from "path"
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs"
+import { join, resolve } from "node:path"
 
 const LICENSE = `/*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © ${new Date().getFullYear()} BotForge
-*/`
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © ${new Date().getFullYear()} BotForge
+ */`
 
 const dir = resolve("src")
 const HeaderRegex = /^\s*\/\*[\s\S]*?SPDX-License-Identifier:[\s\S]*?\*\/\s*/

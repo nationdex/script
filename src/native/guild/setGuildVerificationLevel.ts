@@ -1,19 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { GuildVerificationLevel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setGuildVerificationLevel",
     version: "2.1.0",
     description: "Sets the verification level of a guild, returns bool",
     unwrap: true,
-    aliases: [
-        "$setServerVerificationLevel"
-    ],
+    aliases: ["$setServerVerificationLevel"],
     output: ArgType.Boolean,
     args: [
         {
@@ -28,7 +26,7 @@ export default new NativeFunction({
             description: "The new verification level",
             rest: false,
             type: ArgType.Enum,
-            enum: GuildVerificationLevel
+            enum: GuildVerificationLevel,
         },
         {
             name: "reason",
@@ -39,6 +37,8 @@ export default new NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, level, reason]) {
-        return this.success((await guild.setVerificationLevel(level || null, reason || ctx.reason).catch(() => false)) !== false)
+        return this.success(
+            (await guild.setVerificationLevel(level || null, reason || ctx.reason).catch(() => false)) !== false
+        )
     },
 })

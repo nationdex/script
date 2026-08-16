@@ -1,20 +1,18 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { GuildFeature } from "discord.js"
 import array from "../../functions/array"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildFeatures",
     version: "1.0.0",
     description: "Returns the guild features",
     brackets: false,
-    aliases: [
-        "$serverFeatures"
-    ],
+    aliases: ["$serverFeatures"],
     output: array(GuildFeature),
     args: [
         {

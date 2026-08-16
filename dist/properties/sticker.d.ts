@@ -1,4 +1,4 @@
-import { Sticker } from "discord.js";
+import { type Sticker } from "discord.js";
 export declare enum StickerProperty {
     id = "id",
     name = "name",

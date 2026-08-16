@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$arraySlice",
@@ -46,10 +46,8 @@ export default new NativeFunction({
 
         if (Array.isArray(arr)) {
             const sliced = arr.slice(start, end || undefined)
-            if (var2)
-                return this.success(void ctx.setEnvironmentKey(var2, sliced))
-            else
-                return this.successJSON(sliced)
+            if (var2) return this.success(void ctx.setEnvironmentKey(var2, sliced))
+            else return this.successJSON(sliced)
         }
 
         return this.success()

@@ -1,20 +1,18 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { Team } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
-import { TeamMemberProperties, TeamMemberProperty } from "../../properties/teamMember"
 import array from "../../functions/array"
+import { TeamMemberProperties, TeamMemberProperty } from "../../properties/teamMember"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$botTeamMembers",
     version: "2.4.0",
     description: "Returns the client's team members",
-    aliases: [
-        "$clientTeamMembers"
-    ],
+    aliases: ["$clientTeamMembers"],
     unwrap: true,
     brackets: false,
     args: [
@@ -24,19 +22,23 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Enum,
-            enum: TeamMemberProperty
+            enum: TeamMemberProperty,
         },
         {
             name: "separator",
             description: "The separator to use for every property",
             rest: false,
-            type: ArgType.String
+            type: ArgType.String,
         },
     ],
     output: array<ArgType.Unknown>(),
     async execute(ctx, [prop, sep]) {
         if (!ctx.client.application.owner) await ctx.client.application.fetch().catch(ctx.noop)
         const owner = ctx.client.application.owner
-        return this.success(owner instanceof Team ? owner.members.map(x => TeamMemberProperties[prop || TeamMemberProperty.id](x)).join(sep ?? ", ") : null)
+        return this.success(
+            owner instanceof Team
+                ? owner.members.map((x) => TeamMemberProperties[prop || TeamMemberProperty.id](x)).join(sep ?? ", ")
+                : null
+        )
     },
 })

@@ -1,10 +1,10 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const crypto_1 = require("crypto");
+const node_crypto_1 = require("node:crypto");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$md5",
@@ -19,19 +19,22 @@ exports.default = new structures_1.NativeFunction({
             description: "Input to use for feeding",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
         {
             name: "encoding",
             type: structures_1.ArgType.String,
             description: "The output encoding",
             rest: false,
-            required: false
-        }
+            required: false,
+        },
     ],
-    execute(ctx, [input, enc]) {
-        const md5 = (0, crypto_1.createHash)("md5").update(input).digest().toString((enc || "hex"));
+    execute(_ctx, [input, enc]) {
+        const md5 = (0, node_crypto_1.createHash)("md5")
+            .update(input)
+            .digest()
+            .toString((enc || "hex"));
         return this.success(md5);
-    }
+    },
 });
 //# sourceMappingURL=md5.js.map

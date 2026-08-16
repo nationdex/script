@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 export const SplitTextName = "splits" as const
@@ -18,17 +18,17 @@ export default new NativeFunction({
             description: "The text to split",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "separator",
             description: "The separator to use",
             rest: false,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [ text, sep ]) {
+    execute(ctx, [text, sep]) {
         ctx.setEnvironmentKey(SplitTextName, text.split(sep))
         return this.success()
     },

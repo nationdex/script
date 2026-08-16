@@ -1,19 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$timeout",
     version: "1.0.0",
     description: "Times a member out for X milliseconds, returns bool",
     unwrap: true,
-    aliases: [
-        "$memberTimeout",
-        "$timeoutMember"
-    ],
+    aliases: ["$memberTimeout", "$timeoutMember"],
     output: ArgType.Boolean,
     brackets: true,
     args: [
@@ -46,7 +43,9 @@ export default new NativeFunction({
         },
     ],
     async execute(ctx, [, member, ms, reason]) {
-        const timeout = await member.disableCommunicationUntil(ms ? Date.now() + ms : null, reason || ctx.reason).catch(ctx.noop)
+        const timeout = await member
+            .disableCommunicationUntil(ms ? Date.now() + ms : null, reason || ctx.reason)
+            .catch(ctx.noop)
         return this.success(!!timeout)
     },
 })

@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
 import { MessageProperties, MessageProperty } from "../../properties/message"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$targetMessage",
@@ -30,6 +30,10 @@ export default new NativeFunction({
     ],
     output: ArgType.Unknown,
     execute(ctx, [prop, sep]) {
-        return this.success(ctx.interaction?.isMessageContextMenuCommand() ? MessageProperties[prop](ctx.interaction.targetMessage, sep) : null)
+        return this.success(
+            ctx.interaction?.isMessageContextMenuCommand()
+                ? MessageProperties[prop](ctx.interaction.targetMessage, sep)
+                : null
+        )
     },
 })

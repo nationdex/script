@@ -1,13 +1,13 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { Dirent, lstatSync, readdirSync } from "fs"
-import { join } from "path"
+import { lstatSync, readdirSync } from "node:fs"
+import { join } from "node:path"
 
 export default function recursiveReaddirSync(path: string): string[] {
-    const arr = new Array<string>()
+    const arr: string[] = []
 
     for (const file of readdirSync(path)) {
         const p = join(path, file)

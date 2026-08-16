@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { User } from "discord.js"
+import type { User } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum UserProperty {
@@ -39,5 +39,5 @@ export const UserProperties = defineProperties<typeof UserProperty, User>({
     primaryGuildTag: (i) => i?.primaryGuild?.tag,
     primaryGuildBadge: (i) => i?.guildTagBadgeURL(),
     primaryGuildEnabled: (i) => i?.primaryGuild?.identityEnabled,
-    primaryGuildID: (i) => i?.primaryGuild?.identityGuildId
+    primaryGuildID: (i) => i?.primaryGuild?.identityGuildId,
 })

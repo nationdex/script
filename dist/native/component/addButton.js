@@ -1,12 +1,12 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const structures_1 = require("../../structures");
 const enum_1 = require("../../functions/enum");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$addButton",
     version: "1.0.0",
@@ -51,9 +51,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     execute(ctx, [id, label, style, emoji, disabled]) {
         style = (0, enum_1.resolveNumericEnum)(discord_js_1.ButtonStyle, style);
-        const btn = new discord_js_1.ButtonBuilder()
-            .setDisabled(disabled || false)
-            .setStyle(style);
+        const btn = new discord_js_1.ButtonBuilder().setDisabled(disabled || false).setStyle(style);
         if (style === discord_js_1.ButtonStyle.Link)
             btn.setURL(id);
         else if (style === discord_js_1.ButtonStyle.Premium)

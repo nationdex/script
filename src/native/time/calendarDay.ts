@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 function getDayOfYear(date: Date) {
     const start = new Date(date.getFullYear(), 0, 1)
@@ -18,7 +18,11 @@ export default new NativeFunction({
     description: "Returns the calendar day",
     unwrap: true,
     output: ArgType.Number,
-    execute: async function(ctx) {
-        return this.success(getDayOfYear(new Date(new Date().toLocaleString("en-US", { timeZone: ctx.timezone, calendar: ctx.calendar }))))
-    }
+    execute: async function (ctx) {
+        return this.success(
+            getDayOfYear(
+                new Date(new Date().toLocaleString("en-US", { timeZone: ctx.timezone, calendar: ctx.calendar }))
+            )
+        )
+    },
 })

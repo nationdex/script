@@ -1,16 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export enum ExtendedTimeFormat {
     Numeric = "numeric",
     TwoDigit = "2-digit",
     Long = "long",
     Short = "short",
-    Narrow = "narrow"
+    Narrow = "narrow",
 }
 
 export default new NativeFunction({
@@ -25,11 +25,17 @@ export default new NativeFunction({
             description: "The format of the month",
             rest: false,
             type: ArgType.Enum,
-            enum: ExtendedTimeFormat
-        }
+            enum: ExtendedTimeFormat,
+        },
     ],
     output: ArgType.String,
-    execute: async function(ctx, [format]) {
-        return this.success(new Date().toLocaleString("en-US", { month: format || "numeric", timeZone: ctx.timezone, calendar: ctx.calendar }))
-    }
+    execute: async function (ctx, [format]) {
+        return this.success(
+            new Date().toLocaleString("en-US", {
+                month: format || "numeric",
+                timeZone: ctx.timezone,
+                calendar: ctx.calendar,
+            })
+        )
+    },
 })

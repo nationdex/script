@@ -1,35 +1,34 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-/* eslint-disable indent */
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs"
+import { join } from "node:path"
+import { cwd } from "node:process"
 import {
-    APIApplicationCommandOption,
-    APIApplicationCommandSubcommandOption,
-    ApplicationCommandDataResolvable,
+    type APIApplicationCommandOption,
+    type APIApplicationCommandSubcommandOption,
+    type ApplicationCommandDataResolvable,
     ApplicationCommandOptionType,
     ApplicationCommandType,
     ChatInputCommandInteraction,
     Collection,
-    CommandInteraction,
-    CommandInteractionOption,
-    ContextMenuCommandBuilder,
+    type CommandInteraction,
+    type CommandInteractionOption,
+    type ContextMenuCommandBuilder,
     ContextMenuCommandInteraction,
     Events,
-    Guild,
-    Interaction,
+    type Guild,
+    type Interaction,
     PrimaryEntryPointCommandInteraction,
-    RESTPostAPIApplicationCommandsJSONBody,
-    RESTPostAPIChatInputApplicationCommandsJSONBody,
-    SlashCommandBuilder,
+    type RESTPostAPIApplicationCommandsJSONBody,
+    type RESTPostAPIChatInputApplicationCommandsJSONBody,
+    type SlashCommandBuilder,
 } from "discord.js"
+import type { ForgeClient } from "../core"
 import { ApplicationCommand } from "../structures/base/ApplicationCommand"
-import { ForgeClient } from "../core"
 import { NativeEventName } from "./EventManager"
-import { readdirSync, readFileSync, statSync, existsSync } from "fs"
-import { join } from "path"
-import { cwd } from "process"
 
 export enum RegistrationType {
     Global,
@@ -38,10 +37,7 @@ export enum RegistrationType {
 }
 
 export interface IApplicationCommandData {
-    data:
-        | SlashCommandBuilder
-        | ContextMenuCommandBuilder
-        | RESTPostAPIApplicationCommandsJSONBody
+    data: SlashCommandBuilder | ContextMenuCommandBuilder | RESTPostAPIApplicationCommandsJSONBody
     code: string
     type?: RegistrationType
     independent?: boolean
@@ -126,7 +122,7 @@ export class ApplicationCommandManager {
     }
 
     private getDisplayOptions(input: readonly CommandInteractionOption[], hideName: boolean) {
-        const arr = new Array<string>()
+        const arr: string[] = []
 
         for (const data of input) {
             if (data.value !== undefined) {
@@ -149,10 +145,13 @@ export class ApplicationCommandManager {
                         ? ` ${subcommandGroupName} ${subcommandName}`
                         : ` ${subcommandGroupName}`
                     : subcommandName
-                    ? ` ${subcommandName}`
-                    : ""
+                      ? ` ${subcommandName}`
+                      : ""
             } ${filteredOptions.join(" ")}`
-        } else if (input instanceof ContextMenuCommandInteraction || input instanceof PrimaryEntryPointCommandInteraction) {
+        } else if (
+            input instanceof ContextMenuCommandInteraction ||
+            input instanceof PrimaryEntryPointCommandInteraction
+        ) {
             return `/${input.commandName}`
         }
         return null
@@ -196,7 +195,7 @@ export class ApplicationCommandManager {
         if (!reqPath.endsWith(".js")) return null
         delete require.cache[require.resolve(reqPath)]
         const req = require(reqPath)
-        let value = req.default ?? req
+        const value = req.default ?? req
         if (!value || !Object.keys(value).length) return null
         else if (Array.isArray(value)) throw new Error("Disallowed")
         return this.resolve(value, reqPath)
@@ -226,7 +225,7 @@ export class ApplicationCommandManager {
     }
 
     toJSON(type: Parameters<ApplicationCommand["mustRegisterAs"]>[0]): ApplicationCommandDataResolvable[] {
-        const arr = new Array<ApplicationCommandDataResolvable>()
+        const arr: ApplicationCommandDataResolvable[] = []
 
         // Helper function to read config.json
         const readConfig = (folderPath: string) => {
@@ -235,7 +234,9 @@ export class ApplicationCommandManager {
                 try {
                     return JSON.parse(readFileSync(configPath, "utf-8"))
                 } catch (err) {
-                    throw new Error(`Error reading config.json in ${folderPath}: `, { cause: err })
+                    throw new Error(`Error reading config.json in ${folderPath}: `, {
+                        cause: err,
+                    })
                 }
             }
             return null
@@ -282,13 +283,21 @@ export class ApplicationCommandManager {
 
                         // Only assign `options` if this is a SubcommandGroup
                         if (raw.type === ApplicationCommandOptionType.SubcommandGroup) {
-                            (raw as APIApplicationCommandOption & { options: APIApplicationCommandSubcommandOption[] }).options = []
+                            ;(
+                                raw as APIApplicationCommandOption & {
+                                    options: APIApplicationCommandSubcommandOption[]
+                                }
+                            ).options = []
 
                             for (const [lastName, command] of values) {
                                 if (!command.mustRegisterAs(type)) continue
 
-                                const commandData = command.toJSON();
-                                (raw as APIApplicationCommandOption & { options: APIApplicationCommandSubcommandOption[] }).options.push({
+                                const commandData = command.toJSON()
+                                ;(
+                                    raw as APIApplicationCommandOption & {
+                                        options: APIApplicationCommandSubcommandOption[]
+                                    }
+                                ).options.push({
                                     ...commandData,
                                     name: lastName,
                                     type: ApplicationCommandOptionType.Subcommand,
@@ -297,7 +306,13 @@ export class ApplicationCommandManager {
                         }
 
                         // Only push `json.options` if it contains valid data
-                        if ((raw as APIApplicationCommandOption & { options?: APIApplicationCommandSubcommandOption[] }).options?.length) {
+                        if (
+                            (
+                                raw as APIApplicationCommandOption & {
+                                    options?: APIApplicationCommandSubcommandOption[]
+                                }
+                            ).options?.length
+                        ) {
                             json.options!.push(raw as APIApplicationCommandOption)
                         }
                     } else {

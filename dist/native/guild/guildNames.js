@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -14,9 +14,7 @@ exports.default = new structures_1.NativeFunction({
     version: "1.0.0",
     description: "Returns the server names of the bot",
     brackets: false,
-    aliases: [
-        "$serverNames"
-    ],
+    aliases: ["$serverNames"],
     output: (0, array_1.default)(),
     args: [
         {

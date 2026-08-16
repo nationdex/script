@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -13,9 +13,7 @@ exports.default = new structures_1.NativeFunction({
     name: "$guildEmojis",
     version: "1.3.0",
     unwrap: true,
-    aliases: [
-        "$serverEmojis"
-    ],
+    aliases: ["$serverEmojis"],
     output: (0, array_1.default)(),
     brackets: false,
     description: "Returns every emoji of the guild",
@@ -25,18 +23,18 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Guild,
-            description: "The guild to get emoji from"
+            description: "The guild to get emoji from",
         },
         {
             name: "separator",
             description: "The separator to use for every emoji",
             rest: false,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
     execute(ctx, [guild, sep]) {
         guild ??= ctx.guild;
-        return this.success(guild?.emojis.cache.map(x => x.toString()).join(sep ?? ", "));
+        return this.success(guild?.emojis.cache.map((x) => x.toString()).join(sep ?? ", "));
     },
 });
 //# sourceMappingURL=guildEmojis.js.map

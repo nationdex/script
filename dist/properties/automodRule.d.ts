@@ -1,4 +1,4 @@
-import { AutoModerationAction, AutoModerationRule } from "discord.js";
+import { type AutoModerationAction, type AutoModerationRule } from "discord.js";
 export declare enum AutomodRuleProperty {
     id = "id",
     name = "name",

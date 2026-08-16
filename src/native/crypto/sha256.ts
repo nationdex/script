@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { createHash, randomUUID } from "crypto"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { createHash } from "node:crypto"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$sha256",
@@ -19,18 +19,21 @@ export default new NativeFunction({
             description: "Input to use for feeding",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "encoding",
             type: ArgType.String,
             description: "The output encoding",
             rest: false,
-            required: false
-        }
+            required: false,
+        },
     ],
-    execute(ctx, [ input, enc ]) {
-        const sha256 = createHash("sha256").update(input).digest().toString((enc || "hex") as BufferEncoding)
+    execute(_ctx, [input, enc]) {
+        const sha256 = createHash("sha256")
+            .update(input)
+            .digest()
+            .toString((enc || "hex") as BufferEncoding)
         return this.success(sha256)
-    }
+    },
 })

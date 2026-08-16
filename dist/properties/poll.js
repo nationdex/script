@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -44,6 +44,6 @@ exports.PollAnswerProperties = (0, defineProperties_1.default)({
     text: (i) => i?.text,
     emoji: (i) => i?.emoji?.toString(),
     voteCount: (i) => i?.voteCount,
-    messageID: (i) => i?.poll.message.id
+    messageID: (i) => i?.poll.message.id,
 });
 //# sourceMappingURL=poll.js.map

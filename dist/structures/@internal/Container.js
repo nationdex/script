@@ -1,24 +1,22 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Container = void 0;
-/* eslint-disable indent */
 const discord_js_1 = require("discord.js");
 const noop_1 = __importDefault(require("../../functions/noop"));
-const discord_js_2 = require("discord.js");
 const mentions = ["everyone", "roles", "users"];
 class Container {
     content;
-    embeds = new Array();
-    components = new Array();
+    embeds = [];
+    components = [];
     actionRow;
-    inside = Array();
+    inside = [];
     reference;
     reply = false;
     followUp = false;
@@ -28,13 +26,13 @@ class Container {
     tts = false;
     update = false;
     isComponentsV2 = false;
-    files = new Array();
+    files = [];
     channel;
-    stickers = new Array();
+    stickers = [];
     withResponse = false;
     withComponents = false;
     modal;
-    choices = new Array();
+    choices = [];
     allowedMentions = {};
     avatarURL;
     username;
@@ -49,7 +47,7 @@ class Container {
         if (!this.isValidMessage(options)) {
             return null;
         }
-        if (this.channel && this.channel.isTextBased()) {
+        if (this.channel?.isTextBased()) {
             res = this.channel.send(options);
         }
         else if (obj instanceof discord_js_1.AutoModerationActionExecution && obj.channel && "send" in obj.channel) {
@@ -116,9 +114,7 @@ class Container {
         return (this.embeds[index] ??= new discord_js_1.EmbedBuilder());
     }
     parseMentions(type) {
-        this.allowedMentions.parse = type
-            ? [...new Set([...(this.allowedMentions.parse ?? []), type])]
-            : [...mentions];
+        this.allowedMentions.parse = type ? [...new Set([...(this.allowedMentions.parse ?? []), type])] : [...mentions];
     }
     unparseMentions(type) {
         this.allowedMentions.parse = (this.allowedMentions.parse ?? mentions).filter((x) => x !== type);
@@ -165,13 +161,13 @@ class Container {
     getOptions(content) {
         if (this.actionRow)
             this.components.push(this.actionRow);
-        const flags = new Array();
+        const flags = [];
         if (this.ephemeral)
-            flags.push(discord_js_2.MessageFlags.Ephemeral);
+            flags.push(discord_js_1.MessageFlags.Ephemeral);
         if (this.silent)
-            flags.push(discord_js_2.MessageFlags.SuppressNotifications);
+            flags.push(discord_js_1.MessageFlags.SuppressNotifications);
         if (this.isComponentsV2)
-            flags.push(discord_js_2.MessageFlags.IsComponentsV2);
+            flags.push(discord_js_1.MessageFlags.IsComponentsV2);
         return (content
             ? {
                 content,

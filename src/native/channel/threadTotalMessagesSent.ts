@@ -1,19 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, ThreadChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
+import type { BaseChannel, ThreadChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$threadTotalMessagesSent",
     version: "1.5.0",
     description: "Returns the total count of sent messages in a thread",
-    aliases: [
-        "$threadTotalMessagesCount"
-    ],
+    aliases: ["$threadTotalMessagesCount"],
     brackets: false,
     unwrap: true,
     output: ArgType.Number,
@@ -25,7 +22,7 @@ export default new NativeFunction({
             required: true,
             type: ArgType.Channel,
             check: (i: BaseChannel) => i.isThread(),
-        }
+        },
     ],
     async execute(ctx, [channel]) {
         const thread = (channel ?? ctx.channel) as ThreadChannel

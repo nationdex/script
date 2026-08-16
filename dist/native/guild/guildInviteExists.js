@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -29,7 +29,7 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     output: structures_1.ArgType.Boolean,
-    async execute(ctx, [guild, code]) {
+    async execute(_ctx, [guild, code]) {
         return this.success((await guild.invites.fetch(code).catch(() => false)) !== false);
     },
 });

@@ -1,10 +1,10 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs_1 = require("fs");
+const node_fs_1 = require("node:fs");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$mktdir",
@@ -12,10 +12,7 @@ exports.default = new structures_1.NativeFunction({
     description: "Creates a temporary directory",
     unwrap: true,
     brackets: true,
-    aliases: [
-        "$makeTempDir",
-        "$createTempDir"
-    ],
+    aliases: ["$makeTempDir", "$createTempDir"],
     output: structures_1.ArgType.String,
     args: [
         {
@@ -24,10 +21,10 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.String,
-        }
+        },
     ],
-    execute(ctx, [prefix]) {
-        return this.success((0, fs_1.mkdtempSync)(prefix));
+    execute(_ctx, [prefix]) {
+        return this.success((0, node_fs_1.mkdtempSync)(prefix));
     },
 });
 //# sourceMappingURL=mktdir.js.map

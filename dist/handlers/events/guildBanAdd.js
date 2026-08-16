@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("../../core");
 const DiscordEventHandler_1 = require("../../structures/extended/DiscordEventHandler");
@@ -16,13 +16,13 @@ exports.default = new DiscordEventHandler_1.DiscordEventHandler({
             core_1.Interpreter.run({
                 obj: {
                     guild: m.guild,
-                    user: m.user
+                    user: m.user,
                 },
                 command,
                 client: this,
                 states: {
                     ban: {
-                        new: m
+                        new: m,
                     },
                 },
                 data: command.compiled.code,

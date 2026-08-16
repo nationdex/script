@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { APIInteractionGuildMember, GuildMember } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { type APIInteractionGuildMember, GuildMember } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$nickname",
@@ -33,6 +33,10 @@ export default new NativeFunction({
     ],
     execute(ctx, [, user]) {
         const member = user ?? ctx.member ?? ctx.interaction?.member
-        return this.success(member instanceof GuildMember ? member?.nickname : (ctx.interaction?.member as APIInteractionGuildMember)?.nick)
+        return this.success(
+            member instanceof GuildMember
+                ? member?.nickname
+                : (ctx.interaction?.member as APIInteractionGuildMember)?.nick
+        )
     },
 })

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -34,7 +34,7 @@ exports.default = new structures_1.NativeFunction({
         if (!ctx.isSelectMenu())
             return this.success();
         const values = ctx.interaction.values;
-        return this.success(typeof (index) === "number" ? values[index] : values.join(sep ?? ", "));
+        return this.success(typeof index === "number" ? values[index] : values.join(sep ?? ", "));
     },
 });
 //# sourceMappingURL=selectMenuValues.js.map

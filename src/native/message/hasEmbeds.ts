@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$hasEmbeds",
@@ -20,7 +20,7 @@ export default new NativeFunction({
             type: ArgType.Channel,
             rest: false,
             required: true,
-            check: (i: BaseChannel) => "messages" in i
+            check: (i: BaseChannel) => "messages" in i,
         },
         {
             name: "message ID",
@@ -28,12 +28,10 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Message,
-            description: "The message to check for embeds"
-        }
+            description: "The message to check for embeds",
+        },
     ],
     execute(ctx, [, msg]) {
-        return this.success(
-            !!(msg ?? ctx.message)?.embeds.length
-        )
+        return this.success(!!(msg ?? ctx.message)?.embeds.length)
     },
 })

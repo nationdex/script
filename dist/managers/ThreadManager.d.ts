@@ -1,4 +1,4 @@
-import { ForgeClient, IRunnable } from "../core";
+import type { ForgeClient, IRunnable } from "../core";
 export interface IThreadContext {
     code: string;
     environment?: IRunnable["environment"];

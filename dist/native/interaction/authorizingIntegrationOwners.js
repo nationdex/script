@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthorizingIntegrationOwnersType = void 0;
 const structures_1 = require("../../structures");
@@ -24,16 +24,14 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Enum,
-            enum: AuthorizingIntegrationOwnersType
+            enum: AuthorizingIntegrationOwnersType,
         },
     ],
-    output: [
-        structures_1.ArgType.Json,
-        structures_1.ArgType.User,
-        structures_1.ArgType.Guild
-    ],
+    output: [structures_1.ArgType.Json, structures_1.ArgType.User, structures_1.ArgType.Guild],
     execute(ctx, [type]) {
-        const owners = ctx.interaction && "authorizingIntegrationOwners" in ctx.interaction ? ctx.interaction.authorizingIntegrationOwners : undefined;
+        const owners = ctx.interaction && "authorizingIntegrationOwners" in ctx.interaction
+            ? ctx.interaction.authorizingIntegrationOwners
+            : undefined;
         return this.successJSON(owners && this.hasFields ? owners[type] : owners);
     },
 });

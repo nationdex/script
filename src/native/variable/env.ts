@@ -1,16 +1,14 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures/@internal/NativeFunction"
 
 export default new NativeFunction({
     name: "$env",
     version: "1.0.0",
-    aliases: [
-        "$jsonDump"
-    ],
+    aliases: ["$jsonDump"],
     output: ArgType.Unknown,
     description: "Retrieves an environment value",
     args: [

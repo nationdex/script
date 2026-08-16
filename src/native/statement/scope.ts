@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
+import { ArgType, type IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$scope",
@@ -16,22 +16,24 @@ export default new NativeFunction({
             description: "The code to execute",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "sync vars",
             description: "Whether to pass vars as reference",
             type: ArgType.Boolean,
-            rest: false
-        }
+            rest: false,
+        },
     ],
     unwrap: false,
     output: ArgType.Unknown,
     async execute(ctx) {
         const data = await this["resolveMultipleArgs"](ctx, 1)
-        if (!this["isValidReturnType"](data.return))
-            return data.return
+        if (!this["isValidReturnType"](data.return)) return data.return
 
-        return this["resolveCode"](ctx.clone(undefined, data.args[0] ?? false), this.data.fields![0] as IExtendedCompiledFunctionField)
+        return this["resolveCode"](
+            ctx.clone(undefined, data.args[0] ?? false),
+            this.data.fields![0] as IExtendedCompiledFunctionField
+        )
     },
 })

@@ -1,21 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
-import { ActivityProperties, ActivityProperty } from "../../properties/activity"
 import array from "../../functions/array"
+import { ActivityProperties, ActivityProperty } from "../../properties/activity"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$memberActivity",
     version: "1.5.0",
     description: "Returns the activity of a member",
-    aliases: [
-        "$activity",
-        "$userActivity",
-        "$memberActivities"
-    ],
+    aliases: ["$activity", "$userActivity", "$memberActivities"],
     unwrap: true,
     output: array<ArgType.Unknown>(),
     args: [
@@ -39,7 +35,7 @@ export default new NativeFunction({
             description: "The property of the activity to return",
             rest: false,
             type: ArgType.Enum,
-            enum: ActivityProperty
+            enum: ActivityProperty,
         },
         {
             name: "separator",
@@ -51,6 +47,8 @@ export default new NativeFunction({
     brackets: false,
     execute(ctx, [, member, prop, sep]) {
         const activity = (member ?? ctx.member)?.presence?.activities
-        return this.success((prop ? activity?.map((x) => ActivityProperties[prop](x, sep)) : activity)?.join(sep ?? ", "))
-    }
+        return this.success(
+            (prop ? activity?.map((x) => ActivityProperties[prop](x, sep)) : activity)?.join(sep ?? ", ")
+        )
+    },
 })

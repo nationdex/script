@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, ChannelType, ForumChannel, ForumLayoutType } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { type BaseChannel, ChannelType, type ForumChannel, ForumLayoutType } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$forumDefaultLayout",
@@ -19,11 +19,11 @@ export default new NativeFunction({
             rest: false,
             type: ArgType.Channel,
             check: (i: BaseChannel) => i.type === ChannelType.GuildForum,
-            required: true
+            required: true,
         },
     ],
     output: ForumLayoutType,
-    execute(ctx, [chan]) {
+    execute(_ctx, [chan]) {
         return this.success(ForumLayoutType[(chan as ForumChannel)?.defaultForumLayout])
     },
 })

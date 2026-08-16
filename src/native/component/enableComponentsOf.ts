@@ -1,9 +1,14 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ActionRow, ActionRowBuilder, MessageActionRowComponent, MessageActionRowComponentBuilder } from "discord.js"
+import {
+    type ActionRow,
+    ActionRowBuilder,
+    type MessageActionRowComponent,
+    type MessageActionRowComponentBuilder,
+} from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -18,7 +23,7 @@ export default new NativeFunction({
             description: "The channel id to pull message from",
             rest: false,
             required: true,
-            type: ArgType.TextChannel
+            type: ArgType.TextChannel,
         },
         {
             name: "message ID",
@@ -26,21 +31,25 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Message,
-            pointer: 0
+            pointer: 0,
         },
     ],
     brackets: true,
     output: ArgType.Boolean,
     async execute(ctx, [, msg]) {
-        const components = msg.components.map(x => ActionRowBuilder.from<MessageActionRowComponentBuilder>(x as ActionRow<MessageActionRowComponent>))
+        const components = msg.components.map((x) =>
+            ActionRowBuilder.from<MessageActionRowComponentBuilder>(x as ActionRow<MessageActionRowComponent>)
+        )
 
-        components.forEach(row => {
+        components.forEach((row) => {
             const actionRow = new ActionRowBuilder()
-            row?.components.forEach(comp => actionRow.addComponents(comp.setDisabled(false)))
+            row?.components.forEach((comp) => actionRow.addComponents(comp.setDisabled(false)))
         })
 
         return this.success(
-            !!(await msg.edit({ components: components as ActionRowBuilder<MessageActionRowComponentBuilder>[] }).catch(ctx.noop))
+            !!(await msg
+                .edit({ components: components as ActionRowBuilder<MessageActionRowComponentBuilder>[] })
+                .catch(ctx.noop))
         )
     },
 })

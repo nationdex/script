@@ -1,16 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 async function asyncSort<T>(array: T[], asyncComparator: (a: T, b: T) => Promise<number>): Promise<T[]> {
     for (let i = 0; i < array.length - 1; i++) {
         for (let j = i + 1; j < array.length; j++) {
             const result = await asyncComparator(array[i], array[j])
             if (result > 0) {
-                [array[i], array[j]] = [array[j], array[i]]
+                ;[array[i], array[j]] = [array[j], array[i]]
             }
         }
     }
@@ -18,7 +18,7 @@ async function asyncSort<T>(array: T[], asyncComparator: (a: T, b: T) => Promise
 }
 
 // Example asynchronous comparison function
-async function asyncCompare(a: number, b: number): Promise<number> {
+async function _asyncCompare(a: number, b: number): Promise<number> {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(a - b) // Compare numbers
@@ -45,28 +45,28 @@ export default new NativeFunction({
             description: "The $env variable 1 to hold x value",
             rest: false,
             type: ArgType.String,
-            required: true
+            required: true,
         },
         {
             name: "var2",
             description: "The $env variable 2 to hold y value",
             rest: false,
             type: ArgType.String,
-            required: true
+            required: true,
         },
         {
             name: "code",
             description: "Optional code to use for sorting, previous 2 vars must have been given",
             rest: false,
             type: ArgType.String,
-            required: true
+            required: true,
         },
         {
             name: "other variable",
             description: "The variable to load result to, leave empty to return output",
             rest: false,
             required: false,
-            type: ArgType.String
+            type: ArgType.String,
         },
     ],
     output: ArgType.Json,
@@ -75,7 +75,7 @@ export default new NativeFunction({
 
         if (!this["isValidReturnType"](rt)) return rt
 
-        const [ mainVar, var1, var2, otherVar ] = args
+        const [mainVar, var1, var2, otherVar] = args
         const arr = ctx.getEnvironmentInstance(Array, mainVar)
 
         if (arr != null) {

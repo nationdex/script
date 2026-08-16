@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { PermissionFlagsBits, PermissionsString } from "discord.js"
+import { PermissionFlagsBits, type PermissionsString } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -76,7 +76,7 @@ export default new NativeFunction({
                 name,
                 permissions: (perms as PermissionsString[]) || [],
                 position: pos || undefined,
-                reason: ctx.reason
+                reason: ctx.reason,
             })
             .catch(ctx.noop)
         return this.success(created ? created.id : undefined)

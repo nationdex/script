@@ -1,13 +1,13 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const managers_1 = require("../managers");
 const structures_1 = require("../structures");
 const Logger_1 = require("../structures/@internal/Logger");
-managers_1.FunctionManager.load("Validator", __dirname + "/../native");
+managers_1.FunctionManager.load("Validator", `${__dirname}/../native`);
 for (const [, fn] of managers_1.FunctionManager["Functions"]) {
     if (fn.data.args?.length) {
         for (const arg of fn.data.args) {

@@ -1,4 +1,4 @@
-import { ComponentInContainer, ContainerComponent, MessageActionRowComponent, ThumbnailComponent } from "discord.js";
+import { type ComponentInContainer, type ContainerComponent, type MessageActionRowComponent, ThumbnailComponent } from "discord.js";
 export declare enum ComponentProperty {
     id = "id",
     type = "type",

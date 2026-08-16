@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, GuildChannel } from "discord.js"
+import type { BaseChannel, GuildChannel } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -31,7 +31,11 @@ export default new NativeFunction({
         },
     ],
     output: ArgType.Boolean,
-    async execute(ctx, [ chan1, chan2 ]) {
-        return this.success(!!(await (chan2 as GuildChannel).permissionOverwrites.set((chan1 as GuildChannel).permissionOverwrites.cache, ctx.reason).catch(ctx.noop)))
+    async execute(ctx, [chan1, chan2]) {
+        return this.success(
+            !!(await (chan2 as GuildChannel).permissionOverwrites
+                .set((chan1 as GuildChannel).permissionOverwrites.cache, ctx.reason)
+                .catch(ctx.noop))
+        )
     },
 })

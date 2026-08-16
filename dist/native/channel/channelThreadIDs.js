@@ -1,14 +1,14 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
 const array_1 = __importDefault(require("../../functions/array"));
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$channelThreadIDs",
     version: "2.5.0",
@@ -22,7 +22,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             type: structures_1.ArgType.Channel,
             required: true,
-            check: (i) => "threads" in i
+            check: (i) => "threads" in i,
         },
         {
             name: "separator",

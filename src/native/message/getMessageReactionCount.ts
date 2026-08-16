@@ -1,14 +1,14 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { TextBasedChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { TextBasedChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export enum ReactionType {
     normal = "normal",
-    burst = "burst"
+    burst = "burst",
 }
 
 export default new NativeFunction({
@@ -48,10 +48,10 @@ export default new NativeFunction({
             description: "The type of the reaction to count users for",
             rest: false,
             type: ArgType.Enum,
-            enum: ReactionType
+            enum: ReactionType,
         },
     ],
-    execute(ctx, [, , reaction, type]) {
+    execute(_ctx, [, , reaction, type]) {
         return this.success(type ? reaction?.countDetails?.[type] : reaction?.count)
     },
 })

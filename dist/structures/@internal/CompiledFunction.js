@@ -1,23 +1,23 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CompiledFunction = void 0;
+const node_fs_1 = require("node:fs");
+const node_util_1 = require("node:util");
 const discord_js_1 = require("discord.js");
-const fs_1 = require("fs");
-const util_1 = require("util");
 const constants_1 = require("../../constants");
+const hex_1 = require("../../functions/hex");
+const parseJSON_1 = __importDefault(require("../../functions/parseJSON"));
 const managers_1 = require("../../managers");
 const ForgeError_1 = require("../forge/ForgeError");
 const NativeFunction_1 = require("./NativeFunction");
 const Return_1 = require("./Return");
-const hex_1 = require("../../functions/hex");
-const parseJSON_1 = __importDefault(require("../../functions/parseJSON"));
 class CompiledFunction {
     static OverwriteSymbolMapping = {
         "/": null,
@@ -70,7 +70,7 @@ class CompiledFunction {
         if (this.data.fields === null)
             return this.data.name;
         else {
-            const args = new Array();
+            const args = [];
             for (let i = 0, len = this.data.fields.length; i < len; i++) {
                 const field = this.displayField(i);
                 if (field)
@@ -129,7 +129,7 @@ class CompiledFunction {
         }
         else {
             const fields = this.data.fields?.slice(i);
-            const values = new Array();
+            const values = [];
             if (!fields?.length) {
                 if (arg.required)
                     return this.error(ForgeError_1.ErrorType.MissingArg, this.data.name, arg.name);
@@ -179,41 +179,41 @@ class CompiledFunction {
     argTypeRejection(arg, value) {
         return this.error(ForgeError_1.ErrorType.InvalidArgType, `${value}`, arg.name, NativeFunction_1.ArgType[arg.type]);
     }
-    resolveNumber(ctx, arg, str, ref) {
+    resolveNumber(_ctx, _arg, str, _ref) {
         const value = Number(str);
-        if (isNaN(value))
+        if (Number.isNaN(value))
             return;
         return value;
     }
-    resolveBigInt(ctx, arg, str, ref) {
+    resolveBigInt(_ctx, _arg, str, _ref) {
         return BigInt(str);
     }
-    resolveColor(ctx, arg, str, ref) {
+    resolveColor(_ctx, _arg, str, _ref) {
         return (0, hex_1.resolveColor)(str);
     }
-    resolvePermission(ctx, arg, str, ref) {
+    resolvePermission(_ctx, _arg, str, _ref) {
         if (!(str in discord_js_1.PermissionFlagsBits))
             return;
         return str;
     }
-    resolveString(ctx, arg, str, ref) {
+    resolveString(_ctx, _arg, str, _ref) {
         return str;
     }
     get resolveUnknown() {
         return this.resolveString.bind(this);
     }
-    resolveTime(ctx, arg, str, ref) {
+    resolveTime(_ctx, _arg, str, _ref) {
         try {
-            return !isNaN(Number(str)) ? Number(str) : constants_1.TimeParser.parseToMS(str);
+            return !Number.isNaN(Number(str)) ? Number(str) : constants_1.TimeParser.parseToMS(str);
         }
-        catch (error) {
+        catch (_error) {
             return;
         }
     }
-    resolveEnum(ctx, arg, str, ref) {
+    resolveEnum(_ctx, arg, str, _ref) {
         return arg.enum[str];
     }
-    resolveBoolean(ctx, arg, str, ref) {
+    resolveBoolean(_ctx, _arg, str, _ref) {
         return str === "true" ? true : str === "false" ? false : undefined;
     }
     resolveMessage(ctx, arg, str, ref) {
@@ -222,7 +222,7 @@ class CompiledFunction {
         const ch = this.resolvePointer(arg, ref, ctx.channel);
         return ch?.messages?.fetch(str).catch(ctx.noop);
     }
-    resolveChannel(ctx, arg, str, ref) {
+    resolveChannel(ctx, _arg, str, _ref) {
         if (!CompiledFunction.IdRegex.test(str))
             return;
         return ctx.client.channels.fetch(str);
@@ -233,13 +233,13 @@ class CompiledFunction {
             return;
         return ch;
     }
-    resolveGuild(ctx, arg, str, ref) {
+    resolveGuild(ctx, _arg, str, _ref) {
         return ctx.client.guilds.cache.get(str);
     }
-    resolveJson(ctx, arg, str, ref) {
+    resolveJson(_ctx, _arg, str, _ref) {
         return (0, parseJSON_1.default)(str, false);
     }
-    resolveUser(ctx, arg, str, ref) {
+    resolveUser(ctx, _arg, str, _ref) {
         if (!CompiledFunction.IdRegex.test(str))
             return;
         return ctx.client.users.fetch(str).catch(ctx.noop);
@@ -249,7 +249,7 @@ class CompiledFunction {
             return;
         return this.resolveRole(ctx, arg, str, ref) ?? this.resolveUser(ctx, arg, str, ref);
     }
-    resolveGuildEmoji(ctx, arg, str, ref) {
+    resolveGuildEmoji(ctx, _arg, str, _ref) {
         const fromUrl = CompiledFunction.CDNIdRegex.exec(str);
         if (fromUrl !== null)
             return ctx.client.emojis.cache.get(fromUrl[2]);
@@ -257,7 +257,7 @@ class CompiledFunction {
         const id = parsed?.id ?? str;
         return ctx.client.emojis.cache.get(id);
     }
-    async resolveApplicationEmoji(ctx, arg, str, ref) {
+    async resolveApplicationEmoji(ctx, _arg, str, _ref) {
         const fromUrl = CompiledFunction.CDNIdRegex.exec(str);
         if (fromUrl !== null)
             return await ctx.client.application.emojis.fetch(fromUrl[2]).catch(ctx.noop);
@@ -270,17 +270,18 @@ class CompiledFunction {
     async resolveEmoji(ctx, arg, str, ref) {
         const fromUrl = CompiledFunction.CDNIdRegex.exec(str);
         if (fromUrl !== null)
-            return this.resolveGuildEmoji(ctx, arg, fromUrl[2], ref) ?? await this.resolveApplicationEmoji(ctx, arg, fromUrl[2], ref);
+            return (this.resolveGuildEmoji(ctx, arg, fromUrl[2], ref) ??
+                (await this.resolveApplicationEmoji(ctx, arg, fromUrl[2], ref)));
         const parsed = (0, discord_js_1.parseEmoji)(str);
         const id = parsed?.id ?? str;
         if (!CompiledFunction.IdRegex.test(id))
             return;
-        return this.resolveGuildEmoji(ctx, arg, id, ref) ?? await this.resolveApplicationEmoji(ctx, arg, id, ref);
+        return this.resolveGuildEmoji(ctx, arg, id, ref) ?? (await this.resolveApplicationEmoji(ctx, arg, id, ref));
     }
     resolveForumTag(ctx, arg, str, ref) {
         return this.resolvePointer(arg, ref, ctx.channel)?.availableTags.find((x) => x.id === str);
     }
-    resolveSticker(ctx, arg, str, ref) {
+    resolveSticker(ctx, _arg, str, _ref) {
         const fromUrl = CompiledFunction.CDNIdRegex.exec(str);
         if (fromUrl !== null)
             return ctx.client.fetchSticker(fromUrl[2]).catch(ctx.noop);
@@ -288,7 +289,7 @@ class CompiledFunction {
             return;
         return ctx.client.fetchSticker(str).catch(ctx.noop);
     }
-    async resolveAttachment(ctx, arg, str, ref) {
+    async resolveAttachment(_ctx, _arg, str, _ref) {
         const splits = str.split(/(\\\\|\/)/);
         if (CompiledFunction.URLRegex.test(str)) {
             const name = splits[splits.length - 1] ?? splits[splits.length - 2];
@@ -297,8 +298,8 @@ class CompiledFunction {
                 name,
             });
         }
-        const exists = (0, fs_1.existsSync)(str);
-        const name = exists ? splits[splits.length - 1] ?? splits[splits.length - 2] : null;
+        const exists = (0, node_fs_1.existsSync)(str);
+        const name = exists ? (splits[splits.length - 1] ?? splits[splits.length - 2]) : null;
         return new discord_js_1.AttachmentBuilder(exists ? str : Buffer.from(str, "utf-8"), {
             name: name ?? undefined,
         });
@@ -340,7 +341,7 @@ class CompiledFunction {
         const identifier = parsed.id ?? parsed.name;
         return (await this.resolvePointer(arg, ref, ctx.message)?.fetch().catch(ctx.noop))?.reactions.cache.get(identifier);
     }
-    resolveURL(ctx, arg, str, ref) {
+    resolveURL(_ctx, _arg, str, _ref) {
         if (!CompiledFunction.URLRegex.test(str)) {
             const em = (0, discord_js_1.parseEmoji)(str);
             if (em !== null)
@@ -349,20 +350,20 @@ class CompiledFunction {
         }
         return str;
     }
-    resolveInvite(ctx, arg, str, ref) {
+    resolveInvite(ctx, _arg, str, _ref) {
         if (!CompiledFunction.IdRegex.test(str))
             return;
         return ctx.client.fetchInvite(str).catch(ctx.noop);
     }
-    resolveWebhook(ctx, arg, str, ref) {
+    resolveWebhook(ctx, _arg, str, _ref) {
         if (!CompiledFunction.IdRegex.test(str))
             return;
         return ctx.client.fetchWebhook(str).catch(ctx.noop);
     }
-    async resolveTemplate(ctx, arg, str, ref) {
+    async resolveTemplate(ctx, _arg, str, _ref) {
         return await ctx.client.fetchGuildTemplate(str).catch(ctx.noop);
     }
-    resolveOverwritePermission(ctx, arg, str, ref) {
+    resolveOverwritePermission(_ctx, _arg, str, _ref) {
         const symbol = str[0];
         if (!(symbol in CompiledFunction.OverwriteSymbolMapping))
             return;
@@ -377,8 +378,8 @@ class CompiledFunction {
     resolveRole(ctx, arg, str, ref) {
         return this.resolvePointer(arg, ref, ctx.guild)?.roles.cache.get(str);
     }
-    resolveDate(ctx, arg, str, ref) {
-        return new Date(isNaN(Number(str)) ? str : Number(str));
+    resolveDate(_ctx, _arg, str, _ref) {
+        return new Date(Number.isNaN(Number(str)) ? str : Number(str));
     }
     resolvePointer(arg, ref, fallback) {
         const ptr = ref[arg.pointer] ?? fallback;
@@ -419,13 +420,13 @@ class CompiledFunction {
         return this.error(ForgeError_1.ErrorType.Custom, msg);
     }
     async execute(ctx) {
-        // @ts-ignore
+        // @ts-expect-error
         if (!this.fn.data.unwrap)
             return this.fn.data.execute.call(this, ctx);
         const args = await this.resolveArgs(ctx);
         if (!this.isValidReturnType(args))
             return args;
-        // @ts-ignore
+        // @ts-expect-error
         return this.fn.data.execute.call(this, ctx, args.value ?? []);
     }
     isValidReturnType(rt) {
@@ -450,7 +451,7 @@ class CompiledFunction {
     getFunctions(fieldIndex, ref) {
         return this.hasFields
             ? this.data.fields[fieldIndex].functions.filter((x) => x.data.name === ref.name)
-            : new Array();
+            : [];
     }
     return(value) {
         return new Return_1.Return(Return_1.ReturnType.Return, value);
@@ -465,16 +466,24 @@ class CompiledFunction {
         return new Return_1.Return(Return_1.ReturnType.Continue, null);
     }
     successJSON(value) {
-        return this.success(typeof value !== "string" ? JSON.stringify(value, (key, val) => (typeof val === "bigint" ? val.toString() : val), 4) : value);
+        return this.success(typeof value !== "string"
+            ? JSON.stringify(value, (_key, val) => (typeof val === "bigint" ? val.toString() : val), 4)
+            : value);
     }
     successFormatted(value) {
-        return this.success(typeof value !== "string" ? (0, util_1.inspect)(value, { depth: Infinity }) : value);
+        return this.success(typeof value !== "string" ? (0, node_util_1.inspect)(value, { depth: Infinity }) : value);
     }
     unsafeSuccess(value = null) {
         return new Return_1.Return(Return_1.ReturnType.Success, value);
     }
     success(value = null) {
-        return new Return_1.Return(Return_1.ReturnType.Success, this.data.negated ? null : this.data.count !== null && typeof value === "string" ? (value !== "" ? value.split(this.data.count).length : 0) : value);
+        return new Return_1.Return(Return_1.ReturnType.Success, this.data.negated
+            ? null
+            : this.data.count !== null && typeof value === "string"
+                ? value !== ""
+                    ? value.split(this.data.count).length
+                    : 0
+                : value);
     }
 }
 exports.CompiledFunction = CompiledFunction;

@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { BulkProperties, BulkProperty } from "../../properties/bulk"
 import { ArgType, NativeFunction } from "../../structures"
@@ -28,10 +28,7 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    output: [
-        ArgType.Unknown,
-        ArgType.Json
-    ],
+    output: [ArgType.Unknown, ArgType.Json],
     execute(ctx, [prop, sep]) {
         const bulk = ctx.states?.bulk?.new
         if (this.hasFields) return this.success(BulkProperties[prop](bulk, sep))

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -13,9 +13,7 @@ exports.default = new structures_1.NativeFunction({
     name: "$guildStickerIDs",
     version: "1.3.0",
     unwrap: true,
-    aliases: [
-        "$serverStickerIDs"
-    ],
+    aliases: ["$serverStickerIDs"],
     output: (0, array_1.default)(),
     brackets: false,
     description: "Returns every sticker id of the guild",
@@ -25,18 +23,18 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Guild,
-            description: "The guild to get sticker ids from"
+            description: "The guild to get sticker ids from",
         },
         {
             name: "separator",
             description: "The separator to use for every sticker",
             rest: false,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
     execute(ctx, [guild, sep]) {
         guild ??= ctx.guild;
-        return this.success(guild?.stickers.cache.map(x => x.id).join(sep ?? ", "));
+        return this.success(guild?.stickers.cache.map((x) => x.id).join(sep ?? ", "));
     },
 });
 //# sourceMappingURL=guildStickerIDs.js.map

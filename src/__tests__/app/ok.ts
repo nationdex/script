@@ -1,11 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ApplicationCommandOptionType, ApplicationCommandType } from "discord.js"
 import { ApplicationCommand } from "../../structures"
-import { RegistrationType } from "../../managers"
 
 export default new ApplicationCommand({
     type: 1,
@@ -13,10 +11,9 @@ export default new ApplicationCommand({
         name: "eval",
         name_localizations: {
             "es-ES": "evaluar",
-
         },
         description_localizations: {
-            "es-ES": "Evalua un codigo"
+            "es-ES": "Evalua un codigo",
         },
         description: "Evaluate a code.",
         options: [
@@ -29,11 +26,11 @@ export default new ApplicationCommand({
             {
                 type: 5,
                 name: "ephemeral",
-                description: "Make the response ephemeral?"
-            }
-        ]
+                description: "Make the response ephemeral?",
+            },
+        ],
     },
     code: `
     $applicationCommandDisplay
- `
+ `,
 })

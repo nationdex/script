@@ -1,19 +1,15 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$memberBoostingSince",
     version: "1.5.0",
-    aliases: [
-        "$boostingSince",
-        "$boosterSince",
-        "$memberBoosterSince",
-    ],
+    aliases: ["$boostingSince", "$boosterSince", "$memberBoosterSince"],
     brackets: false,
     unwrap: true,
     output: structures_1.ArgType.Number,
@@ -39,7 +35,9 @@ exports.default = new structures_1.NativeFunction({
         const member = user ?? ctx.member ?? ctx.interaction?.member;
         return this.success(member instanceof discord_js_1.GuildMember
             ? member?.premiumSinceTimestamp || 0
-            : ("premium_since" in (ctx.interaction?.member ?? {}) ? new Date((ctx.interaction?.member).premium_since).getTime() : 0));
+            : "premium_since" in (ctx.interaction?.member ?? {})
+                ? new Date((ctx.interaction?.member).premium_since).getTime()
+                : 0);
     },
 });
 //# sourceMappingURL=memberBoostingSince.js.map

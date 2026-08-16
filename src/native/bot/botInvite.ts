@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { OAuth2Scopes, PermissionsString } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { OAuth2Scopes, type PermissionsString } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$botInvite",
@@ -12,10 +12,7 @@ export default new NativeFunction({
     description: "Returns a bot's invite link",
     brackets: false,
     unwrap: true,
-    aliases: [
-        "$clientInvite",
-        "$getBotInvite"
-    ],
+    aliases: ["$clientInvite", "$getBotInvite"],
     args: [
         {
             name: "perms",
@@ -29,8 +26,8 @@ export default new NativeFunction({
     execute(ctx, [perms]) {
         return this.success(
             ctx.client.generateInvite({
-                scopes: ctx.client.application.installParams?.scopes as OAuth2Scopes[] || [OAuth2Scopes.Bot],
-                permissions: perms as PermissionsString[] || ctx.client.application.installParams?.permissions,
+                scopes: (ctx.client.application.installParams?.scopes as OAuth2Scopes[]) || [OAuth2Scopes.Bot],
+                permissions: (perms as PermissionsString[]) || ctx.client.application.installParams?.permissions,
             })
         )
     },

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const Interpreter_1 = require("../../core/Interpreter");
 const DiscordEventHandler_1 = require("../../structures/extended/DiscordEventHandler");
@@ -20,8 +20,8 @@ exports.default = new DiscordEventHandler_1.DiscordEventHandler({
         const commands = this.commands.get("messageCreate").filter(
         // Allow always execute commands
         (cmd) => !cmd.name ||
-            ( // Check if it matches the command name or one of aliases
-            (cmd.name === name || !!cmd.data.aliases?.includes(name)) &&
+            // Check if it matches the command name or one of aliases
+            ((cmd.name === name || !!cmd.data.aliases?.includes(name)) &&
                 // If unprefixed there can be no prefix
                 (cmd.data.unprefixed ? true : !!prefix)));
         for (const command of commands) {

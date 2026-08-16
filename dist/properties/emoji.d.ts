@@ -1,4 +1,4 @@
-import { GuildEmoji } from "discord.js";
+import type { GuildEmoji } from "discord.js";
 export declare enum EmojiProperty {
     guildID = "guildID",
     name = "name",

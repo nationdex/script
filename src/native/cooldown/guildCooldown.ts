@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
+import { ArgType, type IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildCooldown",
@@ -11,9 +11,7 @@ export default new NativeFunction({
     description: "Adds a cooldown binded to a guild and command",
     brackets: true,
     unwrap: false,
-    aliases: [
-        "$serverCooldown"
-    ],
+    aliases: ["$serverCooldown"],
     args: [
         {
             name: "guild ID",

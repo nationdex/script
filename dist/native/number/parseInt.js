@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -18,17 +18,17 @@ exports.default = new structures_1.NativeFunction({
             description: "The number to parse",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
         {
             name: "radix",
             rest: false,
             required: false,
             description: "Radix to use for the parser",
-            type: structures_1.ArgType.Number
-        }
+            type: structures_1.ArgType.Number,
+        },
     ],
-    execute(ctx, [val, radix]) {
+    execute(_ctx, [val, radix]) {
         return this.success(parseInt(val, radix ?? undefined));
     },
 });

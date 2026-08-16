@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { createDecipheriv } from "crypto"
+import { createDecipheriv } from "node:crypto"
 import { ArgType, NativeFunction } from "../../structures"
 import { deriveKey } from "./encrypt"
 
@@ -33,18 +33,18 @@ export default new NativeFunction({
             description: "The text to decrypt",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "key",
             description: "The key to use to decrypt the text",
             rest: false,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     unwrap: true,
-    execute(ctx, [ text, key ]) {
+    execute(_ctx, [text, key]) {
         return this.success(decrypt(text, key))
-    }
+    },
 })

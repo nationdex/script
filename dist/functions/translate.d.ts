@@ -1,5 +1,5 @@
-import { Locale } from "discord.js";
-import { IArg, IEvent, INativeFunction } from "../structures";
+import type { Locale } from "discord.js";
+import { type IArg, type IEvent, type INativeFunction } from "../structures";
 export interface IBaseTranslateOptions {
     languages: (Locale | string)[];
     functions: INativeFunction<IArg[]>[];

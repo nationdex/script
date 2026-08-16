@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
+import { ArgType, type IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$loop",
@@ -31,32 +31,28 @@ export default new NativeFunction({
             name: "variable",
             description: "The variable to load the current iteration count for $env",
             rest: false,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "asc",
             description: "Whether to use asc order for iteration count",
             rest: false,
             type: ArgType.Boolean,
-        }
+        },
     ],
     async execute(ctx) {
-        const {
-            args,
-            return: rt
-        } = await this["resolveMultipleArgs"](ctx, 0, 2, 3)
+        const { args, return: rt } = await this["resolveMultipleArgs"](ctx, 0, 2, 3)
         if (!this["isValidReturnType"](rt)) return rt
 
-        const [ times, varName, asc ] = args
+        const [times, varName, asc] = args
         const code = this.data.fields![1] as IExtendedCompiledFunctionField
 
         let output = ""
-        let condition = asc || times === -1
+        const condition = asc || times === -1
 
-        for (let i = condition ? 1 : times;(asc ? i <= times : i > 0) || times === -1;condition ? i++ : i--) {
-            if (varName)
-                ctx.setEnvironmentKey(varName, i)
-            
+        for (let i = condition ? 1 : times; (asc ? i <= times : i > 0) || times === -1; condition ? i++ : i--) {
+            if (varName) ctx.setEnvironmentKey(varName, i)
+
             const exec = await this["resolveCode"](ctx, code)
             if (exec.success || exec.continue) continue
             else if (exec.break) break

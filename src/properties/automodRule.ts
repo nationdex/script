@@ -1,9 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { AutoModerationAction, AutoModerationActionType, AutoModerationRule, AutoModerationRuleEventType, AutoModerationRuleKeywordPresetType, AutoModerationRuleTriggerType } from "discord.js"
+import {
+    type AutoModerationAction,
+    AutoModerationActionType,
+    type AutoModerationRule,
+    AutoModerationRuleEventType,
+    AutoModerationRuleKeywordPresetType,
+    AutoModerationRuleTriggerType,
+} from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum AutomodRuleProperty {
@@ -22,7 +29,7 @@ export enum AutomodRuleProperty {
     presets = "presets",
     allowList = "allowList",
     mentionTotalLimit = "mentionTotalLimit",
-    mentionRaidProtectionEnabled = "mentionRaidProtectionEnabled"
+    mentionRaidProtectionEnabled = "mentionRaidProtectionEnabled",
 }
 
 export const AutomodRuleProperties = defineProperties<typeof AutomodRuleProperty, AutoModerationRule>({
@@ -38,10 +45,11 @@ export const AutomodRuleProperties = defineProperties<typeof AutomodRuleProperty
     triggerMetadata: (i) => JSON.stringify(i?.triggerMetadata, undefined, 4),
     keywordFilter: (i, sep) => i?.triggerMetadata.keywordFilter.join(sep ?? ", "),
     regexPatterns: (i, sep) => i?.triggerMetadata.regexPatterns.join(sep ?? ", "),
-    presets: (i, sep) => i?.triggerMetadata.presets.map((x) => AutoModerationRuleKeywordPresetType[x]).join(sep ?? ", "),
+    presets: (i, sep) =>
+        i?.triggerMetadata.presets.map((x) => AutoModerationRuleKeywordPresetType[x]).join(sep ?? ", "),
     allowList: (i, sep) => i?.triggerMetadata.allowList.join(sep ?? ", "),
     mentionTotalLimit: (i) => i?.triggerMetadata.mentionTotalLimit,
-    mentionRaidProtectionEnabled: (i) => i?.triggerMetadata.mentionRaidProtectionEnabled
+    mentionRaidProtectionEnabled: (i) => i?.triggerMetadata.mentionRaidProtectionEnabled,
 })
 
 export enum AutomodRuleActionProperty {

@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ComponentType, ContainerBuilder, SeparatorBuilder, SeparatorSpacingSize } from "discord.js"
-import { ArgType, NativeFunction } from "../../structures"
 import { addActionRow } from "../../functions/components"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$addSeparator",
@@ -20,7 +20,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Enum,
-            enum: SeparatorSpacingSize
+            enum: SeparatorSpacingSize,
         },
         {
             name: "divider",

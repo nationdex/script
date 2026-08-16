@@ -1,18 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$loadMessageContext",
     version: "1.4.0",
-    aliases: [
-        "$useMessageContext",
-        "$asMessageContext"
-    ],
-    description: "Loads a message instance to the current context, this is not reversible and is adviced to use with $scope",
+    aliases: ["$useMessageContext", "$asMessageContext"],
+    description:
+        "Loads a message instance to the current context, this is not reversible and is adviced to use with $scope",
     unwrap: true,
     brackets: true,
     args: [
@@ -21,7 +19,7 @@ export default new NativeFunction({
             description: "The channel to pull message from",
             rest: false,
             required: true,
-            type: ArgType.TextChannel
+            type: ArgType.TextChannel,
         },
         {
             name: "message ID",
@@ -29,10 +27,10 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Message,
-            pointer: 0
-        }
+            pointer: 0,
+        },
     ],
-    execute(ctx, [, m ]) {
+    execute(ctx, [, m]) {
         ctx.obj = m
         return this.success()
     },

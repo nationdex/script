@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction } from "../../structures"
+import { ActionRowBuilder, type ComponentType } from "discord.js"
 import { buildActionRow, buildComponent, isTopLevel } from "../../functions/components"
-import { ActionRowBuilder, ComponentType } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$loadComponents",
@@ -28,9 +28,13 @@ export default new NativeFunction({
             ? Array.isArray(json[0])
                 ? json.map((row) => new ActionRowBuilder().addComponents(row?.map((comp: any) => buildActionRow(comp))))
                 : isTopLevel(json[0]?.type as ComponentType)
-                    ? json.map((comp) => buildComponent(comp, ctx))
-                    : new Array(new ActionRowBuilder().addComponents(json?.map((comp) => buildActionRow(comp))))
-            : new Array(isTopLevel(json?.type as ComponentType) ? buildComponent(json, ctx) : new ActionRowBuilder().addComponents(buildActionRow(json)))
+                  ? json.map((comp) => buildComponent(comp, ctx))
+                  : new Array(new ActionRowBuilder().addComponents(json?.map((comp) => buildActionRow(comp))))
+            : new Array(
+                  isTopLevel(json?.type as ComponentType)
+                      ? buildComponent(json, ctx)
+                      : new ActionRowBuilder().addComponents(buildActionRow(json))
+              )
 
         ctx.container.components.push(...components)
 

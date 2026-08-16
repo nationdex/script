@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { truncateSync } from "fs"
+import { truncateSync } from "node:fs"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -28,7 +28,7 @@ export default new NativeFunction({
             required: true,
         },
     ],
-    execute(ctx, [path, data]) {
+    execute(_ctx, [path, data]) {
         truncateSync(path, data)
         return this.success()
     },

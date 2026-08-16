@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { TextBasedChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { TextBasedChannel } from "discord.js"
 import array from "../../functions/array"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$getMessageReactionUsers",
@@ -46,10 +46,10 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    async execute(ctx, [, , reaction, sep]) {
-        const users = new Array<string>()
+    async execute(_ctx, [, , reaction, sep]) {
+        const users: string[] = []
 
-        let afterID: undefined | string = undefined
+        let afterID: undefined | string
 
         if (reaction.users.cache.size <= reaction.count) {
             for (;;) {

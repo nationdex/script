@@ -1,4 +1,4 @@
-import { Activity } from "discord.js";
+import { type Activity } from "discord.js";
 export declare enum ActivityProperty {
     name = "name",
     type = "type",

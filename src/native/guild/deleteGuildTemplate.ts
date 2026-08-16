@@ -1,17 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$deleteGuildTemplate",
     version: "1.5.0",
     description: "Deletes template from a guild, returns bool",
-    aliases: [
-        "$deleteServerTemplate"
-    ],
+    aliases: ["$deleteServerTemplate"],
     unwrap: true,
     brackets: true,
     args: [
@@ -20,7 +18,7 @@ export default new NativeFunction({
             description: "The code of the template to delete",
             rest: false,
             required: true,
-            type: ArgType.Template
+            type: ArgType.Template,
         },
     ],
     output: ArgType.Boolean,

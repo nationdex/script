@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import clc, { ChalkInstance } from "chalk"
-import { stdout } from "process"
-import { inspect } from "util"
+import { stdout } from "node:process"
+import { inspect } from "node:util"
+import clc, { type ChalkInstance } from "chalk"
 
 export enum LogPriority {
     /**
@@ -31,7 +31,7 @@ export enum LogPriority {
     /**
      * Logs info, debug data, warnings and errors
      */
-    High
+    High,
 }
 
 export enum LogType {
@@ -49,16 +49,16 @@ export class Logger {
         [LogType.Error]: clc.red.bold,
         [LogType.Warn]: clc.yellow.bold,
         [LogType.Deprecated]: clc.magenta.bold,
-        [LogType.Info]: clc.cyan.bold
+        [LogType.Info]: clc.cyan.bold,
     } satisfies Record<LogType, ChalkInstance>
     public static readonly DateColor = clc.green.bold
 
     private static log(priority: LogPriority, type: LogType, ...args: unknown[]) {
-        if (this.Priority < priority) return
+        if (Logger.Priority < priority) return
         console.log(
             Logger.DateColor(`[${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}]`),
             Logger.Colors[type](`[${LogType[type].toUpperCase()}]`),
-            ...args.map(x => Logger.Colors[type](typeof x === "string" ? x : inspect(x)))
+            ...args.map((x) => Logger.Colors[type](typeof x === "string" ? x : inspect(x)))
         )
     }
 
@@ -68,47 +68,47 @@ export class Logger {
     }
 
     public static debug(...args: unknown[]) {
-        this.log(LogPriority.High, LogType.Debug, ...args)
+        Logger.log(LogPriority.High, LogType.Debug, ...args)
     }
 
     public static warn(...args: unknown[]) {
-        this.log(LogPriority.Medium, LogType.Warn, ...args)
+        Logger.log(LogPriority.Medium, LogType.Warn, ...args)
     }
 
     public static deprecated(...args: unknown[]) {
-        this.log(LogPriority.Medium, LogType.Deprecated, ...args)
+        Logger.log(LogPriority.Medium, LogType.Deprecated, ...args)
     }
 
     public static error(...args: unknown[]) {
-        this.log(LogPriority.Low, LogType.Error, ...args)
+        Logger.log(LogPriority.Low, LogType.Error, ...args)
     }
 
     public static info(...args: unknown[]) {
-        this.log(LogPriority.VeryLow, LogType.Info, ...args)
+        Logger.log(LogPriority.VeryLow, LogType.Info, ...args)
     }
 
     public static infoUpdate(...args: unknown[]) {
-        this.clearLine()
-        return this.info(...args)
+        Logger.clearLine()
+        return Logger.info(...args)
     }
 
     public static warnUpdate(...args: unknown[]) {
-        this.clearLine()
-        return this.warn(...args)
+        Logger.clearLine()
+        return Logger.warn(...args)
     }
 
     public static debugUpdate(...args: unknown[]) {
-        this.clearLine()
-        return this.debug(...args)
+        Logger.clearLine()
+        return Logger.debug(...args)
     }
 
     public static deprecatedUpdate(...args: unknown[]) {
-        this.clearLine()
-        return this.deprecated(...args)
+        Logger.clearLine()
+        return Logger.deprecated(...args)
     }
 
     public static errorUpdate(...args: unknown[]) {
-        this.clearLine()
-        return this.error(...args)
+        Logger.clearLine()
+        return Logger.error(...args)
     }
 }

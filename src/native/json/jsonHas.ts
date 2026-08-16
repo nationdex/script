@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures/@internal/NativeFunction"
 
@@ -17,20 +17,20 @@ export default new NativeFunction({
             description: "The variable that holds json",
             required: true,
             type: ArgType.String,
-            rest: false
+            rest: false,
         },
         {
             name: "key",
             description: "The key to check for",
             type: ArgType.String,
             required: true,
-            rest: false
-        }
+            rest: false,
+        },
     ],
     output: ArgType.Boolean,
-    execute(ctx, [ name, key ]) {
+    execute(ctx, [name, key]) {
         const json = ctx.getEnvironmentKey(name)
         if (!json) return this.success()
         return this.success(Object.hasOwn(json, key))
-    }
+    },
 })

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -33,7 +33,10 @@ exports.default = new structures_1.NativeFunction({
         let count = 0;
         for (let i = 0, len = stickers.length; i < len; i++) {
             const sticker = stickers[i];
-            const success = await g.stickers.delete(sticker, ctx.reason).then(x => true).catch(ctx.noop);
+            const success = await g.stickers
+                .delete(sticker, ctx.reason)
+                .then((_x) => true)
+                .catch(ctx.noop);
             if (success)
                 count++;
         }

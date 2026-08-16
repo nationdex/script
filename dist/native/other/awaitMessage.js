@@ -1,14 +1,14 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
 const isTrue_1 = __importDefault(require("../../functions/isTrue"));
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$awaitMessage",
     version: "1.0.7",
@@ -23,14 +23,14 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Channel,
-            check: (i) => i.isTextBased()
+            check: (i) => i.isTextBased(),
         },
         {
             name: "variable name",
             description: "The variable to load the message id that was sent as response by a user, get it with $env[<variable>]",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
         {
             name: "filter",
@@ -38,15 +38,15 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             condition: true,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
         {
             name: "time",
             rest: false,
             required: true,
             type: structures_1.ArgType.Time,
-            description: "The max time to wait for a message"
-        }
+            description: "The max time to wait for a message",
+        },
     ],
     async execute(ctx) {
         const filter = this.data.fields[2];
@@ -54,7 +54,8 @@ exports.default = new structures_1.NativeFunction({
         if (!this["isValidReturnType"](rt))
             return rt;
         const [channel, varName, time] = args;
-        const msg = await channel.awaitMessages({
+        const msg = await channel
+            .awaitMessages({
             errors: ["time"],
             max: 1,
             time,
@@ -66,8 +67,9 @@ exports.default = new structures_1.NativeFunction({
                 }
                 else
                     return false;
-            }
-        }).catch(ctx.noop);
+            },
+        })
+            .catch(ctx.noop);
         return this.success(msg?.first()?.id);
     },
 });

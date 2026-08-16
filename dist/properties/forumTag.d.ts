@@ -1,4 +1,4 @@
-import { GuildForumTag } from "discord.js";
+import type { GuildForumTag } from "discord.js";
 export declare enum ForumTagProperty {
     emoji = "emoji",
     id = "id",

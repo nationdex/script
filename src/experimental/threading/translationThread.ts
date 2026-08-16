@@ -1,10 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
-
-import { parentPort } from "worker_threads"
-import noop from "../../functions/noop"
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 export interface ITranslateData {
     text: string

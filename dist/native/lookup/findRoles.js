@@ -1,17 +1,17 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
 const array_1 = __importDefault(require("../../functions/array"));
 const role_1 = require("../../properties/role");
-const findRole_1 = require("./findRole");
+const structures_1 = require("../../structures");
 const findChannels_1 = require("./findChannels");
+const findRole_1 = require("./findRole");
 exports.default = new structures_1.NativeFunction({
     name: "$findRoles",
     version: "1.5.0",
@@ -44,7 +44,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The property to return",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: role_1.RoleProperty
+            enum: role_1.RoleProperty,
         },
         {
             name: "separator",
@@ -57,24 +57,27 @@ exports.default = new structures_1.NativeFunction({
             description: "The method to use for searching",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: findChannels_1.SearchMethodType
+            enum: findChannels_1.SearchMethodType,
         },
     ],
     unwrap: true,
-    execute(ctx, [guild, query, limit, prop, sep, method]) {
+    execute(_ctx, [guild, query, limit, prop, sep, method]) {
         query = query.replace(findRole_1.RoleMentionCharRegex, "");
         limit ||= 10;
         prop ||= role_1.RoleProperty.id;
-        const search = guild.roles.cache.filter(role => {
+        const search = guild.roles.cache
+            .filter((role) => {
             switch (method) {
                 case findChannels_1.SearchMethodType.startsWith:
-                    return (role.id.startsWith(query) || role.name.startsWith(query));
+                    return role.id.startsWith(query) || role.name.startsWith(query);
                 case findChannels_1.SearchMethodType.endsWith:
-                    return (role.id.endsWith(query) || role.name.endsWith(query));
+                    return role.id.endsWith(query) || role.name.endsWith(query);
                 default:
-                    return (role.id.includes(query) || role.name.includes(query));
+                    return role.id.includes(query) || role.name.includes(query);
             }
-        }).toJSON().slice(0, limit);
+        })
+            .toJSON()
+            .slice(0, limit);
         return this.success(search?.map((x) => role_1.RoleProperties[prop](x)).join(sep ?? ", "));
     },
 });

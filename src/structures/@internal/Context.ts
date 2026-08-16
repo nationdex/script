@@ -1,53 +1,53 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import {
-    AnySelectMenuInteraction,
+    type AnySelectMenuInteraction,
     AutoModerationActionExecution,
-    AutoModerationActionOptions,
-    AutoModerationTriggerMetadataOptions,
+    type AutoModerationActionOptions,
+    type AutoModerationTriggerMetadataOptions,
     BaseChannel,
     BaseInteraction,
-    ChatInputCommandInteraction,
-    ContextMenuCommandInteraction,
+    type ChatInputCommandInteraction,
+    type ContextMenuCommandInteraction,
     Emoji,
     Entitlement,
     Guild,
     GuildMember,
-    GuildScheduledEventEntityMetadataOptions,
-    Interaction,
-    LabelBuilder,
-    MediaGalleryBuilder,
+    type GuildScheduledEventEntityMetadataOptions,
+    type Interaction,
+    type LabelBuilder,
+    type MediaGalleryBuilder,
     Message,
     MessageReaction,
-    OverwriteResolvable,
+    type OverwriteResolvable,
     Role,
-    SectionBuilder,
+    type SectionBuilder,
     SoundboardSound,
     Sticker,
     Subscription,
     User,
-    VoiceBasedChannel,
+    type VoiceBasedChannel,
 } from "discord.js"
-import { CompiledFunction, IExtendedCompiledFunctionField } from "./CompiledFunction"
-import { Container, Sendable } from "./Container"
-import { IArg, UnwrapArgs } from "./NativeFunction"
-import { Return, ReturnType } from "./Return"
-import { IRunnable } from "../../core/Interpreter"
-import { ForgeError } from "../forge/ForgeError"
-import { Logger } from "./Logger"
-import { FormData, Headers } from "undici"
+import type { FormData, Headers } from "undici"
+import type { IRunnable } from "../../core/Interpreter"
 import contextNoop from "../../functions/contextNoop"
+import type { ForgeError } from "../forge/ForgeError"
+import type { CompiledFunction, IExtendedCompiledFunctionField } from "./CompiledFunction"
+import { Container, type Sendable } from "./Container"
+import { Logger } from "./Logger"
+import type { IArg, UnwrapArgs } from "./NativeFunction"
+import { Return, ReturnType } from "./Return"
 
-export type ExpectCallback<T extends [...IArg[]], Unwrap extends boolean> = (
+export type ExpectCallback<T extends [...IArg[]], _Unwrap extends boolean> = (
     args: UnwrapArgs<T>
 ) => Promise<Return> | Return
 
 export enum HTTPContentType {
     Json,
-    Text
+    Text,
 }
 
 export interface IHttpOptions {
@@ -103,7 +103,7 @@ export enum CalendarType {
     Iso8601 = "iso8601",
     Japanese = "japanese",
     Persian = "persian",
-    Roc = "roc"
+    Roc = "roc",
 }
 
 export type ClassType = new (...args: any[]) => any
@@ -195,15 +195,15 @@ export class Context {
     }
 
     public get automod() {
-        return this.#cache.automod ??= this.obj instanceof AutoModerationActionExecution ? this.obj : null
+        return (this.#cache.automod ??= this.obj instanceof AutoModerationActionExecution ? this.obj : null)
     }
 
     public get entitlement() {
-        return this.#cache.entitlement ??= this.obj instanceof Entitlement ? this.obj : null
+        return (this.#cache.entitlement ??= this.obj instanceof Entitlement ? this.obj : null)
     }
 
     public get subscription() {
-        return this.#cache.subscription ??= this.obj instanceof Subscription ? this.obj : null
+        return (this.#cache.subscription ??= this.obj instanceof Subscription ? this.obj : null)
     }
 
     public get member() {
@@ -211,8 +211,8 @@ export class Context {
             this.obj instanceof GuildMember
                 ? this.obj
                 : "member" in this.obj && this.obj.member instanceof GuildMember
-                    ? this.obj.member
-                    : null)
+                  ? this.obj.member
+                  : null)
     }
 
     public get emoji() {
@@ -240,12 +240,12 @@ export class Context {
             "message" in this.obj && this.obj.message
                 ? (this.obj.message as Message)
                 : this.obj instanceof Message
-                    ? this.obj
-                    : null)
+                  ? this.obj
+                  : null)
     }
 
     public get interaction() {
-        return (this.#cache.interaction ??= this.obj instanceof BaseInteraction ? this.obj as Interaction : null)
+        return (this.#cache.interaction ??= this.obj instanceof BaseInteraction ? (this.obj as Interaction) : null)
     }
 
     public get user() {
@@ -253,12 +253,12 @@ export class Context {
             "user" in this.obj
                 ? this.obj.user
                 : "author" in this.obj
-                    ? this.obj.author
-                    : this.obj instanceof User
-                        ? this.obj
-                        : "member" in this.obj
-                            ? this.obj.member?.user ?? null
-                            : null)
+                  ? this.obj.author
+                  : this.obj instanceof User
+                    ? this.obj
+                    : "member" in this.obj
+                      ? (this.obj.member?.user ?? null)
+                      : null)
     }
 
     public get guild() {
@@ -266,10 +266,10 @@ export class Context {
             "guild" in this.obj
                 ? (this.obj.guild as Guild)
                 : this.obj instanceof Guild
-                    ? this.obj
-                    : "message" in this.obj
-                        ? this.obj.message.guild
-                        : null)
+                  ? this.obj
+                  : "message" in this.obj
+                    ? this.obj.message.guild
+                    : null)
     }
 
     public get channel() {
@@ -279,10 +279,10 @@ export class Context {
                     ? null
                     : this.obj.channel
                 : this.obj instanceof BaseChannel
-                    ? this.obj
-                    : "message" in this.obj
-                        ? (this.obj.message.channel as BaseChannel)
-                        : null)
+                  ? this.obj
+                  : "message" in this.obj
+                    ? (this.obj.message.channel as BaseChannel)
+                    : null)
     }
 
     public async handle<Args extends [...IArg[]], Unwrap extends boolean>(
@@ -311,12 +311,11 @@ export class Context {
     }
 
     public handleNotSuccess(fn: CompiledFunction, rt: Return) {
-        if (fn.data.silent)
-            return false
+        if (fn.data.silent) return false
         else if (rt.return && this.runtime.allowTopLevelReturn) {
             throw new Return(ReturnType.Return, rt.value as string)
         } else if (rt.return || rt.break || rt.continue) {
-            const log = ":x: " + ReturnType[rt.type] + " statements are not allowed in outer scopes."
+            const log = `:x: ${ReturnType[rt.type]} statements are not allowed in outer scopes.`
             this.alert(log).catch(Logger.error.bind(null, log))
         } else if (rt.error) {
             const err = rt.value as ForgeError
@@ -341,7 +340,7 @@ export class Context {
     /**
      * Fetches all emojis of the application.
      * @param once Whether to fetch only when the collection is empty.
-     * @returns 
+     * @returns
      */
     public async fetchApplicationEmojis(once?: boolean) {
         const { emojis } = this.client.application
@@ -360,14 +359,12 @@ export class Context {
         let data = this.#environment
         for (let i = 0, len = keys.length - 1; i < len; i++) {
             const key = keys[i]
-            if (!(key in data))
-                return false
+            if (!(key in data)) return false
             data = data[key] as Record<string, unknown>
         }
 
         const key = keys[keys.length - 1]
-        if (Array.isArray(data))
-            return data.splice(Number(key), 1)
+        if (Array.isArray(data)) return data.splice(Number(key), 1)
         return delete data[key]
     }
 
@@ -375,8 +372,7 @@ export class Context {
         let data = this.#environment
         for (let i = 0, len = keys.length - 1; i < len; i++) {
             const key = keys[i]
-            if (!(key in data))
-                return false
+            if (!(key in data)) return false
             data = data[key] as Record<string, unknown>
         }
 
@@ -391,8 +387,7 @@ export class Context {
     }
 
     public static traverseGetValue(previous: object, ...args: string[]) {
-        if (!previous)
-            return previous
+        if (!previous) return previous
 
         for (let i = 0, len = args.length; i < len; i++) {
             const key = args[i]
@@ -461,7 +456,10 @@ export class Context {
         return (got && got instanceof type ? got : null) as ClassInstance<T> | null
     }
 
-    public hasInstance<K extends string, V extends ClassType>(key: K, type: V): this is this & { [P in keyof { bro: boolean } as K]: ClassInstance<V> } {
+    public hasInstance<K extends string, V extends ClassType>(
+        key: K,
+        type: V
+    ): this is this & { [P in keyof { bro: boolean } as K]: ClassInstance<V> } {
         return this[key] !== undefined && this[key] instanceof type
     }
 
@@ -470,12 +468,14 @@ export class Context {
     }
 
     public hasDisabledConsoleErrors() {
-        return this.runtime.disableConsoleErrors || (this.runtime.disableConsoleErrors === undefined && this.cmd?.hasDisabledConsoleErrors(this.client))
+        return (
+            this.runtime.disableConsoleErrors ||
+            (this.runtime.disableConsoleErrors === undefined && this.cmd?.hasDisabledConsoleErrors(this.client))
+        )
     }
 
     public getInstance<K extends string, T extends ClassType>(key: K, type: T) {
-        if (this.hasInstance(key, type))
-            return this[key]
+        if (this.hasInstance(key, type)) return this[key]
         return null
     }
 
@@ -493,7 +493,7 @@ export class Context {
 
     /**
      * Clones keywords, environment vars, and local functions.
-     * @returns 
+     * @returns
      */
     public clone(props?: Partial<IRunnable>, syncVars = false) {
         const empty = this.cloneEmpty()

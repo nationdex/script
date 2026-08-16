@@ -1,4 +1,4 @@
-import { StageInstance } from "discord.js";
+import { type StageInstance } from "discord.js";
 export declare enum StageProperty {
     channelID = "channelID",
     id = "id",

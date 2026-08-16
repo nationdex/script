@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { Message } from "discord.js"
 import { Interpreter } from "../../core"
@@ -14,7 +14,10 @@ export default new DiscordEventHandler({
     description: "This event is fired when a message is updated",
     listener: async function (old, newer) {
         if (newer instanceof Message && this.options.respondOnEdit) {
-            if (typeof this.options.respondOnEdit !== "number" || Date.now() - newer.createdTimestamp <= this.options.respondOnEdit) {
+            if (
+                typeof this.options.respondOnEdit !== "number" ||
+                Date.now() - newer.createdTimestamp <= this.options.respondOnEdit
+            ) {
                 await messageCreate.listener.call(this, newer as any)
             }
         }

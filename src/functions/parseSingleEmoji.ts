@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { parseEmoji } from "discord.js"
-import { CompiledFunction, Context } from "../structures"
+import { CompiledFunction, type Context } from "../structures"
 
 export function parseSingleEmoji(ctx: Context, str: string | null) {
     if (!str) return null
@@ -12,6 +12,6 @@ export function parseSingleEmoji(ctx: Context, str: string | null) {
     const parsed = parseEmoji(str)
     const id = CompiledFunction.CDNIdRegex.exec(str)?.[2] ?? parsed?.id
     const emoji = ctx.client.emojis.cache.get(id ?? str) ?? parsed
-    
+
     return emoji ? { id: emoji.id ?? null, name: emoji.id ? null : emoji.name } : null
 }

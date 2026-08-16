@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import array from "../../functions/array"
 import { ArgType, NativeFunction } from "../../structures"
@@ -9,10 +9,7 @@ import { ArgType, NativeFunction } from "../../structures"
 export default new NativeFunction({
     name: "$guildMemberIDs",
     version: "1.4.0",
-    aliases: [
-        "$memberIDs",
-        "$serverMemberIDs"
-    ],
+    aliases: ["$memberIDs", "$serverMemberIDs"],
     output: array<ArgType.Member>(),
     description: "Returns all cached member ids of a guild",
     brackets: false,
@@ -23,17 +20,17 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Guild,
-            description: "The guild to pull members from"
+            description: "The guild to pull members from",
         },
         {
             name: "separator",
             description: "The separator to use for each member",
             rest: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [ g, sep ]) {
+    execute(ctx, [g, sep]) {
         g ??= ctx.guild!
-        return this.success(g?.members.cache.map(x => x.id).join(sep ?? ", "))
+        return this.success(g?.members.cache.map((x) => x.id).join(sep ?? ", "))
     },
 })

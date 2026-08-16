@@ -1,23 +1,20 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ActivityType } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export enum CustomStatusType {
     state = "state",
-    emoji = "emoji"
+    emoji = "emoji",
 }
 
 export default new NativeFunction({
     name: "$memberCustomStatus",
     version: "1.5.0",
-    aliases: [
-        "$customStatus",
-        "$userCustomStatus"
-    ],
+    aliases: ["$customStatus", "$userCustomStatus"],
     description: "Returns the custom status of a member",
     unwrap: true,
     output: ArgType.String,
@@ -41,13 +38,13 @@ export default new NativeFunction({
             description: "The type of the custom status to fetch",
             rest: false,
             type: ArgType.Enum,
-            enum: CustomStatusType
+            enum: CustomStatusType,
         },
     ],
     brackets: false,
     async execute(ctx, [, member, type]) {
-        const status = (member ?? ctx.member)?.presence?.activities?.find(x => x.type === ActivityType.Custom)
-        
+        const status = (member ?? ctx.member)?.presence?.activities?.find((x) => x.type === ActivityType.Custom)
+
         return this.success(type ? status?.[type as CustomStatusType]?.toString() : status?.state)
-    }
+    },
 })

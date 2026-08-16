@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const NativeFunction_1 = require("../../structures/@internal/NativeFunction");
 exports.default = new NativeFunction_1.NativeFunction({
@@ -21,7 +21,7 @@ exports.default = new NativeFunction_1.NativeFunction({
         },
     ],
     brackets: false,
-    execute(ctx, [val]) {
+    execute(_ctx, [val]) {
         return this.return(val ?? "");
     },
 });

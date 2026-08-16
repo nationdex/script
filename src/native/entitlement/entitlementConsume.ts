@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -16,13 +16,17 @@ export default new NativeFunction({
             description: "The name of the entitlement to consume",
             rest: false,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     output: ArgType.Boolean,
-    async execute(ctx, [ name ]) {
+    async execute(ctx, [name]) {
         return this.success(
-            ctx.interaction?.entitlements.get(name)?.consume().then(() => true).catch(ctx.noop) ?? false
+            ctx.interaction?.entitlements
+                .get(name)
+                ?.consume()
+                .then(() => true)
+                .catch(ctx.noop) ?? false
         )
     },
 })

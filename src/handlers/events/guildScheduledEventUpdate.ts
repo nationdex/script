@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { GuildScheduledEvent } from "discord.js"
+import type { GuildScheduledEvent } from "discord.js"
 import { Interpreter } from "../../core"
 import { DiscordEventHandler } from "../../structures/extended/DiscordEventHandler"
 
@@ -22,7 +22,7 @@ export default new DiscordEventHandler({
                 states: {
                     scheduledEvent: {
                         new: now,
-                        old: old as GuildScheduledEvent
+                        old: old as GuildScheduledEvent,
                     },
                 },
                 data: command.compiled.code,

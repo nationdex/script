@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -29,14 +29,14 @@ exports.EntitlementProperties = (0, defineProperties_1.default)({
     skuID: (i) => i?.skuId,
     type: (i) => discord_js_1.EntitlementType[i?.type],
     id: (i) => i?.id,
-    active: i => i?.isActive(),
-    test: i => i?.isTest(),
-    guildSubscription: i => i?.isGuildSubscription(),
-    userSubscription: i => i?.isUserSubscription(),
-    userID: (i, sep) => i?.userId,
-    consumed: (i, sep) => i?.consumed,
-    guildId: (i, sep) => i?.guildId,
-    endTimestamp: (i, sep) => i?.endsTimestamp,
-    startTimestamp: (i, sep) => i?.startsTimestamp,
+    active: (i) => i?.isActive(),
+    test: (i) => i?.isTest(),
+    guildSubscription: (i) => i?.isGuildSubscription(),
+    userSubscription: (i) => i?.isUserSubscription(),
+    userID: (i, _sep) => i?.userId,
+    consumed: (i, _sep) => i?.consumed,
+    guildId: (i, _sep) => i?.guildId,
+    endTimestamp: (i, _sep) => i?.endsTimestamp,
+    startTimestamp: (i, _sep) => i?.startsTimestamp,
 });
 //# sourceMappingURL=entitlement.js.map

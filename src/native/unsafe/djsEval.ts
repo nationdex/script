@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { inspect } from "util"
-import { ErrorType } from "../../structures/forge/ForgeError"
+import { inspect } from "node:util"
 import { ArgType, NativeFunction } from "../../structures/@internal/NativeFunction"
+import { ErrorType } from "../../structures/forge/ForgeError"
 
 export default new NativeFunction({
     name: "$djsEval",
@@ -24,7 +24,7 @@ export default new NativeFunction({
         },
     ],
     brackets: true,
-    async execute(ctx, [arg]) {
+    async execute(_ctx, [arg]) {
         const code = arg.join(";")
         try {
             let evaled = await eval(code)

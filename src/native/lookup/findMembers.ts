@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import array from "../../functions/array"
 import { MemberProperties, MemberProperty } from "../../properties/member"
-import { Arg, ArgType, NativeFunction } from "../../structures"
+import { Arg, type ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$findMembers",

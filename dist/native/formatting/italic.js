@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ItalicEscapeRegex = void 0;
 const discord_js_1 = require("discord.js");
@@ -21,10 +21,10 @@ exports.default = new structures_1.NativeFunction({
             description: "The text to make italic, this will attempt to escape all _ and *",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
-    execute(ctx, [str]) {
+    execute(_ctx, [str]) {
         return this.success((0, discord_js_1.italic)(str.replace(exports.ItalicEscapeRegex, "\\$1")));
     },
 });

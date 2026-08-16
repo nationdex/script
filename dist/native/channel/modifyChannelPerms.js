@@ -1,12 +1,12 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const structures_1 = require("../../structures");
 const overwritePermissions_1 = require("../../functions/overwritePermissions");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$modifyChannelPerms",
     version: "1.4.0",
@@ -22,7 +22,7 @@ exports.default = new structures_1.NativeFunction({
             required: true,
             type: structures_1.ArgType.Channel,
             check: (i) => "permissionOverwrites" in i,
-            description: "The channel to modify perms for"
+            description: "The channel to modify perms for",
         },
         {
             name: "roleOrUser",
@@ -31,7 +31,7 @@ exports.default = new structures_1.NativeFunction({
             required: true,
             pointer: 0,
             pointerProperty: "guild",
-            type: structures_1.ArgType.RoleOrUser
+            type: structures_1.ArgType.RoleOrUser,
         },
         {
             name: "perms",
@@ -39,8 +39,8 @@ exports.default = new structures_1.NativeFunction({
             required: true,
             type: structures_1.ArgType.OverwritePermission,
             description: "The permissions to allow, nullify or disallow, (+,/,-)Perm",
-            enum: discord_js_1.PermissionFlagsBits
-        }
+            enum: discord_js_1.PermissionFlagsBits,
+        },
     ],
     async execute(ctx, [channel, roleOrUser, raw]) {
         const ch = channel;

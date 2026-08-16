@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -11,10 +11,7 @@ exports.default = new structures_1.NativeFunction({
     version: "1.4.0",
     description: "Returns whether role or member has perms in a channel",
     output: structures_1.ArgType.Boolean,
-    aliases: [
-        "$hasChannelPerm",
-        "$hasChannelPerms"
-    ],
+    aliases: ["$hasChannelPerm", "$hasChannelPerms"],
     unwrap: true,
     args: [
         {
@@ -23,14 +20,14 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Channel,
-            check: (i) => "permissionsFor" in i
+            check: (i) => "permissionsFor" in i,
         },
         {
             name: "id",
             description: "The role or user to get perms of",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
         {
             name: "permissions",
@@ -38,11 +35,11 @@ exports.default = new structures_1.NativeFunction({
             rest: true,
             required: true,
             type: structures_1.ArgType.Enum,
-            enum: discord_js_1.PermissionFlagsBits
-        }
+            enum: discord_js_1.PermissionFlagsBits,
+        },
     ],
     brackets: true,
-    execute(ctx, [channel, id, perms]) {
+    execute(_ctx, [channel, id, perms]) {
         return this.success(channel.permissionsFor(id)?.has(perms));
     },
 });

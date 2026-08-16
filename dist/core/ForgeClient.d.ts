@@ -1,8 +1,8 @@
-import { ClientOptions, Client, IntentsBitField, Message } from "discord.js";
-import { IExtendedCompilationResult } from ".";
-import { NativeCommandManager, EventManager, CooldownManager, ForgeFunctionManager, ApplicationCommandManager, ThreadManager, BaseCommandManager } from "../managers";
-import { CommandType, LogPriority, ForgeExtension, ClassType, ClassInstance, BaseCommand } from "../structures";
-import { WebSocket } from "ws";
+import { Client, type ClientOptions, type IntentsBitField, type Message } from "discord.js";
+import type { WebSocket } from "ws";
+import { ApplicationCommandManager, type BaseCommandManager, CooldownManager, EventManager, ForgeFunctionManager, NativeCommandManager, ThreadManager } from "../managers";
+import { type BaseCommand, type ClassInstance, type ClassType, type CommandType, type ForgeExtension, type LogPriority } from "../structures";
+import { type IExtendedCompilationResult } from ".";
 export interface ITrackers {
     invites?: boolean;
     voice?: boolean;

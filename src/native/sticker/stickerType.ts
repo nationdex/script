@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { StickerType } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
@@ -18,11 +18,11 @@ export default new NativeFunction({
             description: "The sticker to get type of",
             rest: false,
             required: true,
-            type: ArgType.Sticker
-        }
+            type: ArgType.Sticker,
+        },
     ],
     output: StickerType,
-    execute(ctx, [ s ]) {
+    execute(ctx, [s]) {
         s ??= ctx.sticker!
         return this.success(StickerType[s?.type!])
     },

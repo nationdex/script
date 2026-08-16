@@ -1,6 +1,6 @@
-import { BaseChannel, ThreadOnlyChannel } from "discord.js";
-import { ArgType, NativeFunction } from "../../structures";
+import type { BaseChannel, ThreadOnlyChannel } from "discord.js";
 import { ForumTagProperty } from "../../properties/forumTag";
+import { ArgType, NativeFunction } from "../../structures";
 declare const _default: NativeFunction<[{
     name: string;
     description: string;

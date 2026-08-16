@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -18,7 +18,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The channel id to pull message from",
             rest: false,
             required: true,
-            type: structures_1.ArgType.TextChannel
+            type: structures_1.ArgType.TextChannel,
         },
         {
             name: "message ID",
@@ -26,18 +26,20 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Message,
-            pointer: 0
+            pointer: 0,
         },
     ],
     brackets: true,
     output: structures_1.ArgType.Boolean,
     async execute(ctx, [, msg]) {
-        const components = msg.components.map(x => discord_js_1.ActionRowBuilder.from(x));
-        components.forEach(row => {
+        const components = msg.components.map((x) => discord_js_1.ActionRowBuilder.from(x));
+        components.forEach((row) => {
             const actionRow = new discord_js_1.ActionRowBuilder();
-            row?.components.forEach(comp => actionRow.addComponents(comp.setDisabled(true)));
+            row?.components.forEach((comp) => actionRow.addComponents(comp.setDisabled(true)));
         });
-        return this.success(!!(await msg.edit({ components: components }).catch(ctx.noop)));
+        return this.success(!!(await msg
+            .edit({ components: components })
+            .catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=disableComponentsOf.js.map

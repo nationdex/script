@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$fetchRoles",
@@ -25,7 +25,7 @@ export default new NativeFunction({
             description: "The role to fetch",
             rest: false,
             type: ArgType.Role,
-            pointer: 0
+            pointer: 0,
         },
     ],
     async execute(ctx, [guild, role]) {

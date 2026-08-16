@@ -1,12 +1,12 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const structures_1 = require("../../structures");
 const audit_1 = require("../../properties/audit");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$fetchAuditLog",
     version: "1.4.0",
@@ -20,7 +20,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The guild to get audit log from",
             rest: false,
             required: true,
-            type: structures_1.ArgType.Guild
+            type: structures_1.ArgType.Guild,
         },
         {
             name: "type",
@@ -28,7 +28,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Enum,
-            enum: discord_js_1.AuditLogEvent
+            enum: discord_js_1.AuditLogEvent,
         },
         {
             name: "property",
@@ -36,25 +36,27 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Enum,
-            enum: audit_1.AuditProperty
+            enum: audit_1.AuditProperty,
         },
         {
             name: "index",
             description: "The index of the entry to use",
             rest: false,
-            type: structures_1.ArgType.Number
+            type: structures_1.ArgType.Number,
         },
         {
             name: "separator",
             description: "The separator to use in case of array output",
             type: structures_1.ArgType.String,
-            rest: false
-        }
+            rest: false,
+        },
     ],
     async execute(ctx, [g, type, prop, index, sep]) {
-        const logs = await g.fetchAuditLogs({
-            type
-        }).catch(ctx.noop);
+        const logs = await g
+            .fetchAuditLogs({
+            type,
+        })
+            .catch(ctx.noop);
         return this.success(logs ? audit_1.AuditProperties[prop](logs.entries.at(index ?? 0), sep) : null);
     },
 });

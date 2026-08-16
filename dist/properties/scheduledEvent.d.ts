@@ -1,4 +1,4 @@
-import { GuildScheduledEvent, GuildScheduledEventStatus } from "discord.js";
+import { type GuildScheduledEvent, GuildScheduledEventStatus } from "discord.js";
 export declare enum ScheduledEventProperty {
     id = "id",
     userID = "userID",

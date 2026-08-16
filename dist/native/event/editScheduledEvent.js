@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -68,7 +68,8 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Boolean,
     async execute(ctx, [, event, name, desc, type, start, end, cover]) {
-        const edit = await event.edit({
+        const edit = await event
+            .edit({
             name: name || undefined,
             description: desc || undefined,
             entityType: type || undefined,
@@ -77,8 +78,9 @@ exports.default = new structures_1.NativeFunction({
             image: cover || undefined,
             channel: ctx.scheduledEvent.channel,
             entityMetadata: ctx.scheduledEvent.entityMetadata,
-            reason: ctx.reason
-        }).catch(ctx.noop);
+            reason: ctx.reason,
+        })
+            .catch(ctx.noop);
         ctx.clearScheduledEventOptions();
         return this.success(!!edit);
     },

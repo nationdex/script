@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 import _else from "./else"
 import elseif from "./elseif"
 import ifFunc from "./if"
@@ -20,8 +20,8 @@ export default new NativeFunction({
             description: "The if, elseif, else blocks",
             rest: false,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     experimental: true,
     async execute(ctx) {
@@ -32,7 +32,7 @@ export default new NativeFunction({
         const ifRun = await ifStatement.execute(ctx)
         if (!this["isValidReturnType"](ifRun) || ifRun.value !== null) return ifRun
 
-        for (let i = 0, len = elseIfStatements.length;i < len;i++) {
+        for (let i = 0, len = elseIfStatements.length; i < len; i++) {
             const statement = elseIfStatements[i]
             const statementRun = await statement.execute(ctx)
             if (!this["isValidReturnType"](statementRun) || statementRun.value !== null) return statementRun

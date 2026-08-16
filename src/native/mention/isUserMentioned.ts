@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel } from "discord.js"
+import type { BaseChannel } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -20,7 +20,7 @@ export default new NativeFunction({
             description: "Channel to pull the message from",
             check: (i: BaseChannel) => i.isTextBased(),
             required: true,
-            type: ArgType.Channel
+            type: ArgType.Channel,
         },
         {
             name: "message ID",
@@ -28,17 +28,17 @@ export default new NativeFunction({
             required: true,
             type: ArgType.Message,
             pointer: 0,
-            description: "The message to get mentions from"
+            description: "The message to get mentions from",
         },
         {
             name: "user ID",
             rest: false,
             required: true,
             type: ArgType.User,
-            description: "The entity to check for mentions"
-        }
+            description: "The entity to check for mentions",
+        },
     ],
-    execute(ctx, [, message, user ]) {
+    execute(_ctx, [, message, user]) {
         return this.success(message.mentions.users.has(user.id))
     },
 })

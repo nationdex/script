@@ -1,13 +1,13 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
 import array from "../../functions/array"
 import { RoleProperties, RoleProperty } from "../../properties/role"
-import { RoleMentionCharRegex } from "./findRole"
+import { ArgType, NativeFunction } from "../../structures"
 import { SearchMethodType } from "./findChannels"
+import { RoleMentionCharRegex } from "./findRole"
 
 export default new NativeFunction({
     name: "$findRoles",
@@ -41,7 +41,7 @@ export default new NativeFunction({
             description: "The property to return",
             rest: false,
             type: ArgType.Enum,
-            enum: RoleProperty
+            enum: RoleProperty,
         },
         {
             name: "separator",
@@ -54,25 +54,28 @@ export default new NativeFunction({
             description: "The method to use for searching",
             rest: false,
             type: ArgType.Enum,
-            enum: SearchMethodType
+            enum: SearchMethodType,
         },
     ],
     unwrap: true,
-    execute(ctx, [ guild, query, limit, prop, sep, method ]) {
+    execute(_ctx, [guild, query, limit, prop, sep, method]) {
         query = query.replace(RoleMentionCharRegex, "")
         limit ||= 10
         prop ||= RoleProperty.id
 
-        const search = guild.roles.cache.filter(role => { 
-            switch(method) {
-                case SearchMethodType.startsWith:
-                    return (role.id.startsWith(query) || role.name.startsWith(query))
-                case SearchMethodType.endsWith:
-                    return (role.id.endsWith(query) || role.name.endsWith(query))
-                default:
-                    return (role.id.includes(query) || role.name.includes(query))
-            }
-        }).toJSON().slice(0, limit)
+        const search = guild.roles.cache
+            .filter((role) => {
+                switch (method) {
+                    case SearchMethodType.startsWith:
+                        return role.id.startsWith(query) || role.name.startsWith(query)
+                    case SearchMethodType.endsWith:
+                        return role.id.endsWith(query) || role.name.endsWith(query)
+                    default:
+                        return role.id.includes(query) || role.name.includes(query)
+                }
+            })
+            .toJSON()
+            .slice(0, limit)
 
         return this.success(search?.map((x) => RoleProperties[prop!](x)).join(sep ?? ", "))
     },

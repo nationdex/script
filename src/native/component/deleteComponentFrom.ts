@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ActionRow, ActionRowBuilder, ButtonBuilder, MessageActionRowComponent } from "discord.js"
+import { type ActionRow, ActionRowBuilder, type ButtonBuilder, type MessageActionRowComponent } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -17,7 +17,7 @@ export default new NativeFunction({
             description: "The channel id to pull message from",
             rest: false,
             required: true,
-            type: ArgType.TextChannel
+            type: ArgType.TextChannel,
         },
         {
             name: "message ID",
@@ -25,7 +25,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Message,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "custom ID",
@@ -38,7 +38,7 @@ export default new NativeFunction({
     output: ArgType.Boolean,
     unwrap: true,
     async execute(ctx, [, m, id]) {
-        const components = m.components.map(x => ActionRowBuilder.from(x as ActionRow<MessageActionRowComponent>))
+        const components = m.components.map((x) => ActionRowBuilder.from(x as ActionRow<MessageActionRowComponent>))
 
         for (let i = 0, len = components.length; i < len; i++) {
             const comp = components[i]

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 const NativeFunction_1 = require("../../structures/@internal/NativeFunction");
@@ -17,7 +17,7 @@ exports.default = new NativeFunction_1.NativeFunction({
             required: true,
             type: NativeFunction_1.ArgType.Enum,
             enum: structures_1.HTTPContentType,
-            rest: false
+            rest: false,
         },
     ],
     brackets: true,

@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export enum DateType {
     LocaleDate,
@@ -46,18 +46,18 @@ export default new NativeFunction({
             type === DateType.Date
                 ? date.toDateString()
                 : type === DateType.ISO
-                    ? date.toISOString()
-                    : type === DateType.Locale
-                        ? date.toLocaleString("en-US", { timeZone: ctx.timezone, calendar: ctx.calendar })
-                        : type === DateType.LocaleDate
-                            ? date.toLocaleDateString("en-US", { timeZone: ctx.timezone, calendar: ctx.calendar })
-                            : type === DateType.LocaleTime
-                                ? date.toLocaleTimeString("en-US", { timeZone: ctx.timezone, calendar: ctx.calendar })
-                                : type === DateType.Time
-                                    ? date.toTimeString()
-                                    : type === DateType.UTC
-                                        ? date.toUTCString()
-                                        : (null as never)
+                  ? date.toISOString()
+                  : type === DateType.Locale
+                    ? date.toLocaleString("en-US", { timeZone: ctx.timezone, calendar: ctx.calendar })
+                    : type === DateType.LocaleDate
+                      ? date.toLocaleDateString("en-US", { timeZone: ctx.timezone, calendar: ctx.calendar })
+                      : type === DateType.LocaleTime
+                        ? date.toLocaleTimeString("en-US", { timeZone: ctx.timezone, calendar: ctx.calendar })
+                        : type === DateType.Time
+                          ? date.toTimeString()
+                          : type === DateType.UTC
+                            ? date.toUTCString()
+                            : (null as never)
         )
     },
 })

@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -27,7 +27,7 @@ export default new NativeFunction({
         },
     ],
     brackets: true,
-    execute(ctx, [ key, value ]) {
+    execute(ctx, [key, value]) {
         ctx.setKeyword(key, Number(ctx.getKeyword(key)) / value)
         return this.success()
     },

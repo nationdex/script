@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -10,9 +10,7 @@ exports.default = new structures_1.NativeFunction({
     version: "1.4.0",
     description: "Moves a member from a voice channel, returns bool",
     brackets: true,
-    aliases: [
-        "$memberVoiceMove"
-    ],
+    aliases: ["$memberVoiceMove"],
     output: structures_1.ArgType.Boolean,
     args: [
         {
@@ -20,7 +18,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The guild to pull member from",
             rest: false,
             required: true,
-            type: structures_1.ArgType.Guild
+            type: structures_1.ArgType.Guild,
         },
         {
             name: "user ID",
@@ -28,7 +26,7 @@ exports.default = new structures_1.NativeFunction({
             required: true,
             type: structures_1.ArgType.Member,
             pointer: 0,
-            description: "The user to move"
+            description: "The user to move",
         },
         {
             name: "channel ID",
@@ -36,18 +34,20 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: false,
             type: structures_1.ArgType.Channel,
-            check: (i) => i.isVoiceBased()
+            check: (i) => i.isVoiceBased(),
         },
         {
             name: "reason",
             description: "The reason for moving the user",
             rest: false,
             type: structures_1.ArgType.String,
-        }
+        },
     ],
     unwrap: true,
     async execute(ctx, [, member, voice, reason]) {
-        return this.success(!!(await member.voice.setChannel(voice, reason || ctx.reason).catch(ctx.noop)));
+        return this.success(!!(await member.voice
+            .setChannel(voice, reason || ctx.reason)
+            .catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=voiceMove.js.map

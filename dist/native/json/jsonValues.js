@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -29,16 +29,15 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
         },
     ],
-    output: [
-        structures_1.ArgType.Json,
-        (0, array_1.default)()
-    ],
+    output: [structures_1.ArgType.Json, (0, array_1.default)()],
     unwrap: true,
     execute(ctx, [name, sep]) {
         const json = ctx.getEnvironmentKey(name);
         if (!json)
             return this.success();
-        return this.successJSON(Object.values(json).map((v) => (typeof v === "string" ? v : JSON.stringify(v))).join(sep ?? ", "));
+        return this.successJSON(Object.values(json)
+            .map((v) => (typeof v === "string" ? v : JSON.stringify(v)))
+            .join(sep ?? ", "));
     },
 });
 //# sourceMappingURL=jsonValues.js.map

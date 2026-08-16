@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -16,22 +16,22 @@ exports.TimeParser = new ms_utility_1.default([
         "w",
         {
             word: "week",
-            ms: 1_000 * 60 * 60 * 24 * 7
-        }
+            ms: 1_000 * 60 * 60 * 24 * 7,
+        },
     ],
     [
         "M",
         {
             word: "month",
-            ms: 1_000 * 60 * 60 * 24 * 30
-        }
+            ms: 1_000 * 60 * 60 * 24 * 30,
+        },
     ],
     [
         "y",
         {
             word: "year",
-            ms: 1_000 * 60 * 60 * 24 * 30 * 12
-        }
+            ms: 1_000 * 60 * 60 * 24 * 30 * 12,
+        },
     ],
 ]);
 //# sourceMappingURL=constants.js.map

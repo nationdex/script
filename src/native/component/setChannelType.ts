@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ChannelSelectMenuBuilder, ChannelType } from "discord.js"
-import { ArgType, NativeFunction } from "../../structures"
 import { getLastComponent } from "../../functions/components"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setChannelType",
@@ -21,10 +21,10 @@ export default new NativeFunction({
             rest: true,
             enum: ChannelType,
             required: true,
-            type: ArgType.Enum
-        }
+            type: ArgType.Enum,
+        },
     ],
-    execute(ctx, [ types ]) {
+    execute(ctx, [types]) {
         const menu = getLastComponent(ctx)
         if (menu instanceof ChannelSelectMenuBuilder) {
             menu.setChannelTypes(types)

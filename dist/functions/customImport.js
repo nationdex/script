@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -38,12 +38,12 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.customImport = customImport;
-const child_process_1 = require("child_process");
+const node_child_process_1 = require("node:child_process");
 const structures_1 = require("../structures");
 async function customImport(pkg) {
     return Promise.resolve(`${pkg}`).then(s => __importStar(require(s))).catch(async () => {
         structures_1.Logger.info(`Package ${pkg} not found; Installing...`);
-        (0, child_process_1.execSync)(`npm i ${pkg}`);
+        (0, node_child_process_1.execSync)(`npm i ${pkg}`);
         return customImport(pkg);
     });
 }

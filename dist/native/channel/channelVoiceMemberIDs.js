@@ -1,22 +1,20 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
 const array_1 = __importDefault(require("../../functions/array"));
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$channelVoiceMemberIDs",
     version: "1.4.0",
     description: "Returns the members that are connected to this voice channel",
     unwrap: true,
-    aliases: [
-        "$channelMemberIDs"
-    ],
+    aliases: ["$channelMemberIDs"],
     output: (0, array_1.default)(),
     brackets: false,
     args: [
@@ -32,12 +30,12 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             description: "Separator to use for every id",
             required: false,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
     execute(ctx, [ch, sep]) {
         const chan = ch ?? ctx.channel;
-        return this.success(chan?.isVoiceBased() ? chan.members.map(x => x.id).join(sep ?? ", ") : null);
+        return this.success(chan?.isVoiceBased() ? chan.members.map((x) => x.id).join(sep ?? ", ") : null);
     },
 });
 //# sourceMappingURL=channelVoiceMemberIDs.js.map

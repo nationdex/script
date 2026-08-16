@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ButtonBuilder, ButtonStyle, ComponentType } from "discord.js"
-import { ArgType, NativeFunction } from "../../structures"
 import { resolveNumericEnum } from "../../functions/enum"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$addButton",
@@ -52,9 +52,7 @@ export default new NativeFunction({
     execute(ctx, [id, label, style, emoji, disabled]) {
         style = resolveNumericEnum(ButtonStyle, style)
 
-        const btn = new ButtonBuilder()
-            .setDisabled(disabled || false)
-            .setStyle(style)
+        const btn = new ButtonBuilder().setDisabled(disabled || false).setStyle(style)
 
         if (style === ButtonStyle.Link) btn.setURL(id)
         else if (style === ButtonStyle.Premium) btn.setSKUId(id)

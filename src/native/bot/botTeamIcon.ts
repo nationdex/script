@@ -1,18 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ImageExtension, ImageSize, Team } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { type ImageExtension, type ImageSize, Team } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$botTeamIcon",
     version: "2.4.0",
     description: "Returns the client's team icon",
-    aliases: [
-        "$clientTeamIcon"
-    ],
+    aliases: ["$clientTeamIcon"],
     unwrap: true,
     brackets: false,
     args: [
@@ -33,9 +31,13 @@ export default new NativeFunction({
     async execute(ctx, [size, ext]) {
         if (!ctx.client.application.owner) await ctx.client.application.fetch().catch(ctx.noop)
         const owner = ctx.client.application.owner
-        return this.success(owner instanceof Team ? owner.iconURL({
-            extension: (ext as ImageExtension) || undefined,
-            size: (size as ImageSize) || 2048,
-        }) : null)
+        return this.success(
+            owner instanceof Team
+                ? owner.iconURL({
+                      extension: (ext as ImageExtension) || undefined,
+                      size: (size as ImageSize) || 2048,
+                  })
+                : null
+        )
     },
 })

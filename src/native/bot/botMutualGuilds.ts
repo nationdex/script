@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import array from "../../functions/array"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$botMutualGuilds",
@@ -31,10 +31,17 @@ export default new NativeFunction({
     output: array<ArgType.Guild>(),
     async execute(ctx, [user, sep]) {
         user ??= ctx.user!
-        return this.success(ctx.client.guilds.cache
-            .filter(async (x) => await x.members.fetch(user).then(() => true).catch(() => false))
-            .map(guild => guild.id)
-            .join(sep || ", ")
+        return this.success(
+            ctx.client.guilds.cache
+                .filter(
+                    async (x) =>
+                        await x.members
+                            .fetch(user)
+                            .then(() => true)
+                            .catch(() => false)
+                )
+                .map((guild) => guild.id)
+                .join(sep || ", ")
         )
     },
 })

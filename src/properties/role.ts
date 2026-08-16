@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { Role } from "discord.js"
+import type { Role } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 import { int2hex } from "../functions/hex"
 
@@ -41,6 +41,6 @@ export const RoleProperties = defineProperties<typeof RoleProperty, Role>({
     permissions: (i, sep) => i?.permissions.toArray().join(sep || ", "),
     tags: (i, sep) => Object.keys(i?.tags ?? {}).join(sep || ", "),
     unicodeEmoji: (i) => i?.unicodeEmoji,
-    secondaryColor: (i) => i?.colors.secondaryColor ? "#" + int2hex(i?.colors.secondaryColor) : null,
-    tertiaryColor: (i) => i?.colors.tertiaryColor ? "#" + int2hex(i?.colors.tertiaryColor) : null,
+    secondaryColor: (i) => (i?.colors.secondaryColor ? `#${int2hex(i?.colors.secondaryColor)}` : null),
+    tertiaryColor: (i) => (i?.colors.tertiaryColor ? `#${int2hex(i?.colors.tertiaryColor)}` : null),
 })

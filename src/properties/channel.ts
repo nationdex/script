@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { Channel, ChannelType, Collection, GuildMember } from "discord.js"
+import { type Channel, ChannelType, Collection, type GuildMember } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum ChannelProperty {
@@ -34,8 +34,8 @@ export const ChannelProperties = defineProperties<typeof ChannelProperty, Channe
     members: (i, sep) =>
         i && "members" in i
             ? ((i.members instanceof Collection ? i.members : i.members.cache) as Collection<string, GuildMember>)
-                .map((x) => x.id)
-                .join(sep ?? ", ")
+                  .map((x) => x.id)
+                  .join(sep ?? ", ")
             : undefined,
     topic: (i) => (i && "topic" in i ? i.topic : undefined),
     type: (i) => ChannelType[i?.type!],

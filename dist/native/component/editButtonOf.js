@@ -1,12 +1,12 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const structures_1 = require("../../structures");
 const enum_1 = require("../../functions/enum");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$editButtonOf",
     version: "1.5.0",
@@ -19,7 +19,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The channel id to pull message from",
             rest: false,
             required: true,
-            type: structures_1.ArgType.TextChannel
+            type: structures_1.ArgType.TextChannel,
         },
         {
             name: "message ID",
@@ -27,7 +27,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Message,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "custom ID",
@@ -71,14 +71,14 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Boolean,
     async execute(ctx, [, m, oldId, id, label, style, emoji, disabled]) {
-        const components = m.components.map(x => discord_js_1.ActionRowBuilder.from(x));
+        const components = m.components.map((x) => discord_js_1.ActionRowBuilder.from(x));
         const rowIndex = components.findIndex((x) => x.components.some((x) => "custom_id" in x.data && x.data.custom_id === oldId));
         if (rowIndex === -1)
             return this.success();
         const btn = components[rowIndex].components.find((x) => "custom_id" in x.data && x.data.custom_id === oldId);
         if (!btn)
             return this.success();
-        style = (style ? (0, enum_1.resolveNumericEnum)(discord_js_1.ButtonStyle, style) : btn.data.style);
+        style = style ? (0, enum_1.resolveNumericEnum)(discord_js_1.ButtonStyle, style) : btn.data.style;
         if (label)
             btn.setLabel(label);
         if (style)

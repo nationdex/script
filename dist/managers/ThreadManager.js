@@ -1,12 +1,12 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ThreadManager = void 0;
-const Logger_1 = require("../structures/@internal/Logger");
 const thread_1 = require("../functions/thread");
+const Logger_1 = require("../structures/@internal/Logger");
 class ThreadManager {
     client;
     available = new Set();
@@ -19,11 +19,11 @@ class ThreadManager {
         this.client = client;
     }
     async run(ctx) {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             this.enqueue({
                 id: this.getNextTaskId(),
                 context: ctx,
-                resolve
+                resolve,
             });
         });
     }
@@ -42,7 +42,7 @@ class ThreadManager {
             this.executing.set(task.id, task);
             worker.postMessage({
                 ...task.context,
-                taskId: task.id
+                taskId: task.id,
             });
         }
     }

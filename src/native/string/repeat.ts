@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$repeat",
@@ -19,17 +19,17 @@ export default new NativeFunction({
             description: "The text to repeat",
             type: ArgType.String,
             rest: false,
-            required: true
+            required: true,
         },
         {
             name: "amount",
             rest: false,
             required: true,
             type: ArgType.Number,
-            description: "How many times to repeat this text"
-        }
+            description: "How many times to repeat this text",
+        },
     ],
-    execute(ctx, [ txt, times ]) {
+    execute(_ctx, [txt, times]) {
         return this.success(txt.repeat(times))
     },
 })

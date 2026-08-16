@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -18,7 +18,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The custom id for this menu",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
         {
             name: "placeholder",
@@ -42,7 +42,7 @@ exports.default = new structures_1.NativeFunction({
             name: "disabled",
             description: "Whether the menu is disabled by default",
             rest: false,
-            type: structures_1.ArgType.Boolean
+            type: structures_1.ArgType.Boolean,
         },
         {
             name: "required",
@@ -67,6 +67,6 @@ exports.default = new structures_1.NativeFunction({
         else
             ctx.container.actionRow?.addComponents(menu);
         return this.success();
-    }
+    },
 });
 //# sourceMappingURL=addChannelSelectMenu.js.map

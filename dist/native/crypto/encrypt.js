@@ -1,23 +1,23 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deriveKey = deriveKey;
 exports.encrypt = encrypt;
-const crypto_1 = require("crypto");
+const node_crypto_1 = require("node:crypto");
 const structures_1 = require("../../structures");
 /**
  * Provided to FS by lynnux
  */
 const FIXED_IV = Buffer.from("12345678901234567890123456789012", "hex");
 function deriveKey(key) {
-    return (0, crypto_1.scryptSync)(key, "salt", 32);
+    return (0, node_crypto_1.scryptSync)(key, "salt", 32);
 }
 function encrypt(text, key) {
     const idkhowtocallthis = deriveKey(key);
-    const cipher = (0, crypto_1.createCipheriv)("aes-256-cbc", new Uint8Array(idkhowtocallthis), new Uint8Array(FIXED_IV));
+    const cipher = (0, node_crypto_1.createCipheriv)("aes-256-cbc", new Uint8Array(idkhowtocallthis), new Uint8Array(FIXED_IV));
     let encrypted = cipher.update(text, "utf-8", "hex");
     encrypted += cipher.final("hex");
     return encrypted;
@@ -34,19 +34,19 @@ exports.default = new structures_1.NativeFunction({
             description: "The text to encrypt",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
         {
             name: "key",
             description: "The key to use to encrypt text",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
     unwrap: true,
-    execute(ctx, [text, key]) {
+    execute(_ctx, [text, key]) {
         return this.success(encrypt(text, key));
-    }
+    },
 });
 //# sourceMappingURL=encrypt.js.map

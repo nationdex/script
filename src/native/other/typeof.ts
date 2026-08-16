@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -23,13 +23,13 @@ export default new NativeFunction({
         },
     ],
     output: ArgType.String,
-    execute(ctx, [arg]) {
+    execute(_ctx, [arg]) {
         let type: string
 
         if (arg === "undefined") type = "undefined"
         else if (arg === "true" || arg === "false") type = "boolean"
         else if (BigIntFormatRegex.test(arg)) type = "bigint"
-        else if (arg === "NaN" || (!!arg.trim() && !isNaN(Number(arg)))) type = "number"
+        else if (arg === "NaN" || (!!arg.trim() && !Number.isNaN(Number(arg)))) type = "number"
         else {
             try {
                 JSON.parse(arg)

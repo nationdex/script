@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { symlinkSync } from "fs"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { symlinkSync } from "node:fs"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$symlink",
@@ -18,17 +18,17 @@ export default new NativeFunction({
             description: "The path to make to use as reference",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "other path",
             description: "The other path to link",
             rest: false,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [ current, other ]) {
+    execute(_ctx, [current, other]) {
         symlinkSync(current, other)
         return this.success()
     },

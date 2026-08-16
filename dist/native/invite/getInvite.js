@@ -1,21 +1,18 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
 const invite_1 = require("../../properties/invite");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$getInvite",
     version: "2.2.0",
     description: "Returns information about an invite",
     brackets: true,
     unwrap: true,
-    output: [
-        structures_1.ArgType.Json,
-        structures_1.ArgType.Unknown
-    ],
+    output: [structures_1.ArgType.Json, structures_1.ArgType.Unknown],
     args: [
         {
             name: "code",
@@ -29,7 +26,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The property of the invite to return",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: invite_1.InviteProperty
+            enum: invite_1.InviteProperty,
         },
     ],
     async execute(ctx, [code, prop]) {

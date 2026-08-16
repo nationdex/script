@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -36,11 +36,11 @@ exports.default = new structures_1.NativeFunction({
             name: "ending",
             description: "Add extra text to the end",
             rest: false,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
     unwrap: true,
-    execute(ctx, [text, start, end, ending]) {
+    execute(_ctx, [text, start, end, ending]) {
         const cropped = text.slice(start, end || undefined);
         return this.success(ending && end && text.length > end ? cropped + ending : cropped);
     },

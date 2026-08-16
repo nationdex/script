@@ -1,19 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$isPinned",
     version: "1.5.0",
     description: "Returns whether the message is pinned",
-    aliases: [
-        "$isMessagePinned",
-        "$messagePinned"
-    ],
+    aliases: ["$isMessagePinned", "$messagePinned"],
     unwrap: true,
     brackets: false,
     args: [
@@ -32,7 +29,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Message,
-        }
+        },
     ],
     output: ArgType.Boolean,
     execute(ctx, [, message]) {

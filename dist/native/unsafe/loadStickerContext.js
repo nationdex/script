@@ -1,17 +1,14 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$loadStickerContext",
     version: "1.4.0",
-    aliases: [
-        "$useStickerContext",
-        "$asStickerContext"
-    ],
+    aliases: ["$useStickerContext", "$asStickerContext"],
     brackets: true,
     description: "Loads a sticker instance to the current context, this is not reversible and is adviced to use with $scope",
     unwrap: true,
@@ -21,8 +18,8 @@ exports.default = new structures_1.NativeFunction({
             description: "The sticker to adapt context with",
             rest: false,
             required: true,
-            type: structures_1.ArgType.Sticker
-        }
+            type: structures_1.ArgType.Sticker,
+        },
     ],
     execute(ctx, [s]) {
         ctx.obj = s;

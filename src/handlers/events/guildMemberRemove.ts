@@ -1,12 +1,12 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { GuildMember } from "discord.js"
+import type { GuildMember } from "discord.js"
 import { Interpreter } from "../../core"
-import { InviteTracker } from "../../structures/trackers/InviteTracker"
 import { DiscordEventHandler } from "../../structures/extended/DiscordEventHandler"
+import { InviteTracker } from "../../structures/trackers/InviteTracker"
 
 export default new DiscordEventHandler({
     name: "guildMemberRemove",

@@ -1,17 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { generateAdvancedBar, generateBar } from "../../functions/generateBar"
+import { generateAdvancedBar } from "../../functions/generateBar"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$advancedBar",
     version: "1.5.0",
-    aliases: [
-        "$generateAdvancedBar"
-    ],
+    aliases: ["$generateAdvancedBar"],
     description: "Generates an advanced progress bar",
     brackets: true,
     unwrap: true,
@@ -21,38 +19,31 @@ export default new NativeFunction({
             description: "The current value",
             rest: false,
             required: true,
-            type: ArgType.Number
+            type: ArgType.Number,
         },
         {
             name: "max",
             description: "The max value of current",
             rest: false,
             required: true,
-            type: ArgType.Number
+            type: ArgType.Number,
         },
         {
             name: "length",
             description: "The length of the bar",
             rest: false,
-            type: ArgType.Number
+            type: ArgType.Number,
         },
         {
             name: "values",
             description: "The values to make the bar with, for example `=;~;#` means `0%;33%;66%`",
             rest: true,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     output: ArgType.String,
-    execute(ctx, [ curr, max, len, values ]) {
-        return this.success(
-            generateAdvancedBar(
-                curr,
-                max,
-                len || undefined,
-                values
-            )
-        )
-    }
+    execute(_ctx, [curr, max, len, values]) {
+        return this.success(generateAdvancedBar(curr, max, len || undefined, values))
+    },
 })

@@ -1,9 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, ForgeError, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
+import {
+    ArgType,
+    type ForgeError,
+    type IExtendedCompiledFunctionField,
+    NativeFunction,
+    type Return,
+} from "../../structures"
 
 export default new NativeFunction({
     name: "$try",

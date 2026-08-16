@@ -1,15 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, IArg, INativeFunction, NativeFunction } from "../structures/@internal/NativeFunction"
-import { IRawFunction, Compiler } from "../core"
-import recursiveReaddirSync from "../functions/recursiveReaddirSync"
-import { deserialize, serialize } from "v8"
-import { Logger } from "../structures/@internal/Logger"
+import { join } from "node:path"
+import { deserialize, serialize } from "node:v8"
+import { Compiler, type IRawFunction } from "../core"
 import { enumToArray } from "../functions/enum"
-import { join } from "path"
+import recursiveReaddirSync from "../functions/recursiveReaddirSync"
+import { Logger } from "../structures/@internal/Logger"
+import { ArgType, type IArg, type INativeFunction, type NativeFunction } from "../structures/@internal/NativeFunction"
 
 export type RecursiveArray<T> = T | T[]
 
@@ -24,59 +24,57 @@ export class FunctionManager {
     public static load(path: string): void
     public static load(provider: string, path?: string) {
         // Backwards compatibility smh
-        if (!path)
-            return this.load("Unknown", provider)
+        if (!path) return FunctionManager.load("Unknown", provider)
 
-        const overrideAttempts = new Array<string>()
+        const overrideAttempts: string[] = []
 
-        const loader = new Array<NativeFunction>()
+        const loader: NativeFunction[] = []
 
         for (const file of recursiveReaddirSync(path).filter((x) => x.endsWith(".js"))) {
             const req = require(file).default as NativeFunction
             req.path = file
 
-            if (this.Functions.has(req.name)) {
+            if (FunctionManager.Functions.has(req.name)) {
                 overrideAttempts.push(req.name)
                 continue
             }
 
-            if (!req.data.args?.length)
-                req.data.unwrap = false
+            if (!req.data.args?.length) req.data.unwrap = false
 
             loader.push(req)
         }
 
-        this.addMany(loader)
+        FunctionManager.addMany(loader)
 
         if (overrideAttempts.length !== 0)
-            Logger.warn(`${provider} | Attempted to override the following ${overrideAttempts.length} functions: ${overrideAttempts.join(", ")}`)
+            Logger.warn(
+                `${provider} | Attempted to override the following ${overrideAttempts.length} functions: ${overrideAttempts.join(", ")}`
+            )
     }
 
     public static addMany(...fns: RecursiveArray<NativeFunction>[]): void {
         for (let i = 0, len = fns.length; i < len; i++) {
             const fn = fns[i]
-            if (Array.isArray(fn))
-                this.addMany(...fn)
-            else
-                this.Functions.set(fn.name, fn)
+            if (Array.isArray(fn)) FunctionManager.addMany(...fn)
+            else FunctionManager.Functions.set(fn.name, fn)
         }
-        this.reload()
+        FunctionManager.reload()
     }
 
     public static add(fn: NativeFunction<IArg[]>) {
-        return this.addMany(fn)
+        return FunctionManager.addMany(fn)
     }
 
     public static reload() {
-        Compiler["setFunctions"](this.raw)
+        Compiler["setFunctions"](FunctionManager.raw)
     }
 
     public static get(name: string) {
-        return this.Functions.get(name)!
+        return FunctionManager.Functions.get(name)!
     }
 
     public static toJSON(): INativeFunction<any>[] {
-        return Array.from(this.Functions.values()).map((x) => {
+        return Array.from(FunctionManager.Functions.values()).map((x) => {
             const d = { ...x.data }
             d.args?.forEach((x) => Reflect.deleteProperty(x, "check"))
             Reflect.deleteProperty(d, "execute")
@@ -92,7 +90,7 @@ export class FunctionManager {
     }
 
     public static get raw(): IRawFunction[] {
-        return Array.from(this.Functions).map((x) => {
+        return Array.from(FunctionManager.Functions).map((x) => {
             const [name, { data }] = x
             return {
                 aliases: data.aliases ?? null,
@@ -101,12 +99,12 @@ export class FunctionManager {
                     data.brackets === undefined
                         ? null
                         : {
-                            required: data.brackets,
-                            fields: data.args!.map((x) => ({
-                                condition: x.condition,
-                                rest: x.rest,
-                            })),
-                        },
+                              required: data.brackets,
+                              fields: data.args!.map((x) => ({
+                                  condition: x.condition,
+                                  rest: x.rest,
+                              })),
+                          },
             }
         })
     }

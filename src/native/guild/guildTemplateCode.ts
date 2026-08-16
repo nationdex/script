@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -11,16 +11,14 @@ export default new NativeFunction({
     description: "Returns the template code of a guild",
     unwrap: true,
     brackets: false,
-    aliases: [
-        "$serverTemplateCode"
-    ],
+    aliases: ["$serverTemplateCode"],
     args: [
         {
             name: "guild ID",
             description: "The guild to get template from",
             rest: false,
             required: true,
-            type: ArgType.Guild
+            type: ArgType.Guild,
         },
     ],
     output: ArgType.Template,

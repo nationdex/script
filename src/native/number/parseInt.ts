@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$parseInt",
@@ -18,17 +18,17 @@ export default new NativeFunction({
             description: "The number to parse",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "radix",
             rest: false,
             required: false,
             description: "Radix to use for the parser",
-            type: ArgType.Number
-        }
+            type: ArgType.Number,
+        },
     ],
-    execute(ctx, [ val, radix ]) {
+    execute(_ctx, [val, radix]) {
         return this.success(parseInt(val, radix ?? undefined))
     },
 })

@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { CDN, GuildMember, ImageExtension, ImageSize } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { CDN, GuildMember, type ImageExtension, type ImageSize } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$memberBanner",
@@ -47,19 +47,27 @@ export default new NativeFunction({
         const member = memb instanceof GuildMember && memb.banner == null ? await memb.fetch() : memb
 
         if (member.banner) {
-            return this.success(new CDN().guildMemberBanner(guild?.id ?? ctx.guild?.id ?? ctx.interaction?.guildId, member.user.id, member.banner, {
-                extension: (ext as ImageExtension) || undefined,
-                size: (size as ImageSize) || 2048,
-            }))
+            return this.success(
+                new CDN().guildMemberBanner(
+                    guild?.id ?? ctx.guild?.id ?? ctx.interaction?.guildId,
+                    member.user.id,
+                    member.banner,
+                    {
+                        extension: (ext as ImageExtension) || undefined,
+                        size: (size as ImageSize) || 2048,
+                    }
+                )
+            )
         }
 
         const banner = member.user.banner ?? (await ctx.client.users.fetch(member.user.id)).banner
-        return this.success(banner
-            ? new CDN().banner(member.user.id, banner, {
-                extension: (ext as ImageExtension) || undefined,
-                size: (size as ImageSize) || 2048,
-            })
-            : null
+        return this.success(
+            banner
+                ? new CDN().banner(member.user.id, banner, {
+                      extension: (ext as ImageExtension) || undefined,
+                      size: (size as ImageSize) || 2048,
+                  })
+                : null
         )
     },
 })

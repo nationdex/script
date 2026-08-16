@@ -1,20 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { APIInteractionGuildMember, GuildMember } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { type APIInteractionGuildMember, GuildMember } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$memberTimeoutDuration",
     version: "1.5.0",
-    aliases: [
-        "$timeoutDuration",
-        "$getTimeoutDuration",
-        "$timedOutUntil",
-        "$memberTimedOutUntil"
-    ],
+    aliases: ["$timeoutDuration", "$getTimeoutDuration", "$timedOutUntil", "$memberTimedOutUntil"],
     description: "Returns the timeout duration of a member",
     unwrap: true,
     brackets: false,
@@ -40,8 +35,12 @@ export default new NativeFunction({
         const member = user ?? ctx.member ?? ctx.interaction?.member
         return this.success(
             member instanceof GuildMember
-                ? member?.communicationDisabledUntil?.getTime() ?? 0
-                : ("communication_disabled_until" in (ctx.interaction?.member ?? {}) ? new Date((ctx.interaction?.member as APIInteractionGuildMember).communication_disabled_until!).getTime() : 0)
+                ? (member?.communicationDisabledUntil?.getTime() ?? 0)
+                : "communication_disabled_until" in (ctx.interaction?.member ?? {})
+                  ? new Date(
+                        (ctx.interaction?.member as APIInteractionGuildMember).communication_disabled_until!
+                    ).getTime()
+                  : 0
         )
     },
 })

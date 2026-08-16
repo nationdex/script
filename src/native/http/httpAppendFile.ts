@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -17,19 +17,19 @@ export default new NativeFunction({
             description: "The key name to add this value to",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "url / path",
             type: ArgType.Attachment,
             rest: false,
             required: true,
-            description: "The path or url to use"
-        }
+            description: "The path or url to use",
+        },
     ],
-    execute(ctx, [ key, file ]) {
-        // @ts-ignore
+    execute(ctx, [key, file]) {
+        // @ts-expect-error
         ctx.http.form?.append(key, new Blob([file.attachment as Buffer]), file.name!)
-        return this.success()        
+        return this.success()
     },
 })

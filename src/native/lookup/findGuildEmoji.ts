@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, CompiledFunction, NativeFunction, Return } from "../../structures"
+import { ArgType, CompiledFunction, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$findGuildEmoji",
@@ -28,14 +28,16 @@ export default new NativeFunction({
         },
     ],
     unwrap: true,
-    execute(ctx, [guild, q]) {
+    execute(_ctx, [guild, q]) {
         if (CompiledFunction.IdRegex.test(q)) {
             const e = guild.emojis.cache.get(q)
             if (e) return this.success(e.id)
         }
 
         return this.success(
-            guild.emojis.cache.find((x) => x.id === q || x.name?.toLowerCase() === q.toLowerCase() || x.toString() === q)?.id
+            guild.emojis.cache.find(
+                (x) => x.id === q || x.name?.toLowerCase() === q.toLowerCase() || x.toString() === q
+            )?.id
         )
     },
 })

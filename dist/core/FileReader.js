@@ -1,11 +1,11 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileReader = void 0;
-const fs_1 = require("fs");
+const node_fs_1 = require("node:fs");
 const structures_1 = require("../structures");
 class FileReader {
     code;
@@ -21,7 +21,7 @@ class FileReader {
         this.req = req;
     }
     static read(fsPath, reqPath) {
-        const str = (0, fs_1.readFileSync)(fsPath, "utf-8");
+        const str = (0, node_fs_1.readFileSync)(fsPath, "utf-8");
         const req = fsPath.endsWith(".js") ? require(reqPath) : null;
         return new this(str, req).read();
     }
@@ -51,8 +51,8 @@ class FileReader {
     parseProperty(obj) {
         if (this.char() === FileReader.Syntax.Escape || this.char() !== FileReader.Syntax.Open)
             return;
-        let propName = this.readName();
-        let propValue = this.readValue();
+        const propName = this.readName();
+        const propValue = this.readValue();
         obj[propName] = propValue;
     }
     readValue() {

@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$charCount",
@@ -25,10 +25,10 @@ export default new NativeFunction({
             name: "char",
             description: "The character to count in the text",
             rest: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [str, char]) {
+    execute(_ctx, [str, char]) {
         if (char === null) {
             return this.success(str.length)
         } else {

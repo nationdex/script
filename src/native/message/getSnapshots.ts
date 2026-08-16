@@ -1,12 +1,12 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel } from "discord.js"
-import { ArgType, NativeFunction } from "../../structures"
-import { MessageProperties, MessageProperty } from "../../properties/message"
+import type { BaseChannel } from "discord.js"
 import array from "../../functions/array"
+import { MessageProperties, MessageProperty } from "../../properties/message"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$getSnapshots",
@@ -52,10 +52,7 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    output: [
-        ArgType.Json,
-        array<ArgType.Unknown>()
-    ],
+    output: [ArgType.Json, array<ArgType.Unknown>()],
     execute(ctx, [, m, index, prop, sep]) {
         const snapshots = (m ?? ctx.message)?.messageSnapshots.toJSON()
 

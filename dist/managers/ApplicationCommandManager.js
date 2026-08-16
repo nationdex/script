@@ -1,17 +1,16 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApplicationCommandManager = exports.RegistrationType = void 0;
-/* eslint-disable indent */
+const node_fs_1 = require("node:fs");
+const node_path_1 = require("node:path");
+const node_process_1 = require("node:process");
 const discord_js_1 = require("discord.js");
 const ApplicationCommand_1 = require("../structures/base/ApplicationCommand");
 const EventManager_1 = require("./EventManager");
-const fs_1 = require("fs");
-const path_1 = require("path");
-const process_1 = require("process");
 var RegistrationType;
 (function (RegistrationType) {
     RegistrationType[RegistrationType["Global"] = 0] = "Global";
@@ -41,22 +40,22 @@ class ApplicationCommandManager {
             return;
         this.path ??= path;
         this.commands.clear();
-        for (const mainPath of (0, fs_1.readdirSync)(path)) {
-            const resolved = (0, path_1.join)(path, mainPath);
-            const stats = (0, fs_1.statSync)(resolved);
+        for (const mainPath of (0, node_fs_1.readdirSync)(path)) {
+            const resolved = (0, node_path_1.join)(path, mainPath);
+            const stats = (0, node_fs_1.statSync)(resolved);
             if (stats.isDirectory()) {
                 const col = new discord_js_1.Collection();
-                for (const secondPath of (0, fs_1.readdirSync)(resolved)) {
-                    const secondResolved = (0, path_1.join)(resolved, secondPath);
-                    const stats = (0, fs_1.statSync)(secondResolved);
+                for (const secondPath of (0, node_fs_1.readdirSync)(resolved)) {
+                    const secondResolved = (0, node_path_1.join)(resolved, secondPath);
+                    const stats = (0, node_fs_1.statSync)(secondResolved);
                     if (stats.isDirectory()) {
                         const nextCol = new discord_js_1.Collection();
-                        for (const lastPath of (0, fs_1.readdirSync)(secondResolved)) {
-                            const thirdResolved = (0, path_1.join)(secondResolved, lastPath);
-                            const stats = (0, fs_1.statSync)(thirdResolved);
+                        for (const lastPath of (0, node_fs_1.readdirSync)(secondResolved)) {
+                            const thirdResolved = (0, node_path_1.join)(secondResolved, lastPath);
+                            const stats = (0, node_fs_1.statSync)(thirdResolved);
                             if (stats.isDirectory())
                                 throw new Error(`Disallowed folder found for slash command tree: ${thirdResolved}`);
-                            const loaded = this.loadOne((0, path_1.join)((0, process_1.cwd)(), thirdResolved));
+                            const loaded = this.loadOne((0, node_path_1.join)((0, node_process_1.cwd)(), thirdResolved));
                             if (!loaded)
                                 continue;
                             else if (loaded.options.independent) {
@@ -70,7 +69,7 @@ class ApplicationCommandManager {
                         col.set(secondPath, nextCol);
                     }
                     else {
-                        const loaded = this.loadOne((0, path_1.join)((0, process_1.cwd)(), secondResolved));
+                        const loaded = this.loadOne((0, node_path_1.join)((0, node_process_1.cwd)(), secondResolved));
                         if (!loaded)
                             continue;
                         else if (loaded.options.independent) {
@@ -85,7 +84,7 @@ class ApplicationCommandManager {
                 this.commands.set(mainPath, col);
             }
             else {
-                const loaded = this.loadOne((0, path_1.join)((0, process_1.cwd)(), resolved));
+                const loaded = this.loadOne((0, node_path_1.join)((0, node_process_1.cwd)(), resolved));
                 if (!loaded)
                     continue;
                 this.commands.set(loaded.name, loaded);
@@ -93,7 +92,7 @@ class ApplicationCommandManager {
         }
     }
     getDisplayOptions(input, hideName) {
-        const arr = new Array();
+        const arr = [];
         for (const data of input) {
             if (data.value !== undefined) {
                 arr.push(`${hideName ? "" : `${data.name}: `}${data.value}`);
@@ -117,7 +116,8 @@ class ApplicationCommandManager {
                     ? ` ${subcommandName}`
                     : ""} ${filteredOptions.join(" ")}`;
         }
-        else if (input instanceof discord_js_1.ContextMenuCommandInteraction || input instanceof discord_js_1.PrimaryEntryPointCommandInteraction) {
+        else if (input instanceof discord_js_1.ContextMenuCommandInteraction ||
+            input instanceof discord_js_1.PrimaryEntryPointCommandInteraction) {
             return `/${input.commandName}`;
         }
         return null;
@@ -156,7 +156,7 @@ class ApplicationCommandManager {
             return null;
         delete require.cache[require.resolve(reqPath)];
         const req = require(reqPath);
-        let value = req.default ?? req;
+        const value = req.default ?? req;
         if (!value || !Object.keys(value).length)
             return null;
         else if (Array.isArray(value))
@@ -176,16 +176,18 @@ class ApplicationCommandManager {
         return v;
     }
     toJSON(type) {
-        const arr = new Array();
+        const arr = [];
         // Helper function to read config.json
         const readConfig = (folderPath) => {
-            const configPath = (0, path_1.join)(folderPath, "config.json");
-            if ((0, fs_1.existsSync)(configPath)) {
+            const configPath = (0, node_path_1.join)(folderPath, "config.json");
+            if ((0, node_fs_1.existsSync)(configPath)) {
                 try {
-                    return JSON.parse((0, fs_1.readFileSync)(configPath, "utf-8"));
+                    return JSON.parse((0, node_fs_1.readFileSync)(configPath, "utf-8"));
                 }
                 catch (err) {
-                    throw new Error(`Error reading config.json in ${folderPath}: `, { cause: err });
+                    throw new Error(`Error reading config.json in ${folderPath}: `, {
+                        cause: err,
+                    });
                 }
             }
             return null;
@@ -194,7 +196,7 @@ class ApplicationCommandManager {
             if (value instanceof ApplicationCommand_1.ApplicationCommand) {
                 if (!value.mustRegisterAs(type))
                     continue;
-                const folderPath = (0, path_1.join)(this.path, commandName);
+                const folderPath = (0, node_path_1.join)(this.path, commandName);
                 const config = readConfig(folderPath);
                 const commandData = {
                     ...value.options.data,
@@ -203,7 +205,7 @@ class ApplicationCommandManager {
                 arr.push(commandData);
             }
             else {
-                const folderPath = (0, path_1.join)(this.path, commandName);
+                const folderPath = (0, node_path_1.join)(this.path, commandName);
                 const config = readConfig(folderPath);
                 const json = {
                     ...config, // Apply config data if available
@@ -214,7 +216,7 @@ class ApplicationCommandManager {
                 };
                 for (const [nextName, values] of value) {
                     if (values instanceof discord_js_1.Collection) {
-                        const subFolderPath = (0, path_1.join)(folderPath, nextName);
+                        const subFolderPath = (0, node_path_1.join)(folderPath, nextName);
                         const subConfig = readConfig(subFolderPath);
                         // Apply only for subcommand groups
                         const raw = {
@@ -226,6 +228,7 @@ class ApplicationCommandManager {
                         };
                         // Only assign `options` if this is a SubcommandGroup
                         if (raw.type === discord_js_1.ApplicationCommandOptionType.SubcommandGroup) {
+                            ;
                             raw.options = [];
                             for (const [lastName, command] of values) {
                                 if (!command.mustRegisterAs(type))
@@ -246,7 +249,7 @@ class ApplicationCommandManager {
                     else {
                         if (!values.mustRegisterAs(type))
                             continue;
-                        const subFolderPath = (0, path_1.join)(folderPath, nextName);
+                        const subFolderPath = (0, node_path_1.join)(folderPath, nextName);
                         const subConfig = readConfig(subFolderPath);
                         // Add subcommand if available
                         const raw = values.toJSON();

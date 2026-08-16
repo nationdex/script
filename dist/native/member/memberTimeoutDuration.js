@@ -1,20 +1,15 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$memberTimeoutDuration",
     version: "1.5.0",
-    aliases: [
-        "$timeoutDuration",
-        "$getTimeoutDuration",
-        "$timedOutUntil",
-        "$memberTimedOutUntil"
-    ],
+    aliases: ["$timeoutDuration", "$getTimeoutDuration", "$timedOutUntil", "$memberTimedOutUntil"],
     description: "Returns the timeout duration of a member",
     unwrap: true,
     brackets: false,
@@ -39,8 +34,10 @@ exports.default = new structures_1.NativeFunction({
     execute(ctx, [, user]) {
         const member = user ?? ctx.member ?? ctx.interaction?.member;
         return this.success(member instanceof discord_js_1.GuildMember
-            ? member?.communicationDisabledUntil?.getTime() ?? 0
-            : ("communication_disabled_until" in (ctx.interaction?.member ?? {}) ? new Date((ctx.interaction?.member).communication_disabled_until).getTime() : 0));
+            ? (member?.communicationDisabledUntil?.getTime() ?? 0)
+            : "communication_disabled_until" in (ctx.interaction?.member ?? {})
+                ? new Date((ctx.interaction?.member).communication_disabled_until).getTime()
+                : 0);
     },
 });
 //# sourceMappingURL=memberTimeoutDuration.js.map

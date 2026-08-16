@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LinkRegex = void 0;
 const structures_1 = require("../../structures");
@@ -23,7 +23,7 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     description: "Checks whether a link is valid, this will not make sure that a site actually exists or returns success HTTP responses",
-    execute(ctx, [link]) {
+    execute(_ctx, [link]) {
         return this.success(exports.LinkRegex.test(link));
     },
 });

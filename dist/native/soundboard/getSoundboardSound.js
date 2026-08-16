@@ -1,11 +1,11 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
 const sound_1 = require("../../properties/sound");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$getSoundboardSound",
     version: "2.4.0",
@@ -33,14 +33,11 @@ exports.default = new structures_1.NativeFunction({
             description: "The property of the sound to return",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: sound_1.SoundboardSoundProperty
+            enum: sound_1.SoundboardSoundProperty,
         },
     ],
-    output: [
-        structures_1.ArgType.Json,
-        structures_1.ArgType.Unknown
-    ],
-    execute(ctx, [, sound, prop]) {
+    output: [structures_1.ArgType.Json, structures_1.ArgType.Unknown],
+    execute(_ctx, [, sound, prop]) {
         if (prop)
             return this.success(sound_1.SoundboardSoundProperties[prop](sound));
         return this.successJSON(sound);

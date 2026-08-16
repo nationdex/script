@@ -1,4 +1,4 @@
-import { PermissionOverwrites } from "discord.js";
+import { type PermissionOverwrites } from "discord.js";
 export declare enum PermissionOverwritesProperty {
     id = "id",
     type = "type",

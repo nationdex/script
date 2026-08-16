@@ -1,15 +1,15 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const structures_1 = require("../../structures");
 const array_1 = __importDefault(require("../../functions/array"));
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$messageAttachmentFlags",
     version: "1.5.0",
@@ -38,7 +38,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             description: "The index of the attachment",
             type: structures_1.ArgType.Number,
-            required: true
+            required: true,
         },
         {
             name: "separator",
@@ -50,7 +50,10 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: (0, array_1.default)(discord_js_1.AttachmentFlags),
     execute(ctx, [, message, index, sep]) {
-        return this.success((message ?? ctx.message)?.attachments.at(index ?? 0)?.flags?.toArray().join(sep ?? ", "));
+        return this.success((message ?? ctx.message)?.attachments
+            .at(index ?? 0)
+            ?.flags?.toArray()
+            .join(sep ?? ", "));
     },
 });
 //# sourceMappingURL=messageAttachmentFlags.js.map

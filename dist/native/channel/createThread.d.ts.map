@@ -1,1 +1,1 @@
-{"version":3,"file":"createThread.d.ts","sourceRoot":"","sources":["../../../src/native/channel/createThread.ts"],"names":[],"mappings":"AAKA,OAAO,EAAE,WAAW,EAA4B,MAAM,YAAY,CAAA;AAClE,OAAO,EAAE,OAAO,EAAE,cAAc,EAAU,MAAM,kBAAkB,CAAA;;;;;;eAe3C,WAAW;;;;;;;;;;;;;;;;;;;;;;;;AAblC,wBAwDE"}
+{"version":3,"file":"createThread.d.ts","sourceRoot":"","sources":["../../../src/native/channel/createThread.ts"],"names":[],"mappings":"AAKA,OAAO,EAAE,KAAK,WAAW,EAAiC,MAAM,YAAY,CAAA;AAC5E,OAAO,EAAE,OAAO,EAAE,cAAc,EAAE,MAAM,kBAAkB,CAAA;;;;;;eAenC,WAAW;;;;;;;;;;;;;;;;;;;;;;;;AAblC,wBAwDE"}

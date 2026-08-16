@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { execArgv } from "process"
+import { execArgv } from "node:process"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -12,7 +12,7 @@ export default new NativeFunction({
     description: "Triggers JavaScript's garbage collector, only available if passed --expose-gc flag to node",
     unwrap: false,
     output: ArgType.Boolean,
-    execute(ctx) {
+    execute(_ctx) {
         return this.success(execArgv.includes("--expose-gc") ? (gc!(), true) : false)
     },
 })

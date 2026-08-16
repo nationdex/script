@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { VoiceChannelEffect, VoiceChannelEffectSendAnimationType } from "discord.js"
+import { type VoiceChannelEffect, VoiceChannelEffectSendAnimationType } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum VoiceEffectProperty {
@@ -25,5 +25,5 @@ export const VoiceEffectProperties = defineProperties<typeof VoiceEffectProperty
     soundID: (i) => i?.soundId,
     soundVolume: (i) => i?.soundVolume,
     animationID: (i) => i?.animationId,
-    animationType: (i) => VoiceChannelEffectSendAnimationType[i?.animationType!]
+    animationType: (i) => VoiceChannelEffectSendAnimationType[i?.animationType!],
 })

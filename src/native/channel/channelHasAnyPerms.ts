@@ -1,18 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, GuildTextBasedChannel, PermissionFlagsBits } from "discord.js"
+import { type BaseChannel, type GuildTextBasedChannel, PermissionFlagsBits } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
-import array from "../../functions/array"
 
 export default new NativeFunction({
     name: "$channelHasAnyPerms",
     version: "1.4.0",
-    aliases: [
-        "$channelHasAnyPerm"
-    ],
+    aliases: ["$channelHasAnyPerm"],
     description: "Returns whether role or member has any of the perms in a channel",
     output: ArgType.Boolean,
     unwrap: true,
@@ -23,14 +20,14 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => "permissionsFor" in i
+            check: (i: BaseChannel) => "permissionsFor" in i,
         },
         {
             name: "id",
             description: "The role or user to get perms of",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "permissions",
@@ -38,11 +35,11 @@ export default new NativeFunction({
             rest: true,
             required: true,
             type: ArgType.Enum,
-            enum: PermissionFlagsBits
-        }
+            enum: PermissionFlagsBits,
+        },
     ],
     brackets: true,
-    execute(ctx, [ channel, id, perms ]) {
+    execute(_ctx, [channel, id, perms]) {
         return this.success((channel as GuildTextBasedChannel).permissionsFor(id)?.any(perms))
     },
 })

@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$suppressEmbeds",
@@ -19,7 +19,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => i.isTextBased()
+            check: (i: BaseChannel) => i.isTextBased(),
         },
         {
             name: "message ID",
@@ -27,8 +27,8 @@ export default new NativeFunction({
             rest: false,
             required: true,
             pointer: 0,
-            type: ArgType.Message
-        }
+            type: ArgType.Message,
+        },
     ],
     output: ArgType.Boolean,
     async execute(ctx, [, message]) {

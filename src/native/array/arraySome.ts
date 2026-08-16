@@ -1,10 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import isTrue from "../../functions/isTrue"
-import { ArgType, IExtendedCompiledFunctionConditionField, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
+import {
+    ArgType,
+    type IExtendedCompiledFunctionConditionField,
+    type IExtendedCompiledFunctionField,
+    NativeFunction,
+    type Return,
+} from "../../structures"
 
 export default new NativeFunction({
     name: "$arraySome",
@@ -38,7 +44,7 @@ export default new NativeFunction({
     ],
     brackets: true,
     async execute(ctx) {
-        const [,, code] = this.data.fields! as IExtendedCompiledFunctionField[]
+        const [, , code] = this.data.fields! as IExtendedCompiledFunctionField[]
 
         const {
             args: { "0": name, "1": variable },
@@ -52,7 +58,10 @@ export default new NativeFunction({
             for (let i = 0, len = arr.length; i < len; i++) {
                 const el = arr[i]
                 ctx.setEnvironmentKey(variable, el)
-                const rt = (await this["resolveCondition"](ctx, code as unknown as IExtendedCompiledFunctionConditionField)) as Return
+                const rt = (await this["resolveCondition"](
+                    ctx,
+                    code as unknown as IExtendedCompiledFunctionConditionField
+                )) as Return
 
                 if (rt.return || rt.success) {
                     if (!isTrue(rt)) continue

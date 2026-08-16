@@ -1,5 +1,5 @@
-import { type ForgeClient } from "../core/ForgeClient";
-import { BaseEventHandler } from "../structures";
+import type { ForgeClient } from "../core/ForgeClient";
+import type { BaseEventHandler } from "../structures";
 export declare const NativeEventName = "native";
 export declare class EventManager {
     private readonly client;

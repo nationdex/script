@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, GuildChannel, PermissionFlagsBits } from "discord.js"
-import { ArgType, NativeFunction } from "../../structures"
+import { type BaseChannel, type GuildChannel, PermissionFlagsBits } from "discord.js"
 import { overwritePermissionsArrayToObject } from "../../functions/overwritePermissions"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$modifyChannelPerms",
@@ -22,7 +22,7 @@ export default new NativeFunction({
             required: true,
             type: ArgType.Channel,
             check: (i: BaseChannel) => "permissionOverwrites" in i,
-            description: "The channel to modify perms for"
+            description: "The channel to modify perms for",
         },
         {
             name: "roleOrUser",
@@ -31,7 +31,7 @@ export default new NativeFunction({
             required: true,
             pointer: 0,
             pointerProperty: "guild",
-            type: ArgType.RoleOrUser
+            type: ArgType.RoleOrUser,
         },
         {
             name: "perms",
@@ -39,8 +39,8 @@ export default new NativeFunction({
             required: true,
             type: ArgType.OverwritePermission,
             description: "The permissions to allow, nullify or disallow, (+,/,-)Perm",
-            enum: PermissionFlagsBits
-        }
+            enum: PermissionFlagsBits,
+        },
     ],
     async execute(ctx, [channel, roleOrUser, raw]) {
         const ch = channel as GuildChannel

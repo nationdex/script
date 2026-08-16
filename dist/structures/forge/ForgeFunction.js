@@ -1,13 +1,13 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForgeFunction = void 0;
-const __1 = require("..");
 const core_1 = require("../../core");
 const managers_1 = require("../../managers");
+const __1 = require("..");
 const Return_1 = require("../@internal/Return");
 const ForgeError_1 = require("./ForgeError");
 class ForgeFunction {
@@ -27,13 +27,19 @@ class ForgeFunction {
             name: `$${this.data.name}`,
             description: "Custom function",
             unwrap: (!!this.data.params?.length && !this.data.firstParamCondition),
-            args: this.data.params?.length ? this.data.params.map((x, i) => ({
-                name: typeof x === "string" ? x : x.name,
-                rest: typeof x === "string" ? false : !!x.rest,
-                condition: i === 0 && !!this.data.firstParamCondition,
-                type: typeof x === "string" ? __1.ArgType.String : (typeof x.type === "number" && x.type in __1.ArgType ? x.type : __1.ArgType[x.type]) ?? __1.ArgType.String,
-                required: typeof x === "string" ? true : x.required ?? true
-            })) : undefined,
+            args: this.data.params?.length
+                ? this.data.params.map((x, i) => ({
+                    name: typeof x === "string" ? x : x.name,
+                    rest: typeof x === "string" ? false : !!x.rest,
+                    condition: i === 0 && !!this.data.firstParamCondition,
+                    type: typeof x === "string"
+                        ? __1.ArgType.String
+                        : ((typeof x.type === "number" && x.type in __1.ArgType
+                            ? x.type
+                            : __1.ArgType[x.type]) ?? __1.ArgType.String),
+                    required: typeof x === "string" ? true : (x.required ?? true),
+                }))
+                : undefined,
             brackets: this.data.brackets ?? (this.data.params?.length ? true : undefined),
             async execute(ctx, args) {
                 if (!this.fn.data.unwrap) {
@@ -51,19 +57,19 @@ class ForgeFunction {
                 else {
                     return outer.call(ctx, this, args ?? []);
                 }
-            }
+            },
         });
     }
     async call(ctx, fn, args) {
         this.compiled ??= core_1.Compiler.compile(this.data.code, this.data.path);
         const params = Array.isArray(this.data.params) ? this.data.params : [];
-        const required = params.filter(param => typeof param === "string" || param.required !== false);
+        const required = params.filter((param) => typeof param === "string" || param.required !== false);
         if (args.length < required.length)
             return new Return_1.Return(Return_1.ReturnType.Error, new ForgeError_1.ForgeError(null, ForgeError_1.ErrorType.Custom, `Calling custom function ${this.data.name} requires ${required.length} argument${required.length > 1 ? "s" : ""}, received ${args.length}`));
         const functionCtx = ctx.clone({
             doNotSend: true,
             allowTopLevelReturn: true,
-            data: this.compiled
+            data: this.compiled,
         });
         for (let i = 0, len = params.length; i < len; i++) {
             const param = params[i];

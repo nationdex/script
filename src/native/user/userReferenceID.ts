@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, MessageResolvable, TextBasedChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel, MessageResolvable, TextBasedChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$userReferenceID",
@@ -19,7 +19,7 @@ export default new NativeFunction({
             required: true,
             description: "The channel to get the message from",
             type: ArgType.Channel,
-            check: (i: BaseChannel) => i.isTextBased()
+            check: (i: BaseChannel) => i.isTextBased(),
         },
         {
             name: "message ID",
@@ -34,6 +34,8 @@ export default new NativeFunction({
     async execute(ctx, [channel, message]) {
         channel ??= ctx.channel!
         const msg = (message ?? ctx.message)?.reference?.messageId
-        return this.success(msg ? (await (channel as TextBasedChannel).messages.fetch(msg as MessageResolvable)).author.id : undefined)
-    }
+        return this.success(
+            msg ? (await (channel as TextBasedChannel).messages.fetch(msg as MessageResolvable)).author.id : undefined
+        )
+    },
 })

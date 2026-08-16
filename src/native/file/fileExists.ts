@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { existsSync } from "fs"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { existsSync } from "node:fs"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$fileExists",
@@ -22,7 +22,7 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    execute(ctx, [path]) {
+    execute(_ctx, [path]) {
         return this.success(existsSync(path))
     },
 })

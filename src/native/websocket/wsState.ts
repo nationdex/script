@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import ws from "ws"
 import { ArgType, NativeFunction } from "../../structures"
@@ -10,7 +10,7 @@ export enum ConnectionState {
     Connecting = ws.CONNECTING,
     Closed = ws.CLOSED,
     Closing = ws.CLOSING,
-    Open = ws.OPEN
+    Open = ws.OPEN,
 }
 
 export default new NativeFunction({
@@ -26,10 +26,10 @@ export default new NativeFunction({
             description: "The websocket to get its state",
             rest: false,
             required: true,
-            type: ArgType.Number
-        }
+            type: ArgType.Number,
+        },
     ],
-    execute(ctx, [ id ]) {
+    execute(ctx, [id]) {
         const ws = ctx.client.websockets.get(id)
         return this.success(ConnectionState[ws?.readyState!])
     },

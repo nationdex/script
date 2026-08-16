@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { once } from "events"
-import { join } from "path"
-import { Worker } from "worker_threads"
+import { once } from "node:events"
+import { join } from "node:path"
+import { Worker } from "node:worker_threads"
 
 export async function spawn(name: string) {
     const worker = new Worker(join(__dirname, "..", "experimental", "threading", `${name}.js`))
@@ -15,7 +15,7 @@ export async function spawn(name: string) {
 
 export async function postMessage<T>(worker: Worker, msg: any): Promise<T> {
     worker.postMessage(msg)
-    const result = await once(worker, "message").then(x => x[0])
+    const result = await once(worker, "message").then((x) => x[0])
     return result
 }
 

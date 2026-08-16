@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseEventHandler = void 0;
 class BaseEventHandler {
@@ -19,7 +19,7 @@ class BaseEventHandler {
     get name() {
         return this.data.name;
     }
-    register(client) { }
+    register(_client) { }
 }
 exports.BaseEventHandler = BaseEventHandler;
 //# sourceMappingURL=BaseEventHandler.js.map

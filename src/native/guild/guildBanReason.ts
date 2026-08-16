@@ -1,9 +1,8 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -11,13 +10,7 @@ export default new NativeFunction({
     version: "1.4.0",
     unwrap: true,
     brackets: false,
-    aliases: [
-        "$banReason",
-        "$serverBanReason",
-        "$getBanReason",
-        "$getGuildBanReason",
-        "$getServerBanReason"
-    ],
+    aliases: ["$banReason", "$serverBanReason", "$getBanReason", "$getGuildBanReason", "$getServerBanReason"],
     output: ArgType.String,
     description: "Fetches a ban reason of a user",
     args: [
@@ -26,19 +19,18 @@ export default new NativeFunction({
             description: "The guild to pull ban from",
             rest: false,
             required: true,
-            type: ArgType.Guild
+            type: ArgType.Guild,
         },
         {
             name: "user ID",
             description: "The user to pull ban reason",
             rest: false,
             required: true,
-            type: ArgType.User
-        }
+            type: ArgType.User,
+        },
     ],
-    async execute(ctx, [ g, u ]) {
-        if (!this.hasFields) 
-            return this.success(ctx.runtime.states?.ban?.new?.reason)
+    async execute(ctx, [g, u]) {
+        if (!this.hasFields) return this.success(ctx.runtime.states?.ban?.new?.reason)
 
         const ban = await g.bans.fetch(u).catch(ctx.noop)
         return this.success(ban ? ban.reason : null)

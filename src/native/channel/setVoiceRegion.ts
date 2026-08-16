@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, VoiceChannel } from "discord.js"
+import type { BaseChannel, VoiceChannel } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export enum VoiceRegionType {
@@ -20,7 +20,7 @@ export enum VoiceRegionType {
     "us-central" = "us-central",
     "us-east" = "us-east",
     "us-south" = "us-south",
-    "us-west" = "us-west"
+    "us-west" = "us-west",
 }
 
 export default new NativeFunction({
@@ -36,7 +36,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => i.isVoiceBased()
+            check: (i: BaseChannel) => i.isVoiceBased(),
         },
         {
             name: "region",
@@ -44,18 +44,20 @@ export default new NativeFunction({
             rest: false,
             required: false,
             type: ArgType.Enum,
-            enum: VoiceRegionType
+            enum: VoiceRegionType,
         },
         {
             name: "reason",
             description: "The reason to set the voice region",
             rest: false,
             required: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     output: ArgType.Boolean,
     async execute(ctx, [voice, region, reason]) {
-        return this.success(!!(await (voice as VoiceChannel).setRTCRegion(region || null, reason || ctx.reason).catch(ctx.noop)))
+        return this.success(
+            !!(await (voice as VoiceChannel).setRTCRegion(region || null, reason || ctx.reason).catch(ctx.noop))
+        )
     },
 })

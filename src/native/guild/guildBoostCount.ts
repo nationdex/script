@@ -1,18 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildBoostCount",
     version: "1.0.0",
     description: "Returns the server boost count",
     brackets: false,
-    aliases: [
-        "$serverBoostCount"
-    ],
+    aliases: ["$serverBoostCount"],
     args: [
         {
             name: "guild ID",

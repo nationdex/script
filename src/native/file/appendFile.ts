@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { appendFileSync } from "fs"
+import { appendFileSync } from "node:fs"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -34,7 +34,7 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    execute(ctx, [path, data, encoding]) {
+    execute(_ctx, [path, data, encoding]) {
         appendFileSync(path, data, { encoding: (encoding as BufferEncoding) || "utf-8" })
         return this.success()
     },

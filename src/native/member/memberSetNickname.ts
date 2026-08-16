@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$memberSetNickname",
@@ -36,9 +36,10 @@ export default new NativeFunction({
         },
     ],
     async execute(ctx, [g, m, nick]) {
-        const edit = m.id === ctx.client.user.id
-            ? g.members.editMe({ nick, reason: ctx.reason })
-            : m.setNickname(nick, ctx.reason)
+        const edit =
+            m.id === ctx.client.user.id
+                ? g.members.editMe({ nick, reason: ctx.reason })
+                : m.setNickname(nick, ctx.reason)
 
         return this.success(!!(await edit.catch(ctx.noop)))
     },

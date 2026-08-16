@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, GuildForumTagData, ThreadOnlyChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel, GuildForumTagData, ThreadOnlyChannel } from "discord.js"
 import { parseSingleEmoji } from "../../functions/parseSingleEmoji"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$createForumTag",
@@ -40,18 +40,20 @@ export default new NativeFunction({
             description: "Whether the tag can only be applied by mods",
             rest: false,
             type: ArgType.Boolean,
-        }
+        },
     ],
     output: ArgType.ForumTag,
-    async execute(ctx, [ channel, name, emoji, mod ]) {
+    async execute(ctx, [channel, name, emoji, mod]) {
         const forum = channel as ThreadOnlyChannel
 
         const tag = {
             name,
             emoji: parseSingleEmoji(ctx, emoji),
-            moderated: mod || undefined
+            moderated: mod || undefined,
         } as GuildForumTagData
 
-        return this.success((await forum.setAvailableTags([...forum.availableTags, tag]).catch(ctx.noop))?.availableTags.at(-1)?.id)
+        return this.success(
+            (await forum.setAvailableTags([...forum.availableTags, tag]).catch(ctx.noop))?.availableTags.at(-1)?.id
+        )
     },
 })

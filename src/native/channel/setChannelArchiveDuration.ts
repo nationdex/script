@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, TextChannel, ThreadAutoArchiveDuration } from "discord.js"
+import { type BaseChannel, type TextChannel, ThreadAutoArchiveDuration } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -20,7 +20,7 @@ export default new NativeFunction({
             check: (i: BaseChannel) => "setDefaultAutoArchiveDuration" in i,
             description: "The channel to modify",
             rest: false,
-            required: true
+            required: true,
         },
         {
             name: "duration",
@@ -28,16 +28,16 @@ export default new NativeFunction({
             type: ArgType.Enum,
             enum: ThreadAutoArchiveDuration,
             rest: false,
-            required: true
+            required: true,
         },
         {
             name: "reason",
             description: "The reason for modifying archive duration",
             rest: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    async execute(ctx, [ ch, dur, reason ]) {
-        return this.success(!!((ch as TextChannel).setDefaultAutoArchiveDuration(dur, reason || ctx.reason)))
+    async execute(ctx, [ch, dur, reason]) {
+        return this.success(!!(ch as TextChannel).setDefaultAutoArchiveDuration(dur, reason || ctx.reason))
     },
 })

@@ -1,15 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { stdin, stdout } from "process"
-import { createInterface } from "readline"
+import { stdin, stdout } from "node:process"
+import { createInterface } from "node:readline"
 
-export default async function(q: string) {
+export default async function (q: string) {
     const itf = createInterface(stdin, stdout)
-    return new Promise<string>(r => {
-        itf.question(q, input => {
+    return new Promise<string>((r) => {
+        itf.question(q, (input) => {
             itf.close()
             r(input)
         })

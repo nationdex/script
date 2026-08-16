@@ -1,16 +1,14 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$advancedReplace",
     version: "1.5.0",
-    aliases: [
-        "$advancedReplaceText"
-    ],
+    aliases: ["$advancedReplaceText"],
     output: structures_1.ArgType.String,
     description: "Replaces text in a string multiple times",
     unwrap: true,
@@ -28,10 +26,10 @@ exports.default = new structures_1.NativeFunction({
             required: true,
             rest: true,
             type: structures_1.ArgType.String,
-        }
+        },
     ],
     brackets: true,
-    execute(ctx, [text, args]) {
+    execute(_ctx, [text, args]) {
         for (let i = 0; i < args.length; i += 2) {
             const [match, replacement] = args.slice(i, i + 2);
             text = text.replaceAll(match ?? "", replacement ?? "");

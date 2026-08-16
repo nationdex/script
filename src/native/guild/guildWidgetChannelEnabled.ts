@@ -1,19 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { GuildDefaultMessageNotifications, GuildExplicitContentFilter } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildWidgetChannelEnabled",
     version: "1.3.0",
     description: "Returns whether widget channel is enabled for this guild",
     brackets: false,
-    aliases: [
-        "$serverWidgetChannelEnabled"
-    ],
+    aliases: ["$serverWidgetChannelEnabled"],
     output: ArgType.Boolean,
     args: [
         {

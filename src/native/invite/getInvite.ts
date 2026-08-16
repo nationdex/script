@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
 import { InviteProperties, InviteProperty } from "../../properties/invite"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$getInvite",
@@ -12,10 +12,7 @@ export default new NativeFunction({
     description: "Returns information about an invite",
     brackets: true,
     unwrap: true,
-    output: [
-        ArgType.Json,
-        ArgType.Unknown
-    ],
+    output: [ArgType.Json, ArgType.Unknown],
     args: [
         {
             name: "code",
@@ -29,7 +26,7 @@ export default new NativeFunction({
             description: "The property of the invite to return",
             rest: false,
             type: ArgType.Enum,
-            enum: InviteProperty
+            enum: InviteProperty,
         },
     ],
     async execute(ctx, [code, prop]) {

@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { createComponentBuilder } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
@@ -17,7 +17,7 @@ export default new NativeFunction({
             description: "The channel id to pull message from",
             rest: false,
             required: true,
-            type: ArgType.TextChannel
+            type: ArgType.TextChannel,
         },
         {
             name: "message ID",
@@ -25,7 +25,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Message,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "index",
@@ -38,10 +38,8 @@ export default new NativeFunction({
     output: ArgType.Boolean,
     unwrap: true,
     async execute(ctx, [, m, index]) {
-        const components = m.components.map(x => createComponentBuilder(x.toJSON()))
+        const components = m.components.map((x) => createComponentBuilder(x.toJSON()))
         components.splice(index, 1)
-        return this.success(
-            !!(await m.edit({ components: components.map(x => x.toJSON()) }).catch(ctx.noop))
-        )
+        return this.success(!!(await m.edit({ components: components.map((x) => x.toJSON()) }).catch(ctx.noop)))
     },
 })

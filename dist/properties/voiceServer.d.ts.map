@@ -1,1 +1,1 @@
-{"version":3,"file":"voiceServer.d.ts","sourceRoot":"","sources":["../../src/properties/voiceServer.ts"],"names":[],"mappings":"AAKA,OAAO,EAAE,qBAAqB,EAAE,MAAM,YAAY,CAAA;AAGlD,oBAAY,mBAAmB;IAC3B,OAAO,YAAY;IACnB,QAAQ,aAAa;IACrB,KAAK,UAAU;CAClB;AAED,eAAO,MAAM,qBAAqB,4EAIhC,CAAA"}
+{"version":3,"file":"voiceServer.d.ts","sourceRoot":"","sources":["../../src/properties/voiceServer.ts"],"names":[],"mappings":"AAKA,OAAO,KAAK,EAAE,qBAAqB,EAAE,MAAM,YAAY,CAAA;AAGvD,oBAAY,mBAAmB;IAC3B,OAAO,YAAY;IACnB,QAAQ,aAAa;IACrB,KAAK,UAAU;CAClB;AAED,eAAO,MAAM,qBAAqB,4EAIhC,CAAA"}

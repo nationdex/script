@@ -1,18 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, CompiledFunction, NativeFunction, Return } from "../../structures"
+import { ArgType, CompiledFunction, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildEmojiExists",
     version: "2.5.0",
     description: "Returns whether an emoji id exists on a guild",
     unwrap: true,
-    aliases: [
-        "$serverEmojiExists"
-    ],
+    aliases: ["$serverEmojiExists"],
     brackets: true,
     args: [
         {
@@ -31,7 +29,7 @@ export default new NativeFunction({
         },
     ],
     output: ArgType.Boolean,
-    async execute(ctx, [guild, id]) {
+    async execute(_ctx, [guild, id]) {
         return this.success(CompiledFunction.IdRegex.test(id) && guild.emojis.cache.has(id))
     },
 })

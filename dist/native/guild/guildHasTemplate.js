@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -11,16 +11,14 @@ exports.default = new structures_1.NativeFunction({
     description: "Returns whether this guild has a template",
     unwrap: true,
     brackets: false,
-    aliases: [
-        "$hasGuildTemplate"
-    ],
+    aliases: ["$hasGuildTemplate"],
     args: [
         {
             name: "guild ID",
             description: "The guild to check for template",
             rest: false,
             required: true,
-            type: structures_1.ArgType.Guild
+            type: structures_1.ArgType.Guild,
         },
     ],
     output: structures_1.ArgType.Boolean,

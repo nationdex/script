@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, ChannelType, Guild, NewsChannel, TextChannel } from "discord.js"
+import { type BaseChannel, ChannelType, type Guild, type NewsChannel, type TextChannel } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -34,10 +34,16 @@ export default new NativeFunction({
             description: "The reason for following the channel",
             type: ArgType.String,
             rest: false,
-        }
+        },
     ],
     output: ArgType.Webhook,
     async execute(ctx, [news, chan, reason]) {
-        return this.success("guild" in news ? (await (news.guild as Guild)?.channels.addFollower(news as NewsChannel, chan as TextChannel, reason || ctx.reason).catch(ctx.noop)) : undefined)
+        return this.success(
+            "guild" in news
+                ? await (news.guild as Guild)?.channels
+                      .addFollower(news as NewsChannel, chan as TextChannel, reason || ctx.reason)
+                      .catch(ctx.noop)
+                : undefined
+        )
     },
 })

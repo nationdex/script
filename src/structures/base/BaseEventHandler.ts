@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ClientEvents, GatewayIntentsString } from "discord.js"
-import { type ForgeClient } from "../../core/ForgeClient"
+import type { GatewayIntentsString } from "discord.js"
+import type { ForgeClient } from "../../core/ForgeClient"
 
 export type AssertArgs<T> = T extends unknown[] ? T : never
 
@@ -32,5 +32,5 @@ export class BaseEventHandler<Events = Record<string, unknown[]>, T extends keyo
         return this.data.name
     }
 
-    public register(client: ForgeClient) {}
+    public register(_client: ForgeClient) {}
 }

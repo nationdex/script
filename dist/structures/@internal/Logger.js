@@ -1,16 +1,16 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Logger = exports.LogType = exports.LogPriority = void 0;
+const node_process_1 = require("node:process");
+const node_util_1 = require("node:util");
 const chalk_1 = __importDefault(require("chalk"));
-const process_1 = require("process");
-const util_1 = require("util");
 var LogPriority;
 (function (LogPriority) {
     /**
@@ -49,52 +49,52 @@ class Logger {
         [LogType.Error]: chalk_1.default.red.bold,
         [LogType.Warn]: chalk_1.default.yellow.bold,
         [LogType.Deprecated]: chalk_1.default.magenta.bold,
-        [LogType.Info]: chalk_1.default.cyan.bold
+        [LogType.Info]: chalk_1.default.cyan.bold,
     };
     static DateColor = chalk_1.default.green.bold;
     static log(priority, type, ...args) {
-        if (this.Priority < priority)
+        if (Logger.Priority < priority)
             return;
-        console.log(Logger.DateColor(`[${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}]`), Logger.Colors[type](`[${LogType[type].toUpperCase()}]`), ...args.map(x => Logger.Colors[type](typeof x === "string" ? x : (0, util_1.inspect)(x))));
+        console.log(Logger.DateColor(`[${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}]`), Logger.Colors[type](`[${LogType[type].toUpperCase()}]`), ...args.map((x) => Logger.Colors[type](typeof x === "string" ? x : (0, node_util_1.inspect)(x))));
     }
     static clearLine() {
-        process_1.stdout.moveCursor(0, -1);
-        process_1.stdout.clearLine(0);
+        node_process_1.stdout.moveCursor(0, -1);
+        node_process_1.stdout.clearLine(0);
     }
     static debug(...args) {
-        this.log(LogPriority.High, LogType.Debug, ...args);
+        Logger.log(LogPriority.High, LogType.Debug, ...args);
     }
     static warn(...args) {
-        this.log(LogPriority.Medium, LogType.Warn, ...args);
+        Logger.log(LogPriority.Medium, LogType.Warn, ...args);
     }
     static deprecated(...args) {
-        this.log(LogPriority.Medium, LogType.Deprecated, ...args);
+        Logger.log(LogPriority.Medium, LogType.Deprecated, ...args);
     }
     static error(...args) {
-        this.log(LogPriority.Low, LogType.Error, ...args);
+        Logger.log(LogPriority.Low, LogType.Error, ...args);
     }
     static info(...args) {
-        this.log(LogPriority.VeryLow, LogType.Info, ...args);
+        Logger.log(LogPriority.VeryLow, LogType.Info, ...args);
     }
     static infoUpdate(...args) {
-        this.clearLine();
-        return this.info(...args);
+        Logger.clearLine();
+        return Logger.info(...args);
     }
     static warnUpdate(...args) {
-        this.clearLine();
-        return this.warn(...args);
+        Logger.clearLine();
+        return Logger.warn(...args);
     }
     static debugUpdate(...args) {
-        this.clearLine();
-        return this.debug(...args);
+        Logger.clearLine();
+        return Logger.debug(...args);
     }
     static deprecatedUpdate(...args) {
-        this.clearLine();
-        return this.deprecated(...args);
+        Logger.clearLine();
+        return Logger.deprecated(...args);
     }
     static errorUpdate(...args) {
-        this.clearLine();
-        return this.error(...args);
+        Logger.clearLine();
+        return Logger.error(...args);
     }
 }
 exports.Logger = Logger;

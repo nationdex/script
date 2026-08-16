@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -31,22 +31,22 @@ var ScheduledEventProperty;
     ScheduledEventProperty["status"] = "status";
 })(ScheduledEventProperty || (exports.ScheduledEventProperty = ScheduledEventProperty = {}));
 exports.ScheduledEventProperties = (0, defineProperties_1.default)({
-    channelID: i => i?.channelId,
-    guildID: i => i?.guildId,
-    id: i => i?.id,
-    name: i => i?.name,
-    userID: i => i?.creatorId,
-    userCount: i => i?.userCount,
-    description: i => i?.description,
-    startTimestamp: i => i?.scheduledStartTimestamp,
-    endTimestamp: i => i?.scheduledEndTimestamp,
-    timestamp: i => i?.createdTimestamp,
-    url: i => i?.url,
-    cover: i => i?.coverImageURL(),
-    entityID: i => i?.entityId,
-    location: i => i?.entityMetadata?.location,
-    entityType: i => discord_js_1.GuildScheduledEventEntityType[i?.entityType],
-    privacyLevel: i => discord_js_1.GuildScheduledEventPrivacyLevel[i?.privacyLevel],
-    status: i => discord_js_1.GuildScheduledEventStatus[i?.status]
+    channelID: (i) => i?.channelId,
+    guildID: (i) => i?.guildId,
+    id: (i) => i?.id,
+    name: (i) => i?.name,
+    userID: (i) => i?.creatorId,
+    userCount: (i) => i?.userCount,
+    description: (i) => i?.description,
+    startTimestamp: (i) => i?.scheduledStartTimestamp,
+    endTimestamp: (i) => i?.scheduledEndTimestamp,
+    timestamp: (i) => i?.createdTimestamp,
+    url: (i) => i?.url,
+    cover: (i) => i?.coverImageURL(),
+    entityID: (i) => i?.entityId,
+    location: (i) => i?.entityMetadata?.location,
+    entityType: (i) => discord_js_1.GuildScheduledEventEntityType[i?.entityType],
+    privacyLevel: (i) => discord_js_1.GuildScheduledEventPrivacyLevel[i?.privacyLevel],
+    status: (i) => discord_js_1.GuildScheduledEventStatus[i?.status],
 });
 //# sourceMappingURL=scheduledEvent.js.map

@@ -1,17 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$createGuild",
     version: "1.5.0",
     description: "Creates a new guild, returns guild id",
-    aliases: [
-        "$createServer"
-    ],
+    aliases: ["$createServer"],
     unwrap: true,
     brackets: true,
     deprecated: true,
@@ -40,8 +38,7 @@ export default new NativeFunction({
     async execute(ctx, [name, icon, template]) {
         const guild = await (template
             ? template.createGuild(name, icon || undefined).catch(ctx.noop)
-            : ctx.client.guilds.create({ name, icon }).catch(ctx.noop)
-        )
+            : ctx.client.guilds.create({ name, icon }).catch(ctx.noop))
         return this.success(guild?.id)
     },
 })

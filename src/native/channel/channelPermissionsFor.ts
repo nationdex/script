@@ -1,21 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, GuildTextBasedChannel, PermissionFlagsBits } from "discord.js"
-import { ArgType, NativeFunction } from "../../structures"
+import { type BaseChannel, type GuildTextBasedChannel, PermissionFlagsBits } from "discord.js"
 import array from "../../functions/array"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$channelPermissionsFor",
     version: "1.4.0",
     description: "Returns permissions for a role or member in a channel",
-    aliases: [
-        "$channelPermsFor",
-        "$memberChannelPerms",
-        "$roleChannelPerms"
-    ],
+    aliases: ["$channelPermsFor", "$memberChannelPerms", "$roleChannelPerms"],
     output: array(PermissionFlagsBits),
     unwrap: true,
     args: [
@@ -25,24 +21,29 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => "permissionsFor" in i
+            check: (i: BaseChannel) => "permissionsFor" in i,
         },
         {
             name: "id",
             description: "The role or user to get perms for",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "separator",
             description: "The separator to use for every perm",
             rest: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     brackets: true,
-    execute(ctx, [ channel, id, sep ]) {
-        return this.success((channel as GuildTextBasedChannel).permissionsFor(id)?.toArray().join(sep ?? ", "))
+    execute(_ctx, [channel, id, sep]) {
+        return this.success(
+            (channel as GuildTextBasedChannel)
+                .permissionsFor(id)
+                ?.toArray()
+                .join(sep ?? ", ")
+        )
     },
 })

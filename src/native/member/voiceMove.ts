@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, GuildVoiceChannelResolvable } from "discord.js"
+import type { BaseChannel, GuildVoiceChannelResolvable } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -11,9 +11,7 @@ export default new NativeFunction({
     version: "1.4.0",
     description: "Moves a member from a voice channel, returns bool",
     brackets: true,
-    aliases: [
-        "$memberVoiceMove"
-    ],
+    aliases: ["$memberVoiceMove"],
     output: ArgType.Boolean,
     args: [
         {
@@ -21,7 +19,7 @@ export default new NativeFunction({
             description: "The guild to pull member from",
             rest: false,
             required: true,
-            type: ArgType.Guild
+            type: ArgType.Guild,
         },
         {
             name: "user ID",
@@ -29,7 +27,7 @@ export default new NativeFunction({
             required: true,
             type: ArgType.Member,
             pointer: 0,
-            description: "The user to move"
+            description: "The user to move",
         },
         {
             name: "channel ID",
@@ -37,17 +35,21 @@ export default new NativeFunction({
             rest: false,
             required: false,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => i.isVoiceBased()
+            check: (i: BaseChannel) => i.isVoiceBased(),
         },
         {
             name: "reason",
             description: "The reason for moving the user",
             rest: false,
             type: ArgType.String,
-        }
+        },
     ],
     unwrap: true,
-    async execute(ctx, [, member, voice, reason ]) {
-        return this.success(!!(await member.voice.setChannel(voice as GuildVoiceChannelResolvable, reason || ctx.reason).catch(ctx.noop)))
+    async execute(ctx, [, member, voice, reason]) {
+        return this.success(
+            !!(await member.voice
+                .setChannel(voice as GuildVoiceChannelResolvable, reason || ctx.reason)
+                .catch(ctx.noop))
+        )
     },
 })

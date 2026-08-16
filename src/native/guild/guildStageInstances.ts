@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import array from "../../functions/array"
 import { StageProperties, StageProperty } from "../../properties/stage"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildStageInstances",
@@ -26,7 +26,7 @@ export default new NativeFunction({
             description: "The property of each stage instance to return",
             rest: false,
             type: ArgType.Enum,
-            enum: StageProperty
+            enum: StageProperty,
         },
         {
             name: "separator",
@@ -35,11 +35,8 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    output: [
-        ArgType.Json,
-        array<ArgType.Unknown>()
-    ],
-    async execute(ctx, [ guild, prop, sep ]) {
+    output: [ArgType.Json, array<ArgType.Unknown>()],
+    async execute(ctx, [guild, prop, sep]) {
         const instances = (guild ?? ctx.guild).stageInstances.cache
         if (prop) return this.success(instances.map((x) => StageProperties[prop](x)).join(sep ?? ", "))
         return this.successJSON(instances)

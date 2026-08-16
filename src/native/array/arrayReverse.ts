@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$arrayReverse",
@@ -32,10 +32,8 @@ export default new NativeFunction({
         const arr = ctx.getEnvironmentKey(var1)
 
         if (Array.isArray(arr)) {
-            if (var2)
-                return this.success(void ctx.setEnvironmentKey(var2, arr.reverse()))
-            else 
-                return this.successJSON(arr.reverse())
+            if (var2) return this.success(void ctx.setEnvironmentKey(var2, arr.reverse()))
+            else return this.successJSON(arr.reverse())
         }
 
         return this.success()

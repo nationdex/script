@@ -1,4 +1,4 @@
-import { ApplicationEmoji } from "discord.js";
+import type { ApplicationEmoji } from "discord.js";
 export declare enum ApplicationEmojiProperty {
     authorID = "authorID",
     name = "name",

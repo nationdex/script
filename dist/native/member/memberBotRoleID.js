@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -29,7 +29,7 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     output: structures_1.ArgType.Role,
-    execute(ctx, [guild, user]) {
+    execute(_ctx, [guild, user]) {
         return this.success(guild.roles.botRoleFor(user)?.id);
     },
 });

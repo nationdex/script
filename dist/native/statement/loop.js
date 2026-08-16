@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -31,14 +31,14 @@ exports.default = new structures_1.NativeFunction({
             name: "variable",
             description: "The variable to load the current iteration count for $env",
             rest: false,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
         {
             name: "asc",
             description: "Whether to use asc order for iteration count",
             rest: false,
             type: structures_1.ArgType.Boolean,
-        }
+        },
     ],
     async execute(ctx) {
         const { args, return: rt } = await this["resolveMultipleArgs"](ctx, 0, 2, 3);
@@ -47,7 +47,7 @@ exports.default = new structures_1.NativeFunction({
         const [times, varName, asc] = args;
         const code = this.data.fields[1];
         let output = "";
-        let condition = asc || times === -1;
+        const condition = asc || times === -1;
         for (let i = condition ? 1 : times; (asc ? i <= times : i > 0) || times === -1; condition ? i++ : i--) {
             if (varName)
                 ctx.setEnvironmentKey(varName, i);

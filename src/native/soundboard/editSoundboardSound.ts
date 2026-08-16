@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
 import { parseSingleEmoji } from "../../functions/parseSingleEmoji"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$editSoundboardSound",
@@ -58,12 +58,16 @@ export default new NativeFunction({
         const parsed = parseSingleEmoji(ctx, emoji)
         const value = emoji === "" ? null : undefined
 
-        return this.success(!!(await sound.edit({
-            name: name || undefined,
-            emojiId: parsed?.id || value,
-            emojiName: parsed?.id ? null : parsed?.name || value,
-            volume: typeof(volume) === "number" ? volume : undefined,
-            reason: reason || ctx.reason
-        }).catch(ctx.noop)))
+        return this.success(
+            !!(await sound
+                .edit({
+                    name: name || undefined,
+                    emojiId: parsed?.id || value,
+                    emojiName: parsed?.id ? null : parsed?.name || value,
+                    volume: typeof volume === "number" ? volume : undefined,
+                    reason: reason || ctx.reason,
+                })
+                .catch(ctx.noop))
+        )
     },
 })

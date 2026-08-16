@@ -1,12 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ActionRow, BaseChannel, MessageActionRowComponent } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { type ActionRow, type BaseChannel, type MessageActionRowComponent, MessageFlags } from "discord.js"
 import { ComponentProperties, ComponentProperty } from "../../properties/component"
-import { MessageFlags } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$getComponents",
@@ -74,23 +73,20 @@ export default new NativeFunction({
             enum: ComponentProperty,
         },
     ],
-    output: [
-        ArgType.Json,
-        ArgType.Unknown
-    ],
+    output: [ArgType.Json, ArgType.Unknown],
     execute(ctx, [, m, rowIndex, compIndex1, prop1, sep, compIndex2, prop2]) {
         m ??= ctx.message!
-        let isV2 = m.flags.has(MessageFlags.IsComponentsV2)
+        const isV2 = m.flags.has(MessageFlags.IsComponentsV2)
 
         if (typeof rowIndex !== "number") {
-            return this.successJSON(m?.components.map((x) =>
-                isV2 ? x.toJSON() : (x as ActionRow<MessageActionRowComponent>).components
-            ))
+            return this.successJSON(
+                m?.components.map((x) => (isV2 ? x.toJSON() : (x as ActionRow<MessageActionRowComponent>).components))
+            )
         }
 
         const row = m.components[rowIndex]
         const comps = "components" in row ? row.components : undefined
-        const comp = (typeof compIndex1 === "number" ? comps?.[compIndex1] : undefined)
+        const comp = typeof compIndex1 === "number" ? comps?.[compIndex1] : undefined
 
         if (!prop1) {
             return this.successJSON((isV2 ? comp : comp?.data) ?? (isV2 ? row : comps))
@@ -102,12 +98,17 @@ export default new NativeFunction({
             return this.success(ComponentProperties[prop1](comp1, sep))
         }
 
-        const comps2 = (prop1 === ComponentProperty.accessory && comp1 && "accessory" in comp1)
-            ? comp1.accessory
-            : comp1 && "components" in comp1
-                ? comp1.components
-                : undefined
-        const comp2 = (!Array.isArray(comps2) ? comps2 : typeof compIndex2 === "number" ? comps2?.[compIndex2] : undefined)
+        const comps2 =
+            prop1 === ComponentProperty.accessory && comp1 && "accessory" in comp1
+                ? comp1.accessory
+                : comp1 && "components" in comp1
+                  ? comp1.components
+                  : undefined
+        const comp2 = !Array.isArray(comps2)
+            ? comps2
+            : typeof compIndex2 === "number"
+              ? comps2?.[compIndex2]
+              : undefined
 
         if (!prop2) {
             return this.successJSON(comp2?.data ?? comps2)

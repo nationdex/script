@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import array from "../../functions/array"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$emojiRoles",
@@ -30,6 +30,8 @@ export default new NativeFunction({
     ],
     execute(ctx, [em, sep]) {
         const emoji = em ?? ctx.emoji
-        return this.success(emoji && "roles" in emoji ? emoji.roles.cache.map((x) => x.id).join(sep || ", ") : undefined)
+        return this.success(
+            emoji && "roles" in emoji ? emoji.roles.cache.map((x) => x.id).join(sep || ", ") : undefined
+        )
     },
 })

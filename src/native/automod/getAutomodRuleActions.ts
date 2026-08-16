@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
-import { AutomodRuleActionProperty, AutomodRuleActionProperties } from "../../properties/automodRule"
 import array from "../../functions/array"
+import { AutomodRuleActionProperties, AutomodRuleActionProperty } from "../../properties/automodRule"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$getAutomodRuleActions",
@@ -27,14 +27,14 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.AutomodRule,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "property",
             description: "The property of each action to return",
             rest: false,
             type: ArgType.Enum,
-            enum: AutomodRuleActionProperty
+            enum: AutomodRuleActionProperty,
         },
         {
             name: "separator",
@@ -43,11 +43,8 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    output: [
-        ArgType.Json,
-        array<ArgType.Unknown>()
-    ],
-    execute(ctx, [, rule, prop, sep ]) {
+    output: [ArgType.Json, array<ArgType.Unknown>()],
+    execute(_ctx, [, rule, prop, sep]) {
         if (prop) return this.success(rule.actions.map((x) => AutomodRuleActionProperties[prop](x)).join(sep ?? ", "))
         return this.successJSON(rule.actions)
     },

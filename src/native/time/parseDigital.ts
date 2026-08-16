@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { parseDigital } from "../../functions/digital"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$parseDigital",
@@ -22,7 +22,7 @@ export default new NativeFunction({
             required: true,
         },
     ],
-    execute(ctx, [ ms ]) {
+    execute(_ctx, [ms]) {
         return this.success(parseDigital(ms))
     },
 })

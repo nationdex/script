@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { Collection } from "discord.js"
-import { ForgeClient } from "../core"
+import type { ForgeClient } from "../core"
 
 export interface ICooldown {
     duration: number
@@ -38,5 +38,5 @@ export class CooldownManager {
 
     public identifier<T extends [...any[]]>(...values: [...T]) {
         return values.join("_")
-    } 
+    }
 }

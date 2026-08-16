@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ordinal } from "../../functions/ordinal"
 import { ArgType, NativeFunction } from "../../structures"
@@ -19,10 +19,10 @@ export default new NativeFunction({
             description: "The number to append suffix to",
             rest: false,
             required: true,
-            type: ArgType.Number
-        }
+            type: ArgType.Number,
+        },
     ],
-    execute(ctx, [ n ]) {
+    execute(_ctx, [n]) {
         return this.success(ordinal(n))
     },
 })

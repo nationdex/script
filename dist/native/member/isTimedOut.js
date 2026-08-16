@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -12,9 +12,7 @@ exports.default = new structures_1.NativeFunction({
     description: "Returns whether a member is timed out",
     unwrap: true,
     brackets: false,
-    aliases: [
-        "$memberIsTimedOut"
-    ],
+    aliases: ["$memberIsTimedOut"],
     output: structures_1.ArgType.Boolean,
     args: [
         {
@@ -36,7 +34,7 @@ exports.default = new structures_1.NativeFunction({
     execute(ctx, [, user]) {
         const member = user ?? ctx.member ?? ctx.interaction?.member;
         return this.success(member instanceof discord_js_1.GuildMember
-            ? member?.isCommunicationDisabled() ?? false
+            ? (member?.isCommunicationDisabled() ?? false)
             : !!ctx.interaction?.member?.communication_disabled_until);
     },
 });

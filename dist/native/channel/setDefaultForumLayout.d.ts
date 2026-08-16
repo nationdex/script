@@ -1,4 +1,4 @@
-import { BaseChannel, ForumLayoutType } from "discord.js";
+import { type BaseChannel, ForumLayoutType } from "discord.js";
 import { ArgType, NativeFunction } from "../../structures";
 declare const _default: NativeFunction<[{
     name: string;

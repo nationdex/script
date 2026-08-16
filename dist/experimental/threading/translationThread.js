@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 /* Translation package not installed.
 parentPort?.on("message", async function(msg: ITranslateData) {
@@ -17,5 +17,5 @@ parentPort?.on("message", async function(msg: ITranslateData) {
         parentPort?.postMessage(txt.text)
         break
     }
-}) */ 
+}) */
 //# sourceMappingURL=translationThread.js.map

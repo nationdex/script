@@ -1,19 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { APIInteractionGuildMember, GuildMember } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { type APIInteractionGuildMember, GuildMember } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$memberBoostingSince",
     version: "1.5.0",
-    aliases: [
-        "$boostingSince",
-        "$boosterSince",
-        "$memberBoosterSince",
-    ],
+    aliases: ["$boostingSince", "$boosterSince", "$memberBoosterSince"],
     brackets: false,
     unwrap: true,
     output: ArgType.Number,
@@ -40,7 +36,9 @@ export default new NativeFunction({
         return this.success(
             member instanceof GuildMember
                 ? member?.premiumSinceTimestamp || 0
-                : ("premium_since" in (ctx.interaction?.member ?? {}) ? new Date((ctx.interaction?.member as APIInteractionGuildMember).premium_since!).getTime() : 0)
+                : "premium_since" in (ctx.interaction?.member ?? {})
+                  ? new Date((ctx.interaction?.member as APIInteractionGuildMember).premium_since!).getTime()
+                  : 0
         )
     },
 })

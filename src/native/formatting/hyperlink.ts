@@ -1,9 +1,8 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { bold } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export const BoldEscapeRegex = /(\*)/gim
@@ -21,17 +20,17 @@ export default new NativeFunction({
             description: "The text to make hyperlink",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "url",
             description: "The url to use for hyperlink",
             rest: false,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [ str, url ]) {
+    execute(_ctx, [str, url]) {
         return this.success(`[${str}](${url})`)
     },
 })

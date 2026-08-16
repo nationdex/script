@@ -1,19 +1,27 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, CategoryChannel, ForumChannel, GuildChannel, MediaChannel, NewsChannel, StageChannel, TextChannel, VoiceBasedChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import {
+    type BaseChannel,
+    CategoryChannel,
+    type ForumChannel,
+    GuildChannel,
+    type MediaChannel,
+    type NewsChannel,
+    StageChannel,
+    type TextChannel,
+    type VoiceBasedChannel,
+} from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setGuildWidgetSettings",
     version: "2.1.0",
     description: "Sets the widget settings of a guild, returns bool",
     unwrap: true,
-    aliases: [
-        "$setServerWidgetSettings"
-    ],
+    aliases: ["$setServerWidgetSettings"],
     output: ArgType.Boolean,
     args: [
         {
@@ -28,7 +36,8 @@ export default new NativeFunction({
             description: "The invite channel for the widget",
             rest: false,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => (i instanceof GuildChannel && !(i instanceof StageChannel) && !(i instanceof CategoryChannel))
+            check: (i: BaseChannel) =>
+                i instanceof GuildChannel && !(i instanceof StageChannel) && !(i instanceof CategoryChannel),
         },
         {
             name: "enabled",
@@ -45,12 +54,18 @@ export default new NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, chan, enabled, reason]) {
-        return this.success((await guild.setWidgetSettings(
-            {
-                channel: chan as NewsChannel | TextChannel | ForumChannel | MediaChannel | VoiceBasedChannel || null,
-                enabled: enabled || guild.widgetEnabled || false
-            },
-            reason || ctx.reason
-        ).catch(() => false)) !== false)
+        return this.success(
+            (await guild
+                .setWidgetSettings(
+                    {
+                        channel:
+                            (chan as NewsChannel | TextChannel | ForumChannel | MediaChannel | VoiceBasedChannel) ||
+                            null,
+                        enabled: enabled || guild.widgetEnabled || false,
+                    },
+                    reason || ctx.reason
+                )
+                .catch(() => false)) !== false
+        )
     },
 })

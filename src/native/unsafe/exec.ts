@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { execSync } from "child_process"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { execSync } from "node:child_process"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$exec",
@@ -22,7 +22,7 @@ export default new NativeFunction({
             required: true,
         },
     ],
-    async execute(ctx, [command]) {
+    async execute(_ctx, [command]) {
         try {
             const exec = await execSync(command, { encoding: "utf-8" })
             return this.success(exec)

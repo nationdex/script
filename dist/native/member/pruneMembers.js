@@ -1,17 +1,14 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$pruneMembers",
     version: "1.5.0",
-    aliases: [
-        "$prune",
-        "$membersPrune"
-    ],
+    aliases: ["$prune", "$membersPrune"],
     description: "Prunes inactive members from the guild, returns number of kicked members",
     unwrap: true,
     brackets: true,
@@ -50,14 +47,15 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     async execute(ctx, [guild, days, dry, reason, roles]) {
-        return this.success((await guild.members
+        return this.success(await guild.members
             .prune({
             count: true,
             days: days || 7,
             dry: dry || false,
             roles: roles,
             reason: reason || ctx.reason,
-        }).catch(ctx.noop)));
+        })
+            .catch(ctx.noop));
     },
 });
 //# sourceMappingURL=pruneMembers.js.map

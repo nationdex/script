@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -11,9 +11,7 @@ exports.default = new structures_1.NativeFunction({
     version: "2.1.0",
     description: "Sets the system channel for a guild, returns bool",
     unwrap: true,
-    aliases: [
-        "$setServerSystemChannel"
-    ],
+    aliases: ["$setServerSystemChannel"],
     output: structures_1.ArgType.Boolean,
     args: [
         {
@@ -29,7 +27,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             type: structures_1.ArgType.Channel,
             check: (i) => i.type === discord_js_1.ChannelType.GuildText,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "reason",
@@ -40,7 +38,9 @@ exports.default = new structures_1.NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, channel, reason]) {
-        return this.success((await guild.setSystemChannel(channel || null, reason || ctx.reason).catch(() => false)) !== false);
+        return this.success((await guild
+            .setSystemChannel(channel || null, reason || ctx.reason)
+            .catch(() => false)) !== false);
     },
 });
 //# sourceMappingURL=setGuildSystemChannel.js.map

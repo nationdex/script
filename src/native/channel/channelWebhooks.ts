@@ -1,12 +1,12 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, BaseGuildTextChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
-import { WebhookProperties, WebhookProperty } from "../../properties/webhook"
+import type { BaseChannel, BaseGuildTextChannel } from "discord.js"
 import array from "../../functions/array"
+import { WebhookProperties, WebhookProperty } from "../../properties/webhook"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$channelWebhooks",
@@ -28,7 +28,7 @@ export default new NativeFunction({
             description: "The property to return",
             rest: false,
             type: ArgType.Enum,
-            enum: WebhookProperty
+            enum: WebhookProperty,
         },
         {
             name: "separator",
@@ -37,10 +37,7 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    output: [
-        ArgType.Json,
-        array<ArgType.Unknown>()
-    ],
+    output: [ArgType.Json, array<ArgType.Unknown>()],
     async execute(ctx, [channel, prop, sep]) {
         const webhooks = await ((channel ?? ctx.channel) as BaseGuildTextChannel)?.fetchWebhooks().catch(ctx.noop)
         if (prop && webhooks) return this.success(webhooks.map((x) => WebhookProperties[prop](x)).join(sep ?? ", "))

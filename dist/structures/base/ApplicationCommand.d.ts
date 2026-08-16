@@ -1,6 +1,6 @@
-import { RESTPostAPIApplicationCommandsJSONBody } from "discord.js";
-import { IExtendedCompilationResult } from "../../core";
-import { IApplicationCommandData, RegistrationType } from "../../managers/ApplicationCommandManager";
+import type { RESTPostAPIApplicationCommandsJSONBody } from "discord.js";
+import { type IExtendedCompilationResult } from "../../core";
+import { type IApplicationCommandData, RegistrationType } from "../../managers/ApplicationCommandManager";
 export declare class ApplicationCommand {
     readonly options: IApplicationCommandData;
     compiled: IExtendedCompilationResult;

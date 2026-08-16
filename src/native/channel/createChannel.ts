@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, CategoryChannel, ChannelType, GuildChannelCreateOptions } from "discord.js"
+import { type BaseChannel, type CategoryChannel, ChannelType, type GuildChannelCreateOptions } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -59,7 +59,7 @@ export default new NativeFunction({
                 topic: topic || undefined,
                 parent: parent as CategoryChannel,
                 permissionOverwrites: ctx.permissionOverwrites,
-                reason: ctx.reason
+                reason: ctx.reason,
             })
             .catch(ctx.noop)
         return this.success(ch ? ch.id : undefined)

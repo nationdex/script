@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, ChannelType, StageChannel, StageInstancePrivacyLevel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { type BaseChannel, ChannelType, type StageChannel, StageInstancePrivacyLevel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$createStageInstance",
@@ -33,7 +33,7 @@ export default new NativeFunction({
             description: "The privacy level of the stage instance",
             rest: false,
             type: ArgType.Enum,
-            enum: StageInstancePrivacyLevel
+            enum: StageInstancePrivacyLevel,
         },
         {
             name: "notify",
@@ -52,12 +52,14 @@ export default new NativeFunction({
     ],
     output: ArgType.StageInstance,
     async execute(ctx, [channel, topic, level, notify, event]) {
-        const instance = await (channel as StageChannel).createStageInstance({
-            topic,
-            privacyLevel: level || undefined,
-            guildScheduledEvent: event || undefined,
-            sendStartNotification: typeof(notify) === "boolean" ? notify : undefined
-        }).catch(ctx.noop)
+        const instance = await (channel as StageChannel)
+            .createStageInstance({
+                topic,
+                privacyLevel: level || undefined,
+                guildScheduledEvent: event || undefined,
+                sendStartNotification: typeof notify === "boolean" ? notify : undefined,
+            })
+            .catch(ctx.noop)
 
         return this.success(instance?.id)
     },

@@ -1,19 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, TextBasedChannel, TextChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
+import type { BaseChannel, TextBasedChannel, TextChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$lastMessageID",
     version: "1.2.0",
     brackets: false,
-    aliases: [
-        "$channelLastMessageID"
-    ],
+    aliases: ["$channelLastMessageID"],
     unwrap: true,
     output: ArgType.Message,
     description: "Returns the latest message sent in a channel",
@@ -24,21 +21,21 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => "messages" in i
+            check: (i: BaseChannel) => "messages" in i,
         },
         {
             name: "user ID",
             description: "The user id to get its last message sent",
             rest: false,
             required: false,
-            type: ArgType.User
-        }
+            type: ArgType.User,
+        },
     ],
-    async execute(ctx, [ ch, user ]) {
+    async execute(ctx, [ch, user]) {
         ch ??= ctx.channel!
         if (user) {
             const messages = await (ch as TextBasedChannel).messages.fetch({ limit: 100 }).catch(ctx.noop)
-            return this.success(messages ? messages.find(x => x.author.id === user.id)?.id : undefined)
+            return this.success(messages ? messages.find((x) => x.author.id === user.id)?.id : undefined)
         }
         return this.success((ch as TextChannel).lastMessageId)
     },

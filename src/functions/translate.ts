@@ -1,25 +1,25 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { Locale } from "discord.js"
-import { IArg, IEvent, INativeFunction, Logger } from "../structures"
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs"
-import { createHash } from "crypto"
+import { createHash } from "node:crypto"
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs"
+import { freemem, totalmem } from "node:os"
+import { join } from "node:path"
+import type { Worker } from "node:worker_threads"
+import type { Locale } from "discord.js"
 import { TimeParser } from "../constants"
+import { type IArg, type IEvent, type INativeFunction, Logger } from "../structures"
 import { generateBar } from "./generateBar"
-import { join } from "path"
 import { postMessage, spawn, terminate } from "./thread"
-import { Worker } from "worker_threads"
-import { freemem, totalmem } from "os"
 
 const weirdWords = [
-    [ "guild", "server" ],
-    [ "role", "role id" ],
-    [ "hex", "hexadecimal" ],
-    [ "param", "parameter"],
-    [ "perm", "permission" ]
+    ["guild", "server"],
+    ["role", "role id"],
+    ["hex", "hexadecimal"],
+    ["param", "parameter"],
+    ["perm", "permission"],
 ] satisfies [string, string][]
 
 export interface IBaseTranslateOptions {
@@ -31,7 +31,7 @@ export interface IBaseTranslateOptions {
 export interface ITranslateEventOutput {
     description: string
     descriptionHash: string
-} 
+}
 
 export interface ITranslateFunctionOutput {
     description: string
@@ -40,7 +40,7 @@ export interface ITranslateFunctionOutput {
     fields: {
         name: string
         nameHash: string
-        
+
         description: string
         descriptionHash: string
     }[]
@@ -75,14 +75,19 @@ async function translateObjectTo(worker: Worker, obj: any, to: Locale | string, 
 }
 
 async function translate(worker: Worker, str: string, to: Locale | string) {
-    weirdWords.forEach(data => str = str.toLowerCase().includes(data[1]) ? str : str.replaceAll(data[0], data[1]))
+    weirdWords.forEach((data) => (str = str.toLowerCase().includes(data[1]) ? str : str.replaceAll(data[0], data[1])))
     return postMessage<string>(worker, {
         locale: to,
-        text: str
+        text: str,
     })
 }
 
-async function translateEventTo(worker: Worker, event: IEvent<unknown, keyof unknown>, lang: Locale | string, existing: Partial<ITranslateEventOutput> = {}) {
+async function translateEventTo(
+    worker: Worker,
+    event: IEvent<unknown, keyof unknown>,
+    lang: Locale | string,
+    existing: Partial<ITranslateEventOutput> = {}
+) {
     const newDescriptionHash = hash(event.description)
     if (newDescriptionHash !== existing.descriptionHash) {
         existing.descriptionHash = newDescriptionHash
@@ -92,7 +97,12 @@ async function translateEventTo(worker: Worker, event: IEvent<unknown, keyof unk
     return existing as ITranslateEventOutput
 }
 
-async function translateFunctionTo(worker: Worker, fn: INativeFunction<IArg[]>, lang: Locale | string, existing: Partial<ITranslateFunctionOutput> = {}) {
+async function translateFunctionTo(
+    worker: Worker,
+    fn: INativeFunction<IArg[]>,
+    lang: Locale | string,
+    existing: Partial<ITranslateFunctionOutput> = {}
+) {
     const newDescriptionHash = hash(fn.description)
     if (newDescriptionHash !== existing.descriptionHash) {
         existing.descriptionHash = newDescriptionHash
@@ -101,7 +111,7 @@ async function translateFunctionTo(worker: Worker, fn: INativeFunction<IArg[]>, 
 
     existing.fields ??= []
 
-    for (let i = 0, len = fn.args?.length ?? 0;i < len;i++) {
+    for (let i = 0, len = fn.args?.length ?? 0; i < len; i++) {
         const field = fn.args![i]
         const cached = existing.fields[i] ?? {}
 
@@ -121,8 +131,7 @@ async function translateFunctionTo(worker: Worker, fn: INativeFunction<IArg[]>, 
         existing.fields![i] = cached
     }
 
-    if (existing.fields.length === 0)
-        delete existing.fields
+    if (existing.fields.length === 0) delete existing.fields
 
     return existing as ITranslateFunctionOutput
 }
@@ -134,82 +143,89 @@ const docsEnPath = join(docsPath, "en.json")
 const docs: Record<string, unknown> = existsSync(docsEnPath) ? JSON.parse(readFileSync(docsEnPath, "utf-8")) : null
 
 // For every 300mb available, 1 thread.
-const threadCount = Math.floor(((totalmem() - freemem()) / (1024 ** 2)) / 300) || 1
+const threadCount = Math.floor((totalmem() - freemem()) / 1024 ** 2 / 300) || 1
 
 export async function translateData(options: IBaseTranslateOptions) {
-    const workers = new Array<Worker>()
+    const workers: Worker[] = []
 
-    Logger.info("Spawning " + threadCount + " threads...")
-    for (let i = 0;i < threadCount;i++) {
+    Logger.info(`Spawning ${threadCount} threads...`)
+    for (let i = 0; i < threadCount; i++) {
         workers[i] = await spawn("translationThread")
     }
     Logger.info("Successfully spawned threads.")
 
-    if (!existsSync(metaPath))
-        mkdirSync(metaPath)
-    
+    if (!existsSync(metaPath)) mkdirSync(metaPath)
+
     for (const lang of options.languages) {
         if (docs) {
             const resultPath = join(docsPath, `${lang}.json`)
-            const cached: Record<string, unknown> = existsSync(resultPath) ? JSON.parse(readFileSync(resultPath, "utf-8")) : {}
-            
+            const cached: Record<string, unknown> = existsSync(resultPath)
+                ? JSON.parse(readFileSync(resultPath, "utf-8"))
+                : {}
+
             Logger.infoUpdate(`Translating docs to ${lang}...`)
-            void await translateObjectTo(workers[0], docs, lang, cached)
+            void (await translateObjectTo(workers[0], docs, lang, cached))
             writeFileSync(resultPath, JSON.stringify(cached), "utf-8")
         }
 
         const resultPath = join(metaPath, `${lang}.json`)
-        const cached: Partial<ITranslateOutput> = existsSync(resultPath) ? JSON.parse(readFileSync(resultPath, "utf-8")) : {}
+        const cached: Partial<ITranslateOutput> = existsSync(resultPath)
+            ? JSON.parse(readFileSync(resultPath, "utf-8"))
+            : {}
         cached.events ??= {}
         cached.functions ??= {}
 
         const functionsStartedAt = Date.now()
 
-        for (let x = 0, len = options.functions.length;x < len;x += workers.length) {
-            const promises = new Array<Promise<void>>()
-            for (let i = x - workers.length;i < x;i++) {
+        for (let x = 0, len = options.functions.length; x < len; x += workers.length) {
+            const promises: Promise<void>[] = []
+            for (let i = x - workers.length; i < x; i++) {
                 const worker = workers[i % workers.length]
                 const fn = options.functions[i]
-                if (!fn)
-                    break
+                if (!fn) break
                 const existing = (cached.functions![fn.name] ?? {}) as Partial<ITranslateFunctionOutput>
 
-                // eslint-disable-next-line no-async-promise-executor
-                promises.push(new Promise(async resolve => {
-                    cached.functions![fn.name] = await translateFunctionTo(worker, fn, lang, existing)
-                    resolve()
-                }))
+                promises.push(
+                    new Promise(async (resolve) => {
+                        cached.functions![fn.name] = await translateFunctionTo(worker, fn, lang, existing)
+                        resolve()
+                    })
+                )
             }
 
             await Promise.all(promises)
             const elapsed = Date.now() - functionsStartedAt
             const timeLeft = Math.floor((elapsed / x) * (len - x))
-            Logger.infoUpdate(`[${lang.toUpperCase()} TRANSLATION/FUNCTIONS] [${generateBar(x, len, 20)} ${(x * 100 / len).toFixed(2)}%] (${TimeParser.parseToString(timeLeft, { limit: 1 })} left)`)
+            Logger.infoUpdate(
+                `[${lang.toUpperCase()} TRANSLATION/FUNCTIONS] [${generateBar(x, len, 20)} ${((x * 100) / len).toFixed(2)}%] (${TimeParser.parseToString(timeLeft, { limit: 1 })} left)`
+            )
         }
 
         const eventsStartedAt = Date.now()
 
-        for (let x = 0, len = options.events.length;x < len;x += workers.length) {
-            const promises = new Array<Promise<void>>()
-            for (let i = x - workers.length;i < x;i++) {
+        for (let x = 0, len = options.events.length; x < len; x += workers.length) {
+            const promises: Promise<void>[] = []
+            for (let i = x - workers.length; i < x; i++) {
                 const worker = workers[i % workers.length]
                 const ev = options.events[i]
-                if (!ev)
-                    break
+                if (!ev) break
                 const existing = (cached.events![ev.name] ?? {}) as Partial<ITranslateEventOutput>
-                // eslint-disable-next-line no-async-promise-executor
-                promises.push(new Promise(async resolve => {
-                    cached.events![ev.name] = await translateEventTo(worker, ev, lang, existing)
-                    resolve()
-                }))
+                promises.push(
+                    new Promise(async (resolve) => {
+                        cached.events![ev.name] = await translateEventTo(worker, ev, lang, existing)
+                        resolve()
+                    })
+                )
             }
 
             await Promise.all(promises)
             const elapsed = Date.now() - eventsStartedAt
             const timeLeft = Math.floor((elapsed / x) * (len - x))
-            Logger.infoUpdate(`[${lang.toUpperCase()} TRANSLATION/EVENTS] [${generateBar(x, len, 20)} ${(x * 100 / len).toFixed(2)}%] (${TimeParser.parseToString(timeLeft, { limit: 1 })} left)`)
+            Logger.infoUpdate(
+                `[${lang.toUpperCase()} TRANSLATION/EVENTS] [${generateBar(x, len, 20)} ${((x * 100) / len).toFixed(2)}%] (${TimeParser.parseToString(timeLeft, { limit: 1 })} left)`
+            )
         }
-        
+
         writeFileSync(resultPath, JSON.stringify(cached), "utf-8")
         Logger.infoUpdate("Translations saved, now terminating threads...")
         await terminate(...workers)

@@ -1,10 +1,10 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const promises_1 = require("timers/promises");
+const promises_1 = require("node:timers/promises");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$wait",
@@ -21,7 +21,7 @@ exports.default = new structures_1.NativeFunction({
             required: true,
         },
     ],
-    async execute(ctx, [ms]) {
+    async execute(_ctx, [ms]) {
         await (0, promises_1.setTimeout)(ms);
         return this.success();
     },

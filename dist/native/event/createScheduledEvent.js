@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -63,7 +63,8 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.ScheduledEvent,
     async execute(ctx, [guild, name, desc, type, start, end, cover]) {
-        const event = await guild.scheduledEvents.create({
+        const event = await guild.scheduledEvents
+            .create({
             name,
             entityType: type,
             privacyLevel: discord_js_1.GuildScheduledEventPrivacyLevel.GuildOnly,
@@ -73,8 +74,9 @@ exports.default = new structures_1.NativeFunction({
             image: cover || undefined,
             channel: ctx.scheduledEvent.channel,
             entityMetadata: ctx.scheduledEvent.entityMetadata,
-            reason: ctx.reason
-        }).catch(ctx.noop);
+            reason: ctx.reason,
+        })
+            .catch(ctx.noop);
         ctx.clearScheduledEventOptions();
         return this.success(event?.id);
     },

@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 import { SplitTextName } from "./textSplit"
@@ -19,12 +19,10 @@ export default new NativeFunction({
             description: "The element to get index of",
             rest: false,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [ element ]) {
-        return this.success(
-            ctx.getEnvironmentInstance(Array, SplitTextName)?.indexOf(element)
-        )
+    execute(ctx, [element]) {
+        return this.success(ctx.getEnvironmentInstance(Array, SplitTextName)?.indexOf(element))
     },
 })

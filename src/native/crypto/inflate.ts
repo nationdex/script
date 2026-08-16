@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { inflateSync } from "zlib"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { inflateSync } from "node:zlib"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$inflate",
@@ -19,17 +19,19 @@ export default new NativeFunction({
             description: "The text to decompress",
             type: ArgType.String,
             rest: false,
-            required: true
+            required: true,
         },
         {
             name: "encoding",
             rest: false,
             required: false,
             description: "The input encoding to use",
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [ input, enc ]) {
-        return this.success(inflateSync(new Uint8Array(Buffer.from(input, (enc ?? "hex") as BufferEncoding))).toString("utf-8"))
+    execute(_ctx, [input, enc]) {
+        return this.success(
+            inflateSync(new Uint8Array(Buffer.from(input, (enc ?? "hex") as BufferEncoding))).toString("utf-8")
+        )
     },
 })

@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -17,11 +17,11 @@ export default new NativeFunction({
             rest: true,
             required: true,
             type: ArgType.User,
-            description: "The users to parse mentions for"
-        }
+            description: "The users to parse mentions for",
+        },
     ],
-    execute(ctx, [ users ]) {
-        if (this.hasFields) ctx.container.allowedMentions.users = users.map(x => x.id)
+    execute(ctx, [users]) {
+        if (this.hasFields) ctx.container.allowedMentions.users = users.map((x) => x.id)
         else ctx.container.parseMentions("users")
         return this.success()
     },

@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, ThreadOnlyChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel, ThreadOnlyChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$createForumPost",
@@ -52,7 +52,7 @@ export default new NativeFunction({
                 appliedTags: tags,
                 name: title,
                 message: ctx.container.getOptions(),
-                reason: ctx.reason
+                reason: ctx.reason,
             })
             .catch(ctx.noop)
 

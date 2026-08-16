@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$deleteSoundboardSounds",
@@ -34,7 +34,10 @@ export default new NativeFunction({
         let count = 0
         for (let i = 0, len = sounds.length; i < len; i++) {
             const sound = sounds[i]
-            const success = await sound.delete(ctx.reason).then(x => true).catch(ctx.noop)
+            const success = await sound
+                .delete(ctx.reason)
+                .then((_x) => true)
+                .catch(ctx.noop)
             if (success) count++
         }
 

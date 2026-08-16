@@ -1,24 +1,24 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseCommandManager = void 0;
+const node_path_1 = require("node:path");
+const node_process_1 = require("node:process");
 const discord_js_1 = require("discord.js");
-const process_1 = require("process");
+const tiny_typed_emitter_1 = require("tiny-typed-emitter");
 const core_1 = require("../core");
 const recursiveReaddirSync_1 = __importDefault(require("../functions/recursiveReaddirSync"));
 const structures_1 = require("../structures");
-const path_1 = require("path");
-const tiny_typed_emitter_1 = require("tiny-typed-emitter");
 class BaseCommandManager extends tiny_typed_emitter_1.TypedEmitter {
     client;
     commands = new discord_js_1.Collection();
-    paths = new Array();
+    paths = [];
     constructor(client) {
         super();
         this.client = client;
@@ -32,7 +32,7 @@ class BaseCommandManager extends tiny_typed_emitter_1.TypedEmitter {
         }
         for (const p of this.paths) {
             for (const file of (0, recursiveReaddirSync_1.default)(p).filter((x) => x.endsWith(".js") || x.endsWith)) {
-                const path = (0, path_1.join)((0, process_1.cwd)(), file);
+                const path = (0, node_path_1.join)((0, node_process_1.cwd)(), file);
                 delete require.cache[require.resolve(path)];
             }
             // Reload these commands
@@ -43,7 +43,7 @@ class BaseCommandManager extends tiny_typed_emitter_1.TypedEmitter {
         if (!this.paths.includes(path))
             this.paths.push(path);
         for (const file of (0, recursiveReaddirSync_1.default)(path).filter((x) => x.endsWith(".js") || x.endsWith(".fs"))) {
-            const path = (0, path_1.join)((0, process_1.cwd)(), file);
+            const path = (0, node_path_1.join)((0, node_process_1.cwd)(), file);
             const req = core_1.FileReader.read(file, path);
             if (!req)
                 continue;

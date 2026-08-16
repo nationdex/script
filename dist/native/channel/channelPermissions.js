@@ -1,23 +1,20 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
-const permissionOverwrites_1 = require("../../properties/permissionOverwrites");
 const array_1 = __importDefault(require("../../functions/array"));
+const permissionOverwrites_1 = require("../../properties/permissionOverwrites");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$channelPermissions",
     version: "1.5.0",
     description: "Returns all permission overwrites of a channel",
-    aliases: [
-        "$channelPerms",
-        "$channelOverwrites"
-    ],
+    aliases: ["$channelPerms", "$channelOverwrites"],
     unwrap: true,
     brackets: true,
     args: [
@@ -27,7 +24,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Channel,
-            check: (i) => "permissionOverwrites" in i
+            check: (i) => "permissionOverwrites" in i,
         },
         {
             name: "property",
@@ -35,19 +32,21 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Enum,
-            enum: permissionOverwrites_1.PermissionOverwritesProperty
+            enum: permissionOverwrites_1.PermissionOverwritesProperty,
         },
         {
             name: "separator",
             description: "The separator to use for every overwrite",
             rest: false,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
     output: (0, array_1.default)(),
     execute(ctx, [ch, prop, sep]) {
         const chan = (ch ?? ctx.channel);
-        return this.successJSON(chan.permissionOverwrites.cache.map(perm => permissionOverwrites_1.PermissionOverwritesProperties[prop](perm, sep)).join(sep ?? ", "));
+        return this.successJSON(chan.permissionOverwrites.cache
+            .map((perm) => permissionOverwrites_1.PermissionOverwritesProperties[prop](perm, sep))
+            .join(sep ?? ", "));
     },
 });
 //# sourceMappingURL=channelPermissions.js.map

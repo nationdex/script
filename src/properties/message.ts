@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { Message, MessageSnapshot, MessageType } from "discord.js"
+import { type Message, type MessageSnapshot, MessageType } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum MessageProperty {
@@ -41,7 +41,7 @@ export const MessageProperties = defineProperties<typeof MessageProperty, Messag
     system: (m) => m?.system,
     pinned: (m) => m?.pinned,
     url: (m) => m?.url,
-    attachments: (m, sep) => m?.attachments.map(x => x.url).join(sep ?? ", "),
-    stickers: (m, sep) => m?.stickers.map(x => x.url).join(sep ?? ", "),
+    attachments: (m, sep) => m?.attachments.map((x) => x.url).join(sep ?? ", "),
+    stickers: (m, sep) => m?.stickers.map((x) => x.url).join(sep ?? ", "),
     embeds: (m) => (m && "embeds" in m ? JSON.stringify(m.embeds, undefined, 4) : null),
 })

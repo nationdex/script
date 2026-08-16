@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, VoiceChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel, VoiceChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 import { VoiceRegionType } from "./setVoiceRegion"
 
 export default new NativeFunction({
@@ -20,7 +20,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => i.isVoiceBased()
+            check: (i: BaseChannel) => i.isVoiceBased(),
         },
     ],
     output: VoiceRegionType,

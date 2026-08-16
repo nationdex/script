@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 const Formatter = Intl.NumberFormat("en-US", {
     notation: "compact",
@@ -26,7 +26,7 @@ export default new NativeFunction({
         },
     ],
     brackets: true,
-    execute(ctx, [n]) {
+    execute(_ctx, [n]) {
         return this.success(Formatter.format(n))
     },
 })

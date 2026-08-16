@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { GuildScheduledEventEntityType, GuildScheduledEventPrivacyLevel, GuildScheduledEventRecurrenceRuleOptions } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { GuildScheduledEventEntityType, GuildScheduledEventPrivacyLevel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$createScheduledEvent",
@@ -63,18 +63,20 @@ export default new NativeFunction({
     ],
     output: ArgType.ScheduledEvent,
     async execute(ctx, [guild, name, desc, type, start, end, cover]) {
-        const event = await guild.scheduledEvents.create({
-            name,
-            entityType: type,
-            privacyLevel: GuildScheduledEventPrivacyLevel.GuildOnly,
-            scheduledStartTime: start,
-            scheduledEndTime: end || undefined,
-            description: desc || undefined,
-            image: cover || undefined,
-            channel: ctx.scheduledEvent.channel,
-            entityMetadata: ctx.scheduledEvent.entityMetadata,
-            reason: ctx.reason
-        }).catch(ctx.noop)
+        const event = await guild.scheduledEvents
+            .create({
+                name,
+                entityType: type,
+                privacyLevel: GuildScheduledEventPrivacyLevel.GuildOnly,
+                scheduledStartTime: start,
+                scheduledEndTime: end || undefined,
+                description: desc || undefined,
+                image: cover || undefined,
+                channel: ctx.scheduledEvent.channel,
+                entityMetadata: ctx.scheduledEvent.entityMetadata,
+                reason: ctx.reason,
+            })
+            .catch(ctx.noop)
 
         ctx.clearScheduledEventOptions()
 

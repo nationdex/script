@@ -1,19 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, TextChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel, TextChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$startTyping",
     version: "1.0.0",
     description: "Starts typing in a channel",
     unwrap: true,
-    aliases: [
-        "$channelStartTyping"
-    ],
+    aliases: ["$channelStartTyping"],
     brackets: false,
     args: [
         {

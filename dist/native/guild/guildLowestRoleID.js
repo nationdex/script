@@ -1,17 +1,15 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$guildLowestRoleID",
     version: "1.5.0",
     description: "Returns the lowest role id of a guild",
-    aliases: [
-        "$serverLowestRoleID"
-    ],
+    aliases: ["$serverLowestRoleID"],
     brackets: false,
     output: structures_1.ArgType.Role,
     args: [
@@ -26,7 +24,10 @@ exports.default = new structures_1.NativeFunction({
     unwrap: true,
     execute(ctx, [guild]) {
         guild ??= ctx.guild;
-        const lowest = guild?.roles.cache.filter(role => role.id !== guild.id).sort((a, b) => a.position - b.position).first();
+        const lowest = guild?.roles.cache
+            .filter((role) => role.id !== guild.id)
+            .sort((a, b) => a.position - b.position)
+            .first();
         return this.success(lowest?.id ?? guild?.id);
     },
 });

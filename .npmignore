@@ -10,8 +10,5 @@ EXTENSIONS.md
 .env
 tsconfig.json
 tsconfig.build.json
-eslint.config.js
-.eslintrc.json
-.prettierrc
-.prettierignore
+biome.json
 crowdin.yml

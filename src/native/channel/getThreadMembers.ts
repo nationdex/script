@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, ThreadChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel, ThreadChannel } from "discord.js"
 import array from "../../functions/array"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$getThreadMembers",
@@ -35,6 +35,6 @@ export default new NativeFunction({
 
         const success = await thread.members.fetch().catch(ctx.noop)
 
-        return this.success(success && success.size ? success.map((x) => x.id).join(sep || ", ") : undefined)
+        return this.success(success?.size ? success.map((x) => x.id).join(sep || ", ") : undefined)
     },
 })

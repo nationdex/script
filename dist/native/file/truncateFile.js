@@ -1,10 +1,10 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs_1 = require("fs");
+const node_fs_1 = require("node:fs");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$truncateFile",
@@ -28,8 +28,8 @@ exports.default = new structures_1.NativeFunction({
             required: true,
         },
     ],
-    execute(ctx, [path, data]) {
-        (0, fs_1.truncateSync)(path, data);
+    execute(_ctx, [path, data]) {
+        (0, node_fs_1.truncateSync)(path, data);
         return this.success();
     },
 });

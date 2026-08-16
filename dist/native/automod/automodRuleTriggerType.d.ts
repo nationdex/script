@@ -1,4 +1,4 @@
-import { ArgType, NativeFunction } from "../../structures";
-declare const _default: NativeFunction<import("../..").IArg<ArgType, boolean, boolean, import("../..").EnumLike<any>>[], false>;
+import { NativeFunction } from "../../structures";
+declare const _default: NativeFunction<import("../..").IArg<import("../..").ArgType, boolean, boolean, import("../..").EnumLike<any>>[], false>;
 export default _default;
 //# sourceMappingURL=automodRuleTriggerType.d.ts.map

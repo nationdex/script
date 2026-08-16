@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, ThreadOnlyChannel } from "discord.js"
+import type { BaseChannel, ThreadOnlyChannel } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -19,7 +19,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => i.isThreadOnly()
+            check: (i: BaseChannel) => i.isThreadOnly(),
         },
         {
             name: "seconds",
@@ -32,11 +32,15 @@ export default new NativeFunction({
             name: "reason",
             description: "The reason for modifying default slowmode",
             rest: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     output: ArgType.Boolean,
-    async execute(ctx, [ chan, seconds, reason ]) {
-        return this.success(!!(await (chan as ThreadOnlyChannel).setDefaultThreadRateLimitPerUser(seconds, reason || ctx.reason).catch(ctx.noop)))
+    async execute(ctx, [chan, seconds, reason]) {
+        return this.success(
+            !!(await (chan as ThreadOnlyChannel)
+                .setDefaultThreadRateLimitPerUser(seconds, reason || ctx.reason)
+                .catch(ctx.noop))
+        )
     },
 })

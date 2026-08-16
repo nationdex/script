@@ -1,19 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { GuildDefaultMessageNotifications, GuildExplicitContentFilter, GuildMFALevel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { GuildMFALevel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildMFALevel",
     version: "1.3.0",
     description: "Returns the mfa level for this guild",
     brackets: false,
-    aliases: [
-        "$serverMFALevel"
-    ],
+    aliases: ["$serverMFALevel"],
     output: GuildMFALevel,
     args: [
         {

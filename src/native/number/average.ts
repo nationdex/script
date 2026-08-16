@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -17,20 +17,18 @@ export default new NativeFunction({
             description: "The delimiter of each value",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "values",
             description: "Values separated by `separator`",
             rest: false,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [ sep, values ]) {
+    execute(_ctx, [sep, values]) {
         const n = values.split(sep).map(Number)
-        return this.success(
-            n.reduce((x, y) => x + y, 0) / n.length
-        )
+        return this.success(n.reduce((x, y) => x + y, 0) / n.length)
     },
 })

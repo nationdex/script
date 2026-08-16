@@ -1,18 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { PermissionFlagsBits } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$roleHasAnyPerms",
     version: "2.6.0",
     description: "Returns whether the role has any of the specified perms",
-    aliases: [
-        "$hasRoleAnyPerms"
-    ],
+    aliases: ["$hasRoleAnyPerms"],
     brackets: true,
     unwrap: true,
     args: [
@@ -41,7 +39,7 @@ export default new NativeFunction({
         },
     ],
     output: ArgType.Boolean,
-    execute(ctx, [, role, perms]) {
+    execute(_ctx, [, role, perms]) {
         return this.success(role.permissions.any(perms))
     },
 })

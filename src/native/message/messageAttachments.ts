@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel } from "discord.js"
 import array from "../../functions/array"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$messageAttachments",
@@ -36,9 +36,9 @@ export default new NativeFunction({
             rest: false,
             description: "The separator to use for every attachment",
             type: ArgType.String,
-        }
+        },
     ],
     execute(ctx, [, message, sep]) {
-        return this.success((message ?? ctx.message)?.attachments.map(x => x.url).join(sep ?? ", "))
+        return this.success((message ?? ctx.message)?.attachments.map((x) => x.url).join(sep ?? ", "))
     },
 })

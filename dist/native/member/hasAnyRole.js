@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -10,9 +10,7 @@ exports.default = new structures_1.NativeFunction({
     version: "1.1.0",
     description: "Returns whether given member has any role",
     unwrap: true,
-    aliases: [
-        "$memberHasAnyRole"
-    ],
+    aliases: ["$memberHasAnyRole"],
     brackets: true,
     output: structures_1.ArgType.Boolean,
     args: [
@@ -37,11 +35,11 @@ exports.default = new structures_1.NativeFunction({
             rest: true,
             type: structures_1.ArgType.Role,
             required: true,
-            pointer: 0
+            pointer: 0,
         },
     ],
-    execute(ctx, [, member, roles]) {
-        return this.success(member.roles.cache.hasAny(...roles.map(x => x.id)));
+    execute(_ctx, [, member, roles]) {
+        return this.success(member.roles.cache.hasAny(...roles.map((x) => x.id)));
     },
 });
 //# sourceMappingURL=hasAnyRole.js.map

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -19,7 +19,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Enum,
-            enum: discord_js_1.AutoModerationActionType
+            enum: discord_js_1.AutoModerationActionType,
         },
         {
             name: "channel ID",
@@ -47,8 +47,8 @@ exports.default = new structures_1.NativeFunction({
             metadata: {
                 channel: channel,
                 customMessage: message,
-                durationSeconds: duration
-            }
+                durationSeconds: duration,
+            },
         };
         ctx.automodRule.actions ??= [];
         ctx.automodRule.actions.push(action);

@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ActionRowBuilder, createComponentBuilder } from "discord.js"
-import { ArgType, Container, IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
+import { type ActionRowBuilder, createComponentBuilder } from "discord.js"
 import { addActionRow } from "../../functions/components"
+import { ArgType, Container, type IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$addActionRowTo",
@@ -13,16 +13,14 @@ export default new NativeFunction({
     brackets: true,
     description: "Adds an action row (or rows) to a message",
     unwrap: false,
-    aliases: [
-        "$addActionRowsTo"
-    ],
+    aliases: ["$addActionRowsTo"],
     args: [
         {
             name: "channel ID",
             description: "The channel id to pull message from",
             rest: false,
             required: true,
-            type: ArgType.TextChannel
+            type: ArgType.TextChannel,
         },
         {
             name: "message ID",
@@ -30,32 +28,32 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Message,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "components",
             description: "Components for this row",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "keep existing rows",
             description: "Whether to keep or remove existing rows of given message",
             rest: false,
             required: false,
-            type: ArgType.Boolean
-        }
+            type: ArgType.Boolean,
+        },
     ],
     output: ArgType.Boolean,
     async execute(ctx) {
         const { args, return: rt } = await this["resolveMultipleArgs"](ctx, 0, 1, 3)
         if (!this["isValidReturnType"](rt)) return rt
 
-        const [, m, keep ] = args
+        const [, m, keep] = args
         const code = this.data.fields![2] as IExtendedCompiledFunctionField
 
-        const comps = keep ? m.components.map((x) => createComponentBuilder(x.toJSON())) : new Array<ActionRowBuilder>()
+        const comps = keep ? m.components.map((x) => createComponentBuilder(x.toJSON())) : ([] as ActionRowBuilder[])
 
         const oldContainer = ctx.runtime.container
         const newContainer = new Container()
@@ -75,8 +73,6 @@ export default new NativeFunction({
         if (!this["isValidReturnType"](codeExec)) return codeExec
 
         // Since rows is a reference, we do not need to retrieve from container.
-        return this.success(
-            !!(await m.edit({ components: comps.map((x) => x.toJSON()) }).catch(ctx.noop))
-        )
+        return this.success(!!(await m.edit({ components: comps.map((x) => x.toJSON()) }).catch(ctx.noop)))
     },
 })

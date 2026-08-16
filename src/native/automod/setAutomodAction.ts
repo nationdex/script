@@ -1,10 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, AutoModerationActionType, GuildTextChannelResolvable, ThreadChannel, AutoModerationActionOptions } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import {
+    type AutoModerationActionOptions,
+    AutoModerationActionType,
+    type BaseChannel,
+    type GuildTextChannelResolvable,
+    type ThreadChannel,
+} from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setAutomodAction",
@@ -19,7 +25,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Enum,
-            enum: AutoModerationActionType
+            enum: AutoModerationActionType,
         },
         {
             name: "channel ID",
@@ -41,14 +47,14 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    execute(ctx, [ type, channel, duration, message ]) {
+    execute(ctx, [type, channel, duration, message]) {
         const action = {
             type: type,
             metadata: {
                 channel: channel as GuildTextChannelResolvable | ThreadChannel,
                 customMessage: message,
-                durationSeconds: duration
-            }
+                durationSeconds: duration,
+            },
         } as AutoModerationActionOptions
 
         ctx.automodRule.actions ??= []

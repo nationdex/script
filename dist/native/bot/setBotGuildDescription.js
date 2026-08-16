@@ -1,19 +1,15 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$setBotGuildDescription",
     version: "2.6.0",
     description: "Sets the bot description on a guild",
-    aliases: [
-        "$setBotGuildBio",
-        "$setClientGuildBio",
-        "$setClientGuildDescription"
-    ],
+    aliases: ["$setBotGuildBio", "$setClientGuildBio", "$setClientGuildDescription"],
     brackets: true,
     unwrap: true,
     args: [

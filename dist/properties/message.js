@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -45,8 +45,8 @@ exports.MessageProperties = (0, defineProperties_1.default)({
     system: (m) => m?.system,
     pinned: (m) => m?.pinned,
     url: (m) => m?.url,
-    attachments: (m, sep) => m?.attachments.map(x => x.url).join(sep ?? ", "),
-    stickers: (m, sep) => m?.stickers.map(x => x.url).join(sep ?? ", "),
+    attachments: (m, sep) => m?.attachments.map((x) => x.url).join(sep ?? ", "),
+    stickers: (m, sep) => m?.stickers.map((x) => x.url).join(sep ?? ", "),
     embeds: (m) => (m && "embeds" in m ? JSON.stringify(m.embeds, undefined, 4) : null),
 });
 //# sourceMappingURL=message.js.map

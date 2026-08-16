@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -29,7 +29,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The property of each stage instance to return",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: stage_1.StageProperty
+            enum: stage_1.StageProperty,
         },
         {
             name: "separator",
@@ -38,10 +38,7 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.String,
         },
     ],
-    output: [
-        structures_1.ArgType.Json,
-        (0, array_1.default)()
-    ],
+    output: [structures_1.ArgType.Json, (0, array_1.default)()],
     async execute(ctx, [guild, prop, sep]) {
         const instances = (guild ?? ctx.guild).stageInstances.cache;
         if (prop)

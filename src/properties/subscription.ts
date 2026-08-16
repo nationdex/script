@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { Subscription, SubscriptionStatus } from "discord.js"
+import { type Subscription, SubscriptionStatus } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum SubscriptionProperty {

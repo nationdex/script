@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -10,9 +10,7 @@ export default new NativeFunction({
     version: "1.4.0",
     description: "Mutes a member from voice channel",
     brackets: true,
-    aliases: [
-        "$voiceMute"
-    ],
+    aliases: ["$voiceMute"],
     output: ArgType.Boolean,
     args: [
         {
@@ -20,7 +18,7 @@ export default new NativeFunction({
             description: "The guild to pull member from",
             rest: false,
             required: true,
-            type: ArgType.Guild
+            type: ArgType.Guild,
         },
         {
             name: "user ID",
@@ -28,18 +26,18 @@ export default new NativeFunction({
             required: true,
             type: ArgType.Member,
             pointer: 0,
-            description: "The user to mute"
+            description: "The user to mute",
         },
         {
             name: "reason",
             description: "The reason to mute this user",
             rest: false,
             required: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     unwrap: true,
-    async execute(ctx, [, member, reason ]) {
+    async execute(ctx, [, member, reason]) {
         return this.success(!!(await member.voice.setMute(true, reason || ctx.reason).catch(ctx.noop)))
     },
 })

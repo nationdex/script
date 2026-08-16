@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { readdirSync } from "fs"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { readdirSync } from "node:fs"
 import array from "../../functions/array"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$readDir",
@@ -13,10 +13,7 @@ export default new NativeFunction({
     description: "Reads the contents of a directory",
     unwrap: true,
     brackets: true,
-    output: [
-        ArgType.Json,
-        array<ArgType.String>()
-    ],
+    output: [ArgType.Json, array<ArgType.String>()],
     args: [
         {
             name: "path",
@@ -38,7 +35,7 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    execute(ctx, [path, sep, encoding]) {
+    execute(_ctx, [path, sep, encoding]) {
         const dirs = readdirSync(path, { encoding: (encoding as BufferEncoding) || "utf-8" })
         if (sep) return this.success(dirs?.join(sep))
         return this.successJSON(dirs)

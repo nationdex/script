@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$bufferReadInt32",
@@ -17,18 +17,18 @@ export default new NativeFunction({
             description: "The variable the buffer is allocated on",
             type: ArgType.String,
             required: true,
-            rest: false
+            rest: false,
         },
         {
             name: "index",
             description: "The index to start reading at",
             required: true,
             type: ArgType.Number,
-            rest: false
-        }
+            rest: false,
+        },
     ],
     output: ArgType.Number,
-    execute(ctx, [ name, begin ]) {
+    execute(ctx, [name, begin]) {
         const buffer = ctx.getEnvironmentInstance(Buffer, name)
         return this.success(void (buffer ? buffer.readInt32LE(begin) : 0))
     },

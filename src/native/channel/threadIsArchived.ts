@@ -1,18 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, ThreadChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel, ThreadChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$threadIsArchived",
     version: "1.5.0",
-    aliases: [
-        "$isArchived",
-        "$threadArchived"
-    ],
+    aliases: ["$isArchived", "$threadArchived"],
     description: "Returns whether a thread is archived",
     brackets: false,
     unwrap: true,
@@ -25,7 +22,7 @@ export default new NativeFunction({
             required: true,
             type: ArgType.Channel,
             check: (i: BaseChannel) => i.isThread(),
-        }
+        },
     ],
     async execute(ctx, [channel]) {
         const thread = (channel ?? ctx.channel) as ThreadChannel

@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, ChannelType, TextChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { type BaseChannel, ChannelType, type TextChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$createThread",
@@ -39,14 +39,14 @@ export default new NativeFunction({
             name: "private",
             description: "Whether this thread is private",
             rest: false,
-            type: ArgType.Boolean
+            type: ArgType.Boolean,
         },
         {
             name: "reason",
             description: "The reason for creating thread",
             rest: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     async execute(ctx, [channel, name, m, priv, reason]) {
         const ch = channel as TextChannel
@@ -56,7 +56,7 @@ export default new NativeFunction({
                 name,
                 startMessage: m || undefined,
                 reason: reason || ctx.reason,
-                type: priv ? ChannelType.PrivateThread : ChannelType.PublicThread
+                type: priv ? ChannelType.PrivateThread : ChannelType.PublicThread,
             })
             .catch(ctx.noop)
 

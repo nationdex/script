@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { renameSync } from "fs"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { renameSync } from "node:fs"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$renameFile",
@@ -28,7 +28,7 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    execute(ctx, [oldPath, newPath]) {
+    execute(_ctx, [oldPath, newPath]) {
         renameSync(oldPath, newPath)
         return this.success()
     },

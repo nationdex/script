@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { Collection, GuildMember } from "discord.js"
 import array from "../../functions/array"
-import { Collection, GuildMember } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$channelMembers",
@@ -31,6 +31,10 @@ export default new NativeFunction({
     ],
     execute(ctx, [ch, sep]) {
         const chan = ch ?? ctx.channel
-        return this.success(chan && "members" in chan ? (chan.members as Collection<string, GuildMember>)?.map(member => member.id).join(sep ?? ", ") : null)
+        return this.success(
+            chan && "members" in chan
+                ? (chan.members as Collection<string, GuildMember>)?.map((member) => member.id).join(sep ?? ", ")
+                : null
+        )
     },
 })

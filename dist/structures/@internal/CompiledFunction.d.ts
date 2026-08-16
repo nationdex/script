@@ -1,8 +1,8 @@
-import { ICompiledFunctionConditionField, ICompiledFunctionField, ICompiledFunction } from "../../core";
-import { ErrorType, GetErrorArgs } from "../forge/ForgeError";
-import { Context } from "./Context";
-import { IArg, UnwrapArgs, NativeFunction, ArgType } from "./NativeFunction";
-import { Return, ReturnType, ReturnValue } from "./Return";
+import type { ICompiledFunction, ICompiledFunctionConditionField, ICompiledFunctionField } from "../../core";
+import { ErrorType, type GetErrorArgs } from "../forge/ForgeError";
+import type { Context } from "./Context";
+import { ArgType, type IArg, type NativeFunction, type UnwrapArgs } from "./NativeFunction";
+import { Return, ReturnType, type ReturnValue } from "./Return";
 export interface IExtendedCompiledFunctionConditionField extends Omit<ICompiledFunctionConditionField, "rhs" | "lhs"> {
     lhs: IExtendedCompiledFunctionField;
     rhs?: IExtendedCompiledFunctionField;
@@ -91,7 +91,7 @@ export declare class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap ext
     execute(ctx: Context): Promise<Return>;
     private isValidReturnType;
     private fail;
-    static toResolveArgString(type: ArgType): "resolveURL" | "resolveString" | "resolveBigInt" | "resolveUnknown" | "resolveTextChannel" | "resolveOverwritePermission" | "resolveNumber" | "resolveUser" | "resolveDate" | "resolveGuild" | "resolveRoleOrUser" | "resolveInvite" | "resolvePermission" | "resolveJson" | "resolveColor" | "resolveEnum" | "resolveForumTag" | "resolveEmoji" | "resolveGuildEmoji" | "resolveBoolean" | "resolveAttachment" | "resolveReaction" | "resolveMessage" | "resolveChannel" | "resolveRole" | "resolveWebhook" | "resolveSticker" | "resolveTime" | "resolveMember" | "resolveApplicationEmoji" | "resolveAutomodRule" | "resolveScheduledEvent" | "resolveStageInstance" | "resolveSoundboardSound" | "resolveTemplate";
+    static toResolveArgString(type: ArgType): "resolveGuild" | "resolveChannel" | "resolveUser" | "resolveRole" | "resolveInvite" | "resolveWebhook" | "resolveEmoji" | "resolveMessage" | "resolveStageInstance" | "resolveSticker" | "resolveSoundboardSound" | "resolveUnknown" | "resolveURL" | "resolveString" | "resolveBigInt" | "resolveTextChannel" | "resolveOverwritePermission" | "resolveNumber" | "resolveDate" | "resolveRoleOrUser" | "resolvePermission" | "resolveJson" | "resolveColor" | "resolveEnum" | "resolveForumTag" | "resolveGuildEmoji" | "resolveBoolean" | "resolveAttachment" | "resolveReaction" | "resolveTime" | "resolveMember" | "resolveApplicationEmoji" | "resolveAutomodRule" | "resolveScheduledEvent" | "resolveTemplate";
     getFunction(fieldIndex: number, ref: NativeFunction): CompiledFunction | undefined;
     getFunctions(fieldIndex: number, ref: NativeFunction): CompiledFunction<IArg<ArgType, boolean, boolean, import("./NativeFunction").EnumLike<any>>[], boolean>[];
     return(value: ReturnValue<ReturnType.Return>): Return<ReturnType.Return>;

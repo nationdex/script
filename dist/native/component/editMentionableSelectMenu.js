@@ -1,12 +1,12 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const structures_1 = require("../../structures");
 const components_1 = require("../../functions/components");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$editMentionableSelectMenu",
     version: "2.2.0",
@@ -57,14 +57,16 @@ exports.default = new structures_1.NativeFunction({
             rest: true,
             type: structures_1.ArgType.RoleOrUser,
             description: "The default selected roles or users to use",
-        }
+        },
     ],
     execute(ctx, [old, id, placeholder, disabled, min, max, defaults]) {
         for (let i = 0, len = ctx.container.components.length; i < len; i++) {
             const comp = ctx.container.components[i];
             const comps = comp instanceof discord_js_1.ContainerBuilder
                 ? comp.components.map((x) => (0, components_1.buildComponent)(x.toJSON()))
-                : ("components" in comp ? comp.components : undefined);
+                : "components" in comp
+                    ? comp.components
+                    : undefined;
             if (!comps)
                 continue;
             for (let n = 0, len = comps.length; n < len; n++) {
@@ -81,10 +83,12 @@ exports.default = new structures_1.NativeFunction({
                     if (typeof max === "number")
                         menu.setMaxValues(max);
                     if (defaults.length) {
-                        menu.setDefaultValues(defaults.filter(Boolean).map(x => {
+                        menu.setDefaultValues(defaults.filter(Boolean).map((x) => {
                             return {
                                 id: x.id,
-                                type: x instanceof discord_js_1.User ? discord_js_1.SelectMenuDefaultValueType.User : discord_js_1.SelectMenuDefaultValueType.Role
+                                type: x instanceof discord_js_1.User
+                                    ? discord_js_1.SelectMenuDefaultValueType.User
+                                    : discord_js_1.SelectMenuDefaultValueType.Role,
                             };
                         }));
                     }

@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -17,23 +17,25 @@ export default new NativeFunction({
             description: "The sticker to edit",
             rest: false,
             required: true,
-            type: ArgType.Sticker
+            type: ArgType.Sticker,
         },
         {
             name: "tags",
             description: "The new tags for the sticker",
             rest: true,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     output: ArgType.Boolean,
-    async execute(ctx, [ s, n ]) {
+    async execute(ctx, [s, n]) {
         return this.success(
-            !!(await s.edit({
-                tags: n.join(" "),
-                reason: ctx.reason
-            }).catch(ctx.noop))
+            !!(await s
+                .edit({
+                    tags: n.join(" "),
+                    reason: ctx.reason,
+                })
+                .catch(ctx.noop))
         )
     },
 })

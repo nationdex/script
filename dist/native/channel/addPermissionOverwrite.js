@@ -1,12 +1,12 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const structures_1 = require("../../structures");
 const overwritePermissions_1 = require("../../functions/overwritePermissions");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$addPermissionOverwrite",
     version: "2.7.0",
@@ -21,7 +21,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             pointer: 0,
-            pointerProperty: "guild"
+            pointerProperty: "guild",
         },
         {
             name: "perms",
@@ -29,8 +29,8 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.OverwritePermission,
             rest: true,
             required: true,
-            enum: discord_js_1.PermissionFlagsBits
-        }
+            enum: discord_js_1.PermissionFlagsBits,
+        },
     ],
     async execute(ctx, [roleOrUser, raw]) {
         const obj = (0, overwritePermissions_1.overwritePermissionsToOverwriteData)(roleOrUser.id, raw);

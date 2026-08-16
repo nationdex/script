@@ -1,19 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$loadUserContext",
     version: "1.4.0",
-    aliases: [
-        "$useUserContext",
-        "$asUserContext"
-    ],
+    aliases: ["$useUserContext", "$asUserContext"],
     brackets: true,
-    description: "Loads a user instance to the current context, this is not reversible and is adviced to use with $scope",
+    description:
+        "Loads a user instance to the current context, this is not reversible and is adviced to use with $scope",
     unwrap: true,
     args: [
         {
@@ -21,10 +19,10 @@ export default new NativeFunction({
             description: "The user to adapt context with",
             rest: false,
             required: true,
-            type: ArgType.User
-        }
+            type: ArgType.User,
+        },
     ],
-    execute(ctx, [ u ]) {
+    execute(ctx, [u]) {
         ctx.obj = u
         return this.success()
     },

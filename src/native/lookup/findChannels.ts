@@ -1,17 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
 import array from "../../functions/array"
 import { ChannelProperties, ChannelProperty } from "../../properties/channel"
+import { ArgType, NativeFunction } from "../../structures"
 import { ChannelMentionCharRegex } from "./findGuildChannel"
 
 export enum SearchMethodType {
     startsWith,
     endsWith,
-    includes
+    includes,
 }
 
 export default new NativeFunction({
@@ -46,7 +46,7 @@ export default new NativeFunction({
             description: "The property to return",
             rest: false,
             type: ArgType.Enum,
-            enum: ChannelProperty
+            enum: ChannelProperty,
         },
         {
             name: "separator",
@@ -59,25 +59,28 @@ export default new NativeFunction({
             description: "The method to use for searching",
             rest: false,
             type: ArgType.Enum,
-            enum: SearchMethodType
+            enum: SearchMethodType,
         },
     ],
     unwrap: true,
-    execute(ctx, [ guild, query, limit, prop, sep, method ]) {
+    execute(_ctx, [guild, query, limit, prop, sep, method]) {
         query = query.replace(ChannelMentionCharRegex, "")
         limit ||= 10
         prop ||= ChannelProperty.id
 
-        const search = guild.channels.cache.filter(channel => { 
-            switch(method) {
-                case SearchMethodType.startsWith:
-                    return (channel.id.startsWith(query) || channel.name.startsWith(query))
-                case SearchMethodType.endsWith:
-                    return (channel.id.endsWith(query) || channel.name.endsWith(query))
-                default:
-                    return (channel.id.includes(query) || channel.name.includes(query))
-            }
-        }).toJSON().slice(0, limit)
+        const search = guild.channels.cache
+            .filter((channel) => {
+                switch (method) {
+                    case SearchMethodType.startsWith:
+                        return channel.id.startsWith(query) || channel.name.startsWith(query)
+                    case SearchMethodType.endsWith:
+                        return channel.id.endsWith(query) || channel.name.endsWith(query)
+                    default:
+                        return channel.id.includes(query) || channel.name.includes(query)
+                }
+            })
+            .toJSON()
+            .slice(0, limit)
 
         return this.success(search?.map((x) => ChannelProperties[prop!](x)).join(sep ?? ", "))
     },

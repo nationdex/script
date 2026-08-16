@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { deflateSync, inflateSync } from "zlib"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { deflateSync } from "node:zlib"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$deflate",
@@ -19,17 +19,17 @@ export default new NativeFunction({
             description: "The text to compress",
             type: ArgType.String,
             rest: false,
-            required: true
+            required: true,
         },
         {
             name: "encoding",
             rest: false,
             required: false,
             description: "The output encoding to use",
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [ input, out ]) {
+    execute(_ctx, [input, out]) {
         return this.success(deflateSync(input).toString((out ?? "hex") as BufferEncoding))
     },
 })

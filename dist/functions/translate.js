@@ -1,27 +1,27 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.translateData = translateData;
-const structures_1 = require("../structures");
-const fs_1 = require("fs");
-const crypto_1 = require("crypto");
+const node_crypto_1 = require("node:crypto");
+const node_fs_1 = require("node:fs");
+const node_os_1 = require("node:os");
+const node_path_1 = require("node:path");
 const constants_1 = require("../constants");
+const structures_1 = require("../structures");
 const generateBar_1 = require("./generateBar");
-const path_1 = require("path");
 const thread_1 = require("./thread");
-const os_1 = require("os");
 const weirdWords = [
     ["guild", "server"],
     ["role", "role id"],
     ["hex", "hexadecimal"],
     ["param", "parameter"],
-    ["perm", "permission"]
+    ["perm", "permission"],
 ];
 function hash(str) {
-    return (0, crypto_1.createHash)("sha256").update(str).digest().toString("hex");
+    return (0, node_crypto_1.createHash)("sha256").update(str).digest().toString("hex");
 }
 async function translateObjectTo(worker, obj, to, existing = {}) {
     for (const key of Object.keys(obj)) {
@@ -42,10 +42,10 @@ async function translateObjectTo(worker, obj, to, existing = {}) {
     return existing;
 }
 async function translate(worker, str, to) {
-    weirdWords.forEach(data => str = str.toLowerCase().includes(data[1]) ? str : str.replaceAll(data[0], data[1]));
+    weirdWords.forEach((data) => (str = str.toLowerCase().includes(data[1]) ? str : str.replaceAll(data[0], data[1])));
     return (0, thread_1.postMessage)(worker, {
         locale: to,
-        text: str
+        text: str,
     });
 }
 async function translateEventTo(worker, event, lang, existing = {}) {
@@ -82,43 +82,46 @@ async function translateFunctionTo(worker, fn, lang, existing = {}) {
         delete existing.fields;
     return existing;
 }
-const metaPath = (0, path_1.join)("metadata", "translations");
-const docsPath = (0, path_1.join)(metaPath, "docs");
-const docsEnPath = (0, path_1.join)(docsPath, "en.json");
-const docs = (0, fs_1.existsSync)(docsEnPath) ? JSON.parse((0, fs_1.readFileSync)(docsEnPath, "utf-8")) : null;
+const metaPath = (0, node_path_1.join)("metadata", "translations");
+const docsPath = (0, node_path_1.join)(metaPath, "docs");
+const docsEnPath = (0, node_path_1.join)(docsPath, "en.json");
+const docs = (0, node_fs_1.existsSync)(docsEnPath) ? JSON.parse((0, node_fs_1.readFileSync)(docsEnPath, "utf-8")) : null;
 // For every 300mb available, 1 thread.
-const threadCount = Math.floor((((0, os_1.totalmem)() - (0, os_1.freemem)()) / (1024 ** 2)) / 300) || 1;
+const threadCount = Math.floor(((0, node_os_1.totalmem)() - (0, node_os_1.freemem)()) / 1024 ** 2 / 300) || 1;
 async function translateData(options) {
-    const workers = new Array();
-    structures_1.Logger.info("Spawning " + threadCount + " threads...");
+    const workers = [];
+    structures_1.Logger.info(`Spawning ${threadCount} threads...`);
     for (let i = 0; i < threadCount; i++) {
         workers[i] = await (0, thread_1.spawn)("translationThread");
     }
     structures_1.Logger.info("Successfully spawned threads.");
-    if (!(0, fs_1.existsSync)(metaPath))
-        (0, fs_1.mkdirSync)(metaPath);
+    if (!(0, node_fs_1.existsSync)(metaPath))
+        (0, node_fs_1.mkdirSync)(metaPath);
     for (const lang of options.languages) {
         if (docs) {
-            const resultPath = (0, path_1.join)(docsPath, `${lang}.json`);
-            const cached = (0, fs_1.existsSync)(resultPath) ? JSON.parse((0, fs_1.readFileSync)(resultPath, "utf-8")) : {};
+            const resultPath = (0, node_path_1.join)(docsPath, `${lang}.json`);
+            const cached = (0, node_fs_1.existsSync)(resultPath)
+                ? JSON.parse((0, node_fs_1.readFileSync)(resultPath, "utf-8"))
+                : {};
             structures_1.Logger.infoUpdate(`Translating docs to ${lang}...`);
-            void await translateObjectTo(workers[0], docs, lang, cached);
-            (0, fs_1.writeFileSync)(resultPath, JSON.stringify(cached), "utf-8");
+            void (await translateObjectTo(workers[0], docs, lang, cached));
+            (0, node_fs_1.writeFileSync)(resultPath, JSON.stringify(cached), "utf-8");
         }
-        const resultPath = (0, path_1.join)(metaPath, `${lang}.json`);
-        const cached = (0, fs_1.existsSync)(resultPath) ? JSON.parse((0, fs_1.readFileSync)(resultPath, "utf-8")) : {};
+        const resultPath = (0, node_path_1.join)(metaPath, `${lang}.json`);
+        const cached = (0, node_fs_1.existsSync)(resultPath)
+            ? JSON.parse((0, node_fs_1.readFileSync)(resultPath, "utf-8"))
+            : {};
         cached.events ??= {};
         cached.functions ??= {};
         const functionsStartedAt = Date.now();
         for (let x = 0, len = options.functions.length; x < len; x += workers.length) {
-            const promises = new Array();
+            const promises = [];
             for (let i = x - workers.length; i < x; i++) {
                 const worker = workers[i % workers.length];
                 const fn = options.functions[i];
                 if (!fn)
                     break;
                 const existing = (cached.functions[fn.name] ?? {});
-                // eslint-disable-next-line no-async-promise-executor
                 promises.push(new Promise(async (resolve) => {
                     cached.functions[fn.name] = await translateFunctionTo(worker, fn, lang, existing);
                     resolve();
@@ -127,18 +130,17 @@ async function translateData(options) {
             await Promise.all(promises);
             const elapsed = Date.now() - functionsStartedAt;
             const timeLeft = Math.floor((elapsed / x) * (len - x));
-            structures_1.Logger.infoUpdate(`[${lang.toUpperCase()} TRANSLATION/FUNCTIONS] [${(0, generateBar_1.generateBar)(x, len, 20)} ${(x * 100 / len).toFixed(2)}%] (${constants_1.TimeParser.parseToString(timeLeft, { limit: 1 })} left)`);
+            structures_1.Logger.infoUpdate(`[${lang.toUpperCase()} TRANSLATION/FUNCTIONS] [${(0, generateBar_1.generateBar)(x, len, 20)} ${((x * 100) / len).toFixed(2)}%] (${constants_1.TimeParser.parseToString(timeLeft, { limit: 1 })} left)`);
         }
         const eventsStartedAt = Date.now();
         for (let x = 0, len = options.events.length; x < len; x += workers.length) {
-            const promises = new Array();
+            const promises = [];
             for (let i = x - workers.length; i < x; i++) {
                 const worker = workers[i % workers.length];
                 const ev = options.events[i];
                 if (!ev)
                     break;
                 const existing = (cached.events[ev.name] ?? {});
-                // eslint-disable-next-line no-async-promise-executor
                 promises.push(new Promise(async (resolve) => {
                     cached.events[ev.name] = await translateEventTo(worker, ev, lang, existing);
                     resolve();
@@ -147,9 +149,9 @@ async function translateData(options) {
             await Promise.all(promises);
             const elapsed = Date.now() - eventsStartedAt;
             const timeLeft = Math.floor((elapsed / x) * (len - x));
-            structures_1.Logger.infoUpdate(`[${lang.toUpperCase()} TRANSLATION/EVENTS] [${(0, generateBar_1.generateBar)(x, len, 20)} ${(x * 100 / len).toFixed(2)}%] (${constants_1.TimeParser.parseToString(timeLeft, { limit: 1 })} left)`);
+            structures_1.Logger.infoUpdate(`[${lang.toUpperCase()} TRANSLATION/EVENTS] [${(0, generateBar_1.generateBar)(x, len, 20)} ${((x * 100) / len).toFixed(2)}%] (${constants_1.TimeParser.parseToString(timeLeft, { limit: 1 })} left)`);
         }
-        (0, fs_1.writeFileSync)(resultPath, JSON.stringify(cached), "utf-8");
+        (0, node_fs_1.writeFileSync)(resultPath, JSON.stringify(cached), "utf-8");
         structures_1.Logger.infoUpdate("Translations saved, now terminating threads...");
         await (0, thread_1.terminate)(...workers);
     }

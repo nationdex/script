@@ -1,4 +1,4 @@
-import { VoiceChannelEffect } from "discord.js";
+import { type VoiceChannelEffect } from "discord.js";
 export declare enum VoiceEffectProperty {
     emoji = "emoji",
     channelID = "channelID",

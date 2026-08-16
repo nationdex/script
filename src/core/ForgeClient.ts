@@ -1,44 +1,44 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import {
-    disableValidators,
-    ClientOptions,
     Client,
-    IntentsBitField,
-    Partials,
+    type ClientOptions,
     DefaultWebSocketManagerOptions,
-    Message,
+    disableValidators,
+    type IntentsBitField,
+    type Message,
+    Partials,
 } from "discord.js"
-import { IExtendedCompilationResult, Compiler } from "."
+import type { WebSocket } from "ws"
 import {
-    NativeCommandManager,
-    EventManager,
+    ApplicationCommandManager,
+    type BaseCommandManager,
     CooldownManager,
+    EventManager,
     ForgeFunctionManager,
     FunctionManager,
+    NativeCommandManager,
     NativeEventName,
-    ApplicationCommandManager,
     ThreadManager,
-    BaseCommandManager,
 } from "../managers"
 import {
-    CommandType,
-    LogPriority,
-    ForgeExtension,
-    Logger,
-    InviteTracker,
-    ClassType,
-    ClassInstance,
-    ForgeError,
+    type BaseCommand,
+    type ClassInstance,
+    type ClassType,
+    type CommandType,
     ErrorType,
-    BaseCommand,
+    ForgeError,
+    type ForgeExtension,
+    InviteTracker,
+    Logger,
+    type LogPriority,
 } from "../structures"
 import { VoiceTracker } from "../structures/trackers/VoiceTracker"
+import { Compiler, type IExtendedCompilationResult } from "."
 import { Interpreter } from "./Interpreter"
-import { WebSocket } from "ws"
 
 disableValidators()
 
@@ -237,7 +237,12 @@ export class ForgeClient extends Client<true> {
                 doNotSend: true,
             })
 
-            if (resolved !== null && (this.options.prefixCaseInsensitive ? msg.content.toLowerCase().startsWith(resolved.toLowerCase()) : msg.content.startsWith(resolved))) {
+            if (
+                resolved !== null &&
+                (this.options.prefixCaseInsensitive
+                    ? msg.content.toLowerCase().startsWith(resolved.toLowerCase())
+                    : msg.content.startsWith(resolved))
+            ) {
                 return resolved
             }
         }

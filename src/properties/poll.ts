@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { Poll, PollAnswer, PollLayoutType } from "discord.js"
+import { type Poll, type PollAnswer, PollLayoutType } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum PollProperty {
@@ -33,7 +33,7 @@ export enum PollAnswerProperty {
     text = "text",
     emoji = "emoji",
     voteCount = "voteCount",
-    messageID = "messageID"
+    messageID = "messageID",
 }
 
 export const PollAnswerProperties = defineProperties<typeof PollAnswerProperty, PollAnswer>({
@@ -41,5 +41,5 @@ export const PollAnswerProperties = defineProperties<typeof PollAnswerProperty, 
     text: (i) => i?.text,
     emoji: (i) => i?.emoji?.toString(),
     voteCount: (i) => i?.voteCount,
-    messageID: (i) => i?.poll.message.id
+    messageID: (i) => i?.poll.message.id,
 })

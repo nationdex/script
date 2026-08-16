@@ -1,11 +1,11 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
 const member_1 = require("../../properties/member");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$targetMember",
     version: "2.3.0",
@@ -30,7 +30,9 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Unknown,
     execute(ctx, [prop, sep]) {
-        return this.success(ctx.interaction?.isUserContextMenuCommand() ? member_1.MemberProperties[prop](ctx.interaction.targetMember, sep) : null);
+        return this.success(ctx.interaction?.isUserContextMenuCommand()
+            ? member_1.MemberProperties[prop](ctx.interaction.targetMember, sep)
+            : null);
     },
 });
 //# sourceMappingURL=targetMember.js.map

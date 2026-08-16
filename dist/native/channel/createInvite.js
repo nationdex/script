@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -37,8 +37,8 @@ exports.default = new structures_1.NativeFunction({
             name: "reason",
             description: "The reason for creating this invite",
             rest: false,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
     async execute(ctx, [ch, maxUses, maxAge, reason]) {
         const channel = (ch ?? ctx.channel);
@@ -46,8 +46,8 @@ exports.default = new structures_1.NativeFunction({
             .createInvite({
             reason: reason || ctx.reason,
             maxUses: maxUses || undefined,
-            maxAge: typeof (maxAge) === "number" ? maxAge : undefined,
-            unique: true
+            maxAge: typeof maxAge === "number" ? maxAge : undefined,
+            unique: true,
         })
             .catch(ctx.noop);
         return this.success(invite ? invite.code : undefined);

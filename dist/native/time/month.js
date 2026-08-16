@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExtendedTimeFormat = void 0;
 const structures_1 = require("../../structures");
@@ -26,12 +26,16 @@ exports.default = new structures_1.NativeFunction({
             description: "The format of the month",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: ExtendedTimeFormat
-        }
+            enum: ExtendedTimeFormat,
+        },
     ],
     output: structures_1.ArgType.String,
     execute: async function (ctx, [format]) {
-        return this.success(new Date().toLocaleString("en-US", { month: format || "numeric", timeZone: ctx.timezone, calendar: ctx.calendar }));
-    }
+        return this.success(new Date().toLocaleString("en-US", {
+            month: format || "numeric",
+            timeZone: ctx.timezone,
+            calendar: ctx.calendar,
+        }));
+    },
 });
 //# sourceMappingURL=month.js.map

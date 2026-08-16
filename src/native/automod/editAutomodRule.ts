@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { AutoModerationRuleEventType } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$editAutomodRule",
@@ -26,7 +26,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.AutomodRule,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "name",
@@ -39,35 +39,37 @@ export default new NativeFunction({
             description: "The new event type for the automod rule",
             rest: false,
             type: ArgType.Enum,
-            enum: AutoModerationRuleEventType
+            enum: AutoModerationRuleEventType,
         },
         {
             name: "enabled",
             description: "Whether the automod rule should be enabled",
             rest: false,
             required: false,
-            type: ArgType.Boolean
+            type: ArgType.Boolean,
         },
         {
             name: "reason",
             description: "The reason for editing the automod rule",
             rest: false,
             required: false,
-            type: ArgType.String
+            type: ArgType.String,
         },
     ],
     output: ArgType.Boolean,
     async execute(ctx, [, rule, name, event, enabled, reason]) {
-        const success = await rule.edit({
-            name: name || undefined,
-            eventType: event || undefined,
-            triggerMetadata: ctx.automodRule.triggerMetadata || undefined,
-            actions: ctx.automodRule.actions || undefined,
-            exemptRoles: ctx.automodRule.exemptRoles || undefined,
-            exemptChannels: ctx.automodRule.exemptChannels || undefined,
-            enabled: typeof(enabled) === "boolean" ? enabled : undefined,
-            reason: reason || ctx.reason
-        }).catch(ctx.noop)
+        const success = await rule
+            .edit({
+                name: name || undefined,
+                eventType: event || undefined,
+                triggerMetadata: ctx.automodRule.triggerMetadata || undefined,
+                actions: ctx.automodRule.actions || undefined,
+                exemptRoles: ctx.automodRule.exemptRoles || undefined,
+                exemptChannels: ctx.automodRule.exemptChannels || undefined,
+                enabled: typeof enabled === "boolean" ? enabled : undefined,
+                reason: reason || ctx.reason,
+            })
+            .catch(ctx.noop)
 
         ctx.clearAutomodRuleOptions()
 

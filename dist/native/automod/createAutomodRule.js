@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -33,7 +33,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Enum,
-            enum: discord_js_1.AutoModerationRuleTriggerType
+            enum: discord_js_1.AutoModerationRuleTriggerType,
         },
         {
             name: "event",
@@ -41,26 +41,27 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Enum,
-            enum: discord_js_1.AutoModerationRuleEventType
+            enum: discord_js_1.AutoModerationRuleEventType,
         },
         {
             name: "enabled",
             description: "Whether the automod rule should be enabled",
             rest: false,
             required: false,
-            type: structures_1.ArgType.Boolean
+            type: structures_1.ArgType.Boolean,
         },
         {
             name: "reason",
             description: "The reason for creating the automod rule",
             rest: false,
             required: false,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
     ],
     output: structures_1.ArgType.AutomodRule,
     async execute(ctx, [guild, name, trigger, event, enabled, reason]) {
-        const rule = await guild.autoModerationRules.create({
+        const rule = await guild.autoModerationRules
+            .create({
             name: name,
             eventType: event,
             triggerType: trigger,
@@ -68,9 +69,10 @@ exports.default = new structures_1.NativeFunction({
             actions: ctx.automodRule.actions || [],
             exemptRoles: ctx.automodRule.exemptRoles,
             exemptChannels: ctx.automodRule.exemptChannels,
-            enabled: typeof (enabled) === "boolean" ? enabled : true,
-            reason: reason || ctx.reason
-        }).catch(ctx.noop);
+            enabled: typeof enabled === "boolean" ? enabled : true,
+            reason: reason || ctx.reason,
+        })
+            .catch(ctx.noop);
         ctx.clearAutomodRuleOptions();
         return this.success(rule?.id);
     },

@@ -1,4 +1,4 @@
-import { GuildSoundboardSound, PartialSoundboardSound, SoundboardSound } from "discord.js";
+import type { GuildSoundboardSound, PartialSoundboardSound, SoundboardSound } from "discord.js";
 export declare enum SoundboardSoundProperty {
     name = "name",
     id = "id",

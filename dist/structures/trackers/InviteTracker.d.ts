@@ -1,5 +1,5 @@
-import { ClientEvents, Collection, GatewayIntentsString, Guild, GuildMember, Invite, PartialGuildMember } from "discord.js";
-import { ForgeClient } from "../../core";
+import { type ClientEvents, Collection, type GatewayIntentsString, type Guild, type GuildMember, type Invite, type PartialGuildMember } from "discord.js";
+import type { ForgeClient } from "../../core";
 export interface IGuildInviter {
     inviterId: string;
     code: string;

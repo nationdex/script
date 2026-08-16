@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { underline } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
@@ -22,10 +22,10 @@ export default new NativeFunction({
             description: "The text to add underline to, this will attempt to escape all _",
             rest: false,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [ str ]) {
+    execute(_ctx, [str]) {
         return this.success(underline(str.replace(UnderlineEscapeRegex, "\\$1")))
     },
 })

@@ -1,12 +1,12 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const structures_1 = require("../../structures");
 const components_1 = require("../../functions/components");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$editUserSelectMenuOf",
     version: "2.2.0",
@@ -19,7 +19,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The channel id to pull message from",
             rest: false,
             required: true,
-            type: structures_1.ArgType.TextChannel
+            type: structures_1.ArgType.TextChannel,
         },
         {
             name: "message ID",
@@ -27,7 +27,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Message,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "old custom ID",
@@ -71,8 +71,8 @@ exports.default = new structures_1.NativeFunction({
             name: "default users",
             rest: true,
             type: structures_1.ArgType.String,
-            description: "The default selected users of the menu"
-        }
+            description: "The default selected users of the menu",
+        },
     ],
     output: structures_1.ArgType.Boolean,
     async execute(ctx, [, m, old, id, placeholder, disabled, min, max, users]) {
@@ -81,7 +81,9 @@ exports.default = new structures_1.NativeFunction({
             const comp = components[i];
             const comps = comp instanceof discord_js_1.ContainerBuilder
                 ? comp.components.map((x) => (0, components_1.buildComponent)(x.toJSON()))
-                : ("components" in comp ? comp.components : undefined);
+                : "components" in comp
+                    ? comp.components
+                    : undefined;
             if (!comps)
                 continue;
             for (let n = 0, len = comps.length; n < len; n++) {

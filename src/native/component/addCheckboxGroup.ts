@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { CheckboxGroupBuilder } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
@@ -40,9 +40,7 @@ export default new NativeFunction({
         },
     ],
     execute(ctx, [id, min, max, required]) {
-        const field = new CheckboxGroupBuilder()
-            .setCustomId(id)
-            .setRequired(required || false)
+        const field = new CheckboxGroupBuilder().setCustomId(id).setRequired(required || false)
 
         if (min) field.setMinValues(min)
         if (max) field.setMaxValues(max)

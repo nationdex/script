@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$version",
@@ -11,9 +11,7 @@ export default new NativeFunction({
     description: "Returns the package version the client is using",
     unwrap: false,
     output: ArgType.String,
-    aliases: [
-        "$packageVersion"
-    ],
+    aliases: ["$packageVersion"],
     execute(ctx) {
         return this.success(ctx.client.version)
     },

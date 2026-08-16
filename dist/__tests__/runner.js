@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -37,6 +37,6 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-const process_1 = require("process");
-Promise.resolve(`${`./${process_1.argv.slice(2).join(" ")}`}`).then(s => __importStar(require(s)));
+const node_process_1 = require("node:process");
+Promise.resolve(`${`./${node_process_1.argv.slice(2).join(" ")}`}`).then(s => __importStar(require(s)));
 //# sourceMappingURL=runner.js.map

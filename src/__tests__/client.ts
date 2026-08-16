@@ -1,13 +1,14 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ForgeClient } from "../core"
-import { config } from "dotenv"
 import { Events } from "discord.js"
+import { config } from "dotenv"
+import { ForgeClient } from "../core"
 import { LogPriority } from "../structures/@internal/Logger"
 import { MyExtension } from "./ext"
+
 config()
 
 const client = new ForgeClient({
@@ -49,7 +50,7 @@ console.log("Started")
 client.commands.add({
     type: Events.MessageReactionAdd,
     code: `
-$log[$getEmbeds[$channelID;$messageID]]`
+$log[$getEmbeds[$channelID;$messageID]]`,
 })
 
 client.commands.add({
@@ -77,7 +78,7 @@ client.commands.add({
     code: `
     $log[hello $channelID | $messageID]
     $editButtonOf[$channelID;$messageID;yes;;;Danger;;true]
-    `
+    `,
 })
 
 client.commands.add({
@@ -87,7 +88,7 @@ client.commands.add({
     $addActionRow
     $addButton[yes;yes;Primary]
     Click
-    `
+    `,
 })
 
 client.commands.add({
@@ -97,7 +98,7 @@ client.commands.add({
     $modal[yes;owa]
     $addTextInput[owa;owa;Short;true]
     $showModal
-    `
+    `,
 })
 
 client.commands.add({

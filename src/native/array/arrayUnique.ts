@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { isEqual, uniqWith } from "lodash"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$arrayUnique",
@@ -25,7 +25,7 @@ export default new NativeFunction({
             description: "The variable to load result to, leave empty to return output",
             rest: false,
             required: false,
-            type: ArgType.String
+            type: ArgType.String,
         },
     ],
     output: ArgType.Json,
@@ -34,10 +34,8 @@ export default new NativeFunction({
         if (arr !== null) {
             const unique = uniqWith(arr, isEqual)
 
-            if (other)
-                ctx.setEnvironmentKey(other, unique)
-            else
-                return this.successJSON(unique)
+            if (other) ctx.setEnvironmentKey(other, unique)
+            else return this.successJSON(unique)
         }
         return this.success()
     },

@@ -1,18 +1,18 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Context = exports.CalendarType = exports.HTTPContentType = void 0;
 const discord_js_1 = require("discord.js");
-const Container_1 = require("./Container");
-const Return_1 = require("./Return");
-const Logger_1 = require("./Logger");
 const contextNoop_1 = __importDefault(require("../../functions/contextNoop"));
+const Container_1 = require("./Container");
+const Logger_1 = require("./Logger");
+const Return_1 = require("./Return");
 var HTTPContentType;
 (function (HTTPContentType) {
     HTTPContentType[HTTPContentType["Json"] = 0] = "Json";
@@ -93,13 +93,13 @@ class Context {
         return this.runtime.states;
     }
     get automod() {
-        return this.#cache.automod ??= this.obj instanceof discord_js_1.AutoModerationActionExecution ? this.obj : null;
+        return (this.#cache.automod ??= this.obj instanceof discord_js_1.AutoModerationActionExecution ? this.obj : null);
     }
     get entitlement() {
-        return this.#cache.entitlement ??= this.obj instanceof discord_js_1.Entitlement ? this.obj : null;
+        return (this.#cache.entitlement ??= this.obj instanceof discord_js_1.Entitlement ? this.obj : null);
     }
     get subscription() {
-        return this.#cache.subscription ??= this.obj instanceof discord_js_1.Subscription ? this.obj : null;
+        return (this.#cache.subscription ??= this.obj instanceof discord_js_1.Subscription ? this.obj : null);
     }
     get member() {
         return (this.#cache.member ??=
@@ -144,7 +144,7 @@ class Context {
                     : this.obj instanceof discord_js_1.User
                         ? this.obj
                         : "member" in this.obj
-                            ? this.obj.member?.user ?? null
+                            ? (this.obj.member?.user ?? null)
                             : null);
     }
     get guild() {
@@ -193,7 +193,7 @@ class Context {
             throw new Return_1.Return(Return_1.ReturnType.Return, rt.value);
         }
         else if (rt.return || rt.break || rt.continue) {
-            const log = ":x: " + Return_1.ReturnType[rt.type] + " statements are not allowed in outer scopes.";
+            const log = `:x: ${Return_1.ReturnType[rt.type]} statements are not allowed in outer scopes.`;
             this.alert(log).catch(Logger_1.Logger.error.bind(null, log));
         }
         else if (rt.error) {
@@ -317,7 +317,8 @@ class Context {
         return this[key];
     }
     hasDisabledConsoleErrors() {
-        return this.runtime.disableConsoleErrors || (this.runtime.disableConsoleErrors === undefined && this.cmd?.hasDisabledConsoleErrors(this.client));
+        return (this.runtime.disableConsoleErrors ||
+            (this.runtime.disableConsoleErrors === undefined && this.cmd?.hasDisabledConsoleErrors(this.client)));
     }
     getInstance(key, type) {
         if (this.hasInstance(key, type))

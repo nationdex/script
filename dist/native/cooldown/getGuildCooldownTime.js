@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -10,9 +10,7 @@ exports.default = new structures_1.NativeFunction({
     version: "1.5.0",
     description: "Retrieves current cooldown time in ms for given guild id, binded to current command",
     brackets: true,
-    aliases: [
-        "$getServerCooldownTime"
-    ],
+    aliases: ["$getServerCooldownTime"],
     output: structures_1.ArgType.Number,
     unwrap: true,
     args: [

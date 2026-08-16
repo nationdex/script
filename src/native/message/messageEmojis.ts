@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel } from "discord.js"
 import array from "../../functions/array"
+import { ArgType, NativeFunction } from "../../structures"
 
 const EmojiRegex = /<a?:\w+:(\d+)>|([\p{Emoji_Presentation}\p{Extended_Pictographic}])/gu
 
@@ -47,6 +47,11 @@ export default new NativeFunction({
     ],
     output: array<ArgType.Emoji>(),
     execute(ctx, [, message, sep, returnIDs]) {
-        return this.success([...(message ?? ctx.message)?.content.matchAll(EmojiRegex) ?? []].map((x) => x[returnIDs ? 1 : 0]).filter(Boolean).join(sep ?? ", "))
+        return this.success(
+            [...((message ?? ctx.message)?.content.matchAll(EmojiRegex) ?? [])]
+                .map((x) => x[returnIDs ? 1 : 0])
+                .filter(Boolean)
+                .join(sep ?? ", ")
+        )
     },
 })

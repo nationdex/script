@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, ThreadManager } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel, ThreadManager } from "discord.js"
 import array from "../../functions/array"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$channelThreadIDs",
@@ -20,7 +20,7 @@ export default new NativeFunction({
             rest: false,
             type: ArgType.Channel,
             required: true,
-            check: (i: BaseChannel) => "threads" in i
+            check: (i: BaseChannel) => "threads" in i,
         },
         {
             name: "separator",
@@ -32,6 +32,8 @@ export default new NativeFunction({
     output: array<ArgType.Channel>(),
     execute(ctx, [channel, sep]) {
         const chan = channel ?? ctx.channel
-        return this.success("threads" in chan ? (chan.threads as ThreadManager).cache.map((x) => x.id).join(sep ?? ", ") : null)
+        return this.success(
+            "threads" in chan ? (chan.threads as ThreadManager).cache.map((x) => x.id).join(sep ?? ", ") : null
+        )
     },
 })

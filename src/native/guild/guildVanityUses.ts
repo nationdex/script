@@ -1,18 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildVanityUses",
     version: "1.0.0",
     description: "Returns the guilds vanity uses",
     unwrap: true,
-    aliases: [
-        "$serverVanityUses"
-    ],
+    aliases: ["$serverVanityUses"],
     output: ArgType.Number,
     args: [
         {

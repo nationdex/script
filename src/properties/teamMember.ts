@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { TeamMember, TeamMemberMembershipState, TeamMemberRole } from "discord.js"
+import { type TeamMember, TeamMemberMembershipState, TeamMemberRole } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum TeamMemberProperty {
@@ -15,5 +15,5 @@ export enum TeamMemberProperty {
 export const TeamMemberProperties = defineProperties<typeof TeamMemberProperty, TeamMember>({
     id: (i) => i?.id,
     role: (i) => Object.entries(TeamMemberRole).find(([, x]) => x === i?.role)?.[0],
-    membership: (i) => TeamMemberMembershipState[i?.membershipState!]
+    membership: (i) => TeamMemberMembershipState[i?.membershipState!],
 })

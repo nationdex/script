@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -11,9 +11,7 @@ exports.default = new structures_1.NativeFunction({
     version: "2.1.0",
     description: "Sets the widget settings of a guild, returns bool",
     unwrap: true,
-    aliases: [
-        "$setServerWidgetSettings"
-    ],
+    aliases: ["$setServerWidgetSettings"],
     output: structures_1.ArgType.Boolean,
     args: [
         {
@@ -28,7 +26,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The invite channel for the widget",
             rest: false,
             type: structures_1.ArgType.Channel,
-            check: (i) => (i instanceof discord_js_1.GuildChannel && !(i instanceof discord_js_1.StageChannel) && !(i instanceof discord_js_1.CategoryChannel))
+            check: (i) => i instanceof discord_js_1.GuildChannel && !(i instanceof discord_js_1.StageChannel) && !(i instanceof discord_js_1.CategoryChannel),
         },
         {
             name: "enabled",
@@ -45,10 +43,13 @@ exports.default = new structures_1.NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, chan, enabled, reason]) {
-        return this.success((await guild.setWidgetSettings({
-            channel: chan || null,
-            enabled: enabled || guild.widgetEnabled || false
-        }, reason || ctx.reason).catch(() => false)) !== false);
+        return this.success((await guild
+            .setWidgetSettings({
+            channel: chan ||
+                null,
+            enabled: enabled || guild.widgetEnabled || false,
+        }, reason || ctx.reason)
+            .catch(() => false)) !== false);
     },
 });
 //# sourceMappingURL=setGuildWidgetSettings.js.map

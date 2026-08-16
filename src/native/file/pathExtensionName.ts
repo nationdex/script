@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { extname } from "path"
+import { extname } from "node:path"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -23,7 +23,7 @@ export default new NativeFunction({
         },
     ],
     output: ArgType.String,
-    execute(ctx, [p]) {
+    execute(_ctx, [p]) {
         return this.success(extname(p))
     },
 })

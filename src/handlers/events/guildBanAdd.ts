@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { Interpreter } from "../../core"
 import { DiscordEventHandler } from "../../structures/extended/DiscordEventHandler"
@@ -15,15 +15,15 @@ export default new DiscordEventHandler({
 
         for (const command of commands) {
             Interpreter.run({
-                obj: { 
+                obj: {
                     guild: m.guild,
-                    user: m.user
+                    user: m.user,
                 },
                 command,
                 client: this,
                 states: {
                     ban: {
-                        new: m
+                        new: m,
                     },
                 },
                 data: command.compiled.code,

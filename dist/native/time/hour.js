@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BasicTimeFormat = void 0;
 const structures_1 = require("../../structures");
@@ -23,14 +23,19 @@ exports.default = new structures_1.NativeFunction({
             description: "The format of the hour",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: BasicTimeFormat
-        }
+            enum: BasicTimeFormat,
+        },
     ],
     output: structures_1.ArgType.Number,
     execute: async function (ctx, [format]) {
         format ||= BasicTimeFormat.Numeric;
-        const hour = new Date().toLocaleString("en-US", { hour: format, hour12: false, timeZone: ctx.timezone, calendar: ctx.calendar });
+        const hour = new Date().toLocaleString("en-US", {
+            hour: format,
+            hour12: false,
+            timeZone: ctx.timezone,
+            calendar: ctx.calendar,
+        });
         return this.success(format === BasicTimeFormat.Numeric ? parseInt(hour, 10).toString() : hour);
-    }
+    },
 });
 //# sourceMappingURL=hour.js.map

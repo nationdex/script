@@ -1,18 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setGuildDiscoverySplash",
     version: "2.1.0",
     description: "Sets the discovery splash for a guild, returns bool",
     unwrap: true,
-    aliases: [
-        "$setServerDiscoverySplash"
-    ],
+    aliases: ["$setServerDiscoverySplash"],
     output: ArgType.Boolean,
     args: [
         {
@@ -37,6 +35,8 @@ export default new NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, icon, reason]) {
-        return this.success((await guild.setDiscoverySplash(icon || null, reason || ctx.reason).catch(() => false)) !== false)
+        return this.success(
+            (await guild.setDiscoverySplash(icon || null, reason || ctx.reason).catch(() => false)) !== false
+        )
     },
 })

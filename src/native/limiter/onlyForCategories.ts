@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, CategoryChannel, ChannelType } from "discord.js"
-import { ArgType, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
+import { type BaseChannel, type CategoryChannel, ChannelType } from "discord.js"
+import { ArgType, type IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$onlyForCategories",
@@ -18,7 +18,7 @@ export default new NativeFunction({
             description: "The code to execute if category is not whitelisted",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "channels",
@@ -27,8 +27,8 @@ export default new NativeFunction({
             rest: true,
             required: true,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => i.type === ChannelType.GuildCategory
-        }
+            check: (i: BaseChannel) => i.type === ChannelType.GuildCategory,
+        },
     ],
     async execute(ctx) {
         const code = this.data.fields![0] as IExtendedCompiledFunctionField
@@ -37,11 +37,10 @@ export default new NativeFunction({
         if (ctx.guild) {
             const { args, return: rt } = await this["resolveMultipleArgs"](ctx, 1)
             if (!this["isValidReturnType"](rt)) return rt
-            ok = args[0].some(x => x.id === (ctx.channel as CategoryChannel || null).parentId) ?? false
+            ok = args[0].some((x) => x.id === ((ctx.channel as CategoryChannel) || null).parentId) ?? false
         }
 
-        if (!ok)
-            return this["fail"](ctx, code)
+        if (!ok) return this["fail"](ctx, code)
 
         return this.success()
     },

@@ -1,15 +1,15 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StickerReturnType = void 0;
-const structures_1 = require("../../structures");
 const array_1 = __importDefault(require("../../functions/array"));
+const structures_1 = require("../../structures");
 var StickerReturnType;
 (function (StickerReturnType) {
     StickerReturnType["id"] = "id";
@@ -18,9 +18,7 @@ var StickerReturnType;
 exports.default = new structures_1.NativeFunction({
     name: "$messageStickers",
     version: "1.4.0",
-    aliases: [
-        "$stickers"
-    ],
+    aliases: ["$stickers"],
     output: (0, array_1.default)(),
     description: "Retrieves all stickers of this message",
     brackets: false,
@@ -53,11 +51,11 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             description: "The type to return, default is url",
             type: structures_1.ArgType.Enum,
-            enum: StickerReturnType
-        }
+            enum: StickerReturnType,
+        },
     ],
     execute(ctx, [, message, sep, type]) {
-        return this.success((message ?? ctx.message)?.stickers.map(x => x[type || StickerReturnType.url]).join(sep ?? ", "));
+        return this.success((message ?? ctx.message)?.stickers.map((x) => x[type || StickerReturnType.url]).join(sep ?? ", "));
     },
 });
 //# sourceMappingURL=messageStickers.js.map

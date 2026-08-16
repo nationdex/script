@@ -1,14 +1,14 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ForgeClient } from "../core/ForgeClient"
-import { ForgeFunction, IForgeFunction } from "../structures/forge/ForgeFunction"
+import { join } from "node:path"
+import { cwd } from "node:process"
+import type { ForgeClient } from "../core/ForgeClient"
 import recursiveReaddirSync from "../functions/recursiveReaddirSync"
-import { FunctionManager, RecursiveArray } from "./FunctionManager"
-import { join } from "path"
-import { cwd } from "process"
+import { ForgeFunction, type IForgeFunction } from "../structures/forge/ForgeFunction"
+import { FunctionManager, type RecursiveArray } from "./FunctionManager"
 
 export class ForgeFunctionManager {
     private readonly functions = new Map<string, ForgeFunction>()
@@ -16,10 +16,9 @@ export class ForgeFunctionManager {
     public constructor(private readonly client: ForgeClient) {}
 
     public add(...options: RecursiveArray<IForgeFunction | ForgeFunction>[]) {
-        for (let i = 0, len = options.length;i < len;i++) {
+        for (let i = 0, len = options.length; i < len; i++) {
             const option = options[i]
-            if (Array.isArray(option))
-                this.add(...option)
+            if (Array.isArray(option)) this.add(...option)
             else {
                 const opt = this.resolve(option)
                 this.functions.set(opt.data.name, opt)
@@ -33,7 +32,7 @@ export class ForgeFunctionManager {
     }
 
     public populate() {
-        FunctionManager.addMany(Array.from(this.functions.values()).map(x => x.asNative()))
+        FunctionManager.addMany(Array.from(this.functions.values()).map((x) => x.asNative()))
     }
 
     public get(name: string) {
@@ -41,14 +40,13 @@ export class ForgeFunctionManager {
     }
 
     public load(path: string) {
-        const loader = new Array<IForgeFunction | ForgeFunction>()
+        const loader: (IForgeFunction | ForgeFunction)[] = []
         for (const file of recursiveReaddirSync(path).filter((x) => x.endsWith(".js"))) {
             const path = join(cwd(), file)
-            
+
             const data = require(path)
-            if (Object.keys(data).length === 0)
-                continue
-            
+            if (Object.keys(data).length === 0) continue
+
             const req = (data.default ?? data) as ForgeFunction | IForgeFunction
             loader.push(req)
         }

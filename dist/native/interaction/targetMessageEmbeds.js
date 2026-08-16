@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const embed_1 = require("../../properties/embed");
@@ -34,19 +34,16 @@ exports.default = new structures_1.NativeFunction({
             name: "field index",
             description: "The index of the field to get",
             rest: false,
-            type: structures_1.ArgType.Number
+            type: structures_1.ArgType.Number,
         },
     ],
-    output: [
-        structures_1.ArgType.Json,
-        structures_1.ArgType.Unknown
-    ],
+    output: [structures_1.ArgType.Json, structures_1.ArgType.Unknown],
     execute(ctx, [index, prop, fieldIndex]) {
         if (!ctx.interaction?.isMessageContextMenuCommand())
             return this.success();
         const message = ctx.interaction.targetMessage;
         if (typeof index !== "number")
-            return this.successJSON(message.embeds.map(x => x.data));
+            return this.successJSON(message.embeds.map((x) => x.data));
         const embed = message.embeds[index];
         if (prop === null)
             return this.successJSON(embed);

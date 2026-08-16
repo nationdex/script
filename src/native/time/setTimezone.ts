@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setTimezone",
@@ -19,10 +19,10 @@ export default new NativeFunction({
             rest: false,
             type: ArgType.String,
             required: true,
-        }
+        },
     ],
     async execute(ctx, [timezone]) {
         ctx.timezone = timezone
         return this.success()
-    }
+    },
 })

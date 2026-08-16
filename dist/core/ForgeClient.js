@@ -1,15 +1,15 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForgeClient = void 0;
 const discord_js_1 = require("discord.js");
-const _1 = require(".");
 const managers_1 = require("../managers");
 const structures_1 = require("../structures");
 const VoiceTracker_1 = require("../structures/trackers/VoiceTracker");
+const _1 = require(".");
 const Interpreter_1 = require("./Interpreter");
 (0, discord_js_1.disableValidators)();
 class ForgeClient extends discord_js_1.Client {
@@ -98,7 +98,10 @@ class ForgeClient extends discord_js_1.Client {
                 redirectErrorsToConsole: true,
                 doNotSend: true,
             });
-            if (resolved !== null && (this.options.prefixCaseInsensitive ? msg.content.toLowerCase().startsWith(resolved.toLowerCase()) : msg.content.startsWith(resolved))) {
+            if (resolved !== null &&
+                (this.options.prefixCaseInsensitive
+                    ? msg.content.toLowerCase().startsWith(resolved.toLowerCase())
+                    : msg.content.startsWith(resolved))) {
                 return resolved;
             }
         }

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -47,6 +47,6 @@ exports.InviteProperties = (0, defineProperties_1.default)({
     memberCount: (i) => i?.memberCount,
     presenceCount: (i) => i?.presenceCount,
     targetType: (i) => discord_js_1.InviteTargetType[i?.targetType],
-    targetUser: (i) => i?.targetUser?.id
+    targetUser: (i) => i?.targetUser?.id,
 });
 //# sourceMappingURL=invite.js.map

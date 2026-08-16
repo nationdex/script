@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { setTimeout } from "timers/promises"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { setTimeout } from "node:timers/promises"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$wait",
@@ -21,7 +21,7 @@ export default new NativeFunction({
             required: true,
         },
     ],
-    async execute(ctx, [ms]) {
+    async execute(_ctx, [ms]) {
         await setTimeout(ms)
         return this.success()
     },

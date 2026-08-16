@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
+import type { BaseChannel, VoiceChannel } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
-import { BaseChannel, VoiceChannel } from "discord.js"
 
 export default new NativeFunction({
     name: "$setVoiceBitrate",
@@ -19,25 +19,27 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => i.isVoiceBased()
+            check: (i: BaseChannel) => i.isVoiceBased(),
         },
         {
             name: "bitrate",
             rest: false,
             type: ArgType.Number,
             required: true,
-            description: "The new bitrate"
+            description: "The new bitrate",
         },
         {
             name: "reason",
             description: "The reason to change the bitrate",
             rest: false,
             required: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     unwrap: true,
     async execute(ctx, [channel, bitrate, reason]) {
-        return this.success(!!(await (channel as VoiceChannel).setBitrate(bitrate, reason || ctx.reason).catch(ctx.noop)))
+        return this.success(
+            !!(await (channel as VoiceChannel).setBitrate(bitrate, reason || ctx.reason).catch(ctx.noop))
+        )
     },
 })

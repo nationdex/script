@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -11,9 +11,7 @@ exports.default = new structures_1.NativeFunction({
     description: "Sets the owner of a guild, returns bool",
     unwrap: true,
     deprecated: true,
-    aliases: [
-        "$setServerOwner"
-    ],
+    aliases: ["$setServerOwner"],
     output: structures_1.ArgType.Boolean,
     args: [
         {
@@ -29,7 +27,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Member,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "reason",

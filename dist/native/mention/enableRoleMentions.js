@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -17,7 +17,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Guild,
-            description: "The guild to retrieve roles from"
+            description: "The guild to retrieve roles from",
         },
         {
             name: "roles",
@@ -25,12 +25,12 @@ exports.default = new structures_1.NativeFunction({
             required: true,
             pointer: 0,
             type: structures_1.ArgType.Role,
-            description: "The roles to parse mentions for"
-        }
+            description: "The roles to parse mentions for",
+        },
     ],
     execute(ctx, [, roles]) {
         if (this.hasFields)
-            ctx.container.allowedMentions.roles = roles.map(x => x.id);
+            ctx.container.allowedMentions.roles = roles.map((x) => x.id);
         else
             ctx.container.parseMentions("roles");
         return this.success();

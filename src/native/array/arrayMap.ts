@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import parseJSON from "../../functions/parseJSON"
-import { ArgType, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
+import { ArgType, type IExtendedCompiledFunctionField, NativeFunction, type Return } from "../../structures"
 
 export default new NativeFunction({
     name: "$arrayMap",
@@ -60,7 +60,7 @@ export default new NativeFunction({
         const varName = variable.value as string
         const otherVarName = otherVariable.value as string | null
 
-        const newArr = new Array<unknown>()
+        const newArr: unknown[] = []
 
         if (Array.isArray(arr)) {
             for (let i = 0, len = arr.length; i < len; i++) {
@@ -74,8 +74,6 @@ export default new NativeFunction({
             }
         }
 
-        return otherVarName ? 
-            this.success(void ctx.setEnvironmentKey(otherVarName, newArr)) :
-            this.successJSON(newArr)
+        return otherVarName ? this.success(void ctx.setEnvironmentKey(otherVarName, newArr)) : this.successJSON(newArr)
     },
 })

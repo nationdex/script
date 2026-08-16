@@ -1,11 +1,11 @@
-import { AnySelectMenuInteraction, AutoModerationActionExecution, AutoModerationActionOptions, AutoModerationTriggerMetadataOptions, BaseChannel, ChatInputCommandInteraction, ContextMenuCommandInteraction, Emoji, Entitlement, Guild, GuildMember, GuildScheduledEventEntityMetadataOptions, Interaction, LabelBuilder, MediaGalleryBuilder, Message, MessageReaction, OverwriteResolvable, Role, SectionBuilder, SoundboardSound, Sticker, Subscription, User, VoiceBasedChannel } from "discord.js";
-import { CompiledFunction, IExtendedCompiledFunctionField } from "./CompiledFunction";
-import { Container, Sendable } from "./Container";
-import { IArg, UnwrapArgs } from "./NativeFunction";
+import { type AnySelectMenuInteraction, AutoModerationActionExecution, type AutoModerationActionOptions, type AutoModerationTriggerMetadataOptions, BaseChannel, type ChatInputCommandInteraction, type ContextMenuCommandInteraction, Emoji, Entitlement, Guild, GuildMember, type GuildScheduledEventEntityMetadataOptions, type Interaction, type LabelBuilder, type MediaGalleryBuilder, Message, MessageReaction, type OverwriteResolvable, Role, type SectionBuilder, SoundboardSound, Sticker, Subscription, User, type VoiceBasedChannel } from "discord.js";
+import type { FormData, Headers } from "undici";
+import type { IRunnable } from "../../core/Interpreter";
+import type { CompiledFunction, IExtendedCompiledFunctionField } from "./CompiledFunction";
+import { Container, type Sendable } from "./Container";
+import type { IArg, UnwrapArgs } from "./NativeFunction";
 import { Return } from "./Return";
-import { IRunnable } from "../../core/Interpreter";
-import { FormData, Headers } from "undici";
-export type ExpectCallback<T extends [...IArg[]], Unwrap extends boolean> = (args: UnwrapArgs<T>) => Promise<Return> | Return;
+export type ExpectCallback<T extends [...IArg[]], _Unwrap extends boolean> = (args: UnwrapArgs<T>) => Promise<Return> | Return;
 export declare enum HTTPContentType {
     Json = 0,
     Text = 1
@@ -117,7 +117,7 @@ export declare class Context {
     get interaction(): Interaction | null;
     get user(): User | null;
     get guild(): Guild | null;
-    get channel(): BaseChannel | import("discord.js").CategoryChannel | import("discord.js").NewsChannel | import("discord.js").StageChannel | import("discord.js").TextChannel | import("discord.js").PublicThreadChannel<boolean> | import("discord.js").PrivateThreadChannel | import("discord.js").VoiceChannel | import("discord.js").ForumChannel | import("discord.js").MediaChannel | null;
+    get channel(): import("discord.js").CategoryChannel | import("discord.js").NewsChannel | import("discord.js").StageChannel | import("discord.js").TextChannel | import("discord.js").PublicThreadChannel<boolean> | import("discord.js").PrivateThreadChannel | import("discord.js").VoiceChannel | import("discord.js").ForumChannel | import("discord.js").MediaChannel | BaseChannel | null;
     handle<Args extends [...IArg[]], Unwrap extends boolean>(fn: CompiledFunction<Args, Unwrap>, cb: ExpectCallback<Args, Unwrap>): Promise<Return>;
     alert(content: string): Promise<unknown>;
     handleNotSuccess(fn: CompiledFunction, rt: Return): boolean;

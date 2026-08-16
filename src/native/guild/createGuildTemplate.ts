@@ -1,17 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$createGuildTemplate",
     version: "1.5.0",
     description: "Creates template for a guild, returns template code",
-    aliases: [
-        "$createServerTemplate"
-    ],
+    aliases: ["$createServerTemplate"],
     unwrap: true,
     brackets: true,
     args: [

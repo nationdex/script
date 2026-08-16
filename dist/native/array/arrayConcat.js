@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -29,16 +29,14 @@ exports.default = new structures_1.NativeFunction({
     output: structures_1.ArgType.Json,
     brackets: true,
     execute(ctx, [name, variables]) {
-        const arr = new Array();
+        const arr = [];
         for (let i = 0, len = variables.length; i < len; i++) {
             const v = variables[i];
             const load = ctx.getEnvironmentKey(v);
             if (Array.isArray(load))
                 arr.push(...load);
         }
-        return name ?
-            this.success(void ctx.setEnvironmentKey(name, arr)) :
-            this.successJSON(arr);
+        return name ? this.success(void ctx.setEnvironmentKey(name, arr)) : this.successJSON(arr);
     },
 });
 //# sourceMappingURL=arrayConcat.js.map

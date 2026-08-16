@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { Sticker, StickerFormatType } from "discord.js"
+import { type Sticker, StickerFormatType } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum StickerProperty {
@@ -18,7 +18,7 @@ export enum StickerProperty {
     tags = "tags",
     sortValue = "sortValue",
     packID = "packID",
-    description = "description"
+    description = "description",
 }
 
 export const StickerProperties = defineProperties<typeof StickerProperty, Sticker>({
@@ -28,10 +28,10 @@ export const StickerProperties = defineProperties<typeof StickerProperty, Sticke
     name: (i) => i?.name,
     url: (i) => i?.url,
     timestamp: (i) => i?.createdTimestamp,
-    format: i => StickerFormatType[i?.format!],
-    available: i => i?.available,
-    description: i => i?.description,
-    tags: (i, sep) => i?.tags,
-    sortValue: i => i?.sortValue,
-    packID: i => i?.packId
+    format: (i) => StickerFormatType[i?.format!],
+    available: (i) => i?.available,
+    description: (i) => i?.description,
+    tags: (i, _sep) => i?.tags,
+    sortValue: (i) => i?.sortValue,
+    packID: (i) => i?.packId,
 })

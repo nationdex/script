@@ -1,11 +1,11 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
 const parseSingleEmoji_1 = require("../../functions/parseSingleEmoji");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$createForumTag",
     version: "2.5.0",
@@ -39,7 +39,7 @@ exports.default = new structures_1.NativeFunction({
             description: "Whether the tag can only be applied by mods",
             rest: false,
             type: structures_1.ArgType.Boolean,
-        }
+        },
     ],
     output: structures_1.ArgType.ForumTag,
     async execute(ctx, [channel, name, emoji, mod]) {
@@ -47,7 +47,7 @@ exports.default = new structures_1.NativeFunction({
         const tag = {
             name,
             emoji: (0, parseSingleEmoji_1.parseSingleEmoji)(ctx, emoji),
-            moderated: mod || undefined
+            moderated: mod || undefined,
         };
         return this.success((await forum.setAvailableTags([...forum.availableTags, tag]).catch(ctx.noop))?.availableTags.at(-1)?.id);
     },

@@ -1,17 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$syncGuildTemplate",
     version: "2.4.0",
     description: "Syncs this template to the current state of the guild, returns bool",
-    aliases: [
-        "$syncServerTemplate"
-    ],
+    aliases: ["$syncServerTemplate"],
     unwrap: true,
     brackets: true,
     args: [
@@ -20,7 +18,7 @@ export default new NativeFunction({
             description: "The code of the template to sync",
             rest: false,
             required: true,
-            type: ArgType.Template
+            type: ArgType.Template,
         },
     ],
     output: ArgType.Boolean,

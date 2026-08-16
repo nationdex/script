@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction } from "../../structures"
 import { WebSocket } from "ws"
+import { ArgType, NativeFunction } from "../../structures"
 
 let IncrementalWebsocketIds = 0
 
@@ -12,9 +12,7 @@ export default new NativeFunction({
     name: "$ws",
     version: "1.5.0",
     description: "Creates a WebSocket connection to a server",
-    aliases: [
-        "$websocket"
-    ],
+    aliases: ["$websocket"],
     brackets: true,
     unwrap: true,
     args: [
@@ -23,11 +21,11 @@ export default new NativeFunction({
             description: "The WS host, formatted as wss://hostname:port",
             rest: false,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     output: ArgType.Number,
-    execute(ctx, [ host ]) {
+    execute(ctx, [host]) {
         const ws = new WebSocket(host)
         const id = ++IncrementalWebsocketIds
 

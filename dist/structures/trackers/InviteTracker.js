@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -10,9 +10,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.InviteTracker = void 0;
 const discord_js_1 = require("discord.js");
 const noop_1 = __importDefault(require("../../functions/noop"));
-const ForgeError_1 = require("../forge/ForgeError");
 const managers_1 = require("../../managers");
 const Logger_1 = require("../@internal/Logger");
+const ForgeError_1 = require("../forge/ForgeError");
 class InviteTracker {
     static Invites = new discord_js_1.Collection();
     static RequiredIntents = ["Guilds", "GuildInvites", "GuildMembers"];
@@ -31,29 +31,29 @@ class InviteTracker {
     static Inviters = new discord_js_1.Collection();
     static init(client) {
         if (!client.options.intents.has(InviteTracker.RequiredIntents))
-            throw new ForgeError_1.ForgeError(null, ForgeError_1.ErrorType.Custom, `The next intents must be enabled: ${this.RequiredIntents.join(", ")}`);
-        client.events.load(managers_1.NativeEventName, this.RequiredEvents);
+            throw new ForgeError_1.ForgeError(null, ForgeError_1.ErrorType.Custom, `The next intents must be enabled: ${InviteTracker.RequiredIntents.join(", ")}`);
+        client.events.load(managers_1.NativeEventName, InviteTracker.RequiredEvents);
         Logger_1.Logger.warn("The Invite Tracker is still beta, correct functionality is not guaranteed");
     }
     static hasPermissions(guild) {
         return guild.members.me.permissions.has("ManageGuild");
     }
     static uncache(guild) {
-        this.Invites.delete(guild.id);
-        this.Inviters.delete(guild.id);
+        InviteTracker.Invites.delete(guild.id);
+        InviteTracker.Inviters.delete(guild.id);
     }
     static async cacheAll(client) {
         for (const [, guild] of client.guilds.cache) {
-            await this.cache(guild);
+            await InviteTracker.cache(guild);
         }
     }
     static async cache(guild) {
-        const invites = this.hasPermissions(guild) ? await guild.invites.fetch().catch(noop_1.default) : undefined;
+        const invites = InviteTracker.hasPermissions(guild) ? await guild.invites.fetch().catch(noop_1.default) : undefined;
         if (!invites) {
             Logger_1.Logger.warn(`Failed to cache invites for guild ${guild.name}.`);
             return;
         }
-        const arr = new Array();
+        const arr = [];
         for (const [, invite] of invites) {
             if (invite.uses === null || invite.inviterId === null)
                 continue;
@@ -63,10 +63,10 @@ class InviteTracker {
                 userId: invite.inviterId,
             });
         }
-        this.Invites.set(guild.id, arr);
+        InviteTracker.Invites.set(guild.id, arr);
     }
     static async inviteCreateHandler(invite) {
-        const invites = this.Invites.get(invite.guild?.id);
+        const invites = InviteTracker.Invites.get(invite.guild?.id);
         if (invites !== undefined) {
             invites.push({
                 code: invite.code,
@@ -76,10 +76,10 @@ class InviteTracker {
             return;
         }
         // Cache
-        await this.cache(invite.guild);
+        await InviteTracker.cache(invite.guild);
     }
     static async inviteDeleteHandler(invite) {
-        const invites = this.Invites.get(invite.guild?.id);
+        const invites = InviteTracker.Invites.get(invite.guild?.id);
         if (!invites)
             return;
         const index = invites.findIndex((x) => x.code === invite.code);
@@ -87,12 +87,12 @@ class InviteTracker {
             invites.splice(index, 1);
     }
     static deleteInviter(member) {
-        this.Inviters.get(member.guild.id)?.delete(member.id);
+        InviteTracker.Inviters.get(member.guild.id)?.delete(member.id);
     }
     static async findInviter(member) {
         const guild = member.guild;
         const newInvites = await guild.invites.fetch().catch(noop_1.default);
-        const oldInvites = this.Invites.get(guild.id);
+        const oldInvites = InviteTracker.Invites.get(guild.id);
         if (!newInvites || !oldInvites) {
             Logger_1.Logger.warn(`Failed to cache invites for guild ${guild.name}.`);
             return;
@@ -112,7 +112,7 @@ class InviteTracker {
             }
         }
         if (used !== null) {
-            const invitedUsers = this.Inviters.ensure(guild.id, () => new discord_js_1.Collection());
+            const invitedUsers = InviteTracker.Inviters.ensure(guild.id, () => new discord_js_1.Collection());
             invitedUsers.set(member.id, {
                 code: used.code,
                 inviterId: used.userId,

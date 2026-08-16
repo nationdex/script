@@ -1,10 +1,10 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs_1 = require("fs");
+const node_fs_1 = require("node:fs");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$readFile",
@@ -28,8 +28,8 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.String,
         },
     ],
-    execute(ctx, [path, encoding]) {
-        const txt = (0, fs_1.readFileSync)(path, { encoding: encoding || "utf-8" });
+    execute(_ctx, [path, encoding]) {
+        const txt = (0, node_fs_1.readFileSync)(path, { encoding: encoding || "utf-8" });
         return this.success(txt);
     },
 });

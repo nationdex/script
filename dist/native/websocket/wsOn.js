@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -14,9 +14,7 @@ exports.default = new structures_1.NativeFunction({
     version: "1.5.0",
     description: "Attach a listener to a websocket",
     unwrap: false,
-    aliases: [
-        "$websocketOn"
-    ],
+    aliases: ["$websocketOn"],
     brackets: true,
     args: [
         {
@@ -24,29 +22,29 @@ exports.default = new structures_1.NativeFunction({
             description: "The id of the websocket to attach this listener to",
             rest: false,
             required: true,
-            type: structures_1.ArgType.Number
+            type: structures_1.ArgType.Number,
         },
         {
             name: "listener name",
             description: "The name of the event to listen to",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
         {
             name: "callback",
             description: "The code to execute every time this event is fired",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
         {
             name: "params",
             description: "The arguments that will contain the data of the event that was sent",
             rest: true,
             required: true,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
     async execute(ctx) {
         const { args, return: rt } = await this["resolveMultipleArgs"](ctx, 0, 1, 3);

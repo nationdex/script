@@ -1,12 +1,12 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { Worker } from "worker_threads"
-import { ForgeClient, IRunnable } from "../core"
-import { Logger } from "../structures/@internal/Logger"
+import type { Worker } from "node:worker_threads"
+import type { ForgeClient, IRunnable } from "../core"
 import { spawn } from "../functions/thread"
+import { Logger } from "../structures/@internal/Logger"
 
 export interface IThreadContext {
     code: string
@@ -36,14 +36,14 @@ export class ThreadManager {
 
     private increment = 0
 
-    public constructor(private readonly client: ForgeClient) { }
+    public constructor(private readonly client: ForgeClient) {}
 
     public async run(ctx: IThreadContext) {
-        return new Promise<string | null>(resolve => {
+        return new Promise<string | null>((resolve) => {
             this.enqueue({
                 id: this.getNextTaskId(),
                 context: ctx,
-                resolve
+                resolve,
             })
         })
     }
@@ -66,7 +66,7 @@ export class ThreadManager {
 
             worker!.postMessage({
                 ...task.context,
-                taskId: task.id
+                taskId: task.id,
             })
         }
     }

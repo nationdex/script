@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -36,10 +36,12 @@ exports.default = new structures_1.NativeFunction({
     output: structures_1.ArgType.ApplicationEmoji,
     async execute(ctx, [name, icon, returnEmojiID]) {
         returnEmojiID ??= true;
-        const emoji = await ctx.client.application.emojis.create({
+        const emoji = await ctx.client.application.emojis
+            .create({
             name: name,
-            attachment: icon
-        }).catch(ctx.noop);
+            attachment: icon,
+        })
+            .catch(ctx.noop);
         return this.success(returnEmojiID && emoji ? emoji.id : undefined);
     },
 });

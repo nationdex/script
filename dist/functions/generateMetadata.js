@@ -1,34 +1,36 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = default_1;
-const fs_1 = require("fs");
+const node_fs_1 = require("node:fs");
+const node_path_1 = require("node:path");
+const node_process_1 = require("node:process");
 const managers_1 = require("../managers");
 const structures_1 = require("../structures");
 const enum_1 = require("./enum");
-const path_1 = require("path");
-const process_1 = require("process");
 const FunctionNameRegex = /(name: "\$?(\w+)"),?/m;
 const FunctionCategoryRegex = /\r?\n(.*)(category: "\$?(\w+)"),?/m;
 const ArgEnumRegex = /(?:enum: +(\w+),?|Arg\.(?:\w+)Enum\([\r\n\t ]*(\w+))/gim;
 const OutputRegex = /output:(array(<[A-Za-z.]+>)?\((\w+)?\)|(\w+)|ArgType.(\w+)|\[((array(<[A-Za-z.]+>)?\(\w*\)|\w+|ArgType\.\w+),?)+\]),/im;
 const translations = {
     functions: {},
-    events: {}
+    events: {},
 };
 function getOutputValues(fn, txt, enums) {
-    const output = OutputRegex.exec(txt.replace(/[^0-9A-Za-z:,.[\]<>()|]/gm, ""))?.[1].replace(/[[\]]/g, "").trim();
+    const output = OutputRegex.exec(txt.replace(/[^0-9A-Za-z:,.[\]<>()|]/gm, ""))?.[1]
+        .replace(/[[\]]/g, "")
+        .trim();
     if (!output) {
         if (fn.output) {
             structures_1.Logger.error(`OUTPUT LOOKUP FAILURE: in ${fn.name}, out: ${output}`);
-            (0, process_1.exit)();
+            (0, node_process_1.exit)();
         }
         return null;
     }
-    const arr = new Array();
+    const arr = [];
     let i = 0;
     for (const out of output.split(/,/)) {
         const arrMatch = /array(?:<(.*)>)?\((\w+)?\)/gim.exec(out);
@@ -60,27 +62,29 @@ function getOutputValues(fn, txt, enums) {
 }
 async function default_1(functionsAbsolutePath, mainCategoryName, eventName, warnOnNoOutput = false, expose, eventsAbsolutePath, 
 /** @deprecated This parameter is no longer being used. */
-translate = []) {
+_translate = []) {
     let total = 0;
     const enums = {};
     if (expose?.length)
-        Object.entries(expose).forEach(x => enums[x[0]] = (0, enum_1.enumToArray)(x[1]));
+        Object.entries(expose).forEach((x) => (enums[x[0]] = (0, enum_1.enumToArray)(x[1])));
     structures_1.Logger.info(`Loading functions from ${functionsAbsolutePath}`);
     managers_1.FunctionManager.load("Metadata", functionsAbsolutePath);
     structures_1.Logger.info(`Loaded ${managers_1.FunctionManager["Functions"].size} functions`);
     const metaOutPath = "./metadata";
-    if (!(0, fs_1.existsSync)(metaOutPath))
-        (0, fs_1.mkdirSync)(metaOutPath);
-    const toSrcPath = (absPath) => (0, path_1.relative)((0, process_1.cwd)(), absPath).replace(/\\/g, "/").replace(/^dist\//, "src/");
-    (0, fs_1.writeFileSync)((0, path_1.join)(metaOutPath, "paths.json"), JSON.stringify({
+    if (!(0, node_fs_1.existsSync)(metaOutPath))
+        (0, node_fs_1.mkdirSync)(metaOutPath);
+    const toSrcPath = (absPath) => (0, node_path_1.relative)((0, node_process_1.cwd)(), absPath)
+        .replace(/\\/g, "/")
+        .replace(/^dist\//, "src/");
+    (0, node_fs_1.writeFileSync)((0, node_path_1.join)(metaOutPath, "paths.json"), JSON.stringify({
         functions: toSrcPath(functionsAbsolutePath),
-        ...(eventsAbsolutePath && { events: toSrcPath(eventsAbsolutePath) })
+        ...(eventsAbsolutePath && { events: toSrcPath(eventsAbsolutePath) }),
     }), "utf-8");
-    const v = require((0, process_1.cwd)() + "/package.json").version;
+    const v = require(`${(0, node_process_1.cwd)()}/package.json`).version;
     if (mainCategoryName) {
         for (const [, fn] of managers_1.FunctionManager["Functions"]) {
             const nativePath = fn.path.replace(".js", ".ts").replace("dist", "src");
-            let txt = (0, fs_1.readFileSync)(nativePath, "utf-8");
+            let txt = (0, node_fs_1.readFileSync)(nativePath, "utf-8");
             const enumNames = Array.from(txt.matchAll(ArgEnumRegex));
             if (enumNames.length) {
                 let i = 0;
@@ -110,7 +114,7 @@ translate = []) {
             if (category)
                 Reflect.set(fn.data, "category", category);
             if (txt.includes("category: ")) {
-                structures_1.Logger.warn("Deleting category block from " + fn.name);
+                structures_1.Logger.warn(`Deleting category block from ${fn.name}`);
                 txt = txt.replace(FunctionCategoryRegex, "");
                 modified = true;
             }
@@ -120,14 +124,14 @@ translate = []) {
                 modified = true;
             }
             if (modified)
-                (0, fs_1.writeFileSync)(nativePath, txt);
+                (0, node_fs_1.writeFileSync)(nativePath, txt);
             const func = {};
             func.description = fn.data.description;
             if (fn.data.args?.length) {
                 func.args = {};
                 for (const arg of fn.data.args) {
                     func.args[arg.name] = {
-                        description: arg.description
+                        description: arg.description,
                     };
                 }
                 if (!Object.keys(func.args).length)
@@ -137,8 +141,8 @@ translate = []) {
         }
         if (warnOnNoOutput)
             structures_1.Logger.warn(`${total.toLocaleString()} functions are missing output value`);
-        (0, fs_1.writeFileSync)((0, path_1.join)(metaOutPath, "enums.json"), JSON.stringify(enums), "utf-8");
-        (0, fs_1.writeFileSync)((0, path_1.join)(metaOutPath, "functions.json"), JSON.stringify(managers_1.FunctionManager.toJSON()));
+        (0, node_fs_1.writeFileSync)((0, node_path_1.join)(metaOutPath, "enums.json"), JSON.stringify(enums), "utf-8");
+        (0, node_fs_1.writeFileSync)((0, node_path_1.join)(metaOutPath, "functions.json"), JSON.stringify(managers_1.FunctionManager.toJSON()));
     }
     if (eventName) {
         if (!eventsAbsolutePath)
@@ -149,25 +153,25 @@ translate = []) {
         structures_1.Logger.info(`Loaded ${events.length} events from ${eventsAbsolutePath}`);
         for (const event of events) {
             const nativePath = `${eventsAbsolutePath.replace("dist", "src")}/${event.name}.ts`;
-            const txt = (0, fs_1.readFileSync)(nativePath, "utf-8");
+            const txt = (0, node_fs_1.readFileSync)(nativePath, "utf-8");
             if (!event.data.version) {
                 event.data.version = v;
-                (0, fs_1.writeFileSync)(nativePath, txt.replace(FunctionNameRegex, `$1,\n    version: "${v}",`));
+                (0, node_fs_1.writeFileSync)(nativePath, txt.replace(FunctionNameRegex, `$1,\n    version: "${v}",`));
             }
             const ev = {};
             ev.description = event.data.description;
             translations.events[event.name] = ev;
         }
-        (0, fs_1.writeFileSync)((0, path_1.join)(metaOutPath, "events.json"), JSON.stringify(managers_1.EventManager.toJSON(eventName)));
+        (0, node_fs_1.writeFileSync)((0, node_path_1.join)(metaOutPath, "events.json"), JSON.stringify(managers_1.EventManager.toJSON(eventName)));
     }
-    const transOutPath = (0, path_1.join)(metaOutPath, "translations");
-    if (!(0, fs_1.existsSync)(transOutPath))
-        (0, fs_1.mkdirSync)(transOutPath, { recursive: true });
-    const transFile = (0, path_1.join)(transOutPath, "en.json");
+    const transOutPath = (0, node_path_1.join)(metaOutPath, "translations");
+    if (!(0, node_fs_1.existsSync)(transOutPath))
+        (0, node_fs_1.mkdirSync)(transOutPath, { recursive: true });
+    const transFile = (0, node_path_1.join)(transOutPath, "en.json");
     const json = JSON.stringify(translations);
-    if (!(0, fs_1.existsSync)(transFile) || (0, fs_1.readFileSync)(transFile, "utf8") !== json) {
+    if (!(0, node_fs_1.existsSync)(transFile) || (0, node_fs_1.readFileSync)(transFile, "utf8") !== json) {
         structures_1.Logger.info("Writing translation metadata...");
-        (0, fs_1.writeFileSync)(transFile, json, "utf8");
+        (0, node_fs_1.writeFileSync)(transFile, json, "utf8");
     }
     /* Deprecated.
     if (translate.length) {

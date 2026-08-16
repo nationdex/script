@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -19,10 +19,10 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Json,
-        }
+        },
     ],
     output: ArgType.Boolean,
-    execute(ctx, [ arr ]) {
+    execute(_ctx, [arr]) {
         return this.success(Array.isArray(arr))
     },
 })

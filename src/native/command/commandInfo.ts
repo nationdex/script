@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ClientEvents, Events } from "discord.js"
-import { ArgType, Context, NativeFunction, Return } from "../../structures"
+import type { ClientEvents } from "discord.js"
+import { ArgType, Context, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$commandInfo",
@@ -33,11 +33,14 @@ export default new NativeFunction({
             description: "The property to retrieve",
             rest: true,
             type: ArgType.String,
-        }
+        },
     ],
     execute(ctx, [type, name, props]) {
-        const cmd = ctx.client.commands.get(type as keyof ClientEvents, (x) => x.name === name || !!x.data.aliases?.includes(name))[0]
-        if (!cmd) return this.success()    
+        const cmd = ctx.client.commands.get(
+            type as keyof ClientEvents,
+            (x) => x.name === name || !!x.data.aliases?.includes(name)
+        )[0]
+        if (!cmd) return this.success()
         return this.successJSON(Context.traverseGetValue(cmd.data, ...props))
     },
 })

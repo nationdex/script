@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, DefaultReactionEmoji, ThreadOnlyChannel } from "discord.js"
-import { ArgType, NativeFunction } from "../../structures"
+import type { BaseChannel, DefaultReactionEmoji, ThreadOnlyChannel } from "discord.js"
 import { parseSingleEmoji } from "../../functions/parseSingleEmoji"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setDefaultReactionEmoji",
@@ -20,7 +20,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => i.isThreadOnly()
+            check: (i: BaseChannel) => i.isThreadOnly(),
         },
         {
             name: "emoji",
@@ -32,14 +32,15 @@ export default new NativeFunction({
             name: "reason",
             description: "The reason for modifying default emoji",
             rest: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     output: ArgType.Boolean,
-    async execute(ctx, [ chan, emoji, reason ]) {
-        return this.success(!!(await (chan as ThreadOnlyChannel).setDefaultReactionEmoji(
-            parseSingleEmoji(ctx, emoji) as DefaultReactionEmoji,
-            reason || ctx.reason
-        ).catch(ctx.noop)))
+    async execute(ctx, [chan, emoji, reason]) {
+        return this.success(
+            !!(await (chan as ThreadOnlyChannel)
+                .setDefaultReactionEmoji(parseSingleEmoji(ctx, emoji) as DefaultReactionEmoji, reason || ctx.reason)
+                .catch(ctx.noop))
+        )
     },
 })

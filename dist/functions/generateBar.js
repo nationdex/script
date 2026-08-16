@@ -1,13 +1,13 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateBar = generateBar;
 exports.generateAdvancedBar = generateAdvancedBar;
 function generateBar(current, max, len = 10, fill = "█", empty = "▒", round = true, fillStart = "", fillEnd = "", emptyStart = "", emptyEnd = "") {
-    let fillN = Math[round ? "round" : "trunc"](Math.min(Math.max(current, 0), max) / max * len);
+    let fillN = Math[round ? "round" : "trunc"]((Math.min(Math.max(current, 0), max) / max) * len);
     let emptyN = len - fillN;
     let start = "", end = "";
     if (len > 1) {
@@ -37,7 +37,7 @@ function generateAdvancedBar(current, max, len = 10, data) {
     const portion = max / len;
     while (len--) {
         const diff = Math.max(current, 0) / portion;
-        out += (current -= portion, data.find((x, i) => diff <= (i + 1) / data.length) ?? data.at(-1));
+        out += ((current -= portion), data.find((_x, i) => diff <= (i + 1) / data.length) ?? data.at(-1));
     }
     return out;
 }

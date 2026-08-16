@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, TextChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel, TextChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$createInvite",
@@ -38,8 +38,8 @@ export default new NativeFunction({
             name: "reason",
             description: "The reason for creating this invite",
             rest: false,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
     async execute(ctx, [ch, maxUses, maxAge, reason]) {
         const channel = (ch ?? ctx.channel) as TextChannel
@@ -47,8 +47,8 @@ export default new NativeFunction({
             .createInvite({
                 reason: reason || ctx.reason,
                 maxUses: maxUses || undefined,
-                maxAge: typeof(maxAge) === "number" ? maxAge : undefined,
-                unique: true
+                maxAge: typeof maxAge === "number" ? maxAge : undefined,
+                unique: true,
             })
             .catch(ctx.noop)
         return this.success(invite ? invite.code : undefined)

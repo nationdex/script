@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -32,7 +32,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The property to retrieve",
             rest: true,
             type: structures_1.ArgType.String,
-        }
+        },
     ],
     execute(ctx, [type, name, props]) {
         const cmd = ctx.client.commands.get(type, (x) => x.name === name || !!x.data.aliases?.includes(name))[0];

@@ -1,4 +1,4 @@
-import { ReturnType } from "./Return";
+import type { ReturnType } from "./Return";
 export declare class Output<R extends [...ReturnType[]]> {
     readonly types: R;
     constructor(types: R);

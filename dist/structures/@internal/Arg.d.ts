@@ -1,4 +1,4 @@
-import { ArgType, EnumLike, IArg } from "./NativeFunction";
+import { ArgType, type EnumLike, type IArg } from "./NativeFunction";
 export declare class Arg {
     private constructor();
     static optionalString(name?: string, desc?: string): IArg<ArgType.String, boolean, false, EnumLike>;

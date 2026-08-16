@@ -1,18 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$voiceID",
     version: "1.0.3",
     description: "Returns the voice channel id a member is connected to",
     unwrap: true,
-    aliases: [
-        "$memberVoiceID"
-    ],
+    aliases: ["$memberVoiceID"],
     brackets: false,
     output: ArgType.Channel,
     args: [

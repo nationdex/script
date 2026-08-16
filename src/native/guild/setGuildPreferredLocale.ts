@@ -1,19 +1,17 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { Locale } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setGuildPreferredLocale",
     version: "2.1.0",
     description: "Sets the preferred locale of a guild, returns bool",
     unwrap: true,
-    aliases: [
-        "$setServerPreferredLocale"
-    ],
+    aliases: ["$setServerPreferredLocale"],
     output: ArgType.Boolean,
     args: [
         {
@@ -28,7 +26,7 @@ export default new NativeFunction({
             description: "The new preferred locale",
             rest: false,
             type: ArgType.Enum,
-            enum: Locale
+            enum: Locale,
         },
         {
             name: "reason",
@@ -39,6 +37,8 @@ export default new NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, locale, reason]) {
-        return this.success((await guild.setPreferredLocale(locale || null, reason || ctx.reason).catch(() => false)) !== false)
+        return this.success(
+            (await guild.setPreferredLocale(locale || null, reason || ctx.reason).catch(() => false)) !== false
+        )
     },
 })

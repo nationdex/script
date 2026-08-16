@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -19,6 +19,6 @@ var TeamMemberProperty;
 exports.TeamMemberProperties = (0, defineProperties_1.default)({
     id: (i) => i?.id,
     role: (i) => Object.entries(discord_js_1.TeamMemberRole).find(([, x]) => x === i?.role)?.[0],
-    membership: (i) => discord_js_1.TeamMemberMembershipState[i?.membershipState]
+    membership: (i) => discord_js_1.TeamMemberMembershipState[i?.membershipState],
 });
 //# sourceMappingURL=teamMember.js.map

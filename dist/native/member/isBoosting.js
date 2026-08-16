@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -10,11 +10,7 @@ exports.default = new structures_1.NativeFunction({
     name: "$isBoosting",
     description: "Returns whether this member is boosting",
     version: "1.5.0",
-    aliases: [
-        "$isBooster",
-        "$memberIsBooster",
-        "$memberIsBoosting"
-    ],
+    aliases: ["$isBooster", "$memberIsBooster", "$memberIsBoosting"],
     brackets: false,
     unwrap: true,
     output: structures_1.ArgType.Boolean,
@@ -37,7 +33,9 @@ exports.default = new structures_1.NativeFunction({
     ],
     execute(ctx, [, user]) {
         const member = user ?? ctx.member ?? ctx.interaction?.member;
-        return this.success(!!(member instanceof discord_js_1.GuildMember ? member?.premiumSince : ctx.interaction?.member?.premium_since));
+        return this.success(!!(member instanceof discord_js_1.GuildMember
+            ? member?.premiumSince
+            : ctx.interaction?.member?.premium_since));
     },
 });
 //# sourceMappingURL=isBoosting.js.map

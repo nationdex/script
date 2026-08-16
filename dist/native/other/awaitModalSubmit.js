@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -18,22 +18,22 @@ exports.default = new structures_1.NativeFunction({
             description: "The modal's custom id to wait for",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
         {
             name: "success code",
             description: "The code to execute on success, this is called with interaction context",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
+            type: structures_1.ArgType.String,
         },
         {
             name: "time",
             rest: false,
             required: true,
             type: structures_1.ArgType.Time,
-            description: "The max time to wait for a component"
-        }
+            description: "The max time to wait for a component",
+        },
     ],
     async execute(ctx) {
         if (!ctx.interaction || !("awaitModalSubmit" in ctx.interaction))
@@ -42,10 +42,12 @@ exports.default = new structures_1.NativeFunction({
         if (!this["isValidReturnType"](rt))
             return rt;
         const [id, time] = args;
-        const int = await ctx.interaction.awaitModalSubmit({
+        const int = await ctx.interaction
+            .awaitModalSubmit({
             time,
-            filter: i => i.customId === id
-        }).catch(ctx.noop);
+            filter: (i) => i.customId === id,
+        })
+            .catch(ctx.noop);
         if (int) {
             const rt = await this["resolveCode"](ctx.clone({ obj: int }), this.data.fields[0]);
             if (!this["isValidReturnType"](rt))

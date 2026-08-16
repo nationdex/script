@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isTopLevel = isTopLevel;
 exports.buildActionRow = buildActionRow;
@@ -34,7 +34,7 @@ const TopLevelComponentBuilders = {
  * @returns
  */
 function isTopLevel(type, actionRow = true) {
-    return (type in TopLevelComponentBuilders) && (actionRow || type !== discord_js_1.ComponentType.ActionRow);
+    return type in TopLevelComponentBuilders && (actionRow || type !== discord_js_1.ComponentType.ActionRow);
 }
 /**
  * Builds a message component for action rows.
@@ -63,7 +63,7 @@ function buildComponent(comp, ctx) {
  * @returns
  */
 function getLastComponent(ctx) {
-    return (ctx.component.label?.data.component ?? ctx.container.actionRow?.components[0]);
+    return ctx.component.label?.data.component ?? ctx.container.actionRow?.components[0];
 }
 /**
  * Adds an action row to the components. This is mostly needed inside ComponentsV2 functions.

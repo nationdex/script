@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -19,7 +19,7 @@ class EventManager {
         this.client = client;
     }
     static loadNative() {
-        EventManager.load(exports.NativeEventName, __dirname + "/../handlers/events");
+        EventManager.load(exports.NativeEventName, `${__dirname}/../handlers/events`);
     }
     load(name, ...events) {
         for (const eventType of events.flat()) {
@@ -35,14 +35,14 @@ class EventManager {
         }
     }
     static load(name, path) {
-        this.Loaded[name] = {};
+        EventManager.Loaded[name] = {};
         for (const file of (0, recursiveReaddirSync_1.default)(path).filter((x) => x.endsWith(".js"))) {
             const req = require(file).default;
-            this.Loaded[name][req.name] = req;
+            EventManager.Loaded[name][req.name] = req;
         }
     }
     static toJSON(name) {
-        return Object.values(this.Loaded[name]).map((x) => ({ ...x.data }));
+        return Object.values(EventManager.Loaded[name]).map((x) => ({ ...x.data }));
     }
     has(handler, type) {
         return this.events.get(handler)?.has(type) ?? false;

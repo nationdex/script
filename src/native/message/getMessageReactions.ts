@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import array from "../../functions/array"
 import { ReactionProperties, ReactionProperty } from "../../properties/reaction"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$getMessageReactions",
@@ -35,7 +35,7 @@ export default new NativeFunction({
             description: "The property of the reactions to return",
             rest: false,
             type: ArgType.Enum,
-            enum: ReactionProperty
+            enum: ReactionProperty,
         },
         {
             name: "separator",
@@ -47,6 +47,10 @@ export default new NativeFunction({
     output: array<ArgType.Unknown>(),
     async execute(ctx, [, message, prop, sep]) {
         const reactions = (await (message ?? ctx.message)?.fetch().catch(ctx.noop))?.reactions.cache
-        return this.success(reactions?.map(reaction => ReactionProperties[prop || ReactionProperty.emoji](reaction, sep)).join(sep ?? ", "))
+        return this.success(
+            reactions
+                ?.map((reaction) => ReactionProperties[prop || ReactionProperty.emoji](reaction, sep))
+                .join(sep ?? ", ")
+        )
     },
 })

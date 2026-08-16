@@ -1,31 +1,31 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import {
     ActionRowBuilder,
     ButtonBuilder,
     ChannelSelectMenuBuilder,
-    CheckboxBuilder,
-    CheckboxGroupBuilder,
+    type CheckboxBuilder,
+    type CheckboxGroupBuilder,
     ComponentType,
     ContainerBuilder,
     FileBuilder,
-    FileUploadBuilder,
+    type FileUploadBuilder,
     MediaGalleryBuilder,
     MentionableSelectMenuBuilder,
-    MessageActionRowComponentBuilder,
-    RadioGroupBuilder,
+    type MessageActionRowComponentBuilder,
+    type RadioGroupBuilder,
     RoleSelectMenuBuilder,
     SectionBuilder,
     SeparatorBuilder,
     StringSelectMenuBuilder,
     TextDisplayBuilder,
-    TextInputBuilder,
-    UserSelectMenuBuilder
+    type TextInputBuilder,
+    UserSelectMenuBuilder,
 } from "discord.js"
-import { Context } from "../structures"
+import type { Context } from "../structures"
 
 const MessageComponentBuilders = {
     [ComponentType.Button as ComponentType]: ButtonBuilder,
@@ -50,16 +50,16 @@ const TopLevelComponentBuilders = {
  * Checks whether the specified component type is a top level component.
  * @param type The component type.
  * @param actionRow Whether to include action rows when checking. Defaults to `true`.
- * @returns 
+ * @returns
  */
 export function isTopLevel(type: ComponentType, actionRow: boolean = true) {
-    return (type in TopLevelComponentBuilders) && (actionRow || type !== ComponentType.ActionRow)
+    return type in TopLevelComponentBuilders && (actionRow || type !== ComponentType.ActionRow)
 }
 
 /**
  * Builds a message component for action rows.
  * @param comp The component data.
- * @returns 
+ * @returns
  */
 export function buildActionRow(comp: any) {
     const type = comp?.type as ComponentType
@@ -70,7 +70,7 @@ export function buildActionRow(comp: any) {
  * Builds a top level component.
  * @param comp The component data.
  * @param ctx The current context, if any.
- * @returns 
+ * @returns
  */
 export function buildComponent(comp: any, ctx?: Context) {
     const type = comp.type as ComponentType
@@ -81,17 +81,26 @@ export function buildComponent(comp: any, ctx?: Context) {
 /**
  * Gets the last component of the current label or action row.
  * @param ctx The current context.
- * @returns 
+ * @returns
  */
-export function getLastComponent(ctx: Context): MessageActionRowComponentBuilder | TextInputBuilder | CheckboxBuilder | CheckboxGroupBuilder | FileUploadBuilder | RadioGroupBuilder | undefined {
-    return (ctx.component.label?.data.component ?? ctx.container.actionRow?.components[0])
+export function getLastComponent(
+    ctx: Context
+):
+    | MessageActionRowComponentBuilder
+    | TextInputBuilder
+    | CheckboxBuilder
+    | CheckboxGroupBuilder
+    | FileUploadBuilder
+    | RadioGroupBuilder
+    | undefined {
+    return ctx.component.label?.data.component ?? ctx.container.actionRow?.components[0]
 }
 
 /**
  * Adds an action row to the components. This is mostly needed inside ComponentsV2 functions.
  * @param ctx The current context.
  * @param cv2 Whether to set the IsComponentsV2 flag. Defaults to `true`.
- * @returns 
+ * @returns
  */
 export function addActionRow(ctx: Context, cv2: boolean = true) {
     if (cv2) ctx.container.isComponentsV2 = true

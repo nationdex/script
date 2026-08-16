@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -19,20 +19,22 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.Channel,
             rest: false,
             required: true,
-            check: (i) => "clone" in i
+            check: (i) => "clone" in i,
         },
         {
             name: "name",
             description: "The name for the cloned channel",
             type: structures_1.ArgType.String,
             rest: false,
-        }
+        },
     ],
     async execute(ctx, [raw, name]) {
-        const channel = await raw.clone({
+        const channel = await raw
+            .clone({
             name: name || raw.name,
-            reason: ctx.reason
-        }).catch(ctx.noop);
+            reason: ctx.reason,
+        })
+            .catch(ctx.noop);
         return this.success(channel?.id);
     },
 });

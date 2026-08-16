@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 import { EmojiType } from "../emoji/emojiCount"
 
 export default new NativeFunction({
@@ -11,9 +11,7 @@ export default new NativeFunction({
     version: "1.0.0",
     description: "Returns the emoji count of a guild",
     brackets: false,
-    aliases: [
-        "$serverEmojiCount"
-    ],
+    aliases: ["$serverEmojiCount"],
     output: ArgType.Number,
     unwrap: true,
     args: [
@@ -29,19 +27,23 @@ export default new NativeFunction({
             description: "The type of the emotes to count",
             rest: false,
             type: ArgType.Enum,
-            enum: EmojiType
+            enum: EmojiType,
         },
     ],
     execute(ctx, [guild, type]) {
         guild ??= ctx.guild!
         const emojis = guild.emojis.cache
 
-        return this.success(!type ? emojis.size : emojis.filter(emoji =>
-            type === EmojiType.normal
-                ? !emoji.animated
-                : type === EmojiType.animated
-                    ? emoji.animated
-                    : (true as never)
-        ).size)
+        return this.success(
+            !type
+                ? emojis.size
+                : emojis.filter((emoji) =>
+                      type === EmojiType.normal
+                          ? !emoji.animated
+                          : type === EmojiType.animated
+                            ? emoji.animated
+                            : (true as never)
+                  ).size
+        )
     },
 })

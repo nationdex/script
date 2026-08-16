@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -35,7 +35,7 @@ exports.default = new structures_1.NativeFunction({
             required: true,
             description: "The index to get sticker",
             type: structures_1.ArgType.Number,
-        }
+        },
     ],
     execute(ctx, [, message, index]) {
         return this.success((message ?? ctx.message)?.stickers.at(index)?.url);

@@ -1,17 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setGuildBoostProgressBar",
     version: "1.5.0",
     description: "Sets a guild boost progress bar, returns bool",
-    aliases: [
-        "$setServerBoostProgressBar"
-    ],
+    aliases: ["$setServerBoostProgressBar"],
     unwrap: true,
     brackets: true,
     args: [
@@ -38,6 +36,8 @@ export default new NativeFunction({
     ],
     output: ArgType.Boolean,
     async execute(ctx, [guild, enabled, reason]) {
-        return this.success((await guild.setPremiumProgressBarEnabled(enabled, reason || ctx.reason).catch(() => false)) !== false)
+        return this.success(
+            (await guild.setPremiumProgressBarEnabled(enabled, reason || ctx.reason).catch(() => false)) !== false
+        )
     },
 })

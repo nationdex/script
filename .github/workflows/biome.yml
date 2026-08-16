@@ -1,10 +1,10 @@
-name: lint
+name: biome
 on:
   pull_request:
   push:
 jobs:
-  lint:
-    name: Run Linters
+  biome:
+    name: Run Biome
     runs-on: ubuntu-latest
 
     steps:
@@ -19,5 +19,5 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run ESLint
-        run: npx eslint ./src/**/*.ts
+      - name: Run Biome
+        run: npx biome ci ./src

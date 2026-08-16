@@ -1,11 +1,11 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
 const discord_js_1 = require("discord.js");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$setVoiceVideoQuality",
     version: "1.5.0",
@@ -19,7 +19,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Channel,
-            check: (i) => i.isVoiceBased()
+            check: (i) => i.isVoiceBased(),
         },
         {
             name: "quality",
@@ -27,15 +27,15 @@ exports.default = new structures_1.NativeFunction({
             required: true,
             type: structures_1.ArgType.Enum,
             enum: discord_js_1.VideoQualityMode,
-            description: "The new video quality"
+            description: "The new video quality",
         },
         {
             name: "reason",
             description: "The reason to change the video quality",
             rest: false,
             required: false,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
     unwrap: true,
     async execute(ctx, [channel, quality, reason]) {

@@ -1,18 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, CompiledFunction, NativeFunction, Return } from "../../structures"
+import { ArgType, CompiledFunction, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildExists",
     version: "1.0.0",
     description: "Returns whether a guild id exists",
     unwrap: true,
-    aliases: [
-        "$serverExists"
-    ],
+    aliases: ["$serverExists"],
     output: ArgType.Boolean,
     brackets: true,
     args: [

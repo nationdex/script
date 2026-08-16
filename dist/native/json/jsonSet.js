@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -21,8 +21,8 @@ exports.default = new structures_1.NativeFunction({
             description: "The keys to traverse, with the value to use at the end",
             type: structures_1.ArgType.String,
             rest: true,
-            required: true
-        }
+            required: true,
+        },
     ],
     output: structures_1.ArgType.Boolean,
     execute(ctx, [keys]) {

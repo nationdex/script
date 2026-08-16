@@ -1,10 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { Guild, GuildMember } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$memberJoinPosition",
@@ -33,6 +32,12 @@ export default new NativeFunction({
     execute(ctx, [guild, member]) {
         guild ??= ctx.guild!
         member ??= ctx.member!
-        return this.success(guild ? [...guild.members.cache.sort((a, b) => a.joinedTimestamp! - b.joinedTimestamp!).values()].findIndex(x => x.id === member?.id) + 1 : 0)
+        return this.success(
+            guild
+                ? [...guild.members.cache.sort((a, b) => a.joinedTimestamp! - b.joinedTimestamp!).values()].findIndex(
+                      (x) => x.id === member?.id
+                  ) + 1
+                : 0
+        )
     },
 })

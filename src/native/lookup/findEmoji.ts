@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { parseEmoji } from "discord.js"
-import { ArgType, CompiledFunction, NativeFunction, Return } from "../../structures"
+import { ArgType, CompiledFunction, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$findEmoji",
@@ -34,7 +34,8 @@ export default new NativeFunction({
         const name = parsed?.name.toLowerCase()
 
         return this.success(
-            ctx.client.emojis.cache.find((x) => x.id === q || x.name?.toLowerCase() === name || x.toString() === q)?.id || emojis?.find((x) => x.id === q || x.name?.toLowerCase() === name || x.toString() === q)?.id
+            ctx.client.emojis.cache.find((x) => x.id === q || x.name?.toLowerCase() === name || x.toString() === q)
+                ?.id || emojis?.find((x) => x.id === q || x.name?.toLowerCase() === name || x.toString() === q)?.id
         )
     },
 })

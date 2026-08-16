@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const NativeFunction_1 = require("../../structures/@internal/NativeFunction");
 exports.default = new NativeFunction_1.NativeFunction({
@@ -17,15 +17,15 @@ exports.default = new NativeFunction_1.NativeFunction({
             description: "The variable that holds json",
             required: true,
             type: NativeFunction_1.ArgType.String,
-            rest: false
+            rest: false,
         },
         {
             name: "key",
             description: "The key to check for",
             type: NativeFunction_1.ArgType.String,
             required: true,
-            rest: false
-        }
+            rest: false,
+        },
     ],
     output: NativeFunction_1.ArgType.Boolean,
     execute(ctx, [name, key]) {
@@ -33,6 +33,6 @@ exports.default = new NativeFunction_1.NativeFunction({
         if (!json)
             return this.success();
         return this.success(Object.hasOwn(json, key));
-    }
+    },
 });
 //# sourceMappingURL=jsonHas.js.map

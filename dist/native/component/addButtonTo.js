@@ -1,12 +1,12 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const structures_1 = require("../../structures");
 const enum_1 = require("../../functions/enum");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$addButtonTo",
     version: "1.5.0",
@@ -19,7 +19,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The channel id to pull message from",
             rest: false,
             required: true,
-            type: structures_1.ArgType.TextChannel
+            type: structures_1.ArgType.TextChannel,
         },
         {
             name: "message ID",
@@ -27,7 +27,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Message,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "custom ID",
@@ -67,9 +67,7 @@ exports.default = new structures_1.NativeFunction({
     output: structures_1.ArgType.Boolean,
     async execute(ctx, [, m, id, label, style, emoji, disabled]) {
         style = (0, enum_1.resolveNumericEnum)(discord_js_1.ButtonStyle, style);
-        const btn = new discord_js_1.ButtonBuilder()
-            .setDisabled(disabled || false)
-            .setStyle(style);
+        const btn = new discord_js_1.ButtonBuilder().setDisabled(disabled || false).setStyle(style);
         if (style === discord_js_1.ButtonStyle.Link)
             btn.setURL(id);
         else if (style === discord_js_1.ButtonStyle.Premium)
@@ -81,11 +79,11 @@ exports.default = new structures_1.NativeFunction({
             if (emoji)
                 btn.setEmoji(emoji);
         }
-        const components = m.components.map(x => (0, discord_js_1.createComponentBuilder)(x.toJSON()));
+        const components = m.components.map((x) => (0, discord_js_1.createComponentBuilder)(x.toJSON()));
         const comp = components.at(-1);
         if (comp instanceof discord_js_1.ActionRowBuilder)
             comp.addComponents(btn);
-        return this.success(!!(await m.edit({ components: components.map(x => x.toJSON()) }).catch(ctx.noop)));
+        return this.success(!!(await m.edit({ components: components.map((x) => x.toJSON()) }).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=addButtonTo.js.map

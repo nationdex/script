@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { AutoModerationRuleTriggerType, AutoModerationRuleEventType } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { AutoModerationRuleEventType, AutoModerationRuleTriggerType } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$createAutomodRule",
@@ -33,7 +33,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Enum,
-            enum: AutoModerationRuleTriggerType
+            enum: AutoModerationRuleTriggerType,
         },
         {
             name: "event",
@@ -41,39 +41,41 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Enum,
-            enum: AutoModerationRuleEventType
+            enum: AutoModerationRuleEventType,
         },
         {
             name: "enabled",
             description: "Whether the automod rule should be enabled",
             rest: false,
             required: false,
-            type: ArgType.Boolean
+            type: ArgType.Boolean,
         },
         {
             name: "reason",
             description: "The reason for creating the automod rule",
             rest: false,
             required: false,
-            type: ArgType.String
+            type: ArgType.String,
         },
     ],
     output: ArgType.AutomodRule,
-    async execute(ctx, [ guild, name, trigger, event, enabled, reason ]) {
-        const rule = await guild.autoModerationRules.create({
-            name: name,
-            eventType: event,
-            triggerType: trigger,
-            triggerMetadata: ctx.automodRule.triggerMetadata,
-            actions: ctx.automodRule.actions || [],
-            exemptRoles: ctx.automodRule.exemptRoles,
-            exemptChannels: ctx.automodRule.exemptChannels,
-            enabled: typeof(enabled) === "boolean" ? enabled : true,
-            reason: reason || ctx.reason
-        }).catch(ctx.noop)
+    async execute(ctx, [guild, name, trigger, event, enabled, reason]) {
+        const rule = await guild.autoModerationRules
+            .create({
+                name: name,
+                eventType: event,
+                triggerType: trigger,
+                triggerMetadata: ctx.automodRule.triggerMetadata,
+                actions: ctx.automodRule.actions || [],
+                exemptRoles: ctx.automodRule.exemptRoles,
+                exemptChannels: ctx.automodRule.exemptChannels,
+                enabled: typeof enabled === "boolean" ? enabled : true,
+                reason: reason || ctx.reason,
+            })
+            .catch(ctx.noop)
 
         ctx.clearAutomodRuleOptions()
-        
+
         return this.success(rule?.id)
     },
 })

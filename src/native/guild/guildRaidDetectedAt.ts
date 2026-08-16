@@ -1,17 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildRaidDetectedAt",
     version: "2.2.0",
     description: "Returns when a raid was detected on a guild",
-    aliases: [
-        "$serverRaidDetectedAt"
-    ],
+    aliases: ["$serverRaidDetectedAt"],
     brackets: false,
     unwrap: true,
     args: [

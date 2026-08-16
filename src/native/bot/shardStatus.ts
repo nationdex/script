@@ -1,19 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { Status } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
 import array from "../../functions/array"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$shardStatus",
     version: "2.1.0",
-    aliases: [
-        "$botShardStatus",
-        "$clientShardStatus"
-    ],
+    aliases: ["$botShardStatus", "$clientShardStatus"],
     description: "Returns the shard status of the client",
     unwrap: true,
     brackets: false,
@@ -27,6 +24,6 @@ export default new NativeFunction({
     ],
     output: array(Status),
     execute(ctx, [sep]) {
-        return this.success(ctx.client.ws.shards.map(shard => Status[shard.status]).join(sep ?? ", "))
+        return this.success(ctx.client.ws.shards.map((shard) => Status[shard.status]).join(sep ?? ", "))
     },
 })

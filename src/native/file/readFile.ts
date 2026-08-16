@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { readFileSync } from "fs"
+import { readFileSync } from "node:fs"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -28,7 +28,7 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    execute(ctx, [path, encoding]) {
+    execute(_ctx, [path, encoding]) {
         const txt = readFileSync(path, { encoding: (encoding as BufferEncoding) || "utf-8" })
         return this.success(txt)
     },

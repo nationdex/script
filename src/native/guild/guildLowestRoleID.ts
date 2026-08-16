@@ -1,17 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildLowestRoleID",
     version: "1.5.0",
     description: "Returns the lowest role id of a guild",
-    aliases: [
-        "$serverLowestRoleID"
-    ],
+    aliases: ["$serverLowestRoleID"],
     brackets: false,
     output: ArgType.Role,
     args: [
@@ -26,7 +24,10 @@ export default new NativeFunction({
     unwrap: true,
     execute(ctx, [guild]) {
         guild ??= ctx.guild!
-        const lowest = guild?.roles.cache.filter(role => role.id !== guild.id).sort((a, b) => a.position - b.position).first()
+        const lowest = guild?.roles.cache
+            .filter((role) => role.id !== guild.id)
+            .sort((a, b) => a.position - b.position)
+            .first()
 
         return this.success(lowest?.id ?? guild?.id)
     },

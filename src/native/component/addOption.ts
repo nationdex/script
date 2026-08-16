@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { APISelectMenuOption, BaseSelectMenuBuilder, parseEmoji } from "discord.js"
-import { ArgType, NativeFunction } from "../../structures"
+import { type APISelectMenuOption, BaseSelectMenuBuilder, parseEmoji } from "discord.js"
 import { getLastComponent } from "../../functions/components"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$addOption",
@@ -58,9 +58,9 @@ export default new NativeFunction({
                 value,
                 default: def || false,
                 emoji: emoji
-                    ? (parseEmoji(emoji) as APISelectMenuOption["emoji"]) ?? {
-                        name: emoji,
-                    }
+                    ? ((parseEmoji(emoji) as APISelectMenuOption["emoji"]) ?? {
+                          name: emoji,
+                      })
                     : undefined,
             }
 

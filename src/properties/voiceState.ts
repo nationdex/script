@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { VoiceState } from "discord.js"
+import type { VoiceState } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum VoiceStateProperty {
@@ -19,7 +19,7 @@ export enum VoiceStateProperty {
     timestamp = "timestamp",
     selfVideo = "selfVideo",
     streaming = "streaming",
-    suppressed = "suppressed"
+    suppressed = "suppressed",
 }
 
 export const VoiceStateProperties = defineProperties<typeof VoiceStateProperty, VoiceState>({
@@ -35,5 +35,5 @@ export const VoiceStateProperties = defineProperties<typeof VoiceStateProperty, 
     selfMuted: (i) => i?.selfMute ?? false,
     selfVideo: (i) => i?.selfVideo ?? false,
     streaming: (i) => i?.streaming ?? false,
-    suppressed: (i) => i?.suppress ?? false
+    suppressed: (i) => i?.suppress ?? false,
 })

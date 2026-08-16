@@ -1,6 +1,6 @@
-import { ApplicationCommandDataResolvable, Collection, CommandInteraction, ContextMenuCommandBuilder, Guild, Interaction, RESTPostAPIApplicationCommandsJSONBody, SlashCommandBuilder } from "discord.js";
+import { type ApplicationCommandDataResolvable, Collection, type CommandInteraction, type ContextMenuCommandBuilder, type Guild, type Interaction, type RESTPostAPIApplicationCommandsJSONBody, type SlashCommandBuilder } from "discord.js";
+import type { ForgeClient } from "../core";
 import { ApplicationCommand } from "../structures/base/ApplicationCommand";
-import { ForgeClient } from "../core";
 export declare enum RegistrationType {
     Global = 0,
     Guild = 1,

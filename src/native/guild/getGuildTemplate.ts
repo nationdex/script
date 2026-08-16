@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export enum TemplateProperty {
     code = "code",
@@ -15,16 +15,14 @@ export enum TemplateProperty {
     updatedTimestamp = "updatedTimestamp",
     url = "url",
     usageCount = "usageCount",
-    unSynced = "unSynced"
+    unSynced = "unSynced",
 }
 
 export default new NativeFunction({
     name: "$getGuildTemplate",
     version: "1.5.0",
     description: "Gets the data of a guild template",
-    aliases: [
-        "$getServerTemplate"
-    ],
+    aliases: ["$getServerTemplate"],
     unwrap: true,
     brackets: true,
     args: [
@@ -40,14 +38,11 @@ export default new NativeFunction({
             description: "The property of the template to return",
             rest: false,
             type: ArgType.Enum,
-            enum: TemplateProperty
+            enum: TemplateProperty,
         },
     ],
-    output: [
-        ArgType.Json,
-        ArgType.Unknown
-    ],
-    async execute(ctx, [ template, prop ]) {
+    output: [ArgType.Json, ArgType.Unknown],
+    async execute(_ctx, [template, prop]) {
         return this.successJSON(prop ? template[prop] : template)
     },
 })

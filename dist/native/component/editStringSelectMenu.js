@@ -1,12 +1,12 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const structures_1 = require("../../structures");
 const components_1 = require("../../functions/components");
+const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$editStringSelectMenu",
     version: "1.4.0",
@@ -58,7 +58,9 @@ exports.default = new structures_1.NativeFunction({
             const comp = ctx.container.components[i];
             const comps = comp instanceof discord_js_1.ContainerBuilder
                 ? comp.components.map((x) => (0, components_1.buildComponent)(x.toJSON()))
-                : ("components" in comp ? comp.components : undefined);
+                : "components" in comp
+                    ? comp.components
+                    : undefined;
             if (!comps)
                 continue;
             for (let n = 0, len = comps.length; n < len; n++) {

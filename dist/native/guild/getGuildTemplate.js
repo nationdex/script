@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TemplateProperty = void 0;
 const structures_1 = require("../../structures");
@@ -23,9 +23,7 @@ exports.default = new structures_1.NativeFunction({
     name: "$getGuildTemplate",
     version: "1.5.0",
     description: "Gets the data of a guild template",
-    aliases: [
-        "$getServerTemplate"
-    ],
+    aliases: ["$getServerTemplate"],
     unwrap: true,
     brackets: true,
     args: [
@@ -41,14 +39,11 @@ exports.default = new structures_1.NativeFunction({
             description: "The property of the template to return",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: TemplateProperty
+            enum: TemplateProperty,
         },
     ],
-    output: [
-        structures_1.ArgType.Json,
-        structures_1.ArgType.Unknown
-    ],
-    async execute(ctx, [template, prop]) {
+    output: [structures_1.ArgType.Json, structures_1.ArgType.Unknown],
+    async execute(_ctx, [template, prop]) {
         return this.successJSON(prop ? template[prop] : template);
     },
 });

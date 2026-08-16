@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -21,11 +21,11 @@ exports.default = new structures_1.NativeFunction({
             name: "separator",
             description: "The separator to use for every emoji",
             rest: false,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
     execute(ctx, [sep]) {
-        return this.success(ctx.client.emojis.cache.map(x => x.id).join(sep ?? ", "));
+        return this.success(ctx.client.emojis.cache.map((x) => x.id).join(sep ?? ", "));
     },
 });
 //# sourceMappingURL=emojiIDs.js.map

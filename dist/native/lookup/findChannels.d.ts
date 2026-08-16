@@ -1,5 +1,5 @@
-import { ArgType, NativeFunction } from "../../structures";
 import { ChannelProperty } from "../../properties/channel";
+import { ArgType, NativeFunction } from "../../structures";
 export declare enum SearchMethodType {
     startsWith = 0,
     endsWith = 1,

@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
+import { ArgType, type IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setTimeout",
@@ -37,7 +37,7 @@ export default new NativeFunction({
 
         const { args, return: rt } = await this["resolveMultipleArgs"](ctx, 1, 2)
         if (!this["isValidReturnType"](rt)) return rt
-        const [ time, name ] = args
+        const [time, name] = args
 
         const c = ctx.clone(ctx.cloneRuntime())
         const data = setTimeout(async () => {

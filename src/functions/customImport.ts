@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { execSync } from "child_process"
+import { execSync } from "node:child_process"
 import { Logger } from "../structures"
 
 export async function customImport<V>(pkg: string): Promise<V> {

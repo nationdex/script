@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { RoleColorsResolvable } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { RoleColorsResolvable } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$cloneRole",
@@ -46,7 +46,7 @@ export default new NativeFunction({
                 mentionable: role.mentionable,
                 permissions: role.permissions,
                 unicodeEmoji: role.unicodeEmoji,
-                reason: ctx.reason
+                reason: ctx.reason,
             })
             .catch(ctx.noop)
         return this.success(created ? created.id : undefined)

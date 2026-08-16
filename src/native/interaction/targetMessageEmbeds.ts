@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { Embed, EmbedBuilder } from "discord.js"
+import { type Embed, EmbedBuilder } from "discord.js"
 import { EmbedProperties, EmbedProperty } from "../../properties/embed"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$targetMessageEmbeds",
@@ -34,18 +34,15 @@ export default new NativeFunction({
             name: "field index",
             description: "The index of the field to get",
             rest: false,
-            type: ArgType.Number
+            type: ArgType.Number,
         },
     ],
-    output: [
-        ArgType.Json,
-        ArgType.Unknown
-    ],
+    output: [ArgType.Json, ArgType.Unknown],
     execute(ctx, [index, prop, fieldIndex]) {
         if (!ctx.interaction?.isMessageContextMenuCommand()) return this.success()
 
         const message = ctx.interaction.targetMessage
-        if (typeof index !== "number") return this.successJSON(message.embeds.map(x => x.data))
+        if (typeof index !== "number") return this.successJSON(message.embeds.map((x) => x.data))
 
         const embed = message.embeds[index] as Embed | undefined
         if (prop === null) return this.successJSON(embed)

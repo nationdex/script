@@ -1,4 +1,4 @@
-import { Subscription } from "discord.js";
+import { type Subscription } from "discord.js";
 export declare enum SubscriptionProperty {
     id = "id",
     userID = "userID",

@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ContainerBuilder } from "discord.js"
-import { ArgType, NativeFunction } from "../../structures"
+import { ActionRowBuilder, type ButtonBuilder, ButtonStyle, ContainerBuilder } from "discord.js"
 import { resolveNumericEnum } from "../../functions/enum"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$editButton",
@@ -56,20 +56,20 @@ export default new NativeFunction({
     ],
     execute(ctx, [oldId, id, label, style, emoji, disabled]) {
         const rowIndex = ctx.container.components.findIndex((x) =>
-            (x instanceof ActionRowBuilder || x instanceof ContainerBuilder)
+            x instanceof ActionRowBuilder || x instanceof ContainerBuilder
                 ? x.components.some((x) => "custom_id" in x.data && x.data.custom_id === oldId)
                 : false
         )
         if (rowIndex === -1) return this.success()
 
-        // @ts-ignore
+        // @ts-expect-error
         const btn = ctx.container.components[rowIndex].components.find(
-            // @ts-ignore
+            // @ts-expect-error
             (x) => "custom_id" in x.data && x.data.custom_id === oldId
         ) as ButtonBuilder
 
         if (!btn) return this.success()
-        style = (style ? resolveNumericEnum(ButtonStyle, style) : btn.data.style)
+        style = style ? resolveNumericEnum(ButtonStyle, style) : btn.data.style
 
         if (label) btn.setLabel(label)
         if (style) btn.setStyle(style)

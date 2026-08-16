@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 const textSplit_1 = require("./textSplit");
@@ -10,9 +10,7 @@ exports.default = new structures_1.NativeFunction({
     name: "$getSplitTextLength",
     version: "1.4.0",
     description: "Gets count of elements from $textSplit",
-    aliases: [
-        "$getTextSplitLength"
-    ],
+    aliases: ["$getTextSplitLength"],
     output: structures_1.ArgType.Number,
     unwrap: true,
     execute(ctx) {

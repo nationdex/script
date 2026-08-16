@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { GuildPreviewProperties, GuildPreviewProperty } from "../../properties/guild"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$getGuildPreview",
@@ -25,7 +25,7 @@ export default new NativeFunction({
             description: "The property to return",
             rest: false,
             type: ArgType.Enum,
-            enum: GuildPreviewProperty
+            enum: GuildPreviewProperty,
         },
         {
             name: "separator",
@@ -34,12 +34,11 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    output: [
-        ArgType.Json,
-        ArgType.Unknown
-    ],
+    output: [ArgType.Json, ArgType.Unknown],
     async execute(ctx, [guild, prop, sep]) {
-        const preview = await (this.hasFields ? ctx.client.fetchGuildPreview(guild).catch(ctx.noop) : ctx.guild?.fetchPreview().catch(ctx.noop))
+        const preview = await (this.hasFields
+            ? ctx.client.fetchGuildPreview(guild).catch(ctx.noop)
+            : ctx.guild?.fetchPreview().catch(ctx.noop))
         if (preview && prop) return this.success(GuildPreviewProperties[prop](preview, sep))
         return this.successJSON(preview)
     },

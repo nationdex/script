@@ -1,17 +1,14 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$arrayCreate",
     version: "1.4.0",
-    aliases: [
-        "$arrayNew",
-        "$arrayInit"
-    ],
+    aliases: ["$arrayNew", "$arrayInit"],
     brackets: true,
     description: "Initializes an array and loads it to a variable",
     args: [
@@ -20,18 +17,18 @@ export default new NativeFunction({
             description: "The variable to load it to, accessed with $env",
             type: ArgType.String,
             rest: false,
-            required: true
+            required: true,
         },
         {
             name: "length",
             description: "The default length of the array, defaults to 0",
             rest: false,
             required: false,
-            type: ArgType.Number
-        }
+            type: ArgType.Number,
+        },
     ],
     unwrap: true,
-    execute(ctx, [ v, n ]) {
+    execute(ctx, [v, n]) {
         ctx.setEnvironmentKey(v, new Array(n || 0))
         return this.success()
     },

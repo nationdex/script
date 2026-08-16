@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { copyFileSync, cpSync, statSync } from "fs"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { copyFileSync, cpSync, statSync } from "node:fs"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$copyFile",
@@ -18,21 +18,19 @@ export default new NativeFunction({
             description: "The path to make a copy of",
             rest: false,
             required: true,
-            type: ArgType.String
+            type: ArgType.String,
         },
         {
             name: "destination",
             description: "The output path to copy to",
             rest: false,
             required: true,
-            type: ArgType.String
-        }
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [ old, now ]) {
-        if (statSync(old).isDirectory())
-            cpSync(old, now)
-        else
-            copyFileSync(old, now)
+    execute(_ctx, [old, now]) {
+        if (statSync(old).isDirectory()) cpSync(old, now)
+        else copyFileSync(old, now)
         return this.success()
     },
 })

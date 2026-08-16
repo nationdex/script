@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures"
 
@@ -17,11 +17,11 @@ export default new NativeFunction({
             description: "The sticker to pull guild of",
             rest: false,
             required: true,
-            type: ArgType.Sticker
-        }
+            type: ArgType.Sticker,
+        },
     ],
     output: ArgType.Guild,
-    execute(ctx, [ s ]) {
+    execute(ctx, [s]) {
         s ??= ctx.sticker!
         return this.success(s?.guildId)
     },

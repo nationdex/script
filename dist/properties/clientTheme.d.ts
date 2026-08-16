@@ -1,4 +1,4 @@
-import { SharedClientTheme } from "discord.js";
+import { type SharedClientTheme } from "discord.js";
 export declare enum ClientThemeProperty {
     baseMix = "baseMix",
     baseTheme = "baseTheme",

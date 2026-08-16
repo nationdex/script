@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
 import { MemberProperties, MemberProperty } from "../../properties/member"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$targetMember",
@@ -30,6 +30,10 @@ export default new NativeFunction({
     ],
     output: ArgType.Unknown,
     execute(ctx, [prop, sep]) {
-        return this.success(ctx.interaction?.isUserContextMenuCommand() ? MemberProperties[prop](ctx.interaction.targetMember, sep) : null)
+        return this.success(
+            ctx.interaction?.isUserContextMenuCommand()
+                ? MemberProperties[prop](ctx.interaction.targetMember, sep)
+                : null
+        )
     },
 })

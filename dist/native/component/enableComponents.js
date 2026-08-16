@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -15,7 +15,7 @@ exports.default = new structures_1.NativeFunction({
     execute(ctx) {
         const components = ctx.container.components;
         ctx.container.actionRow?.components.forEach((x) => x.setDisabled(false));
-        for (let comp of components) {
+        for (const comp of components) {
             if (!(comp instanceof discord_js_1.ActionRowBuilder))
                 continue;
             const actionRow = new discord_js_1.ActionRowBuilder();

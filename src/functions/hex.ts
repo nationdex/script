@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { Colors } from "discord.js"
 
@@ -14,13 +14,9 @@ export function int2hex(int: number | string) {
 }
 
 export function resolveColor(value: string | number) {
-    if (typeof value === "number" || !isNaN(Number(value)))
-        return Number(value)
+    if (typeof value === "number" || !Number.isNaN(Number(value))) return Number(value)
 
-    if (value === "Random")
-        return Math.floor(Math.random() * 0xFFFFFF)
-    else if (value in Colors)
-        return Colors[value as keyof typeof Colors]
-    else 
-        return hex2int(value)
+    if (value === "Random") return Math.floor(Math.random() * 0xffffff)
+    else if (value in Colors) return Colors[value as keyof typeof Colors]
+    else return hex2int(value)
 }

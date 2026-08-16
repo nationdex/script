@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BigIntFormatRegex = void 0;
 const structures_1 = require("../../structures");
@@ -23,7 +23,7 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     output: structures_1.ArgType.String,
-    execute(ctx, [arg]) {
+    execute(_ctx, [arg]) {
         let type;
         if (arg === "undefined")
             type = "undefined";
@@ -31,7 +31,7 @@ exports.default = new structures_1.NativeFunction({
             type = "boolean";
         else if (exports.BigIntFormatRegex.test(arg))
             type = "bigint";
-        else if (arg === "NaN" || (!!arg.trim() && !isNaN(Number(arg))))
+        else if (arg === "NaN" || (!!arg.trim() && !Number.isNaN(Number(arg))))
             type = "number";
         else {
             try {

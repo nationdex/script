@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export const LinkRegex =
     /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
@@ -23,8 +23,9 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    description: "Checks whether a link is valid, this will not make sure that a site actually exists or returns success HTTP responses",
-    execute(ctx, [link]) {
+    description:
+        "Checks whether a link is valid, this will not make sure that a site actually exists or returns success HTTP responses",
+    execute(_ctx, [link]) {
         return this.success(LinkRegex.test(link))
     },
 })

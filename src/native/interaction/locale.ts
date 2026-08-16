@@ -1,17 +1,14 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { Locale } from "discord.js"
 import { NativeFunction } from "../../structures/@internal/NativeFunction"
-import { Return } from "../../structures/@internal/Return"
 
 export default new NativeFunction({
     name: "$locale",
-    aliases: [
-        "$interactionLocale"
-    ],
+    aliases: ["$interactionLocale"],
     version: "1.4.0",
     description: "Retrieves the user locale of the interaction",
     unwrap: true,

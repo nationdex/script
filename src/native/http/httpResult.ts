@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { ArgType, NativeFunction } from "../../structures/@internal/NativeFunction"
 
@@ -17,16 +17,12 @@ export default new NativeFunction({
             description: "The key to return its value",
             required: true,
             type: ArgType.String,
-            rest: true
+            rest: true,
         },
     ],
-    output: [
-        ArgType.Json,
-        ArgType.Unknown
-    ],
+    output: [ArgType.Json, ArgType.Unknown],
     execute(ctx, [args]) {
-        if (!this.hasFields)
-            return this.successJSON(ctx.getEnvironmentKey("result"))
+        if (!this.hasFields) return this.successJSON(ctx.getEnvironmentKey("result"))
         const env = ctx.getEnvironmentKey("result", ...args)
         return this.successJSON(env)
     },

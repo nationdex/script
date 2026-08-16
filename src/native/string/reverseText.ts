@@ -1,7 +1,7 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
 import { Arg, ArgType, NativeFunction } from "../../structures"
 
@@ -12,11 +12,9 @@ export default new NativeFunction({
     aliases: ["$reverse"],
     brackets: true,
     unwrap: true,
-    args: [
-        Arg.requiredString()
-    ],
+    args: [Arg.requiredString()],
     output: ArgType.String,
-    execute(ctx, [ txt ]) {
+    execute(_ctx, [txt]) {
         return this.success(txt.split("").reverse().join(""))
     },
 })

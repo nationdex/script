@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ButtonBuilder, ActionRowBuilder, ActionRow, MessageActionRowComponent } from "discord.js"
+import { type ActionRow, ActionRowBuilder, ButtonBuilder, type MessageActionRowComponent } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -18,7 +18,7 @@ export default new NativeFunction({
             description: "The channel id to pull message from",
             rest: false,
             required: true,
-            type: ArgType.TextChannel
+            type: ArgType.TextChannel,
         },
         {
             name: "message ID",
@@ -26,7 +26,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Message,
-            pointer: 0
+            pointer: 0,
         },
         {
             name: "index",
@@ -38,13 +38,13 @@ export default new NativeFunction({
     brackets: true,
     output: ArgType.Boolean,
     async execute(ctx, [, msg, index]) {
-        const components = msg.components.map(x => ActionRowBuilder.from(x as ActionRow<MessageActionRowComponent>))
+        const components = msg.components.map((x) => ActionRowBuilder.from(x as ActionRow<MessageActionRowComponent>))
 
         for (let i = 0, len = components.length; i < len; i++) {
             if (Number.isFinite(index) && i !== index) continue
             const actionRow = new ActionRowBuilder()
 
-            components[i]?.components.forEach(comp => {
+            components[i]?.components.forEach((comp) => {
                 if (comp instanceof ButtonBuilder) {
                     actionRow.addComponents(comp.setDisabled(false))
                 } else {
@@ -54,6 +54,8 @@ export default new NativeFunction({
             if (i === index) break
         }
 
-        return this.success(!!(await msg.edit({ components: components as ActionRowBuilder<ButtonBuilder>[] }).catch(ctx.noop)))
+        return this.success(
+            !!(await msg.edit({ components: components as ActionRowBuilder<ButtonBuilder>[] }).catch(ctx.noop))
+        )
     },
 })

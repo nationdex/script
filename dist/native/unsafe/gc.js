@@ -1,10 +1,10 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const process_1 = require("process");
+const node_process_1 = require("node:process");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$gc",
@@ -12,8 +12,8 @@ exports.default = new structures_1.NativeFunction({
     description: "Triggers JavaScript's garbage collector, only available if passed --expose-gc flag to node",
     unwrap: false,
     output: structures_1.ArgType.Boolean,
-    execute(ctx) {
-        return this.success(process_1.execArgv.includes("--expose-gc") ? (gc(), true) : false);
+    execute(_ctx) {
+        return this.success(node_process_1.execArgv.includes("--expose-gc") ? (gc(), true) : false);
     },
 });
 //# sourceMappingURL=gc.js.map

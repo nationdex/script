@@ -1,19 +1,17 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-const structures_1 = require("../../structures");
 const ws_1 = require("ws");
+const structures_1 = require("../../structures");
 let IncrementalWebsocketIds = 0;
 exports.default = new structures_1.NativeFunction({
     name: "$ws",
     version: "1.5.0",
     description: "Creates a WebSocket connection to a server",
-    aliases: [
-        "$websocket"
-    ],
+    aliases: ["$websocket"],
     brackets: true,
     unwrap: true,
     args: [
@@ -22,8 +20,8 @@ exports.default = new structures_1.NativeFunction({
             description: "The WS host, formatted as wss://hostname:port",
             rest: false,
             required: true,
-            type: structures_1.ArgType.String
-        }
+            type: structures_1.ArgType.String,
+        },
     ],
     output: structures_1.ArgType.Number,
     execute(ctx, [host]) {

@@ -1,11 +1,11 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
 import { readFileSync } from "node:fs"
 import { parseSingleEmoji } from "../../functions/parseSingleEmoji"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$createSoundboardSound",
@@ -65,14 +65,16 @@ export default new NativeFunction({
             soundFile = file
         }
 
-        const sound = await guild.soundboardSounds.create({
-            name,
-            file: soundFile,
-            emojiId: parsed?.id || undefined,
-            emojiName: parsed?.id ? undefined : parsed?.name || undefined,
-            volume: typeof(volume) === "number" ? volume : undefined,
-            reason: reason || ctx.reason
-        }).catch(ctx.noop)
+        const sound = await guild.soundboardSounds
+            .create({
+                name,
+                file: soundFile,
+                emojiId: parsed?.id || undefined,
+                emojiName: parsed?.id ? undefined : parsed?.name || undefined,
+                volume: typeof volume === "number" ? volume : undefined,
+                reason: reason || ctx.reason,
+            })
+            .catch(ctx.noop)
 
         return this.success(sound?.soundId)
     },

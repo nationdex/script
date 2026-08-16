@@ -1,7 +1,7 @@
-import { ForgeClient } from "../core";
-import { BaseCommand, IBaseCommand } from "../structures";
 import { TypedEmitter } from "tiny-typed-emitter";
-export interface ICommandManagerEvents<T> {
+import { type ForgeClient } from "../core";
+import { BaseCommand, type IBaseCommand } from "../structures";
+export interface ICommandManagerEvents<_T> {
     update: () => void;
 }
 export declare abstract class BaseCommandManager<T> extends TypedEmitter<ICommandManagerEvents<T>> {

@@ -1,4 +1,4 @@
-import { Context } from "../structures";
+import { type Context } from "../structures";
 export declare function parseSingleEmoji(ctx: Context, str: string | null): {
     id: string | null;
     name: string | null;

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -21,12 +21,12 @@ var StageProperty;
     StageProperty["eventId"] = "eventId";
 })(StageProperty || (exports.StageProperty = StageProperty = {}));
 exports.StageProperties = (0, defineProperties_1.default)({
-    id: i => i?.id,
-    channelID: i => i?.channelId,
-    guildID: i => i?.guildId,
-    topic: i => i?.topic,
-    timestamp: i => i?.createdTimestamp,
-    privacyLevel: i => discord_js_1.StageInstancePrivacyLevel[i?.privacyLevel],
-    eventId: i => i?.guildScheduledEventId
+    id: (i) => i?.id,
+    channelID: (i) => i?.channelId,
+    guildID: (i) => i?.guildId,
+    topic: (i) => i?.topic,
+    timestamp: (i) => i?.createdTimestamp,
+    privacyLevel: (i) => discord_js_1.StageInstancePrivacyLevel[i?.privacyLevel],
+    eventId: (i) => i?.guildScheduledEventId,
 });
 //# sourceMappingURL=stage.js.map

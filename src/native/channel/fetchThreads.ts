@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, ThreadManager } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import type { BaseChannel, ThreadManager } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$fetchThreads",
@@ -19,7 +19,7 @@ export default new NativeFunction({
             rest: false,
             type: ArgType.Channel,
             required: true,
-            check: (i: BaseChannel) => "threads" in i
+            check: (i: BaseChannel) => "threads" in i,
         },
         {
             name: "archived",
@@ -39,8 +39,9 @@ export default new NativeFunction({
 
         if ("threads" in chan) {
             const threads = chan.threads as ThreadManager
-            
-            if (archived) await threads.fetchArchived({ type: priv ? "private" : undefined, fetchAll: true }).catch(ctx.noop)
+
+            if (archived)
+                await threads.fetchArchived({ type: priv ? "private" : undefined, fetchAll: true }).catch(ctx.noop)
             else await threads.fetchActive().catch(ctx.noop)
         }
 

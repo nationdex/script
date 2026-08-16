@@ -1,13 +1,13 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export enum EmojiType {
     normal = "normal",
-    animated = "animated"
+    animated = "animated",
 }
 
 export default new NativeFunction({
@@ -23,19 +23,23 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Enum,
-            enum: EmojiType
+            enum: EmojiType,
         },
     ],
     output: ArgType.Number,
     execute(ctx, [type]) {
         const emojis = ctx.client.emojis.cache
 
-        return this.success(!type ? emojis.size : emojis.filter(emoji =>
-            type === EmojiType.normal
-                ? !emoji.animated
-                : type === EmojiType.animated
-                    ? emoji.animated
-                    : (true as never)
-        ).size)
+        return this.success(
+            !type
+                ? emojis.size
+                : emojis.filter((emoji) =>
+                      type === EmojiType.normal
+                          ? !emoji.animated
+                          : type === EmojiType.animated
+                            ? emoji.animated
+                            : (true as never)
+                  ).size
+        )
     },
 })

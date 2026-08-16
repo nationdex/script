@@ -1,9 +1,9 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { AuditLogEvent, GuildAuditLogsEntry } from "discord.js"
+import { AuditLogEvent, type GuildAuditLogsEntry } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum AuditProperty {

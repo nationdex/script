@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 const roleColor_1 = require("./roleColor");
@@ -34,7 +34,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The role color to return",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: roleColor_1.RoleColor
+            enum: roleColor_1.RoleColor,
         },
     ],
     execute(ctx, [, role, color]) {

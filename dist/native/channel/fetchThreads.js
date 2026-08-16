@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -18,7 +18,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             type: structures_1.ArgType.Channel,
             required: true,
-            check: (i) => "threads" in i
+            check: (i) => "threads" in i,
         },
         {
             name: "archived",

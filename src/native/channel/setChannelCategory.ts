@@ -1,10 +1,10 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { BaseChannel, CategoryChannel, ChannelType, TextChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { type BaseChannel, type CategoryChannel, ChannelType, type TextChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setChannelCategory",
@@ -28,10 +28,14 @@ export default new NativeFunction({
             description: "The category to set",
             rest: false,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => i.type === ChannelType.GuildCategory
+            check: (i: BaseChannel) => i.type === ChannelType.GuildCategory,
         },
     ],
     async execute(ctx, [channel, parent]) {
-        return this.success(!!(await (channel as TextChannel).setParent(parent as CategoryChannel || null, { reason: ctx.reason }).catch(ctx.noop)))
+        return this.success(
+            !!(await (channel as TextChannel)
+                .setParent((parent as CategoryChannel) || null, { reason: ctx.reason })
+                .catch(ctx.noop))
+        )
     },
 })

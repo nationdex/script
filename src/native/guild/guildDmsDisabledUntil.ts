@@ -1,17 +1,15 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildDmsDisabledUntil",
     version: "2.2.0",
     description: "Returns the direct messages disabled timestamp of a guild",
-    aliases: [
-        "$serverDmsDisabledUntil"
-    ],
+    aliases: ["$serverDmsDisabledUntil"],
     brackets: false,
     unwrap: true,
     args: [

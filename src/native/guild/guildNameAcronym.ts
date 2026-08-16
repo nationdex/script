@@ -1,18 +1,16 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildNameAcronym",
     version: "1.3.0",
     description: "Returns the server name acronym",
     brackets: false,
-    aliases: [
-        "$serverNameAcronym"
-    ],
+    aliases: ["$serverNameAcronym"],
     output: ArgType.String,
     args: [
         {

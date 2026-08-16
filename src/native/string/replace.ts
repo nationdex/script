@@ -1,16 +1,14 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$replace",
     version: "1.0.0",
-    aliases: [
-        "$replaceText"
-    ],
+    aliases: ["$replaceText"],
     output: ArgType.String,
     description: "Replace text in a string",
     unwrap: true,
@@ -44,7 +42,7 @@ export default new NativeFunction({
         },
     ],
     brackets: true,
-    execute(ctx, [text, match, replacement, amount]) {
+    execute(_ctx, [text, match, replacement, amount]) {
         amount ??= -1
         if (amount === -1) {
             return this.success(text.replaceAll(match, replacement))

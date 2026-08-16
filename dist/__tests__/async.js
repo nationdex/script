@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 async function asyncTask() {
     return 0;
 }
@@ -20,7 +20,7 @@ async function runAsync() {
 async function runSync() {
     const start = performance.now();
     for (let i = 0; i < 1000000; i++) {
-        let run = syncTask();
+        const _run = syncTask();
     }
     console.log(performance.now() - start, "ms");
     return runSync;
@@ -33,10 +33,6 @@ runAsync()
     .then(runAsync)
     .then(() => {
     console.log("SYNC");
-    runSync()
-        .then(runSync)
-        .then(runSync)
-        .then(runSync)
-        .then(runSync);
+    runSync().then(runSync).then(runSync).then(runSync).then(runSync);
 });
 //# sourceMappingURL=async.js.map

@@ -1,8 +1,8 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
-*/
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Copyright © 2026 BotForge
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PresenceStatus = void 0;
 const structures_1 = require("../../structures");
@@ -18,10 +18,7 @@ exports.default = new structures_1.NativeFunction({
     version: "1.0.0",
     description: "Returns the user count of a guild",
     brackets: false,
-    aliases: [
-        "$serverMemberCount",
-        "$serverMembersCount"
-    ],
+    aliases: ["$serverMemberCount", "$serverMembersCount"],
     output: structures_1.ArgType.Number,
     args: [
         {
@@ -36,7 +33,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The presence of the users to count",
             rest: false,
             type: structures_1.ArgType.Enum,
-            enum: PresenceStatus
+            enum: PresenceStatus,
         },
         {
             name: "count bots",
@@ -50,12 +47,13 @@ exports.default = new structures_1.NativeFunction({
         guild ??= ctx.guild;
         bots ??= true;
         if (presence) {
-            return this.success(guild?.members.cache.filter(member => {
+            return this.success(guild?.members.cache.filter((member) => {
                 const status = member.presence?.status;
-                return (presence === PresenceStatus.offline ? status === "offline" || !status : status === presence) && (bots || !member.user.bot);
+                return ((presence === PresenceStatus.offline ? status === "offline" || !status : status === presence) &&
+                    (bots || !member.user.bot));
             }).size);
         }
-        return this.success(bots ? guild?.memberCount : guild?.members.cache.filter(member => !member.user.bot).size);
+        return this.success(bots ? guild?.memberCount : guild?.members.cache.filter((member) => !member.user.bot).size);
     },
 });
 //# sourceMappingURL=guildMemberCount.js.map
