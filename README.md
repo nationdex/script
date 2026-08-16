@@ -95,4 +95,3 @@ The previous way to register commands can fill our index file with a lot of junk
 There's currently no known limitation.
 
 > ⚠️ Note this library reads codes from **TOP** to **BOTTOM**, and never the opposite.
-
