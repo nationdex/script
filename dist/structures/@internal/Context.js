@@ -221,7 +221,7 @@ class Context {
         if (once && emojis.cache.size) {
             return emojis.cache;
         }
-        return await emojis.fetch().catch(this.noop);
+        return (await emojis.fetch().catch(this.noop)) ?? null;
     }
     setEnvironmentKey(name, value) {
         return (this.#environment[name] = value);

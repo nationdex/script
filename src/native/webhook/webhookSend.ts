@@ -50,7 +50,7 @@ export default new NativeFunction({
             description: "The thread to send message to",
             rest: false,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => i.isThread(),
+            check: (i: BaseChannel): boolean => i.isThread(),
         },
         {
             name: "post name",

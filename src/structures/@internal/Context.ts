@@ -5,12 +5,14 @@
 
 import {
     type AnySelectMenuInteraction,
+    type ApplicationEmoji,
     AutoModerationActionExecution,
     type AutoModerationActionOptions,
     type AutoModerationTriggerMetadataOptions,
     BaseChannel,
     BaseInteraction,
     type ChatInputCommandInteraction,
+    type Collection,
     type ContextMenuCommandInteraction,
     Emoji,
     Entitlement,
@@ -272,7 +274,7 @@ export class Context {
                     : null)
     }
 
-    public get channel() {
+    public get channel(): BaseChannel | null {
         return (this.#cache.channel ??=
             "channel" in this.obj
                 ? this.obj.channel?.partial
@@ -342,13 +344,13 @@ export class Context {
      * @param once Whether to fetch only when the collection is empty.
      * @returns
      */
-    public async fetchApplicationEmojis(once?: boolean) {
+    public async fetchApplicationEmojis(once?: boolean): Promise<Collection<string, ApplicationEmoji> | null> {
         const { emojis } = this.client.application
 
         if (once && emojis.cache.size) {
             return emojis.cache
         }
-        return await emojis.fetch().catch(this.noop)
+        return (await emojis.fetch().catch(this.noop)) ?? null
     }
 
     public setEnvironmentKey(name: string, value: unknown) {

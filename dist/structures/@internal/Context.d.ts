@@ -1,4 +1,4 @@
-import { type AnySelectMenuInteraction, AutoModerationActionExecution, type AutoModerationActionOptions, type AutoModerationTriggerMetadataOptions, BaseChannel, type ChatInputCommandInteraction, type ContextMenuCommandInteraction, Emoji, Entitlement, Guild, GuildMember, type GuildScheduledEventEntityMetadataOptions, type Interaction, type LabelBuilder, type MediaGalleryBuilder, Message, MessageReaction, type OverwriteResolvable, Role, type SectionBuilder, SoundboardSound, Sticker, Subscription, User, type VoiceBasedChannel } from "discord.js";
+import { type AnySelectMenuInteraction, type ApplicationEmoji, AutoModerationActionExecution, type AutoModerationActionOptions, type AutoModerationTriggerMetadataOptions, BaseChannel, type ChatInputCommandInteraction, type Collection, type ContextMenuCommandInteraction, Emoji, Entitlement, Guild, GuildMember, type GuildScheduledEventEntityMetadataOptions, type Interaction, type LabelBuilder, type MediaGalleryBuilder, Message, MessageReaction, type OverwriteResolvable, Role, type SectionBuilder, SoundboardSound, Sticker, Subscription, User, type VoiceBasedChannel } from "discord.js";
 import type { FormData, Headers } from "undici";
 import type { IRunnable } from "../../core/Interpreter";
 import type { CompiledFunction, IExtendedCompiledFunctionField } from "./CompiledFunction";
@@ -117,7 +117,7 @@ export declare class Context {
     get interaction(): Interaction | null;
     get user(): User | null;
     get guild(): Guild | null;
-    get channel(): import("discord.js").CategoryChannel | import("discord.js").NewsChannel | import("discord.js").StageChannel | import("discord.js").TextChannel | import("discord.js").PublicThreadChannel<boolean> | import("discord.js").PrivateThreadChannel | import("discord.js").VoiceChannel | import("discord.js").ForumChannel | import("discord.js").MediaChannel | BaseChannel | null;
+    get channel(): BaseChannel | null;
     handle<Args extends [...IArg[]], Unwrap extends boolean>(fn: CompiledFunction<Args, Unwrap>, cb: ExpectCallback<Args, Unwrap>): Promise<Return>;
     alert(content: string): Promise<unknown>;
     handleNotSuccess(fn: CompiledFunction, rt: Return): boolean;
@@ -129,7 +129,7 @@ export declare class Context {
      * @param once Whether to fetch only when the collection is empty.
      * @returns
      */
-    fetchApplicationEmojis(once?: boolean): Promise<void | import("discord.js").Collection<string, import("discord.js").ApplicationEmoji>>;
+    fetchApplicationEmojis(once?: boolean): Promise<Collection<string, ApplicationEmoji> | null>;
     setEnvironmentKey(name: string, value: unknown): unknown;
     traverseDeleteEnvironmentKey(...keys: string[]): boolean | any[];
     traverseAddEnvironmentKey(value: unknown, ...keys: string[]): boolean;

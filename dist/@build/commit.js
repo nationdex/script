@@ -52,7 +52,7 @@ async function main() {
         });
         (0, node_fs_1.writeFileSync)(fileName, JSON.stringify(json), "utf-8");
     }
-    const branch = (await prompt("Write the branch name to push to (defaults to dev): ")) || "dev";
+    const branch = (await prompt("Write the branch name to push to (defaults to main): ")) || "main";
     let escapedMsg = msg;
     if ((0, node_os_1.platform)() === "darwin")
         escapedMsg = escapedMsg.replace(/\$/g, "\\$");

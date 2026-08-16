@@ -39,7 +39,7 @@ export default new NativeFunction({
             description: "The thread this message belongs to",
             rest: false,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => i.isThread(),
+            check: (i: BaseChannel): boolean => i.isThread(),
         },
     ],
     async execute(ctx, [url, msg, content, thread]) {

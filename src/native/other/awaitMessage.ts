@@ -21,7 +21,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => i.isTextBased(),
+            check: (i: BaseChannel): boolean => i.isTextBased(),
         },
         {
             name: "variable name",

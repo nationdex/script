@@ -21,7 +21,7 @@ Once opened, open a terminal, and run the following commands:
     ```
 
 3. ```bash
-    npm i typescript github:nationdex/script#dev --save-dev
+    npm i typescript github:nationdex/script#main --save-dev
     ```
 
 4. ```bash
@@ -152,8 +152,8 @@ async function main() {
   }
 
   const branch =
-    (await prompt("Write the branch name to push to (defaults to dev): ")) ||
-    "dev";
+    (await prompt("Write the branch name to push to (defaults to main): ")) ||
+    "main";
   let escapedMsg = msg;
   if (platform() === "darwin") escapedMsg = escapedMsg.replace(/\$/g, "\\$");
 

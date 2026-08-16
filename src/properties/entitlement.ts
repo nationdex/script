@@ -3,6 +3,8 @@
  * Copyright © 2026 BotForge
  */
 
+// biome-ignore lint/correctness/noUnusedImports: required for type inference portability
+import type { Entitlement } from "discord.js"
 import { EntitlementType } from "discord.js"
 import type { IStates } from "../core"
 import defineProperties from "../functions/defineProperties"

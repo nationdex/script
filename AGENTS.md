@@ -22,7 +22,8 @@ This repository is a fork of [ForgeScript](https://github.com/tryforge/ForgeScri
    - Do not re-add ESLint/Prettier; keep all lint/format work in Biome.
 
 3. **PNPM & Bun compatibility**.
-   - `.npmrc` has `shamefully-hoist=true` so pnpm produces a flat `node_modules` (matches npm resolution behavior). Bun already resolves flat by default.
+   - Types are fully portable with explicit annotations/imports, allowing seamless builds across PNPM (isolated and hoisted), Bun, and NPM without requiring `.npmrc` hoisting flags.
+   - `package.json` includes modern `"exports"` map for ESM/CJS and subpath resolution.
    - `.gitignore` ignores `pnpm-lock.yaml`, `bun.lockb`, `.bun/`, `.pnpm-store/`, `.pnpm-debug.log*`. Only `package-lock.json` (npm) is committed.
 
 4. **License header script made Biome-compatible** (`src/@build/license.ts`).
