@@ -80,7 +80,11 @@ export default async function (
     let total = 0
     const enums: Record<string, string[]> = {}
 
-    if (expose?.length) Object.entries(expose).forEach((x) => (enums[x[0]] = enumToArray(x[1])))
+    if (expose?.length) {
+        Object.entries(expose).forEach((x) => {
+            enums[x[0]] = enumToArray(x[1])
+        })
+    }
 
     Logger.info(`Loading functions from ${functionsAbsolutePath}`)
     FunctionManager.load("Metadata", functionsAbsolutePath)

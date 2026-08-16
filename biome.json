@@ -1,7 +1,7 @@
 {
     "$schema": "https://biomejs.dev/schemas/2.5.8/schema.json",
     "files": {
-        "includes": ["**", "!**/dist/**", "!**/docs/**", "!**/metadata/**", "!**/.github/**"]
+        "includes": ["**", "!**/dist", "!**/docs", "!**/metadata", "!**/.github"]
     },
     "formatter": {
         "enabled": true,
@@ -21,17 +21,26 @@
         "rules": {
             "recommended": true,
             "complexity": {
+                "noBannedTypes": "off",
+                "noCommaOperator": "off",
+                "noStaticOnlyClass": "off",
                 "useLiteralKeys": "off"
             },
             "correctness": {
                 "noUnusedPrivateClassMembers": "off",
                 "noUnsafeOptionalChaining": "off"
             },
-            "suspicious": {
-                "noNonNullAssertedOptionalChain": "off"
+            "security": {
+                "noGlobalEval": "off"
             },
             "style": {
-                "noNonNullAssertion": "off"
+                "noNonNullAssertion": "off",
+                "useLiteralEnumMembers": "off"
+            },
+            "suspicious": {
+                "noAssignInExpressions": "off",
+                "noExplicitAny": "off",
+                "noNonNullAssertedOptionalChain": "off"
             }
         }
     }

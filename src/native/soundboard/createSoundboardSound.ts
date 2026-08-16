@@ -58,7 +58,7 @@ export default new NativeFunction({
     async execute(ctx, [guild, name, file, emoji, volume, reason]) {
         const parsed = parseSingleEmoji(ctx, emoji)
 
-        let soundFile
+        let soundFile: Buffer | string
         try {
             soundFile = readFileSync(file)
         } catch {

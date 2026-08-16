@@ -65,8 +65,11 @@ async function default_1(functionsAbsolutePath, mainCategoryName, eventName, war
 _translate = []) {
     let total = 0;
     const enums = {};
-    if (expose?.length)
-        Object.entries(expose).forEach((x) => (enums[x[0]] = (0, enum_1.enumToArray)(x[1])));
+    if (expose?.length) {
+        Object.entries(expose).forEach((x) => {
+            enums[x[0]] = (0, enum_1.enumToArray)(x[1]);
+        });
+    }
     structures_1.Logger.info(`Loading functions from ${functionsAbsolutePath}`);
     managers_1.FunctionManager.load("Metadata", functionsAbsolutePath);
     structures_1.Logger.info(`Loaded ${managers_1.FunctionManager["Functions"].size} functions`);

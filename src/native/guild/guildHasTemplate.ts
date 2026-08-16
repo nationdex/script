@@ -23,6 +23,6 @@ export default new NativeFunction({
     ],
     output: ArgType.Boolean,
     async execute(ctx, [guild]) {
-        return this.success((await (guild ?? ctx.guild)?.fetchTemplates())?.size ?? 0 > 0)
+        return this.success(((await (guild ?? ctx.guild)?.fetchTemplates())?.size ?? 0) > 0)
     },
 })

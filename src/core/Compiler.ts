@@ -495,11 +495,13 @@ export class Compiler {
     }
 
     private static setFunctions(fns: IRawFunction[]) {
-        fns.map((x) => {
+        fns.forEach((x) => {
             Compiler.Functions.set(x.name.toLowerCase(), x)
             x.aliases
                 ?.filter((x) => typeof x === "string")
-                ?.map((alias) => Compiler.Functions.set((alias as string).toLowerCase(), x))
+                ?.forEach((alias) => {
+                    Compiler.Functions.set((alias as string).toLowerCase(), x)
+                })
         })
 
         const mapped = Array.from(Compiler.Functions.keys())

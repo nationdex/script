@@ -3,9 +3,9 @@
  * Copyright © 2026 BotForge
  */
 
-import type { IStates } from "../core"
 // biome-ignore lint/correctness/noUnusedImports: required for type inference portability
 import type { Message, PartialMessage } from "discord.js"
+import type { IStates } from "../core"
 import defineProperties from "../functions/defineProperties"
 
 export enum BulkProperty {

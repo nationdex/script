@@ -32,14 +32,11 @@ export default new NativeFunction({
     output: ArgType.URL,
     execute(ctx, [, user]) {
         const member = user ?? ctx.member ?? ctx.interaction?.member
-        let decor
-
-        if (member instanceof GuildMember) {
-            decor = member.avatarDecorationData ?? member.user?.avatarDecorationData
-        } else {
-            const memb = member as APIInteractionGuildMember
-            decor = memb.avatar_decoration_data ?? memb.user?.avatar_decoration_data
-        }
+        const decor =
+            member instanceof GuildMember
+                ? (member.avatarDecorationData ?? member.user?.avatarDecorationData)
+                : ((member as APIInteractionGuildMember).avatar_decoration_data ??
+                  (member as APIInteractionGuildMember).user?.avatar_decoration_data)
 
         return this.success(decor ? new CDN().avatarDecoration(decor.asset) : null)
     },

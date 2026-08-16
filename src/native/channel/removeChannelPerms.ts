@@ -43,7 +43,9 @@ export default new NativeFunction({
 
         const obj: Partial<Record<PermissionsString, boolean>> = {}
 
-        perms.forEach((x) => (obj[x as PermissionsString] = false))
+        perms.forEach((x) => {
+            obj[x as PermissionsString] = false
+        })
 
         return this.success(!!(await channel.permissionOverwrites.create(id, obj, { reason: ctx.reason })))
     },

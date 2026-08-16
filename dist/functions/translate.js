@@ -42,7 +42,9 @@ async function translateObjectTo(worker, obj, to, existing = {}) {
     return existing;
 }
 async function translate(worker, str, to) {
-    weirdWords.forEach((data) => (str = str.toLowerCase().includes(data[1]) ? str : str.replaceAll(data[0], data[1])));
+    weirdWords.forEach((data) => {
+        str = str.toLowerCase().includes(data[1]) ? str : str.replaceAll(data[0], data[1]);
+    });
     return (0, thread_1.postMessage)(worker, {
         locale: to,
         text: str,
@@ -122,9 +124,12 @@ async function translateData(options) {
                 if (!fn)
                     break;
                 const existing = (cached.functions[fn.name] ?? {});
-                promises.push(new Promise(async (resolve) => {
-                    cached.functions[fn.name] = await translateFunctionTo(worker, fn, lang, existing);
-                    resolve();
+                promises.push(new Promise((resolve, reject) => {
+                    ;
+                    (async () => {
+                        cached.functions[fn.name] = await translateFunctionTo(worker, fn, lang, existing);
+                        resolve();
+                    })().catch(reject);
                 }));
             }
             await Promise.all(promises);
@@ -141,9 +146,12 @@ async function translateData(options) {
                 if (!ev)
                     break;
                 const existing = (cached.events[ev.name] ?? {});
-                promises.push(new Promise(async (resolve) => {
-                    cached.events[ev.name] = await translateEventTo(worker, ev, lang, existing);
-                    resolve();
+                promises.push(new Promise((resolve, reject) => {
+                    ;
+                    (async () => {
+                        cached.events[ev.name] = await translateEventTo(worker, ev, lang, existing);
+                        resolve();
+                    })().catch(reject);
                 }));
             }
             await Promise.all(promises);

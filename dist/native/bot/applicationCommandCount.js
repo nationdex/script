@@ -42,7 +42,9 @@ exports.default = new structures_1.NativeFunction({
                         cont = false;
                     }
                     else if (cmd.type === discord_js_1.ApplicationCommandOptionType.SubcommandGroup) {
-                        cmd.options?.forEach((_x) => count++);
+                        cmd.options?.forEach((_x) => {
+                            count++;
+                        });
                         cont = false;
                     }
                 });

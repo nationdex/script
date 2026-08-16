@@ -32,14 +32,10 @@ exports.default = new structures_1.NativeFunction({
     output: structures_1.ArgType.URL,
     execute(ctx, [, user]) {
         const member = user ?? ctx.member ?? ctx.interaction?.member;
-        let decor;
-        if (member instanceof discord_js_1.GuildMember) {
-            decor = member.avatarDecorationData ?? member.user?.avatarDecorationData;
-        }
-        else {
-            const memb = member;
-            decor = memb.avatar_decoration_data ?? memb.user?.avatar_decoration_data;
-        }
+        const decor = member instanceof discord_js_1.GuildMember
+            ? (member.avatarDecorationData ?? member.user?.avatarDecorationData)
+            : (member.avatar_decoration_data ??
+                member.user?.avatar_decoration_data);
         return this.success(decor ? new discord_js_1.CDN().avatarDecoration(decor.asset) : null);
     },
 });

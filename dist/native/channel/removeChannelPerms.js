@@ -41,7 +41,9 @@ exports.default = new structures_1.NativeFunction({
     async execute(ctx, [ch, id, perms]) {
         const channel = ch;
         const obj = {};
-        perms.forEach((x) => (obj[x] = false));
+        perms.forEach((x) => {
+            obj[x] = false;
+        });
         return this.success(!!(await channel.permissionOverwrites.create(id, obj, { reason: ctx.reason })));
     },
 });

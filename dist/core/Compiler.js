@@ -355,11 +355,13 @@ class Compiler {
         return this.code[this.index++];
     }
     static setFunctions(fns) {
-        fns.map((x) => {
+        fns.forEach((x) => {
             Compiler.Functions.set(x.name.toLowerCase(), x);
             x.aliases
                 ?.filter((x) => typeof x === "string")
-                ?.map((alias) => Compiler.Functions.set(alias.toLowerCase(), x));
+                ?.forEach((alias) => {
+                Compiler.Functions.set(alias.toLowerCase(), x);
+            });
         });
         const mapped = Array.from(Compiler.Functions.keys());
         Compiler.Regex = new RegExp(`\\$(\\!)?(\\#)?(@\\[(.*?)\\])?(${mapped

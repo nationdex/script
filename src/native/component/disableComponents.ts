@@ -14,12 +14,16 @@ export default new NativeFunction({
     unwrap: false,
     execute(ctx) {
         const components = ctx.container.components
-        ctx.container.actionRow?.components.forEach((x) => x.setDisabled(true))
+        ctx.container.actionRow?.components.forEach((x) => {
+            x.setDisabled(true)
+        })
 
         for (const comp of components) {
             if (!(comp instanceof ActionRowBuilder)) continue
             const actionRow = new ActionRowBuilder()
-            comp?.components.forEach((x) => actionRow.addComponents(x.setDisabled(true)))
+            comp?.components.forEach((x) => {
+                actionRow.addComponents(x.setDisabled(true))
+            })
         }
 
         return this.success()

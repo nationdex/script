@@ -41,7 +41,9 @@ export default new NativeFunction({
                         count++
                         cont = false
                     } else if (cmd.type === ApplicationCommandOptionType.SubcommandGroup) {
-                        cmd.options?.forEach((_x) => count++)
+                        cmd.options?.forEach((_x) => {
+                            count++
+                        })
                         cont = false
                     }
                 })

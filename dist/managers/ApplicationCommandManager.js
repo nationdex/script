@@ -145,8 +145,10 @@ class ApplicationCommandManager {
      */
     add(...values) {
         for (const value of values) {
-            if (Array.isArray(value))
-                return this.add(...value);
+            if (Array.isArray(value)) {
+                this.add(...value);
+                return;
+            }
             const resolved = this.resolve(value, null);
             this.commands.set(resolved.name, resolved);
         }

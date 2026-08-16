@@ -4,53 +4,26 @@ ForgeScript is a comprehensive package that empowers you to effortlessly interac
 
 ## Index
 
-<strong>
-
-1. [Installation](#installation)
-2. [Making your first bot](#making-your-first-bot)
+1. **[Installation](#installation)**
+2. **[Making your first bot](#making-your-first-bot)**
    1. [Client Initialization](#client-initialization)
    2. [Registering Commands](#registering-commands)
       1. [Basic registering](#basic-registering)
       2. [Registering from a root folder](#registering-from-a-root-folder)
-3. [Extensions](#extensions)
-4. [Limitations](#limitations)
-5. [Update Frequency](#update-frequency)
-6. [Function Documentation](https://docs.botforge.org/)
-7. [Library Documentation](https://nationdex.github.io/script/index.html)
-
-</strong>
-
-<details open>
-
-<summary>
+3. **[Extensions](EXTENSIONS.md)**
+4. **[Limitations](#limitations)**
+5. **[Function Documentation](https://docs.botforge.org/)**
+6. **[Library Documentation](https://nationdex.github.io/script/index.html)**
 
 ## Installation
 
-</summary>
-
-Make sure you have <strong>node.js</strong> installed, and greater than version **v16.11.0**. Once done, run one of the following commands in a console (from any IDE or terminal):
-
-**Main**
+Make sure you have **Node.js** installed, and greater than version **v16.11.0**. Once done, run one of the following commands in a console (from any IDE or terminal):
 
 ```bash
 npm i https://github.com/nationdex/script/tree/main
 ```
 
-**Dev**
-
-```bash
-npm i https://github.com/nationdex/script/tree/dev
-```
-
-</details>
-
-<details open>
-
-<summary>
-
 ## Making your first Bot
-
-</summary>
 
 This section will guide you through initializing a client and loading commands from a folder, as well as logging your bot into discord.
 
@@ -99,6 +72,7 @@ And this will register a command with name `user` that will return the name of t
 The previous way to register commands can fill our index file with a lot of junk code, so there's a way to put files with commands in folders and load them from the index file.
 
 1. Create a folder, with any name, and a file inside it, name it whatever you want (must end with .js) and write the following in it:
+
    ```js
    module.exports = {
      name: "user",
@@ -106,25 +80,19 @@ The previous way to register commands can fill our index file with a lot of junk
      code: `Your name is $username!`,
    };
    ```
+
    This is essentially the same as the previous command, but will be loaded from a folder!
 2. Now, let's go back to our index file and write the following after client initialization (Make sure you've erased the code to register a command from index file):
+
    ```js
    client.commands.load("./<folder>");
    ```
+
    Replace `<folder>` with the folder name you used, and every file residing in the root folder (the tree doesn't matter as long as the file is in the folder) will be loaded into your bot!
 
-</details>
-
-<details open>
-
-<summary>
-
 ## Limitations
-
-</summary>
 
 There's currently no known limitation.
 
 > ⚠️ Note this library reads codes from **TOP** to **BOTTOM**, and never the opposite.
 
-</details>

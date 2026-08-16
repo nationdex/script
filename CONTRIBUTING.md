@@ -1,2 +1,3 @@
 # Contributing Guide
-I'm not making this *yet*
+
+I'm not making this *yet*, now scram `>:[`

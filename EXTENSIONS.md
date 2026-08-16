@@ -1,10 +1,10 @@
 # Creating your first Extension
 
-## Before you start...
+## Before you start
 
 Make sure you have `node` installed on your machine, you can verify this by using `node -v` on a terminal like Windows CMD.
 
-> If you don't have `node` installed, you can get it [here](https://nodejs.org/en/download).
+> If you don't have `node` installed, you can get it [here on Node.js website](https://nodejs.org/en/download).
 
 ## Creating a Workspace
 
@@ -12,16 +12,19 @@ Create a new folder, somewhere in your machine, let's name it `my-first-extensio
 
 Once opened, open a terminal, and run the following commands:
 
-1.  ```bash
+1. ```bash
     npm i --g typescript
     ```
-2.  ```bash
+
+2. ```bash
     npm init --y
     ```
-3.  ```bash
+
+3. ```bash
     npm i typescript github:nationdex/script#dev --save-dev
     ```
-4.  ```bash
+
+4. ```bash
     tsc --init --target es2022 --rootdir src --outdir dist
     ```
 

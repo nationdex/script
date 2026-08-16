@@ -43,7 +43,9 @@ export default new NativeFunction({
 
         components.forEach((row) => {
             const actionRow = new ActionRowBuilder()
-            row?.components.forEach((comp) => actionRow.addComponents(comp.setDisabled(false)))
+            row?.components.forEach((comp) => {
+                actionRow.addComponents(comp.setDisabled(false))
+            })
         })
 
         return this.success(

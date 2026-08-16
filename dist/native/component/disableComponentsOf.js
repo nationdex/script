@@ -35,7 +35,9 @@ exports.default = new structures_1.NativeFunction({
         const components = msg.components.map((x) => discord_js_1.ActionRowBuilder.from(x));
         components.forEach((row) => {
             const actionRow = new discord_js_1.ActionRowBuilder();
-            row?.components.forEach((comp) => actionRow.addComponents(comp.setDisabled(true)));
+            row?.components.forEach((comp) => {
+                actionRow.addComponents(comp.setDisabled(true));
+            });
         });
         return this.success(!!(await msg
             .edit({ components: components })

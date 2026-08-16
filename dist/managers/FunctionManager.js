@@ -63,10 +63,12 @@ class FunctionManager {
     static toJSON() {
         return Array.from(FunctionManager.Functions.values()).map((x) => {
             const d = { ...x.data };
-            d.args?.forEach((x) => Reflect.deleteProperty(x, "check"));
+            d.args?.forEach((x) => {
+                Reflect.deleteProperty(x, "check");
+            });
             Reflect.deleteProperty(d, "execute");
             const data = (0, node_v8_1.deserialize)(new Uint8Array((0, node_v8_1.serialize)(d)));
-            data.args?.map((x) => {
+            data.args?.forEach((x) => {
                 x.type = NativeFunction_1.ArgType[x.type];
                 if (x.enum)
                     x.enum = (0, enum_1.enumToArray)(x.enum);

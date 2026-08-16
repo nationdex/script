@@ -75,7 +75,9 @@ async function translateObjectTo(worker: Worker, obj: any, to: Locale | string, 
 }
 
 async function translate(worker: Worker, str: string, to: Locale | string) {
-    weirdWords.forEach((data) => (str = str.toLowerCase().includes(data[1]) ? str : str.replaceAll(data[0], data[1])))
+    weirdWords.forEach((data) => {
+        str = str.toLowerCase().includes(data[1]) ? str : str.replaceAll(data[0], data[1])
+    })
     return postMessage<string>(worker, {
         locale: to,
         text: str,
@@ -186,9 +188,11 @@ export async function translateData(options: IBaseTranslateOptions) {
                 const existing = (cached.functions![fn.name] ?? {}) as Partial<ITranslateFunctionOutput>
 
                 promises.push(
-                    new Promise(async (resolve) => {
-                        cached.functions![fn.name] = await translateFunctionTo(worker, fn, lang, existing)
-                        resolve()
+                    new Promise((resolve, reject) => {
+                        ;(async () => {
+                            cached.functions![fn.name] = await translateFunctionTo(worker, fn, lang, existing)
+                            resolve()
+                        })().catch(reject)
                     })
                 )
             }
@@ -211,9 +215,11 @@ export async function translateData(options: IBaseTranslateOptions) {
                 if (!ev) break
                 const existing = (cached.events![ev.name] ?? {}) as Partial<ITranslateEventOutput>
                 promises.push(
-                    new Promise(async (resolve) => {
-                        cached.events![ev.name] = await translateEventTo(worker, ev, lang, existing)
-                        resolve()
+                    new Promise((resolve, reject) => {
+                        ;(async () => {
+                            cached.events![ev.name] = await translateEventTo(worker, ev, lang, existing)
+                            resolve()
+                        })().catch(reject)
                     })
                 )
             }
