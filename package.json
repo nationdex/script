@@ -4,6 +4,21 @@
     "description": "ForgeScript is a comprehensive package that empowers you to effortlessly interact with Discord's API. It ensures scripting remains easy to learn and consistently effective.",
     "types": "dist/index.d.ts",
     "main": "dist/index.js",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.js",
+            "default": "./dist/index.js"
+        },
+        "./*": {
+            "types": "./dist/*.d.ts",
+            "import": "./dist/*.js",
+            "require": "./dist/*.js",
+            "default": "./dist/*.js"
+        },
+        "./package.json": "./package.json"
+    },
     "scripts": {
         "prepublishOnly": "tsc",
         "build": "tsc -p tsconfig.build.json && node dist/@build/license && tsc -p tsconfig.json",
@@ -42,24 +57,21 @@
         "@biomejs/biome": "^2.5.8",
         "@types/cli-color": "^2.0.6",
         "@types/express": "^5.0.6",
-        "@types/lodash": "^4.14.198",
-        "@types/node": "^26.1.1",
+        "@types/lodash": "^4.17.25",
+        "@types/node": "^26.2.0",
         "dotenv": "^17.4.2",
         "express": "^5.2.1",
-        "typedoc": "^0.28.19",
-        "typescript": "^6.0.2"
+        "typedoc": "^0.28.20",
+        "typescript": "^6.0.3"
     },
     "dependencies": {
-        "chalk": "^5.6.2",
+        "chalk": "^6.0.0",
         "discord.js": "^14.27.0",
         "ms-utility": "^3.3.0",
         "tiny-typed-emitter": "^2.1.0",
-        "undici": "^7.25.0"
+        "undici": "^8.10.0"
     },
     "engines": {
         "node": ">=16.11.0"
-    },
-    "pnpm": {
-        "shamefullyHoist": true
     }
 }

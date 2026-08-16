@@ -3,7 +3,7 @@
  * Copyright © 2026 BotForge
  */
 
-import { join } from "node:path"
+import { join, resolve } from "node:path"
 import { deserialize, serialize } from "node:v8"
 import { Compiler, type IRawFunction } from "../core"
 import { enumToArray } from "../functions/enum"
@@ -30,8 +30,13 @@ export class FunctionManager {
 
         const loader: NativeFunction[] = []
 
-        for (const file of recursiveReaddirSync(path).filter((x) => x.endsWith(".js"))) {
-            const req = require(file).default as NativeFunction
+        for (const file of recursiveReaddirSync(path).filter(
+            (x) =>
+                (x.endsWith(".js") || x.endsWith(".ts") || x.endsWith(".cjs") || x.endsWith(".mjs")) &&
+                !x.endsWith(".d.ts")
+        )) {
+            const resolvedPath = resolve(file)
+            const req = require(resolvedPath).default as NativeFunction
             req.path = file
 
             if (FunctionManager.Functions.has(req.name)) {

@@ -3,8 +3,7 @@
  * Copyright © 2026 BotForge
  */
 
-import { join } from "node:path"
-import { cwd } from "node:process"
+import { resolve } from "node:path"
 import { Collection } from "discord.js"
 import { TypedEmitter } from "tiny-typed-emitter"
 import { FileReader, type ForgeClient } from "../core"
@@ -34,9 +33,14 @@ export abstract class BaseCommandManager<T> extends TypedEmitter<ICommandManager
         }
 
         for (const p of this.paths) {
-            for (const file of recursiveReaddirSync(p).filter((x) => x.endsWith(".js") || x.endsWith)) {
-                const path = join(cwd(), file)
-                delete require.cache[require.resolve(path)]
+            for (const file of recursiveReaddirSync(p).filter(
+                (x) =>
+                    ((x.endsWith(".js") || x.endsWith(".ts") || x.endsWith(".cjs") || x.endsWith(".mjs")) &&
+                        !x.endsWith(".d.ts")) ||
+                    x.endsWith(".fs")
+            )) {
+                const filePath = resolve(file)
+                delete require.cache[require.resolve(filePath)]
             }
 
             // Reload these commands
@@ -47,14 +51,19 @@ export abstract class BaseCommandManager<T> extends TypedEmitter<ICommandManager
     public load(path: string) {
         if (!this.paths.includes(path)) this.paths.push(path)
 
-        for (const file of recursiveReaddirSync(path).filter((x) => x.endsWith(".js") || x.endsWith(".fs"))) {
-            const path = join(cwd(), file)
+        for (const file of recursiveReaddirSync(path).filter(
+            (x) =>
+                ((x.endsWith(".js") || x.endsWith(".ts") || x.endsWith(".cjs") || x.endsWith(".mjs")) &&
+                    !x.endsWith(".d.ts")) ||
+                x.endsWith(".fs")
+        )) {
+            const filePath = resolve(file)
 
-            const req = FileReader.read(file, path)
+            const req = FileReader.read(file, filePath)
             if (!req) continue
 
-            if (Array.isArray(req)) this.addPath(true, path, ...req)
-            else this.addPath(true, path, req)
+            if (Array.isArray(req)) this.addPath(true, filePath, ...req)
+            else this.addPath(true, filePath, req)
         }
     }
 

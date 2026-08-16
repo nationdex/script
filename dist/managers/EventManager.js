@@ -8,6 +8,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventManager = exports.NativeEventName = void 0;
+const node_path_1 = require("node:path");
 const discord_js_1 = require("discord.js");
 const recursiveReaddirSync_1 = __importDefault(require("../functions/recursiveReaddirSync"));
 exports.NativeEventName = "native";
@@ -36,8 +37,9 @@ class EventManager {
     }
     static load(name, path) {
         EventManager.Loaded[name] = {};
-        for (const file of (0, recursiveReaddirSync_1.default)(path).filter((x) => x.endsWith(".js"))) {
-            const req = require(file).default;
+        for (const file of (0, recursiveReaddirSync_1.default)(path).filter((x) => (x.endsWith(".js") || x.endsWith(".ts") || x.endsWith(".cjs") || x.endsWith(".mjs")) &&
+            !x.endsWith(".d.ts"))) {
+            const req = require((0, node_path_1.resolve)(file)).default;
             EventManager.Loaded[name][req.name] = req;
         }
     }

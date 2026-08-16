@@ -9,7 +9,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForgeFunctionManager = void 0;
 const node_path_1 = require("node:path");
-const node_process_1 = require("node:process");
 const recursiveReaddirSync_1 = __importDefault(require("../functions/recursiveReaddirSync"));
 const ForgeFunction_1 = require("../structures/forge/ForgeFunction");
 const FunctionManager_1 = require("./FunctionManager");
@@ -42,9 +41,10 @@ class ForgeFunctionManager {
     }
     load(path) {
         const loader = [];
-        for (const file of (0, recursiveReaddirSync_1.default)(path).filter((x) => x.endsWith(".js"))) {
-            const path = (0, node_path_1.join)((0, node_process_1.cwd)(), file);
-            const data = require(path);
+        for (const file of (0, recursiveReaddirSync_1.default)(path).filter((x) => (x.endsWith(".js") || x.endsWith(".ts") || x.endsWith(".cjs") || x.endsWith(".mjs")) &&
+            !x.endsWith(".d.ts"))) {
+            const filePath = (0, node_path_1.resolve)(file);
+            const data = require(filePath);
             if (Object.keys(data).length === 0)
                 continue;
             const req = (data.default ?? data);

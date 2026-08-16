@@ -86,7 +86,7 @@ _translate = []) {
     const v = require(`${(0, node_process_1.cwd)()}/package.json`).version;
     if (mainCategoryName) {
         for (const [, fn] of managers_1.FunctionManager["Functions"]) {
-            const nativePath = fn.path.replace(".js", ".ts").replace("dist", "src");
+            const nativePath = fn.path.replace(/\.[cm]?[jt]s$/, ".ts").replace("dist", "src");
             let txt = (0, node_fs_1.readFileSync)(nativePath, "utf-8");
             const enumNames = Array.from(txt.matchAll(ArgEnumRegex));
             if (enumNames.length) {

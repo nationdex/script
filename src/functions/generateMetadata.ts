@@ -111,7 +111,7 @@ export default async function (
 
     if (mainCategoryName) {
         for (const [, fn] of FunctionManager["Functions"]) {
-            const nativePath = fn.path.replace(".js", ".ts").replace("dist", "src")
+            const nativePath = fn.path.replace(/\.[cm]?[jt]s$/, ".ts").replace("dist", "src")
             let txt = readFileSync(nativePath, "utf-8")
             const enumNames = Array.from(txt.matchAll(ArgEnumRegex))
             if (enumNames.length) {

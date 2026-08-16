@@ -11,10 +11,9 @@
 <div class="tsd-panel tsd-typography"><h1 id="forgescript" class="tsd-anchor-link">ForgeScript<a href="#forgescript" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1>
 <p>ForgeScript is a comprehensive package that empowers you to effortlessly interact with Discord's API. It ensures scripting remains easy to learn and consistently effective.</p>
 <h2 id="index" class="tsd-anchor-link">Index<a href="#index" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-<strong>
 <ol>
-<li><a href="#installation">Installation</a></li>
-<li><a href="#making-your-first-bot">Making your first bot</a>
+<li><strong><a href="#installation">Installation</a></strong></li>
+<li><strong><a href="#making-your-first-bot">Making your first bot</a></strong>
 <ol>
 <li><a href="#client-initialization">Client Initialization</a></li>
 <li><a href="#registering-commands">Registering Commands</a>
@@ -25,31 +24,17 @@
 </li>
 </ol>
 </li>
-<li><a href="#extensions">Extensions</a></li>
-<li><a href="#limitations">Limitations</a></li>
-<li><a href="#update-frequency">Update Frequency</a></li>
-<li><a href="https://docs.botforge.org/">Function Documentation</a></li>
-<li><a href="https://nationdex.github.io/script/index.html">Library Documentation</a></li>
+<li><strong><a href="media/EXTENSIONS.md">Extensions</a></strong></li>
+<li><strong><a href="#limitations">Limitations</a></strong></li>
+<li><strong><a href="https://docs.botforge.org/">Function Documentation</a></strong></li>
+<li><strong><a href="https://nationdex.github.io/script/index.html">Library Documentation</a></strong></li>
 </ol>
-</strong>
-<details open>
-<summary>
 <h2 id="installation" class="tsd-anchor-link">Installation<a href="#installation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-</summary>
-<p>Make sure you have <strong>node.js</strong> installed, and greater than version <strong>v16.11.0</strong>. Once done, run one of the following commands in a console (from any IDE or terminal):</p>
-<p><strong>Main</strong></p>
+<p>Make sure you have <strong>Node.js</strong> installed, and greater than version <strong>v16.11.0</strong>. Once done, run one of the following commands in a console (from any IDE or terminal):</p>
 <pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">i</span><span class="hl-1"> </span><span class="hl-2">https://github.com/nationdex/script/tree/main</span>
 </code><button type="button">Copy</button></pre>
 
-<p><strong>Dev</strong></p>
-<pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">i</span><span class="hl-1"> </span><span class="hl-2">https://github.com/nationdex/script/tree/dev</span>
-</code><button type="button">Copy</button></pre>
-
-</details>
-<details open>
-<summary>
 <h2 id="making-your-first-bot" class="tsd-anchor-link">Making your first Bot<a href="#making-your-first-bot" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-</summary>
 <p>This section will guide you through initializing a client and loading commands from a folder, as well as logging your bot into discord.</p>
 <h3 id="client-initialization" class="tsd-anchor-link">Client Initialization<a href="#client-initialization" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <p>We will write the following for a basic bot initialization, in a <code>index.js</code> file:</p>
@@ -68,25 +53,27 @@
 <h4 id="registering-from-a-root-folder" class="tsd-anchor-link">Registering from a root folder<a href="#registering-from-a-root-folder" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4>
 <p>The previous way to register commands can fill our index file with a lot of junk code, so there's a way to put files with commands in folders and load them from the index file.</p>
 <ol>
-<li>Create a folder, with any name, and a file inside it, name it whatever you want (must end with .js) and write the following in it:<pre><code class="js"><span class="hl-7">module</span><span class="hl-1">.</span><span class="hl-7">exports</span><span class="hl-1"> = {</span><br/><span class="hl-1">  </span><span class="hl-5">name:</span><span class="hl-1"> </span><span class="hl-2">&quot;user&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-5">type:</span><span class="hl-1"> </span><span class="hl-2">&quot;messageCreate&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-5">code:</span><span class="hl-1"> </span><span class="hl-2">`Your name is $username!`</span><span class="hl-1">,</span><br/><span class="hl-1">};</span>
+<li>
+<p>Create a folder, with any name, and a file inside it, name it whatever you want (must end with .js) and write the following in it:</p>
+<pre><code class="js"><span class="hl-7">module</span><span class="hl-1">.</span><span class="hl-7">exports</span><span class="hl-1"> = {</span><br/><span class="hl-1">  </span><span class="hl-5">name:</span><span class="hl-1"> </span><span class="hl-2">&quot;user&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-5">type:</span><span class="hl-1"> </span><span class="hl-2">&quot;messageCreate&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-5">code:</span><span class="hl-1"> </span><span class="hl-2">`Your name is $username!`</span><span class="hl-1">,</span><br/><span class="hl-1">};</span>
 </code><button type="button">Copy</button></pre>
 
-This is essentially the same as the previous command, but will be loaded from a folder!</li>
-<li>Now, let's go back to our index file and write the following after client initialization (Make sure you've erased the code to register a command from index file):<pre><code class="js"><span class="hl-5">client</span><span class="hl-1">.</span><span class="hl-5">commands</span><span class="hl-1">.</span><span class="hl-0">load</span><span class="hl-1">(</span><span class="hl-2">&quot;./&lt;folder&gt;&quot;</span><span class="hl-1">);</span>
+<p>This is essentially the same as the previous command, but will be loaded from a folder!</p>
+</li>
+<li>
+<p>Now, let's go back to our index file and write the following after client initialization (Make sure you've erased the code to register a command from index file):</p>
+<pre><code class="js"><span class="hl-5">client</span><span class="hl-1">.</span><span class="hl-5">commands</span><span class="hl-1">.</span><span class="hl-0">load</span><span class="hl-1">(</span><span class="hl-2">&quot;./&lt;folder&gt;&quot;</span><span class="hl-1">);</span>
 </code><button type="button">Copy</button></pre>
 
-Replace <code>&lt;folder&gt;</code> with the folder name you used, and every file residing in the root folder (the tree doesn't matter as long as the file is in the folder) will be loaded into your bot!</li>
+<p>Replace <code>&lt;folder&gt;</code> with the folder name you used, and every file residing in the root folder (the tree doesn't matter as long as the file is in the folder) will be loaded into your bot!</p>
+</li>
 </ol>
-</details>
-<details open>
-<summary>
 <h2 id="limitations" class="tsd-anchor-link">Limitations<a href="#limitations" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-</summary>
 <p>There's currently no known limitation.</p>
 <blockquote>
 <p>⚠️ Note this library reads codes from <strong>TOP</strong> to <strong>BOTTOM</strong>, and never the opposite.</p>
 </blockquote>
-</details></div></div>
+</div></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

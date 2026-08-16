@@ -3,6 +3,7 @@
  * Copyright © 2026 BotForge
  */
 
+import { resolve } from "node:path"
 import { Collection } from "discord.js"
 import type { ForgeClient } from "../core/ForgeClient"
 import recursiveReaddirSync from "../functions/recursiveReaddirSync"
@@ -35,8 +36,12 @@ export class EventManager {
 
     public static load(name: string, path: string) {
         EventManager.Loaded[name] = {}
-        for (const file of recursiveReaddirSync(path).filter((x) => x.endsWith(".js"))) {
-            const req = require(file).default as BaseEventHandler
+        for (const file of recursiveReaddirSync(path).filter(
+            (x) =>
+                (x.endsWith(".js") || x.endsWith(".ts") || x.endsWith(".cjs") || x.endsWith(".mjs")) &&
+                !x.endsWith(".d.ts")
+        )) {
+            const req = require(resolve(file)).default as BaseEventHandler
             EventManager.Loaded[name]![req.name] = req
         }
     }

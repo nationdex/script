@@ -3,8 +3,7 @@
  * Copyright © 2026 BotForge
  */
 
-import { join } from "node:path"
-import { cwd } from "node:process"
+import { resolve } from "node:path"
 import type { ForgeClient } from "../core/ForgeClient"
 import recursiveReaddirSync from "../functions/recursiveReaddirSync"
 import { ForgeFunction, type IForgeFunction } from "../structures/forge/ForgeFunction"
@@ -41,10 +40,14 @@ export class ForgeFunctionManager {
 
     public load(path: string) {
         const loader: (IForgeFunction | ForgeFunction)[] = []
-        for (const file of recursiveReaddirSync(path).filter((x) => x.endsWith(".js"))) {
-            const path = join(cwd(), file)
+        for (const file of recursiveReaddirSync(path).filter(
+            (x) =>
+                (x.endsWith(".js") || x.endsWith(".ts") || x.endsWith(".cjs") || x.endsWith(".mjs")) &&
+                !x.endsWith(".d.ts")
+        )) {
+            const filePath = resolve(file)
 
-            const data = require(path)
+            const data = require(filePath)
             if (Object.keys(data).length === 0) continue
 
             const req = (data.default ?? data) as ForgeFunction | IForgeFunction

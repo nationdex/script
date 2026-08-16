@@ -4,8 +4,7 @@
  */
 
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs"
-import { join } from "node:path"
-import { cwd } from "node:process"
+import { join, resolve } from "node:path"
 import {
     type APIApplicationCommandOption,
     type APIApplicationCommandSubcommandOption,
@@ -87,7 +86,7 @@ export class ApplicationCommandManager {
                             const stats = statSync(thirdResolved)
                             if (stats.isDirectory())
                                 throw new Error(`Disallowed folder found for slash command tree: ${thirdResolved}`)
-                            const loaded = this.loadOne(join(cwd(), thirdResolved))
+                            const loaded = this.loadOne(resolve(thirdResolved))
                             if (!loaded) continue
                             else if (loaded.options.independent) {
                                 this.commands.set(loaded.name, loaded)
@@ -100,7 +99,7 @@ export class ApplicationCommandManager {
                         if (nextCol.size === 0) continue
                         col.set(secondPath, nextCol)
                     } else {
-                        const loaded = this.loadOne(join(cwd(), secondResolved))
+                        const loaded = this.loadOne(resolve(secondResolved))
                         if (!loaded) continue
                         else if (loaded.options.independent) {
                             this.commands.set(loaded.name, loaded)
@@ -114,7 +113,7 @@ export class ApplicationCommandManager {
                 if (col.size === 0) continue
                 this.commands.set(mainPath, col)
             } else {
-                const loaded = this.loadOne(join(cwd(), resolved))
+                const loaded = this.loadOne(resolve(resolved))
                 if (!loaded) continue
                 this.commands.set(loaded.name, loaded)
             }
@@ -195,9 +194,19 @@ export class ApplicationCommandManager {
     }
 
     private loadOne(reqPath: string) {
-        if (!reqPath.endsWith(".js")) return null
-        delete require.cache[require.resolve(reqPath)]
-        const req = require(reqPath)
+        if (
+            !(
+                (reqPath.endsWith(".js") ||
+                    reqPath.endsWith(".ts") ||
+                    reqPath.endsWith(".cjs") ||
+                    reqPath.endsWith(".mjs")) &&
+                !reqPath.endsWith(".d.ts")
+            )
+        )
+            return null
+        const resolvedPath = resolve(reqPath)
+        delete require.cache[require.resolve(resolvedPath)]
+        const req = require(resolvedPath)
         const value = req.default ?? req
         if (!value || !Object.keys(value).length) return null
         else if (Array.isArray(value)) throw new Error("Disallowed")

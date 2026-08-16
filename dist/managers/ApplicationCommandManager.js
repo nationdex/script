@@ -7,7 +7,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApplicationCommandManager = exports.RegistrationType = void 0;
 const node_fs_1 = require("node:fs");
 const node_path_1 = require("node:path");
-const node_process_1 = require("node:process");
 const discord_js_1 = require("discord.js");
 const ApplicationCommand_1 = require("../structures/base/ApplicationCommand");
 const EventManager_1 = require("./EventManager");
@@ -55,7 +54,7 @@ class ApplicationCommandManager {
                             const stats = (0, node_fs_1.statSync)(thirdResolved);
                             if (stats.isDirectory())
                                 throw new Error(`Disallowed folder found for slash command tree: ${thirdResolved}`);
-                            const loaded = this.loadOne((0, node_path_1.join)((0, node_process_1.cwd)(), thirdResolved));
+                            const loaded = this.loadOne((0, node_path_1.resolve)(thirdResolved));
                             if (!loaded)
                                 continue;
                             else if (loaded.options.independent) {
@@ -69,7 +68,7 @@ class ApplicationCommandManager {
                         col.set(secondPath, nextCol);
                     }
                     else {
-                        const loaded = this.loadOne((0, node_path_1.join)((0, node_process_1.cwd)(), secondResolved));
+                        const loaded = this.loadOne((0, node_path_1.resolve)(secondResolved));
                         if (!loaded)
                             continue;
                         else if (loaded.options.independent) {
@@ -84,7 +83,7 @@ class ApplicationCommandManager {
                 this.commands.set(mainPath, col);
             }
             else {
-                const loaded = this.loadOne((0, node_path_1.join)((0, node_process_1.cwd)(), resolved));
+                const loaded = this.loadOne((0, node_path_1.resolve)(resolved));
                 if (!loaded)
                     continue;
                 this.commands.set(loaded.name, loaded);
@@ -154,10 +153,15 @@ class ApplicationCommandManager {
         }
     }
     loadOne(reqPath) {
-        if (!reqPath.endsWith(".js"))
+        if (!((reqPath.endsWith(".js") ||
+            reqPath.endsWith(".ts") ||
+            reqPath.endsWith(".cjs") ||
+            reqPath.endsWith(".mjs")) &&
+            !reqPath.endsWith(".d.ts")))
             return null;
-        delete require.cache[require.resolve(reqPath)];
-        const req = require(reqPath);
+        const resolvedPath = (0, node_path_1.resolve)(reqPath);
+        delete require.cache[require.resolve(resolvedPath)];
+        const req = require(resolvedPath);
         const value = req.default ?? req;
         if (!value || !Object.keys(value).length)
             return null;

@@ -22,7 +22,9 @@ class FileReader {
     }
     static read(fsPath, reqPath) {
         const str = (0, node_fs_1.readFileSync)(fsPath, "utf-8");
-        const req = fsPath.endsWith(".js") ? require(reqPath) : null;
+        const isScript = (fsPath.endsWith(".js") || fsPath.endsWith(".ts") || fsPath.endsWith(".cjs") || fsPath.endsWith(".mjs")) &&
+            !fsPath.endsWith(".d.ts");
+        const req = isScript ? require(reqPath) : null;
         return new this(str, req).read();
     }
     read() {

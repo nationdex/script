@@ -9,7 +9,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseCommandManager = void 0;
 const node_path_1 = require("node:path");
-const node_process_1 = require("node:process");
 const discord_js_1 = require("discord.js");
 const tiny_typed_emitter_1 = require("tiny-typed-emitter");
 const core_1 = require("../core");
@@ -31,9 +30,11 @@ class BaseCommandManager extends tiny_typed_emitter_1.TypedEmitter {
             this.commands.set(key, unloadable);
         }
         for (const p of this.paths) {
-            for (const file of (0, recursiveReaddirSync_1.default)(p).filter((x) => x.endsWith(".js") || x.endsWith)) {
-                const path = (0, node_path_1.join)((0, node_process_1.cwd)(), file);
-                delete require.cache[require.resolve(path)];
+            for (const file of (0, recursiveReaddirSync_1.default)(p).filter((x) => ((x.endsWith(".js") || x.endsWith(".ts") || x.endsWith(".cjs") || x.endsWith(".mjs")) &&
+                !x.endsWith(".d.ts")) ||
+                x.endsWith(".fs"))) {
+                const filePath = (0, node_path_1.resolve)(file);
+                delete require.cache[require.resolve(filePath)];
             }
             // Reload these commands
             this.load(p);
@@ -42,15 +43,17 @@ class BaseCommandManager extends tiny_typed_emitter_1.TypedEmitter {
     load(path) {
         if (!this.paths.includes(path))
             this.paths.push(path);
-        for (const file of (0, recursiveReaddirSync_1.default)(path).filter((x) => x.endsWith(".js") || x.endsWith(".fs"))) {
-            const path = (0, node_path_1.join)((0, node_process_1.cwd)(), file);
-            const req = core_1.FileReader.read(file, path);
+        for (const file of (0, recursiveReaddirSync_1.default)(path).filter((x) => ((x.endsWith(".js") || x.endsWith(".ts") || x.endsWith(".cjs") || x.endsWith(".mjs")) &&
+            !x.endsWith(".d.ts")) ||
+            x.endsWith(".fs"))) {
+            const filePath = (0, node_path_1.resolve)(file);
+            const req = core_1.FileReader.read(file, filePath);
             if (!req)
                 continue;
             if (Array.isArray(req))
-                this.addPath(true, path, ...req);
+                this.addPath(true, filePath, ...req);
             else
-                this.addPath(true, path, req);
+                this.addPath(true, filePath, req);
         }
     }
     get count() {

@@ -26,8 +26,10 @@ class FunctionManager {
             return FunctionManager.load("Unknown", provider);
         const overrideAttempts = [];
         const loader = [];
-        for (const file of (0, recursiveReaddirSync_1.default)(path).filter((x) => x.endsWith(".js"))) {
-            const req = require(file).default;
+        for (const file of (0, recursiveReaddirSync_1.default)(path).filter((x) => (x.endsWith(".js") || x.endsWith(".ts") || x.endsWith(".cjs") || x.endsWith(".mjs")) &&
+            !x.endsWith(".d.ts"))) {
+            const resolvedPath = (0, node_path_1.resolve)(file);
+            const req = require(resolvedPath).default;
             req.path = file;
             if (FunctionManager.Functions.has(req.name)) {
                 overrideAttempts.push(req.name);
