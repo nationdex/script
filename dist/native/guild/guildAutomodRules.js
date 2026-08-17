@@ -7,6 +7,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const discord_js_1 = require("discord.js");
 const array_1 = __importDefault(require("../../functions/array"));
 const automodRule_1 = require("../../properties/automodRule");
 const structures_1 = require("../../structures");
@@ -14,7 +15,7 @@ exports.default = new structures_1.NativeFunction({
     name: "$guildAutomodRules",
     version: "1.5.0",
     description: "Returns all automod rules of a guild",
-    aliases: ["$getAutomodRules"],
+    aliases: ["$getAutomodRules", "$serverAutomodRules"],
     unwrap: true,
     brackets: false,
     args: [
@@ -38,10 +39,19 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             type: structures_1.ArgType.String,
         },
+        {
+            name: "trigger",
+            description: "The trigger type of the automod rules to filter by",
+            rest: false,
+            type: structures_1.ArgType.Enum,
+            enum: discord_js_1.AutoModerationRuleTriggerType,
+        },
     ],
     output: [structures_1.ArgType.Json, (0, array_1.default)()],
-    async execute(ctx, [guild, prop, sep]) {
-        const rules = await (guild ?? ctx.guild)?.autoModerationRules?.fetch().catch(ctx.noop);
+    async execute(ctx, [guild, prop, sep, trigger]) {
+        let rules = await (guild ?? ctx.guild)?.autoModerationRules?.fetch().catch(ctx.noop);
+        if (rules && trigger !== null)
+            rules = rules.filter((rule) => rule.triggerType === trigger);
         if (rules && prop) {
             const data = rules.map((rule) => automodRule_1.AutomodRuleProperties[prop](rule, sep));
             return this.successJSON(data.every((item) => typeof item === "object" && item !== null) ? data : data.join(sep ?? ", "));

@@ -3,7 +3,6 @@
  * Copyright © 2026 BotForge
  */
 
-import { isInteger } from "lodash"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -23,6 +22,6 @@ export default new NativeFunction({
     ],
     brackets: true,
     execute(_ctx, [n]) {
-        return this.success(!!n && !Number.isNaN(Number(n)) && isInteger(Number(n)))
+        return this.success(!!n && !Number.isNaN(Number(n)) && Number.isInteger(Number(n)))
     },
 })

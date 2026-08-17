@@ -1,23 +1,11 @@
 import { AutoModerationRuleTriggerType } from "discord.js";
-import { AutomodRuleProperty } from "../../properties/automodRule";
 import { ArgType, NativeFunction } from "../../structures";
 declare const _default: NativeFunction<[{
     name: string;
     description: string;
     rest: false;
-    required: true;
     type: ArgType.Guild;
-}, {
-    name: string;
-    description: string;
-    rest: false;
-    type: ArgType.Enum;
-    enum: typeof AutomodRuleProperty;
-}, {
-    name: string;
-    description: string;
-    rest: false;
-    type: ArgType.String;
+    required: true;
 }, {
     name: string;
     description: string;
@@ -26,4 +14,4 @@ declare const _default: NativeFunction<[{
     enum: typeof AutoModerationRuleTriggerType;
 }], true>;
 export default _default;
-//# sourceMappingURL=guildAutomodRules.d.ts.map
+//# sourceMappingURL=guildAutomodRulesCount.d.ts.map

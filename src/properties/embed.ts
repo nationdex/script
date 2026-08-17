@@ -3,7 +3,7 @@
  * Copyright © 2026 BotForge
  */
 
-import type { EmbedBuilder } from "@discordjs/builders"
+import type { EmbedBuilder } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum EmbedProperty {

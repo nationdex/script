@@ -3,6 +3,7 @@
  * Copyright © 2026 BotForge
  */
 
+import { AutoModerationRuleTriggerType } from "discord.js"
 import array from "../../functions/array"
 import { AutomodRuleProperties, AutomodRuleProperty } from "../../properties/automodRule"
 import { ArgType, NativeFunction } from "../../structures"
@@ -11,7 +12,7 @@ export default new NativeFunction({
     name: "$guildAutomodRules",
     version: "1.5.0",
     description: "Returns all automod rules of a guild",
-    aliases: ["$getAutomodRules"],
+    aliases: ["$getAutomodRules", "$serverAutomodRules"],
     unwrap: true,
     brackets: false,
     args: [
@@ -35,10 +36,18 @@ export default new NativeFunction({
             rest: false,
             type: ArgType.String,
         },
+        {
+            name: "trigger",
+            description: "The trigger type of the automod rules to filter by",
+            rest: false,
+            type: ArgType.Enum,
+            enum: AutoModerationRuleTriggerType,
+        },
     ],
     output: [ArgType.Json, array<ArgType.Unknown>()],
-    async execute(ctx, [guild, prop, sep]) {
-        const rules = await (guild ?? ctx.guild)?.autoModerationRules?.fetch().catch(ctx.noop)
+    async execute(ctx, [guild, prop, sep, trigger]) {
+        let rules = await (guild ?? ctx.guild)?.autoModerationRules?.fetch().catch(ctx.noop)
+        if (rules && trigger !== null) rules = rules.filter((rule) => rule.triggerType === trigger)
 
         if (rules && prop) {
             const data = rules.map((rule) => AutomodRuleProperties[prop](rule, sep))

@@ -1,4 +1,4 @@
-import type { EmbedBuilder } from "@discordjs/builders";
+import type { EmbedBuilder } from "discord.js";
 export declare enum EmbedProperty {
     title = "title",
     titleURL = "titleURL",
